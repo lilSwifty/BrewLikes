@@ -16,8 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main2Activity" />
         <activity android:name=".RankingActivity"></activity>
+        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".CameraActivity"></activity>
     </application>
 
 </manifest>
