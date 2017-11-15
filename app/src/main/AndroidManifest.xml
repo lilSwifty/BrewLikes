@@ -36,7 +36,7 @@
         </provider>
 
 
-
+        <activity android:name=".CategoriesActivity"/>
     </application>
 
     <!--Use of any camera - back, front or external--> 
