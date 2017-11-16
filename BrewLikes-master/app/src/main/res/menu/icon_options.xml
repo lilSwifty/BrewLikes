@@ -4,12 +4,13 @@
 
     <item
         android:id="@+id/aboutIcon"
-        android:icon="@android:color/holo_orange_light"
+        android:icon="@drawable/ic_action_about"
         android:title="@string/ItemTitle"
+        android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/cameraIcon"
-        android:icon="@android:color/holo_orange_light"
-        android:title="@string/ItemTitle"
+        android:icon="@drawable/ic_action_camera"
+        android:title="@string/ItemTitleCamera"
         app:showAsAction="always" />
 </menu>

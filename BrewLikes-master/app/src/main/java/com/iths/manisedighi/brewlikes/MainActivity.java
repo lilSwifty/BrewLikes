@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Action bar with icons 
+     * Action bar with icons
      * @param menu
      * @return
      */
