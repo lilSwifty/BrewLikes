@@ -27,7 +27,7 @@ public class InfoActivity extends AppCompatActivity {
      */
     public void setupBottomNavigation(){
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
-        BottomNavigationHelper.setupBottomNavigation(bottomNavigationViewEx);
+        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
         BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
     }
 }
