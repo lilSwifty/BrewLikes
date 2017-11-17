@@ -2,6 +2,7 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
@@ -25,6 +26,9 @@ public class BottomNavigationHelper {
         view.enableShiftingMode(false);
         view.enableItemShiftingMode(false);
         view.setTextVisibility(true);
+        view.setIconSize(24,24);
+        view.setTextSize(14);
+
     }
 
     /**
