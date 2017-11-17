@@ -1,6 +1,7 @@
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Milja on 2017-11-17.
@@ -8,10 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
 
+    public static final int DB_VERSION = 1;
+
     //Contructor method
     @Override
     public DBHelper(Context context) {
         //TODO Call superclass
+        super(context, "beerRanking", null, DB_VERSION);
+        Log.d("MyLog", "Database created");
     }
 
     //Create the database
