@@ -10,9 +10,9 @@ import android.util.Log;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final int DB_VERSION = 1;
+    public static final String TABLE_NAME = "BeerRanking";
 
     //Contructor method
-    @Override
     public DBHelper(Context context) {
         //TODO Call superclass
         super(context, "beerRanking", null, DB_VERSION);
@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //Här skapar vi tabeller!
 
         //Table for rating individual beer
-        String sql = "CREATE TABLE BeerInfo ( id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        String sql = "CREATE TABLE " + TABLE_NAME + " ( id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "beerName TEXT NOT NULL," +
                 "beerCategory INTEGER," +
                 "price INTEGER," +
@@ -48,5 +48,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //TODO When upgrading the database
         //För VG uppgiften?
+
+        //Drop table if one exists due to upgrade
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        //Create table
+        onCreate(db);
     }
 }
