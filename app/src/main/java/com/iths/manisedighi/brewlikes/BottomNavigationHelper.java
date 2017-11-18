@@ -2,7 +2,6 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.view.MenuItem;
@@ -26,9 +25,6 @@ public class BottomNavigationHelper {
         view.enableShiftingMode(false);
         view.enableItemShiftingMode(false);
         view.setTextVisibility(true);
-        view.setIconSize(24,24);
-        view.setTextSize(14);
-
     }
 
     /**
@@ -53,13 +49,13 @@ public class BottomNavigationHelper {
                         break;
                     case R.id.ic_toplist:
                         item.setChecked(true);
-//                        Intent toplistIntent = new Intent(context, ToplistActivity.class);
-//                        context.startActivity(toplistIntent);
+//                        Intent topListIntent = new Intent(context, ToplistActivity.class);
+//                        context.startActivity(topListIntent);
                         break;
                     case R.id.ic_mapview:
                         item.setChecked(true);
-//                        Intent mapviewIntent = new Intent(context, MapviewActivity.class);
-//                        context.startActivity(mapviewIntent);
+//                        Intent mapViewIntent = new Intent(context, MapviewActivity.class);
+//                        context.startActivity(mapViewIntent);
                         break;
                 }
                 return false;
