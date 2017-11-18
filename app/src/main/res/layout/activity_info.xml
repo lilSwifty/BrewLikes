@@ -10,6 +10,200 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Title menu -->
+
+        <RelativeLayout
+            android:id="@+id/titleMenu"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="55dp"
+            android:background="@color/beer">
+
+            <ImageView
+                android:id="@+id/ivNavBack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_left_arrow" />
+
+            <TextView
+                android:id="@+id/tvBeerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BeerName"
+                android:textSize="36sp"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:layout_marginTop="2dp"
+                android:layout_marginStart="8dp"/>
+        </RelativeLayout>
+
+        <!-- Middle section info -->
+
+        <RelativeLayout
+            android:id="@+id/infoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/titleMenu">
+
+            <ImageView
+                android:id="@+id/ivBeer"
+                android:layout_width="220dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/ivBeer"
+                android:text="@string/category"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/ivBeer"
+                android:layout_below="@+id/tvCategory"
+                android:text="@string/price"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/tvPriceScore"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/tvPrice"
+                android:layout_below="@+id/tvCategory"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="35dp"
+                android:text="8.0"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/tvTaste"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/ivBeer"
+                android:layout_below="@+id/tvPrice"
+                android:text="@string/taste"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/tvTasteScore"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/tvTaste"
+                android:layout_below="@+id/tvPriceScore"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="35dp"
+                android:text="7.0"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/tvRate"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/ivBeer"
+                android:layout_below="@+id/tvTaste"
+                android:text="@string/rate"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:fontFamily="sans-serif"/>
+
+            <TextView
+                android:id="@+id/tvRateScore"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/tvRate"
+                android:layout_below="@+id/tvTasteScore"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="0dp"
+                android:text="7.5/10.0"
+                android:textSize="16sp"
+                android:textAllCaps="true"
+                android:fontFamily="sans-serif"/>
+
+            <ImageView
+                android:id="@+id/ivShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/ivBeer"
+                android:layout_above="@+id/tvInfo"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_facebook_share" />
+
+
+            <TextView
+                android:id="@+id/tvInfo"
+                android:layout_width="300dp"
+                android:layout_height="70dp"
+                android:layout_below="@+id/ivBeer"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif"
+                android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
+                android:textAllCaps="true" />
+
+            <ImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_edit"
+                android:layout_toEndOf="@id/tvInfo"
+                android:layout_above="@id/tvLocation"/>
+
+            <ImageView
+                android:id="@+id/ivLocation"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_mapview_white"
+                android:layout_below="@id/tvInfo">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/tvLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/ivLocation"
+                android:layout_below="@id/tvInfo"
+                android:layout_marginTop="18dp"
+                android:layout_marginStart="8dp"
+                android:text="The Abyss, Andra Långgatan 35, Göteborg"
+                android:fontFamily="sans-serif"
+                android:textAllCaps="true">
+
+            </TextView>
+        </RelativeLayout>
+
         <!-- Bottom navigation -->
 
         <include layout="@layout/bottom_navigation"/>
