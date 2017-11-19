@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
+        //TODO - Create a imageView logo in the left upper corner
     }
 
     /**
@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Handles what happens when the icons in the toolbar are clicked
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
