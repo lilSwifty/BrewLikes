@@ -8,23 +8,30 @@
 
     <RatingBar
         android:id="@+id/priceRate"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
+        android:isIndicator="false"
+        android:numStars="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceText" />
 
     <RatingBar
         android:id="@+id/tasteRate"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
+        android:isIndicator="false"
+        android:numStars="5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tasteText" />
 
@@ -35,7 +42,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="30dp"
-        android:text="TextView"
+        android:text="@string/tasterating"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -47,11 +54,10 @@
         android:id="@+id/priceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:layout_marginTop="24dp"
+        android:text="@string/pricerating"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tasteRate"
         tools:text="@string/pricerating" />
@@ -67,20 +73,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/arrow_down_float" />
 
-    <EditText
-        android:id="@+id/beerComment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/rankingComment"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceRate" />
-
     <Button
         android:id="@+id/rankingButton"
         android:layout_width="wrap_content"
@@ -88,11 +80,79 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:onClick="onRankingButtonClick"
         android:text="@string/rankBeer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/beerComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/rankingComment"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/rankingButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beerComment" />
+        app:layout_constraintTop_toBottomOf="@+id/priceRate" />
+
+    <TextView
+        android:id="@+id/awfulText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/tasteAwful"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tasteRate"
+        app:layout_constraintEnd_toStartOf="@+id/tasteRate"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/tasteAwful" />
+
+    <TextView
+        android:id="@+id/perfectText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/tastePerfect"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tasteRate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tasteRate"
+        tools:text="@string/tastePerfect" />
+
+    <TextView
+        android:id="@+id/expensiveText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/priceExpensive"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceRate"
+        app:layout_constraintEnd_toStartOf="@+id/priceRate"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="@string/priceExpensive" />
+
+    <TextView
+        android:id="@+id/cheapText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/priceCheap"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/priceRate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/priceRate"
+        tools:text="@string/priceCheap" />
 
 </android.support.constraint.ConstraintLayout>

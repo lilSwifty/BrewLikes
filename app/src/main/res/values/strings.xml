@@ -4,4 +4,8 @@
     <string name="tasterating">Taste</string>
     <string name="rankingComment">Comment the beer</string>
     <string name="rankBeer">Rank the beer</string>
+    <string name="tasteAwful">Awful</string>
+    <string name="tastePerfect">Perfect</string>
+    <string name="priceExpensive">Expensive</string>
+    <string name="priceCheap">Cheap</string>
 </resources>

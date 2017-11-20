@@ -1,7 +1,8 @@
 package com.iths.manisedighi.brewlikes;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,10 +17,33 @@ public class RankingActivity extends AppCompatActivity {
     private RatingBar priceRate;
     private EditText beerComment;
     private Button rankingButton;
+    private TextView awfulText;
+    private TextView perfectText;
+    private TextView expensiveText;
+    private TextView cheapText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+        findViews();
     }
+
+    private void findViews(){
+        beerImage = findViewById(R.id.beerImage);
+        tasteText = findViewById(R.id.tasteText);
+        tasteRate = findViewById(R.id.tasteRate);
+        priceText = findViewById(R.id.priceText);
+        priceRate = findViewById(R.id.priceRate);
+        beerComment = findViewById(R.id.beerComment);
+        rankingButton = findViewById(R.id.rankingButton);
+        awfulText = findViewById(R.id.awfulText);
+        perfectText = findViewById(R.id.perfectText);
+        expensiveText = findViewById(R.id.expensiveText);
+        cheapText = findViewById(R.id.cheapText);
+    }
+    private void onRankingButtonClick(View v){
+
+    }
+
 }
