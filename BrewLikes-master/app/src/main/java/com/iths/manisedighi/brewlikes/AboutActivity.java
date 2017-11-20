@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -15,6 +16,7 @@ public class AboutActivity extends AppCompatActivity {
    // ImageView toolbarLogo;
     ListView listView;
     ImageView line;
+    ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,24 +27,25 @@ public class AboutActivity extends AppCompatActivity {
         //TODO - Create a imageView logo in the left upper corner
 
         line = findViewById(R.id.lineImageView);
-
+        logo = findViewById(R.id.logoImageView);
         Log.d("MyLog", "Initialize activity1");
        // listView = findViewById(R.id.membersListView);
 
-        Log.d("MyLog", "Initialize activity2");
 
-        /*
+
+
         /**
         * When BrewLikes logo in the toolbar is clicked, MainActivity starts.
-         * //TODO - Use flags here so the activities don't get put on the stack?
+         */
+         //TODO - Use flags here so the activities don't get put on the stack?
 
-        toolbarLogo.setOnClickListener(new View.OnClickListener() {
+        logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
                 Intent intent = new Intent (AboutActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        }); */
+        });
 
         //ArrayList for all the members
        /* ArrayList<String> memberList = new ArrayList<>();

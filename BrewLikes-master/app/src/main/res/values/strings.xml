@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BrewLikes</string>
+    <string name="ItemTitle">item_title</string>
+    <string name="ItemTitleCamera" />
+    <string name="aboutTextView">Hi there! This is some placeholder text about this company. We are students and we love beer. Take a look here to read more about this project and about us!</string>
+    <string name="launchCamera">Camera</string>
+</resources>
