@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,21 +37,26 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
+        //find and bind all the widgets to the code
+        findViews();
+        //for the tvInfo
+        enableScrollFunction();
         //for the bottom navigation
         setupBottomNavigation();
-        findViews();
-        setupInfoView();
     }
 
     /**
      * A method that sets up the bottom navigation
      */
-    public void setupBottomNavigation(){
+    private void setupBottomNavigation(){
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
         BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
         BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
     }
 
+    /**
+     * finds all the widgets and binds the to the code
+     */
     private void findViews(){
         ivBeer = findViewById(R.id.ivBeer);
         ivNavBack = findViewById(R.id.ivNavBack);
@@ -65,7 +72,20 @@ public class InfoActivity extends AppCompatActivity {
         tvLocation = findViewById(R.id.tvLocation);
     }
 
-    public void setupInfoView(){
+    /**
+     * a method that enables the scroll function in the TextView tvInfo
+     */
+    private void enableScrollFunction(){
         tvInfo.setMovementMethod(new ScrollingMovementMethod());
     }
+
+    private void onNavBackClick(View view){}
+
+    private void onShareClick(View view){}
+
+    private void onEditClick(View view){}
+
+    private void onLocationClick(View view){}
+
+
 }
