@@ -41,7 +41,7 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        //ArrayList for all the members
+        //ArrayList of all the members
        ArrayList<String> memberList = new ArrayList<>();
        memberList.add("EMMA");
        memberList.add("MANI");
