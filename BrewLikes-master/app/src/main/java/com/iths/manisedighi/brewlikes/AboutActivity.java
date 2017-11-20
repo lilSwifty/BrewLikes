@@ -4,18 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 public class AboutActivity extends AppCompatActivity {
 
-    ImageView toolbarLogo;
+   // ImageView toolbarLogo;
     ListView listView;
+    ImageView line;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,13 @@ public class AboutActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         //TODO - Create a imageView logo in the left upper corner
-        listView = findViewById(R.id.membersListView);
+
+        line = findViewById(R.id.lineImageView);
+
+        Log.d("MyLog", "Initialize activity1");
+       // listView = findViewById(R.id.membersListView);
+
+        Log.d("MyLog", "Initialize activity2");
 
         /*
         /**
@@ -40,20 +45,24 @@ public class AboutActivity extends AppCompatActivity {
         }); */
 
         //ArrayList for all the members
-        ArrayList<String> memberList = new ArrayList<>();
+       /* ArrayList<String> memberList = new ArrayList<>();
         memberList.add("EMMA");
         memberList.add("MANI");
         memberList.add("MILJA");
         memberList.add("MOA");
         memberList.add("PATRIK");
         memberList.add("VICTOR");
-        memberList.add("VICTORIA");
+        memberList.add("VICTORIA"); */
 
+        Log.d("MyLog", "Added all members");
+/*
         //Array Adapter for the memberListView
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, memberList);
 
         //Connects the listView to the arrayAdapter
         listView.setAdapter(arrayAdapter);
+
+        */
     }
 
     /**
