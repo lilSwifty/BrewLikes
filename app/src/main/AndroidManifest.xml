@@ -16,9 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RankingActivity"></activity>
-        <activity android:name=".InfoActivity"></activity>
-        <activity android:name=".CameraActivity"></activity>
+        <activity android:name=".RankingActivity" />
+        <activity android:name=".InfoActivity" />
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>
