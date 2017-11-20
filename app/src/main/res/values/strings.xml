@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BrewLikes</string>
+    <string name="LaunchCamera">Camera</string>
 </resources>
