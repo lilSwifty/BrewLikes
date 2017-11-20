@@ -1,6 +1,7 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ public class RankingActivity extends AppCompatActivity {
     private TextView perfectText;
     private TextView expensiveText;
     private TextView cheapText;
+    private NestedScrollView categoryScroll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,9 @@ public class RankingActivity extends AppCompatActivity {
         findViews();
     }
 
+    /**
+     * A method to find the views.
+     */
     private void findViews(){
         beerImage = findViewById(R.id.beerImage);
         tasteText = findViewById(R.id.tasteText);
@@ -41,8 +46,11 @@ public class RankingActivity extends AppCompatActivity {
         perfectText = findViewById(R.id.perfectText);
         expensiveText = findViewById(R.id.expensiveText);
         cheapText = findViewById(R.id.cheapText);
+        categoryScroll = findViewById(R.id.categoryScroll);
+
     }
     private void onRankingButtonClick(View v){
+
 
     }
 
