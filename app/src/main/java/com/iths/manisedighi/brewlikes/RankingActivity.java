@@ -23,6 +23,7 @@ public class RankingActivity extends AppCompatActivity {
     private TextView expensiveText;
     private TextView cheapText;
     private NestedScrollView categoryScroll;
+    private EditText beerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class RankingActivity extends AppCompatActivity {
         expensiveText = findViewById(R.id.expensiveText);
         cheapText = findViewById(R.id.cheapText);
         categoryScroll = findViewById(R.id.categoryScroll);
+        beerName = findViewById(R.id.beerName);
 
     }
     private void onRankingButtonClick(View v){
