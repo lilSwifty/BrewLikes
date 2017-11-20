@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">BrewLikes</string>
+
+    <!-- InfoActivity & BottomNavigation-->
+
+    <string name="category">Category</string>
+    <string name="taste">Taste:</string>
+    <string name="price">Price:</string>
+    <string name="rate">Rate:</string>
+    <string name="home">Home</string>
+    <string name="topList">TopList</string>
+    <string name="mapView">MapView</string>
 </resources>
