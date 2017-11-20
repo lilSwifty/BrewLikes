@@ -17,11 +17,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".CameraActivity"></activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+            </meta-data>
+        </provider>
+
     </application>
 
-
     <!--Use of any camera - back, front or external-->
-    <uses-feature android:name="android.hardware.camera.any" />
+     <uses-feature android:name="android.hardware.camera.any" />  
+    <!--To be able to write to the external storage, for saving pictures to the gallery--> 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 
 </manifest>
