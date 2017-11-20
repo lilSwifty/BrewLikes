@@ -33,8 +33,7 @@ public class CameraActivity extends AppCompatActivity {
     /**
      * Creates a collision-resistant name for the image file
      * @return the image with the new name
-     * @throws IOException - if
-     * TODO describe IOException, why using that?
+     * @throws IOException - if something goes wrong
      */
     private File createImageFile() throws IOException {
         // Create a name for the image file
@@ -52,7 +51,6 @@ public class CameraActivity extends AppCompatActivity {
 
     /**
      * To create and invoke the Intent for the picture. First, ensure that there's a camera activity to handle the intent.
-     * TODO change comments, and comment the method.
      */
 
     private void dispatchTakePictureIntent() {
@@ -115,10 +113,7 @@ public class CameraActivity extends AppCompatActivity {
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         //mImageView.setImageBitmap(bitmap);
-
-
     }
-
 
     public void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
