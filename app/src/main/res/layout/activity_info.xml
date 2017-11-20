@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,9 +23,10 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginTop="12dp"
+                android:onClick="onNavBackClick"
                 android:src="@drawable/ic_left_arrow" />
 
             <TextView
@@ -152,10 +152,11 @@
                 android:id="@+id/ivShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/ivBeer"
                 android:layout_above="@+id/tvInfo"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/ivBeer"
+                android:onClick="onShareClick"
                 android:src="@drawable/ic_facebook_share" />
 
 
@@ -174,18 +175,20 @@
                 android:id="@+id/ivEdit"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_edit"
+                android:layout_above="@id/tvLocation"
                 android:layout_toEndOf="@id/tvInfo"
-                android:layout_above="@id/tvLocation"/>
+                android:onClick="onEditClick"
+                android:src="@drawable/ic_edit" />
 
             <ImageView
                 android:id="@+id/ivLocation"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_below="@id/tvInfo"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/ic_mapview_white"
-                android:layout_below="@id/tvInfo">
+                android:onClick="onLocationClick"
+                android:src="@drawable/ic_mapview_white">
 
             </ImageView>
 
