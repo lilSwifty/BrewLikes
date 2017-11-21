@@ -11,15 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Milja on 2017-11-21.
+ * This class is specifically for working with the database.
  */
-
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final int DB_VERSION = 1;
     private static final String DB_NAME = "BREWLIKES_DATABASE";
     private static final String BEER_TABLE = "BeerRanking";
-    private static final String BEER_CATEGORY_TABLE = "BeerCategories";
 
     //Constructor
     public DBHelper(Context context) {
@@ -27,6 +25,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Creates database for the first time
+    //Tabellens upplägg:
+    //Id - Name - Category - Price - Taste - Average(Medeltal) - Comment - Image - Location
     @Override
     public void onCreate(SQLiteDatabase db) {
         //TABLE: Beer
@@ -35,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "COL_BEER_CATEGORY TEXT," +
                 "COL_BEER_PRICE INTEGER," +
                 "COL_BEER_TASTE INTEGER," +
+                "COL_BEER_AVERAGE INTEGER," +
                 "COL_BEER_COMMENT TEXT," +
                 "COL_BEER_IMAGE_PATH BLOB," +
                 "COL_BEER_LOCATION TEXT);";
@@ -45,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
     //Bygger om databasens tabeller
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO Drop all tables and recreate
+        //TODO Drop all tables and recreate (obs - deletes all data)
         db.execSQL("DROP TABLE IF EXISTS " + BEER_TABLE);
         onCreate(db);
 
@@ -53,11 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     //Add beer to database (Beer Table)
-    //Tabellens upplägg:
-    //Id - Name - Category - Price - Taste - Comment - Image - Location
     public void addBeer(Beer beer) {
-        //TODO Method for adding a beer into BeerRanking table
-
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -65,6 +62,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("COL_BEER_CATEGORY", beer.getCategory());
         values.put("COL_BEER_PRICE", beer.getPrice());
         values.put("COL_BEER_TASTE", beer.getTaste());
+        values.put("COL_BEER_AVERAGE", beer.getAverage());
         values.put("COL_BEER_COMMENT", beer.getComment());
         values.put("COL_BEER_IMAGE_PATH", beer.getPhotoPath());
         values.put("COL_BEER_LOCATION", beer.getLocation());
@@ -76,6 +74,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
 
         //Adding image using its path: image.imagePath()
+    }
+
+    public Beer getBeerById(int id) {
+        //TODO Method for getting one specific beer
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        Cursor cursor = db.query();
+
+        db.close();
+        return beer;
     }
 
     public List<Beer> getAllBeers() {
@@ -103,8 +112,19 @@ public class DBHelper extends SQLiteOpenHelper {
         return beerList;
     }
 
-    public void removeBeer() {
+    public boolean removeBeer(Beer beer) {
+        return removeBeer(beer.getId());
+    }
+
+    public boolean removeBeer(long id) {
         //TODO Method for removing beer from database
+       SQLiteDatabase db = getWritableDatabase();
+
+       String[] selectionArgs = new String[] {Long.toString(id)};
+       int result = db.delete(BEER_TABLE, "id=?", selectionArgs);
+       db.close();
+
+       return result == 1;
     }
 
     public void editBeer() {
