@@ -19,6 +19,7 @@ public class AboutActivity extends AppCompatActivity {
     ImageView line;
     ImageView logo;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,8 +76,8 @@ public class AboutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.cameraIcon){
-            Intent intent = new Intent(this, CameraActivity.class);
-            startActivity(intent);
+            Intent cameraIntent = new Intent(this, CameraActivity.class);
+            startActivity(cameraIntent);
             //TODO - Use flags here so the activities don't get put on the stack?
             return true;
         }

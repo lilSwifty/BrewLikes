@@ -2,7 +2,6 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,7 +10,7 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final int REQUEST_IMAGE_CAPTURE = 1;
+
     ImageView logo;
 
     @Override
@@ -45,14 +44,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
         } else if(id == R.id.cameraIcon){
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-            }
+            Intent cameraIntent = new Intent(this, CameraActivity.class);
+            startActivity(cameraIntent);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
 
 
