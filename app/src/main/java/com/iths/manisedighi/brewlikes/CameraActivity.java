@@ -26,7 +26,7 @@ import java.util.Date;
  */
 public class CameraActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
-    static final int REQUEST_IMAGE_CAPTURE = 2;
+    //static final int REQUEST_IMAGE_CAPTURE = 2;
     static final int RESULT_LOAD_IMAGE = 3;
     String mCurrentPhotoPath;
     ImageView beerImage;
@@ -45,7 +45,7 @@ public class CameraActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         addPictureToGallery();
-        scalePicture();
+        //scalePicture();
 
     }
 
