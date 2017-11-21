@@ -76,15 +76,46 @@ public class DBHelper extends SQLiteOpenHelper {
         //Adding image using its path: image.imagePath()
     }
 
+    //Get one beer from database
     public Beer getBeerById(int id) {
-        //TODO Method for getting one specific beer
-
+        String[] selectionArgs = new String[] {"id"};
         SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("BEER_TABLE","_ID=?", selectionArgs);
+        Beer beer = new Beer();
 
-        Cursor cursor = db.query();
+        boolean success = cursor.moveToFirst();
+
+        if (success) {
+            beer.setId(cursor.getLong(0));
+            beer.setName(cursor.getString(1));
+            beer.setCategory(cursor.getString(2));
+            beer.setPrice(cursor.getDouble(3));
+            beer.setTaste(cursor.getDouble(4));
+            beer.setAverage(cursor.getDouble(5));
+            beer.setComment(cursor.getString(6));
+            beer.setPhotoPath(cursor.getString(7));
+            beer.setLocation(cursor.getString(8));
+        }
 
         db.close();
         return beer;
+    }
+
+    public void getTopList() {
+        //TODO Return descending list of beers with 10 highest ratings
+    }
+
+    //Get all beers in certain category, descending order according to average points
+    public List<Beer> getBeersByCategory(String category) {
+        List<Beer> beerCategoryList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String selection = "COL_BEER_CATEGORY=?";
+        String[] selectionArgs = new String[] { category };
+
+        Cursor cursor = db.query(BEER_TABLE, null, selection, selectionArgs, null, null, "COL_BEER_AVERAGE DESC");
+
+        db.close();
+        return beerCategoryList;
     }
 
     public List<Beer> getAllBeers() {
@@ -116,12 +147,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return removeBeer(beer.getId());
     }
 
+    //Returns the nr of affected rows/deleted rows. If nothing deleted, returns 0.
     public boolean removeBeer(long id) {
-        //TODO Method for removing beer from database
        SQLiteDatabase db = getWritableDatabase();
 
        String[] selectionArgs = new String[] {Long.toString(id)};
-       int result = db.delete(BEER_TABLE, "id=?", selectionArgs);
+       //whereClaus = on what basis do we want to delete data.
+       //? replaced with third argument value, ie. selectionArgs
+       int result = db.delete(BEER_TABLE, "_ID=?", selectionArgs);
        db.close();
 
        return result == 1;
