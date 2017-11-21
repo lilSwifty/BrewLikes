@@ -16,10 +16,11 @@ public class Beer {
     private String location;
     private String photoPath; //file://.... <- path pointing to image
 
+    //Empty constructor
     public Beer() {}
 
     //Constructor utan GPS
-    //TODO Add photopath (filnamn)
+    //TODO Add photopath (filnamn) to parameters
     public Beer(String name, double price, double taste, String comment) {
         this.name = name;
         this.price = price;
@@ -59,7 +60,7 @@ public class Beer {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -67,7 +68,7 @@ public class Beer {
         return taste;
     }
 
-    public void setTaste(int taste) {
+    public void setTaste(double taste) {
         this.taste = taste;
     }
 
@@ -75,7 +76,7 @@ public class Beer {
         return average;
     }
 
-    public void setAverage(int average) {
+    public void setAverage(double average) {
         this.average = average;
     }
 
@@ -99,7 +100,7 @@ public class Beer {
         return photoPath;
     }
 
-    public void setPhotoLocation(String photoPath) {
+    public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
     }
 

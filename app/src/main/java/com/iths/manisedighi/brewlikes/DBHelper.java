@@ -78,9 +78,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Get one beer from database
     public Beer getBeerById(int id) {
-        String[] selectionArgs = new String[] {"id"};
+        String selection = "_ID=?";
+        String[] selectionArgs = new String[] { Integer.toString(id) };
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("BEER_TABLE","_ID=?", selectionArgs);
+        Cursor cursor = db.query(BEER_TABLE,null, selection, selectionArgs, null, null, null);
         Beer beer = new Beer();
 
         boolean success = cursor.moveToFirst();
@@ -103,6 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void getTopList() {
         //TODO Return descending list of beers with 10 highest ratings
+        //ORDER BY ... DESC LIMIT 10
     }
 
     //Get all beers in certain category, descending order according to average points
@@ -114,6 +116,22 @@ public class DBHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(BEER_TABLE, null, selection, selectionArgs, null, null, "COL_BEER_AVERAGE DESC");
 
+        boolean success = cursor.moveToFirst();
+
+        if (success) {
+            do {
+                Beer beer = new Beer();
+                beer.setId(cursor.getLong(0));
+                beer.setName(cursor.getString(1));
+                beer.setCategory(cursor.getString(2));
+                beer.setPrice(cursor.getDouble(3));
+                beer.setTaste(cursor.getDouble(4));
+                beer.setAverage(cursor.getDouble(5));
+                beer.setComment(cursor.getString(6));
+                beer.setPhotoPath(cursor.getString(7));
+                beer.setLocation(cursor.getString(8));
+            } while (cursor.moveToNext());
+        }
         db.close();
         return beerCategoryList;
     }
