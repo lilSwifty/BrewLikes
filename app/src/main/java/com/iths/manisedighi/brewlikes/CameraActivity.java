@@ -44,9 +44,8 @@ public class CameraActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dispatchTakePictureIntent();
         addPictureToGallery();
-        //scalePicture();
+        scalePicture();
 
     }
 
@@ -56,15 +55,18 @@ public class CameraActivity extends AppCompatActivity {
                 .setPositiveButton("Take photo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dispatchTakePictureIntent();
+                        /*
                         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         //Check if phone has a camera
                         if (intent.resolveActivity(getPackageManager()) != null) {
                             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
 
                         }
+                        */
                     }
                 })
-                .setNegativeButton("Upload image", new DialogInterface.OnClickListener() {
+                .setNeutralButton("Upload image", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent i = new Intent(
@@ -77,25 +79,6 @@ public class CameraActivity extends AppCompatActivity {
         alert.show();
     }
 
-    /**
-     * Creates a collision-resistant name for the image file
-     * @return the image with the new name
-     * @throws IOException - if something goes wrong
-     */
-    private File createImageFile() throws IOException {
-        // Create a name for the image file
-        String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + dateStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        //within parentheses: prefix, suffix, directory
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
-        //Save the file, path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        Log.d(TAG, "createImageFile: this works");
-        return image;
-    }
 
     /**
      * To create and invoke the Intent for the picture. First, ensure that there's a camera activity to handle the intent.
@@ -124,6 +107,27 @@ public class CameraActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Creates a collision-resistant name for the image file
+     * @return the image with the new name
+     * @throws IOException - if something goes wrong
+     */
+    private File createImageFile() throws IOException {
+        // Create a name for the image file
+        String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + dateStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        //within parentheses: prefix, suffix, directory
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        //Save the file, path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        Log.d(TAG, "createImageFile: this works");
+        return image;
+    }
+
 
     /**
      * Adds the picture to the gallery

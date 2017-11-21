@@ -10,6 +10,8 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public CameraActivity cameraActivity;
+
 
     ImageView logo;
 
