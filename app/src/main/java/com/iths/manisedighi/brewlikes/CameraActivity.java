@@ -10,6 +10,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -17,18 +18,31 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+/**
+ * Saves a full size photo since we gave it a file to be saved into.
+ */
 public class CameraActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1;
+    String mCurrentPhotoPath;
+    ImageView beerImage;
     private static final String TAG = "CameraActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+
+        try {
+            createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        dispatchTakePictureIntent();
+        addPictureToGallery();
+        //scalePicture();
+
     }
-
-
-    String mCurrentPhotoPath;
 
     /**
      * Creates a collision-resistant name for the image file
@@ -46,6 +60,7 @@ public class CameraActivity extends AppCompatActivity {
 
         //Save the file, path for use with ACTION_VIEW intents
         mCurrentPhotoPath = image.getAbsolutePath();
+        Log.d(TAG, "createImageFile: this works");
         return image;
     }
 
@@ -71,6 +86,7 @@ public class CameraActivity extends AppCompatActivity {
                 Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+                Log.d(TAG, "dispatchTakePictureIntent: this works");
             }
         }
 
@@ -85,6 +101,7 @@ public class CameraActivity extends AppCompatActivity {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         this.sendBroadcast(mediaScanIntent);
+        Log.d(TAG, "addPictureToGallery: this works");
     }
 
     /**
@@ -93,8 +110,8 @@ public class CameraActivity extends AppCompatActivity {
      */
     private void scalePicture() {
         //The dimensions of the View
-        //int targetW = mImageView.getWidth();
-        //int targetH = mImageView.getHeight();
+        int targetW = beerImage.getWidth();
+        int targetH = beerImage.getHeight();
 
         //The dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -104,15 +121,15 @@ public class CameraActivity extends AppCompatActivity {
         int photoH = bmOptions.outHeight;
 
         //Decides how much to scale down the picture
-        //int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
 
         //Decodes the image into Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;
-        //bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        //mImageView.setImageBitmap(bitmap);
+        beerImage.setImageBitmap(bitmap);
     }
 
     public void makeToast(String text) {
