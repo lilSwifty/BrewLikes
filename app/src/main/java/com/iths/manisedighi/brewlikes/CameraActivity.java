@@ -37,6 +37,8 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        CameraLauncher();
+
         try {
             createImageFile();
         } catch (IOException e) {
@@ -46,6 +48,33 @@ public class CameraActivity extends AppCompatActivity {
         addPictureToGallery();
         //scalePicture();
 
+    }
+
+    public void CameraLauncher() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(CameraActivity.this);
+        builder.setMessage("Please choose an alternative").setCancelable(false)
+                .setPositiveButton("Take photo", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        //Check if phone has a camera
+                        if (intent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+
+                        }
+                    }
+                })
+                .setNegativeButton("Upload image", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent i = new Intent(
+                                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(i, RESULT_LOAD_IMAGE);
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.setTitle("Time to brew...");
+        alert.show();
     }
 
     /**
@@ -140,31 +169,7 @@ public class CameraActivity extends AppCompatActivity {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    public void CameraLauncher() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(CameraActivity.this);
-        builder.setMessage("Please choose an alternative").setCancelable(false)
-                .setPositiveButton("Take photo", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        //Check if phone has a camera
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-                        }
-                    }
-                })
-                .setNegativeButton("Upload image", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(
-                                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(i, RESULT_LOAD_IMAGE);
-                    }
-                });
-        AlertDialog alert = builder.create();
-        alert.setTitle("Time to brew...");
-        alert.show();
-    }
+
 
 
 }
