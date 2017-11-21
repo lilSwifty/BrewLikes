@@ -1,13 +1,13 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class RankingActivity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class RankingActivity extends AppCompatActivity {
     private TextView perfectText;
     private TextView expensiveText;
     private TextView cheapText;
-    private NestedScrollView categoryScroll;
+    private ScrollView categoryScroll;
     private EditText beerName;
 
     @Override
@@ -49,11 +49,53 @@ public class RankingActivity extends AppCompatActivity {
         cheapText = findViewById(R.id.cheapText);
         categoryScroll = findViewById(R.id.categoryScroll);
         beerName = findViewById(R.id.beerName);
-
-    }
-    private void onRankingButtonClick(View v){
-
-
     }
 
+    /**
+     * The method that does all the work with saving the rankings and put them into the database/infoviews.
+     * @param view
+     */
+    private void onRankingButtonClick(View view){
+
+        float taste = saveTasteRate(view);
+        float price = savePriceRate(view);
+        String name = saveBeerName(view);
+        String comment = saveBeerComment(view);
+
+    }
+
+    /**
+     * Saving the ranking-number of the taste.
+     * @param view
+     * @return a float for the number of stars filled in.
+     */
+    private float saveTasteRate(View view){
+        return tasteRate.getRating();
+    }
+
+    /**
+     * Saving the ranking-number of the price.
+     * @param view
+     * @return a float for the number of stars filled in.
+     */
+    private float savePriceRate(View view){
+        return priceRate.getRating();
+    }
+
+    /**
+     * Saving the name of the beer.
+     * @param view
+     * @return a String for the name of the beer.
+     */
+    private String saveBeerName(View view){
+        return beerName.getText().toString();
+    }
+    /**
+     * Saving the comment for the beer.
+     * @param view
+     * @return a String for the comment to the beer.
+     */
+    private String saveBeerComment(View view){
+        return beerComment.getText().toString();
+    }
 }
