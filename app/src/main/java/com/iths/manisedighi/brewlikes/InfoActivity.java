@@ -104,25 +104,41 @@ public class InfoActivity extends AppCompatActivity {
         tvInfo.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    private void onNavBackClick(View view){
+    /**
+     * A method that takes us back to CategoriesActivity
+     * @param view - the view being clicked and calling the method
+     */
+    public void onNavBackClick(View view){
         Log.d(TAG, "onNavBackClick: nav back clicked");
 
                 /*Intent intent = new Intent(context, Categories.class);
                 startActivity(intent);*/
     }
 
-    private void onShareClick(View view){
+    /**
+     * A method that share picture on FaceBook
+     * @param view - the view being clicked and calling the method
+     */
+    public void onShareClick(View view){
         Log.d(TAG, "onShareClick: share clicked.");
                 //TODO here comes the upload to facebook
 
     }
 
-    private void onEditClick(View view){
+    /**
+     * A method that edits the comment about a beer
+     * @param view - the view being clicked and calling the method
+     */
+    public void onEditClick(View view){
         Log.d(TAG, "onEditClick: edit clicked.");
                 //TODO what happens here? Back to Ranking or a new view?
     }
 
-    private void onLocationClick(View view){
+    /**
+     * A method that shows the beer in the map view
+     * @param view - the view being clicked and calling the method
+     */
+    public void onLocationClick(View view){
         Log.d(TAG, "onLocationClick: location clicked.");
                 //TODO takes you to map view
     }
