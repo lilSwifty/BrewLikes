@@ -18,9 +18,9 @@
         </activity>
         <activity android:name=".RankingActivity" android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait" />
         <activity android:name=".InfoActivity" />
-        <activity android:name=".CameraActivity"/>
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".CategoriesActivity"/>
         <activity android:name=".AboutActivity">
-
         </activity>
 
         <provider
@@ -35,8 +35,6 @@
             </meta-data>
         </provider>
 
-
-        <activity android:name=".CategoriesActivity"/>
     </application>
 
     <!--Use of any camera - back, front or external--> 
