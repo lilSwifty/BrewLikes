@@ -46,7 +46,9 @@ public class InfoActivity extends AppCompatActivity {
         enableScrollFunction();
         //for the bottom navigation
         setupBottomNavigation();
-        beer = new Beer();
+        //testing to create an instance of a beer
+        beer = new Beer("Bubbles", 4.0, 6.0, "Godare öl får man leta efter, namnam.");
+        setupInfoView();
     }
 
     /**
@@ -74,6 +76,18 @@ public class InfoActivity extends AppCompatActivity {
         tvRateScore = findViewById(R.id.tvRateScore);
         tvInfo = findViewById(R.id.tvInfo);
         tvLocation = findViewById(R.id.tvLocation);
+    }
+
+    /**
+     * method to show all the necessary information about your beer
+     * //TODO change beer.getName()N etc to the incoming parameter .id?
+     */
+    private void setupInfoView(){
+        tvBeerName.setText(beer.getName());
+        tvPriceScore.setText(String.valueOf(beer.getPrice()));
+        tvTasteScore.setText(String.valueOf(beer.getTaste()));
+        tvInfo.setText(beer.getComment());
+        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
     }
 
     /**
