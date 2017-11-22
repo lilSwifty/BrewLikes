@@ -24,6 +24,7 @@ public class RankingActivity extends AppCompatActivity {
     private TextView cheapText;
     private ScrollView categoryScroll;
     private EditText beerName;
+    private TextView categoryText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class RankingActivity extends AppCompatActivity {
         cheapText = findViewById(R.id.cheapText);
         categoryScroll = findViewById(R.id.categoryScroll);
         beerName = findViewById(R.id.beerName);
+        categoryText = findViewById(R.id.categoryText);
     }
 
     /**
@@ -61,7 +63,7 @@ public class RankingActivity extends AppCompatActivity {
         float price = savePriceRate(view);
         String name = saveBeerName(view);
         String comment = saveBeerComment(view);
-
+        // TODO: 2017-11-22 vilken position i listviewen som vi är på.
     }
 
     /**
