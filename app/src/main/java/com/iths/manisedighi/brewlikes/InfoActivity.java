@@ -49,7 +49,7 @@ public class InfoActivity extends AppCompatActivity {
         //for the bottom navigation
         setupBottomNavigation();
         //testing to create an instance of a beer
-        //beer = new Beer("Bubbles", 4.0, 6.0, "Godare öl får man leta efter, namnam.");
+        beer = new Beer("Bubbles", 0,  4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548");
         //DBHelper helper = new DBHelper(context);
         setupInfoView();
     }
