@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * A method that sets up the bottom navigation
      */
+
     private void setupBottomNavigation(){
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
         BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
 
         } else if(id == R.id.cameraIcon){
-            Intent cameraIntent = new Intent(this, CameraActivity.class);
+            Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
             return true;
         }

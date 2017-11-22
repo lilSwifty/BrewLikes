@@ -25,8 +25,9 @@ import java.util.Date;
  * Saves a full size photo since we gave it a file to be saved into.
  */
 public class CameraActivity extends AppCompatActivity {
+
+
     static final int REQUEST_TAKE_PHOTO = 1;
-    //static final int REQUEST_IMAGE_CAPTURE = 2;
     static final int RESULT_LOAD_IMAGE = 3;
     String mCurrentPhotoPath;
     ImageView beerImage;
@@ -37,14 +38,6 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        CameraLauncher();
-
-        try {
-            createImageFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        addPictureToGallery();
         //scalePicture();
 
     }
@@ -84,7 +77,7 @@ public class CameraActivity extends AppCompatActivity {
      * To create and invoke the Intent for the picture. First, ensure that there's a camera activity to handle the intent.
      */
 
-    private void dispatchTakePictureIntent() {
+    public void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // To create a file to put the picture in
@@ -113,7 +106,7 @@ public class CameraActivity extends AppCompatActivity {
      * @return the image with the new name
      * @throws IOException - if something goes wrong
      */
-    private File createImageFile() throws IOException {
+    public File createImageFile() throws IOException {
         // Create a name for the image file
         String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + dateStamp + "_";
@@ -132,7 +125,7 @@ public class CameraActivity extends AppCompatActivity {
     /**
      * Adds the picture to the gallery
      */
-    private void addPictureToGallery() {
+    public void addPictureToGallery() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(mCurrentPhotoPath);
         Uri contentUri = Uri.fromFile(f);
@@ -145,7 +138,7 @@ public class CameraActivity extends AppCompatActivity {
      * TODO give mImageView the same name as the shown ImageView
      * To scale down the picture and then decode it.
      */
-    private void scalePicture() {
+    public void scalePicture() {
         //The dimensions of the View
         int targetW = beerImage.getWidth();
         int targetH = beerImage.getHeight();

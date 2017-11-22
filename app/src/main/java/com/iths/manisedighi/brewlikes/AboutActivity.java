@@ -76,7 +76,7 @@ public class AboutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.cameraIcon2){
-            Intent cameraIntent = new Intent(this, CameraActivity.class);
+            Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
             //TODO - Use flags here so the activities don't get put on the stack?
             return true;

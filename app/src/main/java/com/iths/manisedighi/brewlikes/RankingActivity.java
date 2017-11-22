@@ -1,7 +1,6 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,7 +9,9 @@ import android.widget.RatingBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class RankingActivity extends AppCompatActivity {
+import java.io.IOException;
+
+public class RankingActivity extends CameraActivity {
     private ImageView beerImage;
     private TextView tasteText;
     private RatingBar tasteRate;
@@ -25,11 +26,22 @@ public class RankingActivity extends AppCompatActivity {
     private ScrollView categoryScroll;
     private EditText beerName;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+        CameraLauncher();
+
+        try {
+            createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        addPictureToGallery();
+
         findViews();
+
     }
 
     /**
