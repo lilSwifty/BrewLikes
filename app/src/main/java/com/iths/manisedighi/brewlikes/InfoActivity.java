@@ -17,6 +17,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
  */
 public class InfoActivity extends AppCompatActivity {
 
+    private static final String TAG = "InfoActivity";
     private Context context = InfoActivity.this;
 
     private ImageView ivBeer;
@@ -37,6 +38,7 @@ public class InfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
@@ -47,7 +49,8 @@ public class InfoActivity extends AppCompatActivity {
         //for the bottom navigation
         setupBottomNavigation();
         //testing to create an instance of a beer
-        beer = new Beer("Bubbles", 4.0, 6.0, "Godare öl får man leta efter, namnam.");
+        //beer = new Beer("Bubbles", 4.0, 6.0, "Godare öl får man leta efter, namnam.");
+        //DBHelper helper = new DBHelper(context);
         setupInfoView();
     }
 
@@ -55,6 +58,7 @@ public class InfoActivity extends AppCompatActivity {
      * A method that sets up the bottom navigation
      */
     private void setupBottomNavigation(){
+        Log.d(TAG, "setupBottomNavigation: setting up Bottom Navigation.");
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
         BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
         BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
@@ -83,21 +87,25 @@ public class InfoActivity extends AppCompatActivity {
      * //TODO change beer.getName()N etc to the incoming parameter .id?
      */
     private void setupInfoView(){
+        Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
         tvBeerName.setText(beer.getName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvInfo.setText(beer.getComment());
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
+        //tvLocation.setText(address??);
     }
 
     /**
      * a method that enables the scroll function in the TextView tvInfo
      */
     private void enableScrollFunction(){
+        Log.d(TAG, "enableScrollFunction: enables scrollfunction in tvInfo view");
         tvInfo.setMovementMethod(new ScrollingMovementMethod());
     }
 
     private void onNavBackClick(View view){
+        Log.d(TAG, "onNavBackClick: nav back clicked");
         ivNavBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +116,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void onShareClick(View view){
+        Log.d(TAG, "onShareClick: share clicked.");
         ivShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +126,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void onEditClick(View view){
+        Log.d(TAG, "onEditClick: edit clicked.");
         ivEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +137,7 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void onLocationClick(View view){
+        Log.d(TAG, "onLocationClick: location clicked.");
         ivLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
