@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.sql.SQLInput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -182,6 +183,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 //Add category name of beer
                 beer.setCategoryName( getBeerCategoryName(beer) );
+
+                //Add beer to array
                 beerList.add(beer);
             } while (cursor.moveToNext());
         }
@@ -194,7 +197,25 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return Arraylist
      */
     public List<Category> getAllCategories() {
+        List<Category> categoryList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
 
+        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, "COL_CATEGORY_NAME ASC");
+
+        boolean success = cursor.moveToFirst();
+
+        if (success) {
+            do {
+                Category category = new Category();
+                category.setId(cursor.getLong(0));
+                category.setName(cursor.getString(1));
+
+                //Add beer to array
+                categoryList.add(category);
+                
+            } while (cursor.moveToNext());
+        }
+        return categoryList;
     }
 
     //Remove a beer from the database
