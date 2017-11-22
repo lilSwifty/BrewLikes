@@ -153,6 +153,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public void getBeersByCategory(long categoryId) {
         //TODO Get all beers with certain category, sorted in descending order according to average points
         //Returns list
+
+        List<Beer> beerList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selection = "COL_BEER_CATEGORY=?";
+        String[] selectionArgs = new String[] { Long.toString(categoryId) };
+
+        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, null);
+
     }
 
     /**
@@ -163,7 +172,7 @@ public class DBHelper extends SQLiteOpenHelper {
         List<Beer> beerList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.query("BEER_TABLE", null, null, null, null, null, null);
+        Cursor cursor = db.query(BEER_TABLE, null, null, null, null, null, null);
 
         boolean success = cursor.moveToFirst();
 
@@ -212,7 +221,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
                 //Add beer to array
                 categoryList.add(category);
-                
+
             } while (cursor.moveToNext());
         }
         return categoryList;
