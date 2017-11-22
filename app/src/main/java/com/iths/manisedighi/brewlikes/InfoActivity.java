@@ -49,15 +49,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method that sets up the bottom navigation
-     */
-    private void setupBottomNavigation(){
-        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
-        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
-        BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
-    }
-
-    /**
      * finds all the widgets and binds the to the code
      */
     private void findViews(){
