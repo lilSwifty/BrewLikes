@@ -9,9 +9,9 @@ public class Beer {
     private long id;
     private String name;
     private String category = null;
-    private double price;
-    private double taste;
-    private double average;
+    private float price;
+    private float taste;
+    private float average;
     private String comment;
     private String location;
     private String photoPath; //file://.... <- path pointing to image
@@ -20,8 +20,7 @@ public class Beer {
     public Beer() {}
 
     //Constructor utan GPS
-    //TODO Add photopath (filnamn) to parameters
-    public Beer(String name, double price, double taste, String comment) {
+    public Beer(String name, float price, float taste, String comment, String photoPath) {
         this.name = name;
         this.price = price;
         this.taste = taste;
@@ -30,7 +29,7 @@ public class Beer {
     }
 
     //Constructor med GPS
-    public Beer(String name, int price, int taste, String comment, String location, String photoPath) {
+    public Beer(String name, float price, float taste, String comment, String location, String photoPath) {
         this.name = name;
         this.price = price;
         this.taste = taste;
@@ -56,27 +55,27 @@ public class Beer {
         this.name = name;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
-    public double getTaste() {
+    public float getTaste() {
         return taste;
     }
 
-    public void setTaste(double taste) {
+    public void setTaste(float taste) {
         this.taste = taste;
     }
 
-    public double getAverage() {
+    public float getAverage() {
         return average;
     }
 
-    public void setAverage(double average) {
+    public void setAverage(float average) {
         this.average = average;
     }
 

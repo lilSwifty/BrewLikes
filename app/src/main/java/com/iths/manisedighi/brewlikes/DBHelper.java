@@ -90,9 +90,9 @@ public class DBHelper extends SQLiteOpenHelper {
             beer.setId(cursor.getLong(0));
             beer.setName(cursor.getString(1));
             beer.setCategory(cursor.getString(2));
-            beer.setPrice(cursor.getDouble(3));
-            beer.setTaste(cursor.getDouble(4));
-            beer.setAverage(cursor.getDouble(5));
+            beer.setPrice(cursor.getFloat(3));
+            beer.setTaste(cursor.getFloat(4));
+            beer.setAverage(cursor.getFloat(5));
             beer.setComment(cursor.getString(6));
             beer.setPhotoPath(cursor.getString(7));
             beer.setLocation(cursor.getString(8));
@@ -105,6 +105,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void getTopList() {
         //TODO Return descending list of beers with 10 highest ratings
         //ORDER BY ... DESC LIMIT 10
+        //SELECT all FROM BEER_TABLE WHERE average =
     }
 
     //Get all beers in certain category, descending order according to average points
@@ -124,9 +125,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setId(cursor.getLong(0));
                 beer.setName(cursor.getString(1));
                 beer.setCategory(cursor.getString(2));
-                beer.setPrice(cursor.getDouble(3));
-                beer.setTaste(cursor.getDouble(4));
-                beer.setAverage(cursor.getDouble(5));
+                beer.setPrice(cursor.getFloat(3));
+                beer.setTaste(cursor.getFloat(4));
+                beer.setAverage(cursor.getFloat(5));
                 beer.setComment(cursor.getString(6));
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
@@ -146,15 +147,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (success) {
             do {
-                //TODO Add all info
                 Beer beer = new Beer();
+
                 beer.setId(cursor.getLong(0));
                 beer.setName(cursor.getString(1));
+                beer.setCategory(cursor.getString(2));
+                beer.setPrice(cursor.getFloat(3));
+                beer.setTaste(cursor.getFloat(4));
+                beer.setAverage(cursor.getFloat(5));
+                beer.setComment(cursor.getString(6));
+                beer.setPhotoPath(cursor.getString(7));
+                beer.setLocation(cursor.getString(8));
 
                 beerList.add(beer);
-
-                Log.d("MyLog","Print all beers:");
-                Log.d("MyLog", beer.getId() + "," + beer.getName());
             } while (cursor.moveToNext());
         }
         db.close();
@@ -180,5 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void editBeer() {
         //TODO Method for editing a beer entry
+
+
     }
 }
