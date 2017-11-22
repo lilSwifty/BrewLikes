@@ -1,6 +1,7 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -32,6 +33,8 @@ public class InfoActivity extends AppCompatActivity {
     private TextView tvInfo;
     private TextView tvLocation;
 
+    private Beer beer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class InfoActivity extends AppCompatActivity {
         enableScrollFunction();
         //for the bottom navigation
         setupBottomNavigation();
+        beer = new Beer();
     }
 
     /**
@@ -79,13 +83,43 @@ public class InfoActivity extends AppCompatActivity {
         tvInfo.setMovementMethod(new ScrollingMovementMethod());
     }
 
-    private void onNavBackClick(View view){}
+    private void onNavBackClick(View view){
+        ivNavBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*Intent intent = new Intent(context, Categories.class);
+                startActivity(intent);*/
+            }
+        });
+    }
 
-    private void onShareClick(View view){}
+    private void onShareClick(View view){
+        ivShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO here comes the upload to facebook
+            }
+        });
+    }
 
-    private void onEditClick(View view){}
+    private void onEditClick(View view){
+        ivEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO what happens here? Back to Ranking or a new view?
 
-    private void onLocationClick(View view){}
+            }
+        });
+    }
+
+    private void onLocationClick(View view){
+        ivLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO takes you to map view
+            }
+        });
+    }
 
 
 }
