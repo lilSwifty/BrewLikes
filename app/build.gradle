@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.iths.manisedighi.brewlikes"
-        minSdkVersion 22
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -32,4 +32,5 @@ dependencies {
     //BottomNavigationViewEx library
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     implementation 'com.google.android.gms:play-services-maps:11.6.0'
+    implementation 'com.android.support:design:26.1.0'
 }
