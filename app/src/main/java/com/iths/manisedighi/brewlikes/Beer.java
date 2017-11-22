@@ -8,7 +8,8 @@ public class Beer {
 
     private long id;
     private String name;
-    private String category = null;
+    private String categoryName;
+    private int categoryId;
     private float price;
     private float taste;
     private float average;
@@ -20,23 +21,26 @@ public class Beer {
     public Beer() {}
 
     //Constructor utan GPS
-    public Beer(String name, float price, float taste, String comment, String photoPath) {
+    public Beer(String name, int categoryId, float price, float taste, String comment, String photoPath) {
         this.name = name;
+        this.categoryId = categoryId;
         this.price = price;
         this.taste = taste;
         this.average = ((price+taste)/2);
         this.comment = comment;
+        this.photoPath = photoPath;
     }
 
     //Constructor med GPS
-    public Beer(String name, float price, float taste, String comment, String location, String photoPath) {
+    public Beer(String name, int categoryId, float price, float taste, String comment, String photoPath, String location) {
         this.name = name;
+        this.categoryId = categoryId;
         this.price = price;
         this.taste = taste;
         this.average = ((price+taste)/2);
         this.comment = comment;
-        this.location = location;
         this.photoPath = photoPath;
+        this.location = location;
     }
 
     public long getId() {
@@ -103,12 +107,20 @@ public class Beer {
         this.photoPath = photoPath;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }
 
