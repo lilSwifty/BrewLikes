@@ -1,31 +1,21 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Intent;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.util.Log;
-
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context = MainActivity.this;
 
-    //public CameraActivity cameraActivity;
-
-
-
-
     ImageView logo;
+    //Error message the user gets if not having the correct version of the phone
+    private static final String TAG = "MainActivity";
+    private static final int ERROR_DIALOG_REQUEST = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +37,50 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
         BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
 
+
+        if(isGpsServicesAvailable()){
+            init();
+        }
     }
+
+
+        private void init(){
+
+        }
+
+        /**
+        Method that checks if user has the correct version of Google Services.
+         If true - user can use GPS, if false - user can't use GPS.
+         */
+        public boolean isGpsServicesAvailable(){
+        Log.d(TAG, "isGpsServicesAvailable(): checking Google Services version");
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
+
+        if(available == ConnectionResult.SUCCESS){
+            Log.d(TAG, "isGPSServicesAvailable: Google Services are OK!");
+            return true;
+        } else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
+            Log.d(TAG, "isGpsServicesAvailable(): Google Services failed, but we'll fix it!");
+            Dialog d = GoogleApiAvailability.getInstance().getErrorDialog(MainActivity.this, available, ERROR_DIALOG_REQUEST);
+            d.show();
+        } else{
+            Toast.makeText(this, "You've got the wrong version and can't use maps. Sorry!", Toast.LENGTH_SHORT).show();
+        }
+        return false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Upper toolbar with icons
