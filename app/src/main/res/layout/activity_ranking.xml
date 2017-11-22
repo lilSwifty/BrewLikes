@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceText" />
 
-        <RatingBar
+    <RatingBar
         android:id="@+id/tasteRate"
         style="@style/Widget.AppCompat.RatingBar.Indicator"
         android:layout_width="wrap_content"
@@ -207,5 +207,21 @@
         app:layout_constraintBottom_toBottomOf="@+id/categoryScroll"
         app:layout_constraintEnd_toStartOf="@+id/categoryScroll"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@color/beer"
+        android:onClick="onEditButtonClick"
+        android:text="@string/imageEdit"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/beerImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/beerImage" />
 
 </android.support.constraint.ConstraintLayout>

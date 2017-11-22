@@ -1,5 +1,6 @@
 package com.iths.manisedighi.brewlikes;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -25,6 +26,7 @@ public class RankingActivity extends AppCompatActivity {
     private ScrollView categoryScroll;
     private EditText beerName;
     private TextView categoryText;
+    private Button editButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class RankingActivity extends AppCompatActivity {
         categoryScroll = findViewById(R.id.categoryScroll);
         beerName = findViewById(R.id.beerName);
         categoryText = findViewById(R.id.categoryText);
+        editButton = findViewById(R.id.editButton);
     }
 
     /**
@@ -66,6 +69,10 @@ public class RankingActivity extends AppCompatActivity {
         // TODO: 2017-11-22 vilken position i listviewen som vi är på.
     }
 
+    private void onEditButtonClick(View view){
+        Intent intent = new Intent();
+        // TODO: 2017-11-22 starta om kameraaktiviteten, så att man får ta en ny bild
+    }
     /**
      * Saving the ranking-number of the taste.
      * @param view

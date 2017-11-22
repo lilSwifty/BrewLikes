@@ -10,4 +10,5 @@
     <string name="priceCheap">Cheap</string>
     <string name="beerName">Name of the beer</string>
     <string name="category">Category</string>
+    <string name="imageEdit">Edit</string>
 </resources>
