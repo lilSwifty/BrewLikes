@@ -12,4 +12,14 @@
     <string name="ItemTitleAbout">item title about</string>
     <string name="ItemTitleCamera">item title camera</string>
     <string name="aboutTextView">Hey detta är en infotext om appen och vi som har skapat den! Detta är en app för öl, och vi gillar öl. Här är vi!</string>
+
+    <!-- InfoActivity & BottomNavigation-->
+
+    <string name="category">Category</string>
+    <string name="taste">Taste:</string>
+    <string name="price">Price:</string>
+    <string name="rate">Rate:</string>
+    <string name="home">Home</string>
+    <string name="topList">TopList</string>
+    <string name="mapView">MapView</string>
 </resources>

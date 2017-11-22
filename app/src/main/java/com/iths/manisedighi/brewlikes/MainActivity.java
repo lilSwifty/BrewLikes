@@ -1,6 +1,7 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,7 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Context context = MainActivity.this;
 
     public CameraActivity cameraActivity;
 
@@ -19,9 +24,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupBottomNavigation();
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
+    }
+
+    /**
+     * A method that sets up the bottom navigation
+     */
+    private void setupBottomNavigation(){
+        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
+        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
+        BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
+
     }
 
     /**
