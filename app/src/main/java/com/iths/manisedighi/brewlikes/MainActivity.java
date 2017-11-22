@@ -47,15 +47,6 @@ public class MainActivity extends BottomNavigationBaseActivity {
             }
         }
 
-    /**
-     * A method that sets up the bottom navigation
-     */
-    private void setupBottomNavigation(){
-        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
-        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
-        BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
-    }
-
         //Initializes MapActivity
         private void initMapActivity(){
             Intent intent = new Intent(this, MapActivity.class);
