@@ -28,9 +28,12 @@ public class CameraActivity extends AppCompatActivity {
 
 
     static final int REQUEST_TAKE_PHOTO = 1;
+    static final int REQUEST_IMAGE_CAPTURE = 2;
     static final int RESULT_LOAD_IMAGE = 3;
-    String mCurrentPhotoPath;
+    static final int REQUEST_CODE = 4;
+    //String mCurrentPhotoPath;
     ImageView beerImage;
+    ImageView beerThumbnail;
     private static final String TAG = "CameraActivity";
 
     @Override
@@ -38,7 +41,7 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
-        //scalePicture();
+
 
     }
 
@@ -49,27 +52,21 @@ public class CameraActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dispatchTakePictureIntent();
-                        /*
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        //Check if phone has a camera
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
 
-                        }
-                        */
                     }
                 })
                 .setNeutralButton("Upload image", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(
-                                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
+
                     }
                 });
         AlertDialog alert = builder.create();
         alert.setTitle("Time to brew...");
         alert.show();
+
     }
 
 
@@ -92,7 +89,7 @@ public class CameraActivity extends AppCompatActivity {
             }
 
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this, "com.example.android.fileprovider", photoFile);
+                Uri photoURI = FileProvider.getUriForFile(this, "com.iths.manisedighi.brewlikes.FileProvider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
                 Log.d(TAG, "dispatchTakePictureIntent: this works");
@@ -101,11 +98,34 @@ public class CameraActivity extends AppCompatActivity {
 
     }
 
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+
+           /* Bundle extras = data.getExtras();
+            Bitmap beerPhoto = (Bitmap) extras.get("data");
+            beerThumbnail.setImageBitmap(beerPhoto);*/
+
+
+
+        }
+
+
+    }
+
+
     /**
      * Creates a collision-resistant name for the image file
      * @return the image with the new name
      * @throws IOException - if something goes wrong
      */
+
+    String mCurrentPhotoPath;
+
     public File createImageFile() throws IOException {
         // Create a name for the image file
         String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -138,10 +158,11 @@ public class CameraActivity extends AppCompatActivity {
      * TODO give mImageView the same name as the shown ImageView
      * To scale down the picture and then decode it.
      */
-    public void scalePicture() {
+
+    public Bitmap scalePicture(ImageView imageView) {
         //The dimensions of the View
-        int targetW = beerImage.getWidth();
-        int targetH = beerImage.getHeight();
+        int targetW = imageView.getWidth();
+        int targetH = imageView.getHeight();
 
         //The dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -159,8 +180,13 @@ public class CameraActivity extends AppCompatActivity {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        beerImage.setImageBitmap(bitmap);
+        //beerImage.setImageBitmap(bitmap);
+
+        return bitmap;
     }
+
+
+
 
     public void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();

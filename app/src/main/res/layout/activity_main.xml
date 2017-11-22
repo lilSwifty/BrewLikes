@@ -31,10 +31,6 @@
 
 
         <include layout="@layout/bottom_navigation">
-
         </include>
-
-
-
 
 </android.support.constraint.ConstraintLayout>

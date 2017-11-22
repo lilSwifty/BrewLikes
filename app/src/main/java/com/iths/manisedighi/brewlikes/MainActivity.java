@@ -15,7 +15,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Context context = MainActivity.this;
 
-    public CameraActivity cameraActivity;
+    //public CameraActivity cameraActivity;
+
+
 
 
     ImageView logo;
