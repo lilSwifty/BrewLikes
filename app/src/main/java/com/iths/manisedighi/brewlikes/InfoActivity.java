@@ -106,44 +106,25 @@ public class InfoActivity extends AppCompatActivity {
 
     private void onNavBackClick(View view){
         Log.d(TAG, "onNavBackClick: nav back clicked");
-        ivNavBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
                 /*Intent intent = new Intent(context, Categories.class);
                 startActivity(intent);*/
-            }
-        });
     }
 
     private void onShareClick(View view){
         Log.d(TAG, "onShareClick: share clicked.");
-        ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 //TODO here comes the upload to facebook
-            }
-        });
+
     }
 
     private void onEditClick(View view){
         Log.d(TAG, "onEditClick: edit clicked.");
-        ivEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 //TODO what happens here? Back to Ranking or a new view?
-
-            }
-        });
     }
 
     private void onLocationClick(View view){
         Log.d(TAG, "onLocationClick: location clicked.");
-        ivLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 //TODO takes you to map view
-            }
-        });
     }
 
 
