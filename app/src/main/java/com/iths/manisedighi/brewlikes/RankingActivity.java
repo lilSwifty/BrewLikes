@@ -45,15 +45,13 @@ public class RankingActivity extends AppCompatActivity {
     private EditText beerName;
 
 
-    //private Bitmap bitMap;
 
     static final int REQUEST_TAKE_PHOTO = 1337;
-    static final int RESULT_LOAD_IMAGE = 80085;
+    static final int RESULT_LOAD_IMAGE = 2;
     static final int REQUEST_CODE = 7175;
 
     private static final String TAG = "RankingActivity";
 
-    //CameraActivity cam;
 
 
     @Override
