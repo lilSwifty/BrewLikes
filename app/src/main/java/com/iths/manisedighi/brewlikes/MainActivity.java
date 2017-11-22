@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BottomNavigationBaseActivity {
 
     private Context context = MainActivity.this;
 
@@ -15,14 +15,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigation();
-    }
-
-    /**
-     * A method that sets up the bottom navigation
-     */
-    private void setupBottomNavigation(){
-        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
-        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
-        BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
     }
 }
