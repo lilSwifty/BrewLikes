@@ -34,8 +34,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private TextView tvInfo;
     private TextView tvLocation;
 
-    private Beer beer;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
@@ -48,10 +46,15 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         enableScrollFunction();
         //for the bottom navigation
         setupBottomNavigation();
-        //testing to create an instance of a beer
-        beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548");
-        //DBHelper helper = new DBHelper(context);
-        setupInfoView();
+    }
+
+    /**
+     * A method that sets up the bottom navigation
+     */
+    private void setupBottomNavigation(){
+        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
+        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
+        BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
     }
 
     /**
@@ -70,20 +73,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvRateScore = findViewById(R.id.tvRateScore);
         tvInfo = findViewById(R.id.tvInfo);
         tvLocation = findViewById(R.id.tvLocation);
-    }
-
-    /**
-     * method to show all the necessary information about your beer
-     * //TODO change beer.getName()N etc to the incoming parameter .id?
-     */
-    private void setupInfoView(){
-        Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        tvBeerName.setText(beer.getName());
-        tvPriceScore.setText(String.valueOf(beer.getPrice()));
-        tvTasteScore.setText(String.valueOf(beer.getTaste()));
-        tvInfo.setText(beer.getComment());
-        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
-        //tvLocation.setText(address??);
     }
 
     /**
