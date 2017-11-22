@@ -112,13 +112,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Get one beer from the database
+     * Get a beer from the database by its id
      * @param id id of the beer
      * @return beer
      */
-    public Beer getBeerById(int id) {
+    public Beer getBeerById(long id) {
         String selection = "_ID=?";
-        String[] selectionArgs = new String[] { Integer.toString(id) };
+        String[] selectionArgs = new String[] { Long.toString(id) };
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(BEER_TABLE,null, selection, selectionArgs, null, null, null);
         Beer beer = new Beer();
@@ -139,7 +139,6 @@ public class DBHelper extends SQLiteOpenHelper {
             //Se vilket Category Name CategoryId motsvara
             getBeerCategoryName(beer);
         }
-
         db.close();
         return beer;
     }
@@ -150,12 +149,10 @@ public class DBHelper extends SQLiteOpenHelper {
         //SELECT all FROM BEER_TABLE WHERE average =
     }
 
-    /*
-    public List<Beer> getBeersByCategory(long categoryId) {
+    public void getBeersByCategory(long categoryId) {
         //TODO Get all beers with certain category, sorted in descending order according to average points
-        return categoryList;
+        //Returns list
     }
-    */
 
     /**
      * Get all beers
@@ -183,13 +180,21 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
 
+                //Add category name of beer
                 beer.setCategoryName( getBeerCategoryName(beer) );
-
                 beerList.add(beer);
             } while (cursor.moveToNext());
         }
         db.close();
         return beerList;
+    }
+
+    /**
+     * Returns all categories in CATEGORY_TABLE
+     * @return Arraylist
+     */
+    public List<Category> getAllCategories() {
+
     }
 
     //Remove a beer from the database
