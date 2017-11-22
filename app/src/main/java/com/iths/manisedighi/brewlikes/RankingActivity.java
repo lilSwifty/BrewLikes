@@ -3,11 +3,13 @@ package com.iths.manisedighi.brewlikes;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,6 +51,7 @@ public class RankingActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 2;
     static final int RESULT_LOAD_IMAGE = 3;
     static final int REQUEST_CODE = 4;
+    static final int GALLERY_REQUEST = 5;
     private static final String TAG = "RankingActivity";
 
     //CameraActivity cam;
@@ -142,8 +146,13 @@ public class RankingActivity extends AppCompatActivity {
                 .setNeutralButton("Upload image", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
+                        /*
+                        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        i.setType("image");
+                        startActivityForResult(i, RESULT_LOAD_IMAGE);
+                        */
                     }
                 });
         AlertDialog alert = builder.create();
@@ -201,9 +210,43 @@ public class RankingActivity extends AppCompatActivity {
             addPictureToGallery();
         } else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             //TODO find path to gallery
+
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            ImageView imageView = (ImageView) findViewById(R.id.beerImage);
+
+            Bitmap bmp = null;
+
+            try {
+                bmp = getBitmapFromUri(selectedImage);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            imageView.setImageBitmap(bmp);
+
+
         }
 
+    }
 
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
     }
 
 

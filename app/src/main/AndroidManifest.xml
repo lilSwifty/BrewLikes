@@ -48,5 +48,7 @@
 
     <!--To be able to write to the external storage, for saving pictures to the gallery-->  
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
 </manifest>
