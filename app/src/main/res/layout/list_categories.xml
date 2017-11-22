@@ -11,7 +11,7 @@
         android:paddingBottom="2dp"
         android:paddingTop="2dp"
         android:paddingLeft="2dp"
-        android:textSize="24sp"
+        android:textSize="34sp"
         android:text="Heading"/>
 
 </android.support.constraint.ConstraintLayout>
