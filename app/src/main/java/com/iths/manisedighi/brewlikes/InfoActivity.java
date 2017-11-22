@@ -15,7 +15,7 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 /**
  * Created by Emma on 2017-11-15.
  */
-public class InfoActivity extends AppCompatActivity {
+public class InfoActivity extends BottomNavigationBaseActivity {
 
     private static final String TAG = "InfoActivity";
     private Context context = InfoActivity.this;
@@ -49,19 +49,9 @@ public class InfoActivity extends AppCompatActivity {
         //for the bottom navigation
         setupBottomNavigation();
         //testing to create an instance of a beer
-        beer = new Beer("Bubbles", 0,  4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548");
+        beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548");
         //DBHelper helper = new DBHelper(context);
         setupInfoView();
-    }
-
-    /**
-     * A method that sets up the bottom navigation
-     */
-    private void setupBottomNavigation(){
-        Log.d(TAG, "setupBottomNavigation: setting up Bottom Navigation.");
-        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
-        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
-        BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
     }
 
     /**
