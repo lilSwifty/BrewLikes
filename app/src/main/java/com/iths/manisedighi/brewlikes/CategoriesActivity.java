@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This activity contains the core for a listview page. It itemizes the list with setItems() method
+ * that builds the lists and uses HashMap to create array list with Category and item relation.
+ * The second class ExpandableListAdapter creates the mecanics of the list and the xml files
+ * list_categories and list_category items are used for the listview.
+ */
+
 public class CategoriesActivity extends AppCompatActivity {
     private Context context = CategoriesActivity.this;
     private static ExpandableListView expandableListView;
@@ -80,7 +87,7 @@ public class CategoriesActivity extends AppCompatActivity {
             });*/
 
         /**
-         * Outcommentted toast log that informs list expand and collapse for each category
+         * Outcommentted toast log that informs item selection inside expanded listview
          */
             /*// Listview on child click listener
             expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
