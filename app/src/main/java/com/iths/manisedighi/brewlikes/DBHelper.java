@@ -55,10 +55,8 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("COL_CATEGORY_NAME", "Unknown");
         db.insert(CATEGORY_TABLE, null, values);
-        //values = new ContentValues();
         values.put("COL_CATEGORY_NAME", "Lager");
         db.insert(CATEGORY_TABLE, null, values);
-        //values = new ContentValues();
         values.put("COL_CATEGORY_NAME", "Dark Lager");
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Ale");
@@ -77,7 +75,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Low and non-alcoholic");
         db.insert(CATEGORY_TABLE, null, values);
-        //db.close();
     }
 
     /**
@@ -114,14 +111,11 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("COL_BEER_IMAGE_PATH", beer.getPhotoPath());
         values.put("COL_BEER_LOCATION", beer.getLocation());
 
-        Log.d("MyLog", "Added values");
-
         //Insert() returns an id -> set this as the beer's id number
         long id = db.insert(BEER_TABLE,null, values);
         beer.setId(id);
         //Get the categoryName for the beer based on its categoryId
         beer.setCategoryName( getBeerCategoryName(beer) );
-        //db.close();
     }
 
     //ADD CATEGORY - If user wants to add a category.
@@ -296,10 +290,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 Category category = new Category();
                 category.setId(cursor.getLong(0));
                 category.setName(cursor.getString(1));
-
-                //Add beer to array
                 categoryList.add(category);
-
             } while (cursor.moveToNext());
         }
         cursor.close();
