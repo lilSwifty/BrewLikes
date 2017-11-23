@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private Context context = MainActivity.this;
