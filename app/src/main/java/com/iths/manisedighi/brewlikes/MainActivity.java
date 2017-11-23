@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
         private void init(){
-
+            //TODO - start map activity here with new Intent MapActivity.class
         }
 
         /**

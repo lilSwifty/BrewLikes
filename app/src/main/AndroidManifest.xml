@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- May need this as well
     <uses-feature android:name="android.hardware.location.gps" /> -->
@@ -20,6 +21,9 @@
         android:theme="@style/AppTheme">
 
         <!-- Meta data needed for the GPS to work -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
