@@ -138,18 +138,15 @@ public class RankingActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dispatchTakePictureIntent();
+
                     }
                 })
                 .setNeutralButton("Upload image", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(i, RESULT_LOAD_IMAGE);
-                        /*
                         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        i.setType("image");
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
-                        */
+
                     }
                 });
         AlertDialog alert = builder.create();
@@ -167,8 +164,6 @@ public class RankingActivity extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // To create a file to put the picture in
-
-
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
 
@@ -186,7 +181,6 @@ public class RankingActivity extends AppCompatActivity {
                 Log.d(TAG, "dispatchTakePictureIntent: this works");
             }
         }
-
 
     }
 
