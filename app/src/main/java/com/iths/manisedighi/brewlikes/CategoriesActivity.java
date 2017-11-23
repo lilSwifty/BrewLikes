@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
-import android.widget.ExpandableListView.OnGroupExpandListener;
-import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -54,7 +52,11 @@ public class CategoriesActivity extends AppCompatActivity {
                 }
             });
 
-            // Listview Group expanded listener
+
+        /**
+         * Outcommentted toast log that informs list expand and collapse for each category
+         */
+           /* // Listview Group expanded listener
             expandableListView.setOnGroupExpandListener(new OnGroupExpandListener() {
 
                 @Override
@@ -63,9 +65,9 @@ public class CategoriesActivity extends AppCompatActivity {
                             header.get(groupPosition) + " Expanded",
                             Toast.LENGTH_SHORT).show();
                 }
-            });
+            });*/
 
-            // Listview Group collasped listener
+            /*// Listview Group collasped listener
             expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
 
                 @Override
@@ -75,9 +77,12 @@ public class CategoriesActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
 
                 }
-            });
+            });*/
 
-            // Listview on child click listener
+        /**
+         * Outcommentted toast log that informs list expand and collapse for each category
+         */
+            /*// Listview on child click listener
             expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
                 @Override
@@ -94,7 +99,7 @@ public class CategoriesActivity extends AppCompatActivity {
                             .show();
                     return false;
                 }
-            });
+            });*/
         }
 
 
