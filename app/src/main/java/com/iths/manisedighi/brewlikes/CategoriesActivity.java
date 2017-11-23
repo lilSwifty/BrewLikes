@@ -15,9 +15,9 @@ import java.util.List;
 
 /**
  * This activity contains the core for a listview page. It itemizes the list with setItems() method
- * that builds the lists and uses HashMap to create array list with Category and item relation.
- * The second class ExpandableListAdapter creates the mecanics of the list and the xml files
- * list_categories and list_category items are used for the listview.
+ * that builds the lists and uses HashMap to create array list with category and item relation.
+ * The second class ExpandableListAdapter creates the mechanics of the list and the xml files:
+ * list_categories and list_category are used for the elements in the list.
  */
 
 public class CategoriesActivity extends AppCompatActivity {
