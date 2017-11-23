@@ -7,15 +7,15 @@ package com.iths.manisedighi.brewlikes;
 public class Beer {
 
     private long id;
-    private String name;
-    private String categoryName;
-    private int categoryId;
-    private float price;
-    private float taste;
-    private float average;
-    private String comment;
-    private String location;
-    private String photoPath; //file://.... <- path pointing to image
+    private String name = null;
+    private String categoryName = null;
+    private int categoryId = 0;
+    private float price = 0;
+    private float taste = 0;
+    private float average = 0;
+    private String comment = null;
+    private String location = null;
+    private String photoPath = null; //file://.... <- path pointing to image
 
     //Empty constructor
     public Beer() {}
