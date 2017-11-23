@@ -49,9 +49,13 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //for the bottom navigation
         setupBottomNavigation();
         //testing to create an instance of a beer
-        beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548");
-        //DBHelper helper = new DBHelper(context);
-        setupInfoView();
+        /*beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548", "RockCity, LA");
+        Beer beer2 = new Beer("SteamyPoison", 2, 5.6f, 10.0f, "Bästa ölen jag någonsin smakat", "https://", "Abyss, Göteborg");
+        DBHelper helper = new DBHelper(context);
+        helper.addBeer(beer);
+        beer = helper.getBeerById(beer.getId());*/
+
+        setupInfoView(beer);
     }
 
     /**
@@ -76,7 +80,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * method to show all the necessary information about your beer
      * //TODO change beer.getName()N etc to the incoming parameter .id?
      */
-    private void setupInfoView(){
+    private void setupInfoView(Beer beer){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
         tvBeerName.setText(beer.getName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
