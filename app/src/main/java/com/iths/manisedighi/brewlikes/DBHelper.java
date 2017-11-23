@@ -139,7 +139,6 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return String Name of the category
      */
     public String getBeerCategoryName(Beer beer) {
-        Log.d("MyLog", "In getBeerCategoryName method");
         int id = beer.getCategoryId();
 
         String selection = "_ID=?";
@@ -196,17 +195,34 @@ public class DBHelper extends SQLiteOpenHelper {
         //SELECT all FROM BEER_TABLE WHERE average =
     }
 
-    public List<Beer> getBeersByCategory(long categoryId) {
+    /**
+     * This method returns all beers within a certain category and ranks them according to their average score.
+     * @param categoryName Name of the beer category
+     * @return List of beers within category
+     */
+    public List<Beer> getBeersByCategory(String categoryName) {
         //TODO Get all beers with certain category, sorted in descending order according to average points
-        //Returns list
 
         List<Beer> beerList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
-        String selection = "COL_BEER_CATEGORY=?";
-        String[] selectionArgs = new String[] { Long.toString(categoryId) };
+        //STEP 1. Vad har categoryn för id nummer?
+        String selection = "COL_CATEGORY_NAME=?";
+        String[] selectionArgs = new String[] { categoryName };
 
-        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC");
+        Cursor cursor = db.query(CATEGORY_TABLE, null, selection, selectionArgs, null, null, null);
+
+        int id = 0;
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+
+        //STEP 2. Ta fram alla öl på basen at detta id nummer.
+        String selectionTwo = "COL_BEER_CATEGORY=?";
+        String[] selectionArgsTwo = new String[] { Integer.toString(id) };
+
+        cursor = db.query(BEER_TABLE, null, selectionTwo, selectionArgsTwo, null, null, "COL_BEER_AVERAGE DESC");
 
         boolean success = cursor.moveToFirst();
 
@@ -224,15 +240,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
 
-                //Add category name of beer
                 beer.setCategoryName( getBeerCategoryName(beer) );
+                //Bara för att testköra
+                Log.d("MyLog", "Added beer " + beer.getName() + " from category " + beer.getCategoryName() + ". Has rating: " + beer.getAverage());
 
-                //Add beer to array
                 beerList.add(beer);
             } while (cursor.moveToNext());
         }
-        //TODO GÖR KLART
-        //db.close();
+        cursor.close();
         return beerList;
     }
 
