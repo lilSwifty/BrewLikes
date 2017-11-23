@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
@@ -101,9 +100,9 @@ public class RankingActivity extends AppCompatActivity {
         // TODO: 2017-11-22 vilken position i listviewen som vi är på.
     }
 
-    private void onEditButtonClick(View view){
-        Intent intent = new Intent();
+    public void onEditButtonClick(View view){
         // TODO: 2017-11-22 starta om kameraaktiviteten, så att man får ta en ny bild
+        cameraLauncher();
     }
     /**
      * Saving the ranking-number of the taste.
@@ -140,6 +139,8 @@ public class RankingActivity extends AppCompatActivity {
         return beerComment.getText().toString();
     }
 
+
+
     public void cameraLauncher() {
         AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
         builder.setMessage("Please choose an alternative").setCancelable(false)
@@ -154,11 +155,6 @@ public class RankingActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
-                        /*
-                        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        i.setType("image");
-                        startActivityForResult(i, RESULT_LOAD_IMAGE);
-                        */
                     }
                 });
         AlertDialog alert = builder.create();
