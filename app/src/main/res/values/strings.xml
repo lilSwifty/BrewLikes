@@ -1,9 +1,19 @@
 <resources>
     <string name="app_name">BrewLikes</string>
+    <string name="pricerating">Price</string>
+    <string name="tasterating">Taste</string>
+    <string name="rankingComment">Comment the beer</string>
+    <string name="rankBeer">Rank the beer</string>
+    <string name="tasteAwful">Awful</string>
+    <string name="tastePerfect">Perfect</string>
+    <string name="priceExpensive">Expensive</string>
+    <string name="priceCheap">Cheap</string>
+    <string name="beerName">Name of the beer</string>
+    <string name="category">Category</string>
+    <string name="imageEdit">Edit</string>
 
     <!-- InfoActivity & BottomNavigation-->
 
-    <string name="category">Category</string>
     <string name="taste">Taste:</string>
     <string name="price">Price:</string>
     <string name="rate">Rate:</string>
