@@ -50,6 +50,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         enableScrollFunction();
         //for the bottom navigation
         setupBottomNavigation();
+        //to set up info about the beer
+        setupInfoView();
     }
 
     /**
@@ -73,19 +75,14 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * method to show all the necessary information about your beer
-     * //TODO change beer.getName()N etc to the incoming parameter .id?
+     * A method to show all the necessary information about a beer
+     *
      */
-    private void setupInfoView(Beer beer){
+    private void setupInfoView(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        /*tvBeerName.setText(beer.getName());
-        tvPriceScore.setText(String.valueOf(beer.getPrice()));
-        tvTasteScore.setText(String.valueOf(beer.getTaste()));
-        tvInfo.setText(beer.getComment());
-        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));*/
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
-        //tvLocation.setText(address??);
+        //TODO set up the info about the beer, takes info out from database
     }
 
     /**
@@ -102,9 +99,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onNavBackClick(View view){
         Log.d(TAG, "onNavBackClick: nav back clicked");
-
-                /*Intent intent = new Intent(context, Categories.class);
-                startActivity(intent);*/
+//            Intent intent = new Intent(context, Categories.class);
+//            startActivity(intent);
     }
 
     /**
@@ -135,7 +131,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A mehod thats saves the changed comment to the database
+     * A method that saves the changed comment to the database
      * @param view - the view being clicked and calling the method
      */
     public void onSaveClick(View view){
@@ -146,7 +142,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivLocation.setVisibility(View.VISIBLE);
         tvLocation.setVisibility(View.VISIBLE);
         ivSave.setVisibility(View.GONE);
-        //TODO save the new comment
+        //TODO save down the new comment to the database
     }
 
     /**
