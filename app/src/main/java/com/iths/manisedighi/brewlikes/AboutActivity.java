@@ -29,6 +29,8 @@ public class AboutActivity extends AppCompatActivity {
         line = findViewById(R.id.lineImageView);
         logo = findViewById(R.id.logoImageView);
         listView = findViewById(R.id.membersListView);
+        //Hides the BrewLikes text from the upper toolbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         /**
          * When BrewLikes logo in the toolbar is clicked it launches MainActivity.
