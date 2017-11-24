@@ -60,7 +60,7 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
                         break;
                     case R.id.ic_toplist:
                         item.setChecked(true);
-//                        Intent topListIntent = new Intent(context, ToplistActivity.class);
+//                        Intent topListIntent = new Intent(context, TopListActivity.class);
 //                        context.startActivity(topListIntent);
                         break;
                     case R.id.ic_mapview:
