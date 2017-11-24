@@ -1,12 +1,19 @@
 package com.iths.manisedighi.brewlikes;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
+    }
 
+        //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
+        public void onTestMapButtonClicked(View v){
+            if(isGpsServicesAvailable()){
+                initMapActivity();
+            }
+        }
     }
 
     /**
@@ -43,8 +57,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-        private void init(){
-            //TODO - start map activity here with new Intent MapActivity.class
+        //Initializes MapActivity
+        private void initMapActivity(){
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
         }
 
         /**
@@ -109,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
 
 
