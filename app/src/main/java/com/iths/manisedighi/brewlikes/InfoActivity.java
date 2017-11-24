@@ -144,6 +144,21 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
+     * A mehod thats saves the changed comment to the database
+     * @param view - the view being clicked and calling the method
+     */
+    public void onSaveClick(View view){
+        Log.d(TAG, "onSaveClick: save clicked.");
+        tvInfo.setVisibility(View.VISIBLE);
+        etInfo.setVisibility(View.GONE);
+        ivEdit.setVisibility(View.VISIBLE);
+        ivLocation.setVisibility(View.VISIBLE);
+        tvLocation.setVisibility(View.VISIBLE);
+        ivSave.setVisibility(View.GONE);
+        //TODO save the new comment
+    }
+
+    /**
      * A method that shows the beer in the map view
      * @param view - the view being clicked and calling the method
      */
