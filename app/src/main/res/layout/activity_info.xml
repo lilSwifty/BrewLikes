@@ -28,7 +28,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="@string/beerName"
+            android:text="Beer"
             android:textAllCaps="true"
             android:textColor="@color/black"
             android:textSize="36sp"
@@ -41,13 +41,15 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="120dp"
+            android:layout_marginStart="200dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="12dp"
             android:onClick="onNavBackClick"
             android:src="@drawable/ic_left_arrow"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
     </android.support.v7.widget.Toolbar>
 
@@ -74,7 +76,7 @@
         android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/ivBeer"
-        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />/>
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
     <TextView
         android:id="@+id/tvPrice"
