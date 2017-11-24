@@ -122,6 +122,12 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onEditClick(View view){
         Log.d(TAG, "onEditClick: edit clicked.");
+        tvInfo.setVisibility(View.GONE);
+        etInfo.setVisibility(View.VISIBLE);
+        ivEdit.setVisibility(View.GONE);
+        ivLocation.setVisibility(View.GONE);
+        tvLocation.setVisibility(View.GONE);
+        ivSave.setVisibility(View.VISIBLE);
         //etInfo.setText(beer.getComment());
 
                 //TODO what happens here? Back to Ranking or a new view?
