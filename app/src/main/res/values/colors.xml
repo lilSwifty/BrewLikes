@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- colors for the bottom navigation -->
+
     <color name="black">#000000</color>
     <color name="beer">#ff9800</color>
     <color name="darkGrey">#535457</color>
