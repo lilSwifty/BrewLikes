@@ -1,19 +1,21 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,9 +31,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigation();
+        //Copy and paste this toolbar to every activity!
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
+        //Hides the BrewLikes text from the upper toolbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
         //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
@@ -40,21 +45,14 @@ public class MainActivity extends AppCompatActivity {
                 initMapActivity();
             }
         }
-    }
 
     /**
      * A method that sets up the bottom navigation
      */
-
     private void setupBottomNavigation(){
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
         BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
         BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
-
-
-        if(isGpsServicesAvailable()){
-            init();
-        }
     }
 
         //Initializes MapActivity
