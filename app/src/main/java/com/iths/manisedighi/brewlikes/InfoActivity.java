@@ -71,6 +71,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivShare = findViewById(R.id.ivShare);
         ivEdit = findViewById(R.id.ivEdit);
         ivLocation = findViewById(R.id.ivLocation);
+        ivSave = findViewById(R.id.ivSave);
         tvBeerName = findViewById(R.id.tvBeerName);
         tvCategory = findViewById(R.id.tvCategory);
         tvPriceScore = findViewById(R.id.tvPriceScore);
