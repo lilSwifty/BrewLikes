@@ -17,5 +17,5 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
     </com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx>
-    
+
 </merge>
