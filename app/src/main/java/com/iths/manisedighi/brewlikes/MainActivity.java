@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -30,14 +31,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
-
-        if(isGpsServicesAvailable()){
-            init();
-        }
     }
 
-        private void init(){
-            //TODO - start map activity here with new Intent MapActivity.class
+        //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
+        public void onTestMapButtonClicked(View v){
+            if(isGpsServicesAvailable()){
+                initMapActivity();
+            }
+        }
+
+        //Initializes MapActivity
+        private void initMapActivity(){
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
         }
 
         /**

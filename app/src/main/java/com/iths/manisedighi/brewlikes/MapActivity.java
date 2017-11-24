@@ -116,7 +116,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     /**
-     * Initilizes the map
+     * Initializes the map
      */
     private void initializeMap(){
         Log.d(TAG, "initializeMap: initializing map");
