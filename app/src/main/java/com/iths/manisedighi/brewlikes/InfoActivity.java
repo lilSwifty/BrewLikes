@@ -78,11 +78,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     private void setupInfoView(Beer beer){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        tvBeerName.setText(beer.getName());
+        /*tvBeerName.setText(beer.getName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvInfo.setText(beer.getComment());
-        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
+        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));*/
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
         //tvLocation.setText(address??);
