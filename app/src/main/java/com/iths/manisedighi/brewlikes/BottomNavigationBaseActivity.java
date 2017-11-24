@@ -55,7 +55,7 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
                         break;
                     case R.id.ic_category:
                         item.setChecked(true);
-//                        Intent categoryIntent = new Intent(context, CategoryActivity.class);
+//                        Intent categoryIntent = new Intent(context, CategoriesActivity.class);
 //                        context.startActivity(categoryIntent);
                         break;
                     case R.id.ic_toplist:
