@@ -40,10 +40,6 @@
         <activity android:name=".CameraActivity" />
         <activity android:name=".AboutActivity"/>
         <activity android:name=".MapActivity"></activity>
-        <activity android:name=".CameraActivity"/>
-        <activity android:name=".AboutActivity">
-
-        </activity>
 
         <provider
             android:authorities="com.iths.manisedighi.brewlikes.FileProvider"
