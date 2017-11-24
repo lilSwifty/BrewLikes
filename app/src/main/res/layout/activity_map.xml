@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,5 +11,40 @@
         android:id="@+id/map"
         tools:context=".MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <!-- Layout for the search field -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:elevation="10dp"
+        android:background="@drawable/white_border_search_field"
+        android:id="@+id/relativeLayoutSearchBar">
+
+        <!-- The magnifying glass icon i the search bar -->
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/ic_magnifying_glass"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_magnifying_glass"/>
+
+        <!-- The text field that user writes in to search for a specific location -->
+        <EditText
+            android:id="@+id/searchFieldTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/ic_magnifying_glass"
+            android:background="@null"
+            android:hint="@string/searchTextView"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:text="Search address here" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
