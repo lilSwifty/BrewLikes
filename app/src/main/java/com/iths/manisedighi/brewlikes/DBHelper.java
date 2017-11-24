@@ -3,6 +3,7 @@ package com.iths.manisedighi.brewlikes;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -185,18 +186,86 @@ public class DBHelper extends SQLiteOpenHelper {
                 getBeerCategoryName(beer);
             } while (cursor.moveToNext());
         }
-        //db.close();
+        cursor.close();
         return beer;
     }
 
-    public void getTopList() {
-        //TODO Return descending list of beers with 10 highest ratings
-        //ORDER BY ... DESC LIMIT 10
-        //SELECT all FROM BEER_TABLE WHERE average =
+    /**
+     * Returns a top list of beers according to their average points.
+     * @return array list with top ranked beers
+     */
+    public List<Beer> getTopList() {
+        Log.d("MyLog", "In getTopList method");
+
+        List<Beer> topList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        long entries = DatabaseUtils.queryNumEntries(db, BEER_TABLE);
+        String e = Long.toString(entries);
+        Log.d("MyLog", "Entries: " + entries);
+
+        //If user has entered more than 10 beers -> Get top 10.
+        if (entries >= 10) {
+            Cursor cursor = db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT 10");
+            boolean success = cursor.moveToFirst();
+
+            if (success) {
+                do {
+                    Beer beer = new Beer();
+                    beer.setId(cursor.getLong(0));
+                    beer.setName(cursor.getString(1));
+                    beer.setCategoryId(cursor.getInt(2));
+                    beer.setPrice(cursor.getFloat(3));
+                    beer.setTaste(cursor.getFloat(4));
+                    beer.setAverage(cursor.getFloat(5));
+                    beer.setComment(cursor.getString(6));
+                    beer.setPhotoPath(cursor.getString(7));
+                    beer.setLocation(cursor.getString(8));
+
+                    beer.setCategoryName( getBeerCategoryName(beer) );
+
+                    //Add beer to array
+                    topList.add(beer);
+                    //For testing
+                    Log.d("MyLog", "Beer: " + beer.getName() + ", rating: " + beer.getAverage());
+                } while(cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        //If user has entered fewer than 10 beers -> Get all.
+        else if (entries < 10){
+            Cursor cursor = db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT " +entries);
+            boolean success = cursor.moveToFirst();
+
+            if (success) {
+                do {
+                    Beer beer = new Beer();
+                    beer.setId(cursor.getLong(0));
+                    beer.setName(cursor.getString(1));
+                    beer.setCategoryId(cursor.getInt(2));
+                    beer.setPrice(cursor.getFloat(3));
+                    beer.setTaste(cursor.getFloat(4));
+                    beer.setAverage(cursor.getFloat(5));
+                    beer.setComment(cursor.getString(6));
+                    beer.setPhotoPath(cursor.getString(7));
+                    beer.setLocation(cursor.getString(8));
+
+                    beer.setCategoryName( getBeerCategoryName(beer) );
+
+                    //Add beer to array
+                    topList.add(beer);
+                    //For testing
+                    Log.d("MyLog", "Beer: " + beer.getName() + ", rating: " + beer.getAverage());
+                } while(cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        //cursor.close();
+        return topList;
     }
 
     /**
-     * This method returns all beers within a certain category and ranks them according to their average score.
+     * Returns all beers within a certain category and ranks them according to their average score.
      * @param categoryName Name of the beer category
      * @return List of beers within category
      */
@@ -206,7 +275,7 @@ public class DBHelper extends SQLiteOpenHelper {
         List<Beer> beerList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
-        //STEP 1. Vad har categoryn för id nummer?
+        //STEP 1. What id/row nr does the category name have?
         String selection = "COL_CATEGORY_NAME=?";
         String[] selectionArgs = new String[] { categoryName };
 
@@ -218,7 +287,7 @@ public class DBHelper extends SQLiteOpenHelper {
             id = cursor.getInt(0);
         }
 
-        //STEP 2. Ta fram alla öl på basen at detta id nummer.
+        //STEP 2. Use id from STEP 1 to return all beers within said category.
         String selectionTwo = "COL_BEER_CATEGORY=?";
         String[] selectionArgsTwo = new String[] { Integer.toString(id) };
 
@@ -284,7 +353,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 beerList.add(beer);
             } while (cursor.moveToNext());
         }
-        //db.close();
+        cursor.close();
         return beerList;
     }
 
@@ -312,6 +381,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return categoryList;
     }
 
+    //TODO TEST RUN - NO DONE
     //Remove a beer from the database
     //Returns the nr of affected rows/deleted rows. If nothing deleted, returns 0.
     public boolean removeBeer(Beer beer) {
@@ -325,7 +395,6 @@ public class DBHelper extends SQLiteOpenHelper {
        //whereClaus = on what basis do we want to delete data.
        //? replaced with third argument value, ie. selectionArgs
        int result = db.delete(BEER_TABLE, "_ID=?", selectionArgs);
-       //db.close();
 
        return result == 1;
     }
