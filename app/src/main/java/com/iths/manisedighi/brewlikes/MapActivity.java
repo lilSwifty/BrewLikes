@@ -2,6 +2,8 @@ package com.iths.manisedighi.brewlikes;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,6 +12,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -19,8 +26,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by moalenngren on 2017-11-22.
@@ -46,12 +58,61 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
 
+    //Widgets
+    private EditText searchText;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        searchText = (EditText) findViewById(R.id.searchFieldText);
         getLocationPermission();
+    }
+
+    /**
+     * Initializes the search and overrides the "enter button" to be a search button
+     * Also calls the method geoLocate() that tries to locate the text
+     */
+    public void initializeSearch(){
+        Log.d(TAG, "initializeSearch: initializing the search function");
+
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
+               if(actionId == EditorInfo.IME_ACTION_SEARCH
+                       || actionId == EditorInfo.IME_ACTION_DONE
+                       || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                       || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
+
+                   geoLocate();
+               }
+                return false;
+            }
+        });
+    }
+
+    /**
+     * Takes the string user entered in the search field and tries to find a location for it
+     */
+    private void geoLocate(){
+        Log.d(TAG, "geoLocate: geolocating");
+        String searchString = searchText.getText().toString();
+
+        Geocoder geocoder = new Geocoder(MapActivity.this);
+        List<Address> list = new ArrayList<>();
+
+        try{
+            list = geocoder.getFromLocationName(searchString, 1);
+        }catch(IOException e){
+            Log.e(TAG, "geoLocate: IOException: " + e.getMessage());
+        }
+
+        if(list.size() > 0){
+            Address address = list.get(0);
+            Log.d(TAG, "geoLocate: Found the location: " + address.toString());
+            //Sends the address to the moveMapLocation to change the map view to that address
+            moveMapToLocation(new LatLng(address.getLatitude(), address.getLongitude()), DEFAULT_ZOOM, address.getAddressLine(0));
+        }
     }
 
     /**
@@ -70,7 +131,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             Log.d(TAG, "getDeviceLocation: found device location");
                             Location currentLocation = (Location) task.getResult();
-                            moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM);
+                            moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
                         } else {
                             Log.d(TAG, "getDeviceLocation: couldn't find device location (null)");
                             Toast.makeText(MapActivity.this, "Couldn't get device location", Toast.LENGTH_SHORT).show();
@@ -88,9 +149,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * @param latLng - The latitude and longitude for the current location
      * @param zoom - The possibility to zoom in and out of the map
      */
-    private void moveMapToLocation(LatLng latLng, float zoom) {
+    private void moveMapToLocation(LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveMapTpLocation: moving the map to current location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        //Passes the arguments to the drop pin method
+        dropPin(latLng, zoom, title);
+    }
+
+    private void dropPin(LatLng latLng, float zoom, String title){
+        if(title != "My Location"){
+            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
+            mMap.addMarker(markerOptions);
+        }
+
     }
 
     /**
@@ -104,14 +175,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if (locationPermissionsGranted) {
             getDeviceLocation();
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                    (this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
             mMap.setMyLocationEnabled(true);
             //If you want to hide the "myLocationButton" up in the right corner
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
+            initializeSearch();
         }
     }
 
@@ -170,10 +244,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     initializeMap();
                 }
             }
-
-
         }
+    }
 
+    /**
+     * Hides the keyboard 
+     */
+    private void hideKeyboard(){
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 }
