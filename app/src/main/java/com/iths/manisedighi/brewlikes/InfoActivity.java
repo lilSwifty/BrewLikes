@@ -52,14 +52,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         enableScrollFunction();
         //for the bottom navigation
         setupBottomNavigation();
-        //testing to create an instance of a beer
-        //beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548", "RockCity, LA");
-        /*Beer beer2 = new Beer("SteamyPoison", 2, 5.6f, 10.0f, "Bästa ölen jag någonsin smakat", "https://", "Abyss, Göteborg");
-        DBHelper helper = new DBHelper(context);
-        helper.addBeer(beer);
-        beer = helper.getBeerById(beer.getId());*/
-
-        setupInfoView(beer);
+        //to set up info about the beer
+        setupInfoView();
     }
 
     /**
@@ -83,19 +77,14 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * method to show all the necessary information about your beer
-     * //TODO change beer.getName()N etc to the incoming parameter .id?
+     * A method to show all the necessary information about a beer
+     *
      */
-    private void setupInfoView(Beer beer){
+    private void setupInfoView(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        /*tvBeerName.setText(beer.getName());
-        tvPriceScore.setText(String.valueOf(beer.getPrice()));
-        tvTasteScore.setText(String.valueOf(beer.getTaste()));
-        tvInfo.setText(beer.getComment());
-        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));*/
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
-        //tvLocation.setText(address??);
+        //TODO set up the info about the beer, takes info out from database
     }
 
     /**
@@ -112,9 +101,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onNavBackClick(View view){
         Log.d(TAG, "onNavBackClick: nav back clicked");
-
-                /*Intent intent = new Intent(context, Categories.class);
-                startActivity(intent);*/
+//            Intent intent = new Intent(context, Categories.class);
+//            startActivity(intent);
     }
 
     /**
@@ -139,13 +127,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivLocation.setVisibility(View.GONE);
         tvLocation.setVisibility(View.GONE);
         ivSave.setVisibility(View.VISIBLE);
-        //etInfo.setText(beer.getComment());
-
-                //TODO what happens here? Back to Ranking or a new view?
+        //TODO get the comment about the beer to edit
     }
 
     /**
-     * A mehod thats saves the changed comment to the database
+     * A method that saves the changed comment to the database
      * @param view - the view being clicked and calling the method
      */
     public void onSaveClick(View view){
@@ -156,7 +142,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivLocation.setVisibility(View.VISIBLE);
         tvLocation.setVisibility(View.VISIBLE);
         ivSave.setVisibility(View.GONE);
-        //TODO save the new comment
+        //TODO save down the new comment to the database
     }
 
     /**
