@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private ImageView ivShare;
     private ImageView ivEdit;
     private ImageView ivLocation;
+    private ImageView ivSave;
 
     private TextView tvBeerName;
     private TextView tvCategory;
@@ -33,6 +35,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private TextView tvRateScore;
     private TextView tvInfo;
     private TextView tvLocation;
+
+    private EditText etInfo;
 
     private Beer beer;
 
@@ -49,8 +53,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //for the bottom navigation
         setupBottomNavigation();
         //testing to create an instance of a beer
-        /*beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548", "RockCity, LA");
-        Beer beer2 = new Beer("SteamyPoison", 2, 5.6f, 10.0f, "Bästa ölen jag någonsin smakat", "https://", "Abyss, Göteborg");
+        beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548", "RockCity, LA");
+        /*Beer beer2 = new Beer("SteamyPoison", 2, 5.6f, 10.0f, "Bästa ölen jag någonsin smakat", "https://", "Abyss, Göteborg");
         DBHelper helper = new DBHelper(context);
         helper.addBeer(beer);
         beer = helper.getBeerById(beer.getId());*/
@@ -74,6 +78,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvRateScore = findViewById(R.id.tvRateScore);
         tvInfo = findViewById(R.id.tvInfo);
         tvLocation = findViewById(R.id.tvLocation);
+        etInfo = findViewById(R.id.etInfo);
     }
 
     /**
@@ -87,6 +92,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvInfo.setText(beer.getComment());
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
+        etInfo.setVisibility(View.GONE);
+        ivSave.setVisibility(View.GONE);
         //tvLocation.setText(address??);
     }
 
@@ -125,6 +132,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onEditClick(View view){
         Log.d(TAG, "onEditClick: edit clicked.");
+        //etInfo.setText(beer.getComment());
+
                 //TODO what happens here? Back to Ranking or a new view?
     }
 
