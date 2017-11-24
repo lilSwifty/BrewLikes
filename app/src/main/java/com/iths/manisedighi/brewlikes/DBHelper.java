@@ -114,14 +114,12 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("COL_BEER_IMAGE_PATH", beer.getPhotoPath());
         values.put("COL_BEER_LOCATION", beer.getLocation());
 
-        Log.d("MyLog", "Added values");
-
         //Insert() returns an id -> set this as the beer's id number
         long id = db.insert(BEER_TABLE,null, values);
         beer.setId(id);
         //Get the categoryName for the beer based on its categoryId
         beer.setCategoryName( getBeerCategoryName(beer) );
-        //db.close();
+
     }
 
     //ADD CATEGORY
@@ -138,6 +136,21 @@ public class DBHelper extends SQLiteOpenHelper {
         category.setName(categoryName);
 
         //db.close();
+    /**
+     * Get the category name of the beer from the CATEGORY_TABLE
+     * @param beer
+     * @return beer
+     */
+    public String getBeerCategoryName(Beer beer) {
+        long id = beer.getId();
+
+        String selection = "_ID=?";
+        String[] selectionArgs = new String[] { Float.toString(id) };
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(CATEGORY_TABLE, null, selection, selectionArgs, null, null, null);
+
+        String categoryName = cursor.getString(1);
+        return categoryName;
     }
 
     /**
@@ -250,6 +263,62 @@ public class DBHelper extends SQLiteOpenHelper {
      * Get all beers
      * @return List with all beers
      */
+    /**
+     * Get a beer from the database by its id
+     * @param id id of the beer
+     * @return beer
+     */
+    public Beer getBeerById(long id) {
+        String selection = "_ID=?";
+        String[] selectionArgs = new String[] { Long.toString(id) };
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(BEER_TABLE,null, selection, selectionArgs, null, null, null);
+        Beer beer = new Beer();
+
+        boolean success = cursor.moveToFirst();
+
+        if (success) {
+            beer.setId(cursor.getLong(0));
+            beer.setName(cursor.getString(1));
+            beer.setCategoryId(cursor.getInt(2));
+            beer.setPrice(cursor.getFloat(3));
+            beer.setTaste(cursor.getFloat(4));
+            beer.setAverage(cursor.getFloat(5));
+            beer.setComment(cursor.getString(6));
+            beer.setPhotoPath(cursor.getString(7));
+            beer.setLocation(cursor.getString(8));
+
+            //Se vilket Category Name CategoryId motsvara
+            getBeerCategoryName(beer);
+        }
+        db.close();
+        return beer;
+    }
+
+    public void getTopList() {
+        //TODO Return descending list of beers with 10 highest ratings
+        //ORDER BY ... DESC LIMIT 10
+        //SELECT all FROM BEER_TABLE WHERE average =
+    }
+
+    public void getBeersByCategory(long categoryId) {
+        //TODO Get all beers with certain category, sorted in descending order according to average points
+        //Returns list
+
+        List<Beer> beerList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+
+        String selection = "COL_BEER_CATEGORY=?";
+        String[] selectionArgs = new String[] { Long.toString(categoryId) };
+
+        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, null);
+
+    }
+
+    /**
+     * Get all beers
+     * @return List with all beers
+     */
     public List<Beer> getAllBeers() {
         List<Beer> beerList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
@@ -329,5 +398,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void editBeer() {
         //TODO Method for editing a beer entry
+
+
     }
 }

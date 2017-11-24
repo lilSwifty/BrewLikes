@@ -38,7 +38,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private EditText etInfo;
 
-    private Beer beer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +86,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //TODO set up the info about the beer, takes info out from database
     }
 
+
     /**
      * a method that enables the scroll function in the TextView tvInfo
      */
@@ -105,6 +105,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 //            startActivity(intent);
     }
 
+
     /**
      * A method that share picture on FaceBook
      * @param view - the view being clicked and calling the method
@@ -112,8 +113,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     public void onShareClick(View view){
         Log.d(TAG, "onShareClick: share clicked.");
                 //TODO here comes the upload to facebook
-
-    }
 
     /**
      * A method that edits the comment about a beer
