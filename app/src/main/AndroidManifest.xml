@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RankingActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".InfoActivity"></activity>
+        <activity android:name=".InfoActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".RankingActivity"></activity>
         <activity android:name=".CameraActivity"></activity>
     </application>
 
