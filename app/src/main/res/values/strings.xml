@@ -20,4 +20,7 @@
     <string name="home">Home</string>
     <string name="topList">TopList</string>
     <string name="mapView">MapView</string>
+
+    <!-- end of InfoActivity & BottomNavigation -->
+
 </resources>
