@@ -110,7 +110,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
             mMap.setMyLocationEnabled(true);
             //If you want to hide the "myLocationButton" up in the right corner
-            //mMap.getUiSettings().setMyLocationButtonEnabled(false);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
             // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
         }
     }
