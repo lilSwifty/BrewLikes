@@ -18,8 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +32,9 @@ import java.util.Date;
 public class RankingActivity extends AppCompatActivity {
     private ImageView beerImage;
     private TextView tasteText;
-    private RatingBar tasteRate;
+    private SeekBar tasteBar;
     private TextView priceText;
-    private RatingBar priceRate;
+    private SeekBar priceBar;
     private EditText beerComment;
     private Button rankingButton;
     private TextView awfulText;
@@ -72,9 +72,9 @@ public class RankingActivity extends AppCompatActivity {
     private void findViews(){
         beerImage = findViewById(R.id.beerImage);
         tasteText = findViewById(R.id.tasteText);
-        tasteRate = findViewById(R.id.tasteRate);
+        tasteBar = findViewById(R.id.tasteBar);
         priceText = findViewById(R.id.priceText);
-        priceRate = findViewById(R.id.priceRate);
+        priceBar = findViewById(R.id.priceBar);
         beerComment = findViewById(R.id.beerComment);
         rankingButton = findViewById(R.id.rankingButton);
         awfulText = findViewById(R.id.awfulText);
@@ -92,16 +92,14 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      */
     private void onRankingButtonClick(View view){
+        // TODO: lägg till en check på vart i seekbaren som vi är
 
-        float taste = saveTasteRate(view);
-        float price = savePriceRate(view);
         String name = saveBeerName(view);
         String comment = saveBeerComment(view);
-        // TODO: 2017-11-22 vilken position i listviewen som vi är på.
+        // TODO:  vilken position i listviewen som vi är på.
     }
 
     public void onEditButtonClick(View view){
-        // TODO: 2017-11-22 starta om kameraaktiviteten, så att man får ta en ny bild
         cameraLauncher();
     }
     /**
@@ -109,19 +107,21 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      * @return a float for the number of stars filled in.
      */
+    /*
     private float saveTasteRate(View view){
-        return tasteRate.getRating();
-    }
 
+    }
+*/
     /**
      * Saving the ranking-number of the price.
      * @param view
      * @return a float for the number of stars filled in.
      */
+  /*
     private float savePriceRate(View view){
-        return priceRate.getRating();
-    }
 
+    }
+*/
     /**
      * Saving the name of the beer.
      * @param view
