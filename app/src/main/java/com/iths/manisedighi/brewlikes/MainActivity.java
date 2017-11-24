@@ -17,6 +17,5 @@ public class MainActivity extends BottomNavigationBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupBottomNavigation();
-
     }
 }
