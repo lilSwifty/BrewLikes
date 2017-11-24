@@ -15,7 +15,7 @@
         android:layout_height="55dp"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="56dp"
         android:background="@color/beer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
