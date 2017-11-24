@@ -53,7 +53,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //for the bottom navigation
         setupBottomNavigation();
         //testing to create an instance of a beer
-        beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548", "RockCity, LA");
+        //beer = new Beer("Bubbles", 0, 4.0f, 6.0f, "Godare öl får man leta efter, namnam.", "https://vignette.wikia.nocookie.net/fantendo/images/e/e5/Super_Mario_%21.png/revision/latest?cb=20131217020548", "RockCity, LA");
         /*Beer beer2 = new Beer("SteamyPoison", 2, 5.6f, 10.0f, "Bästa ölen jag någonsin smakat", "https://", "Abyss, Göteborg");
         DBHelper helper = new DBHelper(context);
         helper.addBeer(beer);
@@ -88,11 +88,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     private void setupInfoView(Beer beer){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        tvBeerName.setText(beer.getName());
+        /*tvBeerName.setText(beer.getName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvInfo.setText(beer.getComment());
-        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
+        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));*/
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
         //tvLocation.setText(address??);
