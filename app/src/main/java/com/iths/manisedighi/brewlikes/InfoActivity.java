@@ -110,9 +110,10 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * A method that share picture on FaceBook
      * @param view - the view being clicked and calling the method
      */
-    public void onShareClick(View view){
+    public void onShareClick(View view) {
         Log.d(TAG, "onShareClick: share clicked.");
-                //TODO here comes the upload to facebook
+        //TODO here comes the upload to facebook
+    }
 
     /**
      * A method that edits the comment about a beer
