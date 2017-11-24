@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private ImageView ivShare;
     private ImageView ivEdit;
     private ImageView ivLocation;
+    private ImageView ivSave;
 
     private TextView tvBeerName;
     private TextView tvCategory;
@@ -33,6 +35,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private TextView tvRateScore;
     private TextView tvInfo;
     private TextView tvLocation;
+
+    private EditText etInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +68,23 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvRateScore = findViewById(R.id.tvRateScore);
         tvInfo = findViewById(R.id.tvInfo);
         tvLocation = findViewById(R.id.tvLocation);
+        etInfo = findViewById(R.id.etInfo);
+    }
+
+    /**
+     * method to show all the necessary information about your beer
+     * //TODO change beer.getName()N etc to the incoming parameter .id?
+     */
+    private void setupInfoView(Beer beer){
+        Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
+        tvBeerName.setText(beer.getName());
+        tvPriceScore.setText(String.valueOf(beer.getPrice()));
+        tvTasteScore.setText(String.valueOf(beer.getTaste()));
+        tvInfo.setText(beer.getComment());
+        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
+        etInfo.setVisibility(View.GONE);
+        ivSave.setVisibility(View.GONE);
+        //tvLocation.setText(address??);
     }
 
     /**
@@ -101,6 +122,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onEditClick(View view){
         Log.d(TAG, "onEditClick: edit clicked.");
+        //etInfo.setText(beer.getComment());
+
                 //TODO what happens here? Back to Ranking or a new view?
     }
 
