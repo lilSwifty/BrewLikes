@@ -41,9 +41,9 @@
 
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/brewlikes_fid"/>
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider311762962671719"
+        <provider android:authorities="com.facebook.app.FacebookContentProvider{@string/brewlikes_fid}"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
 
