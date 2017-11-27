@@ -276,7 +276,36 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     */
 
-    //TODO RETURN CURSOR
+    /**
+     * Returns a Cursor that points at individual beers within a certain beer category.
+     * @param categoryName Name of the category that one wants to get beers from.
+     * @return a Cursor with beers within the given beer category.
+     */
+    public Cursor getBeersByCategoryCursor(String categoryName) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        //STEP 1. What id/row does the category name have?
+        String selection = "COL_CATEGORY_NAME=?";
+        String[] selectionArgs = new String[] {categoryName};
+
+        Cursor cursor = db.query(CATEGORY_TABLE, null, selection, selectionArgs, null, null, null);
+
+        int id = 0;
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+
+        //Close cursor here??
+        cursor.close();
+
+        //STEP 2. Use ID from Step 1 to return all beers within that category.
+        String selectionTwo = "COL_BEER_CATEGORY=?";
+        String[] selectionArgsTwo = new String[] {Integer.toString(id)};
+
+        return db.query(BEER_TABLE, null, selectionTwo, selectionArgsTwo, null, null, "COL_BEER_AVERAGE DESC");
+    }
+
     /**
      * Returns all beers within a certain category and ranks them according to their average score.
      * @param categoryName Name of the beer category
