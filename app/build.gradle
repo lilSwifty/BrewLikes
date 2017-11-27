@@ -44,9 +44,7 @@ dependencies {
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     implementation 'com.google.android.gms:play-services-maps:11.6.0'
 
-    implementation 'com.android.support:design:26.1.0'
-
     //facebook support
-    compile 'com.facebook.android:facebook-android-sdk:4.6.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.8.0'
 
 }
