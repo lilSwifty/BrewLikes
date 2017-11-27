@@ -22,7 +22,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Context context = InfoActivity.this;
 
     private ImageView ivBeer;
-    private ImageView ivNavBack;
     private ImageView ivShare;
     private ImageView ivEdit;
     private ImageView ivLocation;
@@ -59,7 +58,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     private void findViews(){
         ivBeer = findViewById(R.id.ivBeer);
-        ivNavBack = findViewById(R.id.ivNavBack);
         ivShare = findViewById(R.id.ivShare);
         ivEdit = findViewById(R.id.ivEdit);
         ivLocation = findViewById(R.id.ivLocation);
@@ -112,8 +110,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //TODO here comes the upload to facebook
     }
 
-    }
-
     /**
      * A method that edits the comment about a beer
      * @param view - the view being clicked and calling the method
@@ -127,8 +123,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvLocation.setVisibility(View.GONE);
         ivSave.setVisibility(View.VISIBLE);
         //etInfo.setText(beer.getComment());
-
-                //TODO what happens here? Back to Ranking or a new view?
+        //TODO get the comment about the beer to edit
     }
 
     /**
@@ -152,7 +147,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onLocationClick(View view){
         Log.d(TAG, "onLocationClick: location clicked.");
-                //TODO takes you to map view
+        //TODO takes you to map view
     }
 
 
