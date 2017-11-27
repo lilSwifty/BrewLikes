@@ -2,9 +2,7 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -13,6 +11,8 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 /**
  * Created by emmapersson on 2017-11-22.
+ *
+ * A class to setup and handle the BottomNavigation
  */
 
 public class BottomNavigationBaseActivity extends AppCompatActivity {
