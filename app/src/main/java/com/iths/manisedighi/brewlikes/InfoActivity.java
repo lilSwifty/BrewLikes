@@ -2,11 +2,14 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.InstrumentationInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +25,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Context context = InfoActivity.this;
 
     private ImageView ivBeer;
-    private ImageView ivNavBack;
     private ImageView ivShare;
     private ImageView ivEdit;
     private ImageView ivLocation;
@@ -52,6 +54,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //for the bottom navigation
         setupBottomNavigation();
         //to set up info about the beer
+        //TODO this beer comes from the categories activity
         setupInfoView();
     }
 
@@ -60,7 +63,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     private void findViews(){
         ivBeer = findViewById(R.id.ivBeer);
-        ivNavBack = findViewById(R.id.ivNavBack);
         ivShare = findViewById(R.id.ivShare);
         ivEdit = findViewById(R.id.ivEdit);
         ivLocation = findViewById(R.id.ivLocation);
@@ -83,6 +85,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
+
         //TODO set up the info about the beer, takes info out from database
     }
 
@@ -127,6 +130,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivLocation.setVisibility(View.GONE);
         tvLocation.setVisibility(View.GONE);
         ivSave.setVisibility(View.VISIBLE);
+        //etInfo.setText(beer.getComment());
         //TODO get the comment about the beer to edit
     }
 
