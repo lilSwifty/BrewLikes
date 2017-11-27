@@ -24,6 +24,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private Context context = CategoriesActivity.this;
     private static ExpandableListView expandableListView;
     private static ExpandableListAdapter adapter;
+    private DBHelper mDBHelper;
     HashMap<String, List<String>> hashMap;
     ArrayList<String> header;
 
@@ -37,6 +38,8 @@ public class CategoriesActivity extends AppCompatActivity {
             //Object of listView from xml. Setting group indicator null for custom indicator
             expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
             expandableListView.setGroupIndicator(null);
+
+            mDBHelper = new DBHelper(this);
 
             setItems();
 
@@ -114,6 +117,16 @@ public class CategoriesActivity extends AppCompatActivity {
             // Array list for header
             header = new ArrayList<String>();
 
+            /*mDBHelper.addCategory("A");
+            mDBHelper.addCategory("B");
+            mDBHelper.addCategory("C");
+            mDBHelper.addCategory("D");
+            mDBHelper.addCategory("E");*/
+
+            List<Category> allCategories = mDBHelper.getAllCategories();
+
+
+
             // Array list for child items
             List<String> child1 = new ArrayList<String>();
             List<String> child2 = new ArrayList<String>();
@@ -124,8 +137,8 @@ public class CategoriesActivity extends AppCompatActivity {
             hashMap = new HashMap<String, List<String>>();
 
             // Adding headers to list
-            for (int i = 1; i < 5; i++) {
-                header.add("Group " + i);
+            for (int i = 0; i < allCategories.size(); i++) {
+                header.add(allCategories.get(i).getName());
             }
             // Adding child data
             for (int i = 1; i < 5; i++) {
@@ -143,6 +156,7 @@ public class CategoriesActivity extends AppCompatActivity {
             for (int i = 1; i < 7; i++) {
                 child4.add("Child" + i);
             }
+
 
             // Adding header and childs to hash map
             hashMap.put(header.get(0), child1);

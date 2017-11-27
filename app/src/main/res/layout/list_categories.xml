@@ -10,10 +10,11 @@
         android:layout_height="wrap_content"
         android:background="@color/beer"
         android:paddingBottom="2dp"
-        android:paddingLeft="2dp"
+        android:paddingLeft="12dp"
         android:paddingTop="2dp"
+        android:paddingRight="2dp"
         android:text="Heading"
         android:textColor="@color/black"
-        android:textSize="34sp"/>
+        android:textSize="22sp"/>
 
 </android.support.constraint.ConstraintLayout>
