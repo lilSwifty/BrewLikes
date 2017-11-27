@@ -14,10 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This activity contains the core for a listview page. It itemizes the list with setItems() method
- * that builds the lists and uses HashMap to create array list with category and item relation.
- * The second class ExpandableListAdapter creates the mechanics of the list and the xml files:
- * list_categories and list_category are used for the elements in the list.
+ * The expandable listview uses 3 xml files: activity_categories, list_categories and list_categoryitems.
+ * This Activity implements ExpandableListAdapter.java with 10 methods, creates the mechanics.
+ * Array and HasMap is needed to form ExpandableList. And setItems() fills data and itemizes the list.
+ * HashMap is used to create array list with category and item relation.
  */
 
 public class CategoriesActivity extends AppCompatActivity {
@@ -28,23 +28,21 @@ public class CategoriesActivity extends AppCompatActivity {
     ArrayList<String> header;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         setupBottomNavigation();
 
-
-
+            //Object of listView from xml. Setting group indicator null for custom indicator
             expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
-            // Setting group indicator null for custom indicator
             expandableListView.setGroupIndicator(null);
 
             setItems();
 
+            //passing the 3 things; object of context, header array, chliddren
             adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
-            // Setting adpater for expandablelistview
+            // Setting adpater for expandablelistview, the hard part start here:)
             expandableListView.setAdapter(adapter);
 
         /*
