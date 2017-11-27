@@ -207,12 +207,7 @@ public class DBHelper extends SQLiteOpenHelper {
             return db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT " + rows);
     }
 
-
-    //TODO GÖR OM TILL EN CURSORADAPTER, RETURN CURSOR
-    /**
-     * Returns a top list of beers according to their average points. Max. 10 beers in top list.
-     * @return array list with top ranked beers
-     */
+    /*
     public List<Beer> getTopList() {
         List<Beer> topList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
@@ -279,6 +274,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return topList;
     }
+    */
 
     //TODO RETURN CURSOR
     /**
