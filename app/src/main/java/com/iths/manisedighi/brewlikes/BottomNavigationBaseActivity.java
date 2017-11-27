@@ -55,8 +55,8 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
                         break;
                     case R.id.ic_category:
                         item.setChecked(true);
-//                        Intent categoriesIntent = new Intent(context, CategoriesActivity.class);
-//                        context.startActivity(categoriesIntent);
+                        Intent categoriesIntent = new Intent(context, CategoriesActivity.class);
+                        context.startActivity(categoriesIntent);
                         break;
                     case R.id.ic_toplist:
                         item.setChecked(true);
@@ -65,8 +65,8 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
                         break;
                     case R.id.ic_mapview:
                         item.setChecked(true);
-//                        Intent mapViewIntent = new Intent(context, MapviewActivity.class);
-//                        context.startActivity(mapViewIntent);
+                        Intent mapIntent = new Intent(context, MapActivity.class);
+                        context.startActivity(mapIntent);
                         break;
                 }
                 return false;
