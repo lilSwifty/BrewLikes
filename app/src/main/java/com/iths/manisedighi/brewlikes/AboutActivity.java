@@ -1,21 +1,23 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 public class AboutActivity extends AppCompatActivity {
 
-    ListView listView;
+    ListView myListView;
+    String[] persons;
+    String[] descriptions;
+    String[] images;
     ImageView line;
     ImageView logo;
 
@@ -28,7 +30,26 @@ public class AboutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         line = findViewById(R.id.lineImageView);
         logo = findViewById(R.id.logoImageView);
-        listView = findViewById(R.id.membersListView);
+
+        Resources res = getResources();
+        myListView = findViewById(R.id.myListView);
+        persons = res.getStringArray(R.array.persons);
+        descriptions = res.getStringArray(R.array.descriptions);
+        //images = res.getStringArray(R.array.images);
+
+        ItemAdapter itemAdapter = new ItemAdapter(this, persons, descriptions);
+        myListView.setAdapter(itemAdapter);
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int p, long l) {
+                Intent showDetailActivity = new Intent(getApplicationContext(), DetailActivity.class);
+                showDetailActivity.putExtra("com.example.manisedighi.brewlikes.ITEM_INDEX", p);
+                startActivity(showDetailActivity);
+
+            }
+        });
+
 
         /**
          * When BrewLikes logo in the toolbar is clicked it launches MainActivity.
@@ -41,6 +62,8 @@ public class AboutActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /*
 
         //ArrayList of all the members
        ArrayList<String> memberList = new ArrayList<>();
@@ -57,7 +80,11 @@ public class AboutActivity extends AppCompatActivity {
 
        //Connects the listView to the arrayAdapter
        listView.setAdapter(arrayAdapter);
+
+       */
     }
+
+
 
     /**
      * Upper toolbar with icons

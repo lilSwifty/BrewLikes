@@ -22,4 +22,24 @@
     <string name="home">Home</string>
     <string name="topList">TopList</string>
     <string name="mapView">MapView</string>
+
+    <string-array name="persons">
+        <item>Emma</item>
+        <item>Mani</item>
+        <item>Milja</item>
+        <item>Moa</item>
+        <item>Patrik</item>
+        <item>Victor</item>
+        <item>Veronica</item>
+    </string-array>
+
+    <string-array name="descriptions">
+        <item>Emma är bla bla bla</item>
+        <item>Mani är bla bla bla</item>
+        <item>Milja är bla bla bla</item>
+        <item>Moa är bla bla bla</item>
+        <item>Patrik är bla bla bla</item>
+        <item>Victor är bla bla bla</item>
+        <item>Veronica är bla bla bla</item>
+    </string-array>
 </resources>
