@@ -47,6 +47,12 @@
 
 
     <!-- end of InfoActivity & BottomNavigation -->
+    
+    <!-- Facebook -->
+    
+    <string name="facebook_app_id">311762962671719</string>
+    
+    <!-- ************************* -->
 
     <string name="ItemTitleAbout">item title about</string>
     <string name="ItemTitleCamera">item title camera</string>
