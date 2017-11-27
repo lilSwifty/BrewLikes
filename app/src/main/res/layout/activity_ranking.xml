@@ -47,14 +47,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/rankingButton"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="72dp"
         android:layout_marginTop="8dp"
         android:background="@color/beer"
-        android:onClick="onRankingButtonClick"
+        android:onClick="onSaveButtonClick"
         android:text="@string/saveBeer"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -153,6 +153,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beerName">
 
+        <ListView
+            android:id="@+id/categoryList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </ScrollView>
 
     <TextView
@@ -211,13 +215,14 @@
         app:layout_constraintTop_toBottomOf="@+id/priceText" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/discardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="8dp"
         android:background="@color/beer"
+        android:onClick="onDiscardButtonClick"
         android:text="@string/discardBeer"
         android:textColor="@color/black"
         android:textStyle="bold"

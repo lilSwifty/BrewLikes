@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class RankingActivity extends AppCompatActivity {
     private ImageView beerImage;
     private TextView tasteText;
@@ -36,7 +38,7 @@ public class RankingActivity extends AppCompatActivity {
     private TextView priceText;
     private SeekBar priceBar;
     private EditText beerComment;
-    private Button rankingButton;
+    private Button saveButton;
     private TextView awfulText;
     private TextView perfectText;
     private TextView expensiveText;
@@ -45,8 +47,8 @@ public class RankingActivity extends AppCompatActivity {
     private EditText beerName;
     private TextView categoryText;
     private Button editButton;
-
-
+    private Button discardButton;
+    public ListView categoryList;
 
     static final int REQUEST_TAKE_PHOTO = 1337;
     static final int RESULT_LOAD_IMAGE = 2;
@@ -54,18 +56,24 @@ public class RankingActivity extends AppCompatActivity {
 
     private static final String TAG = "RankingActivity";
 
-
+    DBHelper dbHelper = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_ranking);
         findViews();
         cameraLauncher();
-
+        //findBeerCategories();
     }
 
+    /**
+     * A method to set put in the beer-category list in the Scrollview.
+     */
+    public void findBeerCategories(){
+        // TODO: gör en adapter som skickar in databasen i listviewen.
+
+    }
     /**
      * A method to find the views.
      */
@@ -76,7 +84,7 @@ public class RankingActivity extends AppCompatActivity {
         priceText = findViewById(R.id.priceText);
         priceBar = findViewById(R.id.priceBar);
         beerComment = findViewById(R.id.beerComment);
-        rankingButton = findViewById(R.id.rankingButton);
+        saveButton = findViewById(R.id.saveButton);
         awfulText = findViewById(R.id.awfulText);
         perfectText = findViewById(R.id.perfectText);
         expensiveText = findViewById(R.id.expensiveText);
@@ -85,18 +93,20 @@ public class RankingActivity extends AppCompatActivity {
         beerName = findViewById(R.id.beerName);
         categoryText = findViewById(R.id.categoryText);
         editButton = findViewById(R.id.editButton);
+        discardButton = findViewById(R.id.discardButton);
+        categoryList = findViewById(R.id.categoryList);
     }
 
     /**
      * The method that does all the work with saving the rankings and put them into the database/infoviews.
      * @param view
      */
-    private void onRankingButtonClick(View view){
-        // TODO: lägg till en check på vart i seekbaren som vi är
-
+    private void onSaveButtonClick(View view){
+        // TODO: lägg till en check på vart i seekbarenerna som vi är
+        // TODO:  vilken position i listviewen som vi är på.
         String name = saveBeerName(view);
         String comment = saveBeerComment(view);
-        // TODO:  vilken position i listviewen som vi är på.
+        //Beer beer = new Beer(name,kategori,priset,smaken,comment,bilden);
     }
 
     public void onEditButtonClick(View view){
@@ -138,7 +148,6 @@ public class RankingActivity extends AppCompatActivity {
     private String saveBeerComment(View view){
         return beerComment.getText().toString();
     }
-
 
 
     public void cameraLauncher() {
