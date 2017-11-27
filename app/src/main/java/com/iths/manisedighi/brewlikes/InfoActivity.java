@@ -54,7 +54,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * finds all the widgets and binds the to the code
+     * A method that finds all the views and binds them to the code
      */
     private void findViews(){
         ivBeer = findViewById(R.id.ivBeer);
@@ -74,12 +74,19 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     /**
      * A method to show all the necessary information about a beer
-     *
      */
     private void setupInfoView(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
+        /*ivBeer.setImageBitmap(?);
+        tvBeerName.setText(beer.getName());
+        tvCategory.setText(beer.getCategory());
+        tvPriceScore.setText(String.valueOf(beer.getPrice()));
+        tvTasteScore.setText(String.valueOf(beer.getTaste()));
+        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
+        tvInfo.setText(beer.getComment);
+        tvLocation.setText(beer.getLocation());*/
         //TODO set up the info about the beer, takes info out from database
     }
 
@@ -97,8 +104,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onNavBackClick(View view){
         Log.d(TAG, "onNavBackClick: nav back clicked");
-//            Intent intent = new Intent(context, Categories.class);
-//            startActivity(intent);
+        Intent intent = new Intent(context, CategoriesActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -138,6 +145,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivLocation.setVisibility(View.VISIBLE);
         tvLocation.setVisibility(View.VISIBLE);
         ivSave.setVisibility(View.GONE);
+        /*beer.setComment(etInfo.getText().toString());
+        tvInfo.setText(etInfo.getText().toString());*/
         //TODO save down the new comment to the database
     }
 
@@ -149,6 +158,4 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "onLocationClick: location clicked.");
         //TODO takes you to map view
     }
-
-
 }
