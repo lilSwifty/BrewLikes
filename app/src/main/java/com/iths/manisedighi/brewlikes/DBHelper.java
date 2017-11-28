@@ -201,10 +201,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long rows = DatabaseUtils.queryNumEntries(db, BEER_TABLE);
 
-        if (rows >= 10)
+        if (rows >= 10) {
             return db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT 10");
-        else
+        } else {
             return db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT " + rows);
+        }
     }
 
     /*
@@ -449,14 +450,35 @@ public class DBHelper extends SQLiteOpenHelper {
        }
     }
 
-    //TODO MEthod for editing a beer
-    public boolean editBeer(long id) {
+    /**
+     * Updates a beer's information in the database.
+     * @param id id of the beer to be updated.
+     * @param categoryId new beer category.
+     * @param price new price rating.
+     * @param taste new taste rating.
+     * @param comment new user comment.
+     * @param location new GPS location.
+     * @return true if update successful, false if update failed.
+     */
+    public boolean editBeer(long id, int categoryId, float price, float taste, String comment, String location) {
         SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("COL_BEER_CATEGORY", categoryId);
+        values.put("COL_BEER_PRICE", price);
+        values.put("COL_BEER_TASTE", taste);
+        values.put("COL_BEER_COMMENT", comment);
+        values.put("COL_BEER_LOCATION", location);
+
         String selection = "_id=?";
         String[] selectionArgs = new String[] {Long.toString(id)};
 
-        Cursor cursor = db.query(BEER_TABLE,null, selection, selectionArgs, null, null, null);
+        int result = db.update(BEER_TABLE, values, selection, selectionArgs);
 
-        return true;
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
