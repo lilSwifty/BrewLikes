@@ -397,7 +397,16 @@ public class DBHelper extends SQLiteOpenHelper {
         return beerList;
     }
 
-    //TODO RETURN CURSOR
+    /**
+     * Returns a Cursor with category names in alphabetical order.
+     * @return a Cursor with category names in alphabetical order.
+     */
+    public Cursor getAllCategoriesCursor() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        return db.query(CATEGORY_TABLE, null, null, null, null, null, "COL_CATEGORY_NAME COLLATE NOCASE");
+    }
+
     /**
      * Returns all category names in alphabetical order.
      * @return Arraylist with category names in alphabetical order
