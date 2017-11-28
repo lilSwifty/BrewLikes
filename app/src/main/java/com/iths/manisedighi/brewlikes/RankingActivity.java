@@ -140,7 +140,9 @@ public class RankingActivity extends AppCompatActivity {
     public void onEditButtonClick(View view){
         cameraLauncher();
     }
-
+    private void onDiscardButtonClick(View view){
+        // TODO: lägg in vilken activity vi ska skickas till om vi trycker på discard.
+    }
     /**
      * A method to get the price rate.
      * @return an int with the price rate.
