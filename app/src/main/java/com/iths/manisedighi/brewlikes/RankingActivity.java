@@ -15,12 +15,12 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +29,7 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 public class RankingActivity extends AppCompatActivity {
@@ -43,12 +44,13 @@ public class RankingActivity extends AppCompatActivity {
     private TextView perfectText;
     private TextView expensiveText;
     private TextView cheapText;
-    private ScrollView categoryScroll;
     private EditText beerName;
     private TextView categoryText;
     private Button editButton;
     private Button discardButton;
-    public ListView categoryList;
+    private Spinner categorySpinner;
+    private TextView tasteRateNumber;
+    private TextView priceRateNumber;
 
     static final int REQUEST_TAKE_PHOTO = 1337;
     static final int RESULT_LOAD_IMAGE = 2;
@@ -64,15 +66,39 @@ public class RankingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ranking);
         findViews();
         cameraLauncher();
-        //findBeerCategories();
+        setSeekbars(tasteBar,tasteRateNumber);
+        setSeekbars(priceBar,priceRateNumber);
+        findBeerCategories();
+    }
+
+    /**
+     * A method to set the seekbars and also show the number which the person has rated.
+     */
+    public void setSeekbars(SeekBar seekBar, final TextView textView){
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textView.setText("" + progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
     }
 
     /**
      * A method to set put in the beer-category list in the Scrollview.
      */
     public void findBeerCategories(){
-        // TODO: gör en adapter som skickar in databasen i listviewen.
-
+        List categoryList = dbHelper.getAllCategories();
+        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this,android.R.layout.simple_spinner_item,categoryList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
     }
     /**
      * A method to find the views.
@@ -89,12 +115,13 @@ public class RankingActivity extends AppCompatActivity {
         perfectText = findViewById(R.id.perfectText);
         expensiveText = findViewById(R.id.expensiveText);
         cheapText = findViewById(R.id.cheapText);
-        categoryScroll = findViewById(R.id.categoryScroll);
         beerName = findViewById(R.id.beerName);
         categoryText = findViewById(R.id.categoryText);
         editButton = findViewById(R.id.editButton);
         discardButton = findViewById(R.id.discardButton);
-        categoryList = findViewById(R.id.categoryList);
+        categorySpinner = findViewById(R.id.categorySpinner);
+        tasteRateNumber = findViewById(R.id.tasteRateNumber);
+        priceRateNumber = findViewById(R.id.priceRateNumber);
     }
 
     /**
@@ -102,11 +129,12 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      */
     private void onSaveButtonClick(View view){
-        // TODO: lägg till en check på vart i seekbarenerna som vi är
-        // TODO:  vilken position i listviewen som vi är på.
         String name = saveBeerName(view);
         String comment = saveBeerComment(view);
-        //Beer beer = new Beer(name,kategori,priset,smaken,comment,bilden);
+        int taste = tasteRateNumber.getText().charAt(0);
+        int price = priceRateNumber.getText().charAt(0);
+        // TODO: vilken plats i spinnern som vi är på
+        //Beer beer = new Beer(name,kategori,price,taste,comment,bilden);
     }
 
     public void onEditButtonClick(View view){
@@ -339,4 +367,5 @@ public class RankingActivity extends AppCompatActivity {
     public void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
 }

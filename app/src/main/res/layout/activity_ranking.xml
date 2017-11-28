@@ -76,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryScroll" />
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
 
     <TextView
         android:id="@+id/awfulText"
@@ -95,7 +95,7 @@
         android:id="@+id/perfectText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
+        android:layout_marginEnd="48dp"
         android:text="@string/tastePerfect"
         android:textColor="@color/beer"
         android:textSize="14sp"
@@ -108,7 +108,7 @@
         android:id="@+id/expensiveText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="48dp"
         android:text="@string/priceExpensive"
         android:textColor="@color/beer"
         android:textSize="14sp"
@@ -121,7 +121,7 @@
         android:id="@+id/cheapText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="48dp"
         android:text="@string/priceCheap"
         android:textColor="@color/beer"
         android:textSize="14sp"
@@ -144,33 +144,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceBar" />
 
-    <ScrollView
-        android:id="@+id/categoryScroll"
-        android:layout_width="289dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beerName">
-
-        <ListView
-            android:id="@+id/categoryList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
-
     <TextView
         android:id="@+id/categoryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/beerCategory"
         android:textColor="@color/beer"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/categoryScroll"
-        app:layout_constraintEnd_toStartOf="@+id/categoryScroll"
+        app:layout_constraintBottom_toBottomOf="@+id/categorySpinner"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -198,6 +182,7 @@
         android:layout_marginTop="8dp"
         android:max="10"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tasteText" />
 
@@ -207,7 +192,7 @@
         android:layout_height="46dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:max="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/expensiveText"
@@ -230,5 +215,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beerComment"
         app:layout_constraintVertical_bias="0.166" />
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="225dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/categoryText"
+        app:layout_constraintTop_toBottomOf="@+id/beerName" />
+
+    <TextView
+        android:id="@+id/tasteRateNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/beer"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tasteBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/priceRateNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/beer"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/priceBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
