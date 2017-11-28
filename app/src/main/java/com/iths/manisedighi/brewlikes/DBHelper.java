@@ -52,11 +52,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //Insert initial values into CATEGORY_TABLE
         ContentValues values = new ContentValues();
+        values.put("COL_CATEGORY_NAME", "Ale");
+        db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Lager");
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Lager Dark");
-        db.insert(CATEGORY_TABLE, null, values);
-        values.put("COL_CATEGORY_NAME", "Ale");
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "IPA");
         db.insert(CATEGORY_TABLE, null, values);
@@ -66,11 +66,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Porter");
         db.insert(CATEGORY_TABLE, null, values);
-        values.put("COL_CATEGORY_NAME", "Low and non-alcoholic");
+        values.put("COL_CATEGORY_NAME", "Stout");
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Sour Beer");
         db.insert(CATEGORY_TABLE, null, values);
-        values.put("COL_CATEGORY_NAME", "Stout");
+        values.put("COL_CATEGORY_NAME", "Low & non-alcoholic");
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Unknown");
         db.insert(CATEGORY_TABLE, null, values);

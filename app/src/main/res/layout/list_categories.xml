@@ -15,6 +15,7 @@
         android:paddingRight="2dp"
         android:text="Heading"
         android:textColor="@color/black"
-        android:textSize="22sp"/>
+        android:textSize="22sp"
+        android:gravity="center"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="beer_icons">
+
+        <item>@drawable/beer_bottle</item>
+        <item>@drawable/beer_glass_2</item>
+        <item>@drawable/beer_glass_3</item>
+        <item>@drawable/beer_glass_4</item>
+        <item>@drawable/beer_glass_5</item>
+        <item>@drawable/beer_glass_6</item>
+        <item>@drawable/beer_glass_7</item>
+        <item>@drawable/beer_glass_8</item>
+        <item>@drawable/beer_glass_9</item>
+        <item>@drawable/beer_glass_10</item>
+        <item>@drawable/beer_glass</item>
+
+    </array>
+
+</resources>
