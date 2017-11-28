@@ -25,6 +25,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -62,7 +63,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private static final int LOCATION_PERMISSION_CODE = 1234;
     private GoogleMap mMap;
-
+    private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
+    private GoogleApiClient mGoogleApiClient;
 
     //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -93,8 +95,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void initializeSearch(){
         Log.d(TAG, "initializeSearch: initializing the search function");
 
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();
 
+        mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, null);
 
+        searchText.setAdapter(mPlaceAutocompleteAdapter);
 
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
