@@ -176,30 +176,15 @@
         app:layout_constraintStart_toEndOf="@+id/tvRate"
         app:layout_constraintTop_toBottomOf="@+id/tvTasteScore" />
 
-    <ImageView
-        android:id="@+id/ivShare"
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/btnShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="onShareClick"
-        android:src="@drawable/ic_fb_share_white"
-        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer" />
-
-    <TextView
-        android:id="@+id/tvShare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/tvInfo"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="6dp"
-        android:layout_toEndOf="@+id/ivShare"
         android:onClick="onShareClick"
-        android:text="Share"
-        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/tvInfo"
-        app:layout_constraintStart_toEndOf="@+id/ivShare" />
+        app:layout_constraintStart_toEndOf="@+id/ivBeer"/>
 
     <TextView
         android:id="@+id/tvInfo"
@@ -241,7 +226,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toEndOf="@+id/tvInfo"
-        app:layout_constraintTop_toBottomOf="@+id/tvShare" />
+        app:layout_constraintTop_toBottomOf="@+id/btnShare" />
 
     <ImageView
         android:id="@+id/ivSave"
@@ -254,7 +239,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toEndOf="@+id/etInfo"
-        app:layout_constraintTop_toBottomOf="@+id/tvShare" />
+        app:layout_constraintTop_toBottomOf="@+id/btnShare" />
 
 
     <ImageView
