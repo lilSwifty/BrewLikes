@@ -13,9 +13,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,12 +62,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //Widgets
     private EditText searchText;
+    private ImageView gpsIcon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         searchText = (EditText) findViewById(R.id.searchFieldText);
+        gpsIcon = (ImageView) findViewById(R.id.ic_gps);
+
         getLocationPermission();
     }
 
@@ -73,22 +78,38 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * Initializes the search and overrides the "enter button" to be a search button
      * Also calls the method geoLocate() that tries to locate the text
      */
-    public void initializeSearch(){
+    private void initializeSearch(){
         Log.d(TAG, "initializeSearch: initializing the search function");
 
         searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
+                Log.d(TAG, "initializeSearch: onEditorAction");
                if(actionId == EditorInfo.IME_ACTION_SEARCH
                        || actionId == EditorInfo.IME_ACTION_DONE
                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
 
+                   Log.d(TAG, "initializeSearch: if search button is pressed");
                    geoLocate();
                }
                 return false;
             }
+
+
         });
+        Log.d(TAG, "initializeSearch: search code failed");
+
+        gpsIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: clicked gps icon");
+                getDeviceLocation();
+            }
+        });
+
+        hideKeyboard();
     }
 
     /**
@@ -150,18 +171,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * @param zoom - The possibility to zoom in and out of the map
      */
     private void moveMapToLocation(LatLng latLng, float zoom, String title) {
-        Log.d(TAG, "moveMapTpLocation: moving the map to current location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
+        Log.d(TAG, "moveMapToLocation: moving the map to current location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
         //Passes the arguments to the drop pin method
         dropPin(latLng, zoom, title);
+        hideKeyboard();
     }
 
     private void dropPin(LatLng latLng, float zoom, String title){
+        Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
             MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
             mMap.addMarker(markerOptions);
         }
-
     }
 
     /**
@@ -179,8 +201,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
                     (this, Manifest.permission.ACCESS_COARSE_LOCATION)
                     != PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG, "onMapReady: if if permissions granted");
                 return;
             }
+            Log.d(TAG, "onMapReady: set my location enabled true");
             mMap.setMyLocationEnabled(true);
             //If you want to hide the "myLocationButton" up in the right corner
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -208,13 +232,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             if(ContextCompat.checkSelfPermission(this.getApplicationContext(), COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
                 locationPermissionsGranted = true;
+                Log.d(TAG, "getLocationPermission: setting location permissions to true");
                 initializeMap();
             } else {
                 ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_CODE);
+                Log.d(TAG, "getLocationPermission: setting location permissions");
             }
         } else {
             ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_CODE);
         }
+
     }
 
     /**
@@ -248,9 +275,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     /**
-     * Hides the keyboard 
+     * Hides the keyboard
      */
     private void hideKeyboard(){
+        Log.d(TAG,"hideKeyboard: hides the keyboard");
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
