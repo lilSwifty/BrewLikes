@@ -3,6 +3,7 @@ package com.iths.manisedighi.brewlikes;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 /**
  * Created by Emma on 2017-11-15.
+ * An activity that shows a specific beer and it's information
  */
 public class InfoActivity extends BottomNavigationBaseActivity {
 
@@ -22,7 +24,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Context context = InfoActivity.this;
 
     private ImageView ivBeer;
-    private ImageView ivShare;
     private ImageView ivEdit;
     private ImageView ivLocation;
     private ImageView ivSave;
@@ -53,6 +54,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         setupBottomNavigation();
         //to set up info about the beer
         setupInfoView();
+        //to add fragment to the layout
+        addSharePhotoFragment();
 
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
@@ -65,8 +68,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * A method that finds all the views and binds them to the code
      */
     private void findViews(){
+        Log.d(TAG, "findViews: get's all the views");
         ivBeer = findViewById(R.id.ivBeer);
-        ivShare = findViewById(R.id.ivShare);
         ivEdit = findViewById(R.id.ivEdit);
         ivLocation = findViewById(R.id.ivLocation);
         ivSave = findViewById(R.id.ivSave);
@@ -128,7 +131,17 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * a method that enables the scroll function in the TextView tvInfo
+     * A method that adds the fragment SharePhotoFragment to the layout and place it in the btnShare view
+     */
+    private void addSharePhotoFragment(){
+        Log.d(TAG, "addSharePhotoFragment: adds SharePhotoFragment to btnShare");
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * A method that enables the scroll function in the TextView tvInfo
      */
     private void enableScrollFunction(){
         Log.d(TAG, "enableScrollFunction: enables scrollfunction in tvInfo view");
@@ -143,15 +156,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "onNavBackClick: nav back clicked");
         Intent intent = new Intent(context, CategoriesActivity.class);
         startActivity(intent);
-    }
-
-    /**
-     * A method that share picture on FaceBook
-     * @param view - the view being clicked and calling the method
-     */
-    public void onShareClick(View view) {
-        Log.d(TAG, "onShareClick: share clicked.");
-        //TODO here comes the upload to facebook
     }
 
     /**
