@@ -312,8 +312,6 @@ public class DBHelper extends SQLiteOpenHelper {
      * @return List of beers within category
      */
     public List<Beer> getBeersByCategory(String categoryName) {
-        //TODO Get all beers with certain category, sorted in descending order according to average points
-
         List<Beer> beerList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
