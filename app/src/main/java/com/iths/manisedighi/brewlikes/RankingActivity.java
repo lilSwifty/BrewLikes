@@ -92,7 +92,7 @@ public class RankingActivity extends AppCompatActivity {
     }
 
     /**
-     * A method to set put in the beer-category list in the Scrollview.
+     * A method to fill the Spinner with the categories.
      */
     public void findBeerCategories(){
         List categoryList = dbHelper.getAllCategories();
@@ -129,10 +129,10 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      */
     private void onSaveButtonClick(View view){
-        String name = saveBeerName(view);
-        String comment = saveBeerComment(view);
-        int taste = tasteRateNumber.getText().charAt(0);
-        int price = priceRateNumber.getText().charAt(0);
+        String name = saveBeerName();
+        String comment = saveBeerComment();
+        int taste = saveTaste();
+        int price = savePrice();
         // TODO: vilken plats i spinnern som vi är på
         //Beer beer = new Beer(name,kategori,price,taste,comment,bilden);
     }
@@ -140,40 +140,36 @@ public class RankingActivity extends AppCompatActivity {
     public void onEditButtonClick(View view){
         cameraLauncher();
     }
-    /**
-     * Saving the ranking-number of the taste.
-     * @param view
-     * @return a float for the number of stars filled in.
-     */
-    /*
-    private float saveTasteRate(View view){
 
-    }
-*/
     /**
-     * Saving the ranking-number of the price.
-     * @param view
-     * @return a float for the number of stars filled in.
+     * A method to get the price rate.
+     * @return an int with the price rate.
      */
-  /*
-    private float savePriceRate(View view){
-
+    private int savePrice(){
+        int price = priceRateNumber.getText().charAt(0);
+        return price;
     }
-*/
+
+    /**
+     * A method to get the taste rate.
+     * @return an int with the price rate.
+     */
+    private int saveTaste(){
+        int taste = tasteRateNumber.getText().charAt(0);
+        return taste;
+    }
     /**
      * Saving the name of the beer.
-     * @param view
      * @return a String for the name of the beer.
      */
-    private String saveBeerName(View view){
+    private String saveBeerName(){
         return beerName.getText().toString();
     }
     /**
      * Saving the comment for the beer.
-     * @param view
      * @return a String for the comment to the beer.
      */
-    private String saveBeerComment(View view){
+    private String saveBeerComment(){
         return beerComment.getText().toString();
     }
 
