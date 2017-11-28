@@ -45,12 +45,25 @@ public class SharePhotoFragment extends Fragment {
         shareDialog.registerCallback(callbackManager, callback);
     }
 
+    /**
+     * A method that makes the fragment instantiate and return its user
+     * interface view ShareButton.
+     * @param inflater - Object to help to inflate the view
+     * @param container - parent ViewGroup from InfoActivity's layout
+     * @param savedInstanceState - containing data about the previous instance of the fragment
+     * @returns the view ShareButton
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.share_fragment, container, false);
     }
 
+    /**
+     * A method being called right after onCreateView has returned ShareButton view
+     * @param view - ShareButton
+     * @param savedInstanceState - containing data about the previous instance of the fragment
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -59,7 +72,7 @@ public class SharePhotoFragment extends Fragment {
 
     /**
      * A method that builds the photo to share on facebook
-     * @param view - the ShareButton being clicked
+     * @param view - ShareButton
      */
     private void setSharePhoto(View view){
 
