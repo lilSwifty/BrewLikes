@@ -11,6 +11,7 @@
         android:id="@+id/simple_expandable_listview"
         android:layout_width="384dp"
         android:layout_height="match_parent"
+        android:paddingLeft="8dp"
         android:layout_marginBottom="60dp"
         android:layout_marginTop="8dp"
         android:dividerHeight="6dp"

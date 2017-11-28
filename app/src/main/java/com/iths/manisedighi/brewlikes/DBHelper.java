@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.sql.SQLInput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +52,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //Insert initial values into CATEGORY_TABLE
         ContentValues values = new ContentValues();
-        values.put("COL_CATEGORY_NAME", "Unknown");
-        db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Lager");
         db.insert(CATEGORY_TABLE, null, values);
-        values.put("COL_CATEGORY_NAME", "Dark Lager");
+        values.put("COL_CATEGORY_NAME", "Lager Dark");
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Ale");
         db.insert(CATEGORY_TABLE, null, values);
@@ -69,11 +66,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Porter");
         db.insert(CATEGORY_TABLE, null, values);
-        values.put("COL_CATEGORY_NAME", "Stout");
+        values.put("COL_CATEGORY_NAME", "Low and non-alcoholic");
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Sour Beer");
         db.insert(CATEGORY_TABLE, null, values);
-        values.put("COL_CATEGORY_NAME", "Low and non-alcoholic");
+        values.put("COL_CATEGORY_NAME", "Stout");
+        db.insert(CATEGORY_TABLE, null, values);
+        values.put("COL_CATEGORY_NAME", "Unknown");
         db.insert(CATEGORY_TABLE, null, values);
     }
 
@@ -296,7 +295,7 @@ public class DBHelper extends SQLiteOpenHelper {
         List<Category> categoryList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, "COL_CATEGORY_NAME COLLATE NOCASE");
+        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, null);
 
         boolean success = cursor.moveToFirst();
 
