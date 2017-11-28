@@ -16,11 +16,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,7 +43,7 @@ import java.util.List;
  * Created by moalenngren on 2017-11-22.
  */
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
     //Log tag for this specific activity
     private static final String TAG = "MapActivity";
@@ -49,7 +52,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     //The zoom amount in the map view
-    private final static float DEFAULT_ZOOM = 15f;
+    private static final float DEFAULT_ZOOM = 15f;
+    //The coordinate bounds that covers the whole world
+    private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
+            new LatLng(-40, -168), new LatLng(71, 136));
 
     //Boolean that checks if location permissions are granted or not
     private boolean locationPermissionsGranted;
@@ -57,21 +63,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final int LOCATION_PERMISSION_CODE = 1234;
     private GoogleMap mMap;
 
+
     //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
 
     //Widgets
-    private EditText searchText;
+    private AutoCompleteTextView searchText;
     private ImageView gpsIcon;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        searchText = (EditText) findViewById(R.id.searchFieldText);
+        searchText = findViewById(R.id.searchFieldText);
         gpsIcon = (ImageView) findViewById(R.id.ic_gps);
 
         getLocationPermission();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 
     /**
@@ -81,8 +93,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void initializeSearch(){
         Log.d(TAG, "initializeSearch: initializing the search function");
 
-        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
+
+
+        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
                 Log.d(TAG, "initializeSearch: onEditorAction");

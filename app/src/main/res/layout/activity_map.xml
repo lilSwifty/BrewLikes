@@ -33,7 +33,7 @@
             android:src="@drawable/ic_magnifying_glass"/>
 
         <!-- The text field that user writes in to search for a specific location -->
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/searchFieldText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
