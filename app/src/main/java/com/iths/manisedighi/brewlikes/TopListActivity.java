@@ -1,5 +1,6 @@
  package com.iths.manisedighi.brewlikes;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -23,11 +25,17 @@ import java.util.List;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_list);
-        //beerListView = findViewById(R.id.topListItem);
 
+
+        initialize();
         createRoundPicture();
-        //createCursorAdapter();
+        createCursorAdapter();
     }
+
+     @SuppressLint("WrongViewCast")
+     private void initialize() {
+         beerListView = findViewById(R.id.topListItem);
+     }
 
      /**
       * TODO fixa cursor-metoden från Milja
@@ -66,10 +74,10 @@ import java.util.List;
       * and show the beer you've pressed.
       * TODO kolla hur man skickar till rätt öl-info
       */
-    public void onItemClick() {
+    public void onItemClick(View view) {
         Intent intent = new Intent(this, InfoActivity.class);
         startActivity(intent);
     }
 
 
-}
+ }
