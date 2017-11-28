@@ -20,6 +20,7 @@
         android:layout_width="120dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@+id/toolbarTop"
         app:layout_constraintStart_toStartOf="@+id/toolbarTop"
         app:layout_constraintTop_toTopOf="@+id/toolbarTop"
@@ -46,30 +47,27 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             android:fontFamily="sans-serif"
-            android:text="Beer"
+            android:text="@string/beerName"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textSize="36sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/ivNavBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="200dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="12dp"
-            android:onClick="onNavBackClick"
-            android:src="@drawable/ic_left_arrow"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-
     </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/ivNavBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
+        android:onClick="onNavBackClick"
+        android:src="@drawable/ic_left_arrow"
+        app:layout_constraintTop_toTopOf="@id/titleMenu"
+        app:layout_constraintEnd_toEndOf="@id/titleMenu"/>
 
     <!-- middle section -->
 
@@ -176,15 +174,16 @@
         app:layout_constraintStart_toEndOf="@+id/tvRate"
         app:layout_constraintTop_toBottomOf="@+id/tvTasteScore" />
 
-    <com.facebook.share.widget.ShareButton
+    <!-- This is where the fb share button gets put in -->
+    <LinearLayout
         android:id="@+id/btnShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="onShareClick"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/tvInfo"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer"/>
+        app:layout_constraintStart_toEndOf="@+id/ivBeer">
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvInfo"
