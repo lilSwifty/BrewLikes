@@ -30,7 +30,11 @@ public class Category {
     }
 
     public Category() {
+    }
 
+    @Override
+    public String toString() {
+        return this.name;
     }
 
 
