@@ -190,6 +190,9 @@ public class RankingActivity extends AppCompatActivity {
         return beerComment.getText().toString();
     }
 
+    /**
+     * starts a dialog with options take/upload picture
+     */
 
     public void cameraLauncher() {
         AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
@@ -342,16 +345,18 @@ public class RankingActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * TODO give mImageView the same name as the shown ImageView
-     * To scale down the picture and then decode it.
-     */
-
 
     public void scalePicture() {
         //The dimensions of the View
+
+
+        beerImage.setMaxWidth(224);
+        beerImage.setMaxHeight(224);
+
+
         int targetW = beerImage.getWidth();
         int targetH = beerImage.getHeight();
+
 
         //The dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
