@@ -43,6 +43,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -211,6 +212,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void moveMapToLocation(LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveMapToLocation: moving the map to current location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+
+        mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
+
         //Passes the arguments to the drop pin method
         dropPin(latLng, zoom, title);
         // hideSoftKeyboard(MapActivity.this);
@@ -223,12 +227,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * @param title - Title (text) of the pin
      */
     private void dropPin(LatLng latLng, float zoom, String title){
+
         Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
-            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
-            mMap.addMarker(markerOptions);
+
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
+                mMap.addMarker(markerOptions);
         }
-      //  hideSoftKeyboard();
+    }
+
+    //Just a test method for removing pin, ain't working at the moment
+    private void removePin(LatLng latLng, String title){
+        
+        Marker markerName = mMap.addMarker(new MarkerOptions().position(latLng).title(title));
+        markerName.remove();
     }
 
     /**
