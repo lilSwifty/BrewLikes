@@ -51,6 +51,7 @@ public class RankingActivity extends AppCompatActivity {
     private Spinner categorySpinner;
     private TextView tasteRateNumber;
     private TextView priceRateNumber;
+    private Uri selectedImage;
 
     static final int REQUEST_TAKE_PHOTO = 1337;
     static final int RESULT_LOAD_IMAGE = 2;
@@ -133,10 +134,20 @@ public class RankingActivity extends AppCompatActivity {
         String comment = saveBeerComment();
         double taste = saveTaste();
         double price = savePrice();
-        Object category = categorySpinner.getSelectedItem();
-        // TODO: if-sats med uri eller mcurrentpath
-        //Beer beer = new Beer(name,category,price,taste,comment,bilden);
-        //dbHelper.addBeer(beer);
+        Category category = new Category();
+        category = (Category)categorySpinner.getSelectedItem();
+        int categoryId = (int) category.getId();
+        String picture;
+        if (mCurrentPhotoPath == null && selectedImage != null){
+            picture = selectedImage.toString();
+        }else if (selectedImage == null && mCurrentPhotoPath != null){
+            picture=mCurrentPhotoPath;
+        } else {
+            picture = null;
+            makeToast("No image selected");
+        }
+        Beer beer = new Beer(name,categoryId,price,taste,comment,picture);
+        dbHelper.addBeer(beer);
         // TODO: skicka personen till den activityn som vi vill
     }
 
@@ -273,7 +284,7 @@ public class RankingActivity extends AppCompatActivity {
         } else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             //TODO find path to gallery
 
-            Uri selectedImage = data.getData();
+            selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
             Cursor cursor = getContentResolver().query(selectedImage,
