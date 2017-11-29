@@ -135,7 +135,7 @@ public class RankingActivity extends AppCompatActivity {
         double taste = saveTaste();
         double price = savePrice();
         Category category = new Category();
-        category = (Category) categorySpinner.getSelectedItem();
+        category = (Category)categorySpinner.getSelectedItem();
         int categoryId = (int) category.getId();
         String picture = "";
 
@@ -393,6 +393,12 @@ public class RankingActivity extends AppCompatActivity {
 
     public void scalePicture() {
         //The dimensions of the View
+
+
+        /*beerImage.setMaxWidth(224);
+        beerImage.setMaxHeight(224);*/
+
+
         int targetW = beerImage.getWidth();
         int targetH = beerImage.getHeight();
 
