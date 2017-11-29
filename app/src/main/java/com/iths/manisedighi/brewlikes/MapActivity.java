@@ -1,6 +1,7 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -13,11 +14,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -142,7 +147,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        hideKeyboard();
+        hideSoftKeyboard(MapActivity.this);
     }
 
     /**
@@ -208,7 +213,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
         //Passes the arguments to the drop pin method
         dropPin(latLng, zoom, title);
-        hideKeyboard();
+        // hideSoftKeyboard(MapActivity.this);
     }
 
     /**
@@ -223,7 +228,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
             mMap.addMarker(markerOptions);
         }
-        hideKeyboard();
+      //  hideSoftKeyboard();
     }
 
     /**
@@ -315,12 +320,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     /**
-     * Hides the keyboard
-     */
+     * Hides the keyboard BUT THIS DOESN'T WORK!!!!
+     *//*
     private void hideKeyboard(){
         Log.d(TAG,"hideKeyboard: hides the keyboard");
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    }
+    } */
 
     // *********************** GOOGLE API AUTOCOMPLETE SUGGESTIONS **********************
 
@@ -330,7 +335,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private AdapterView.OnItemClickListener mAutocompleteClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            hideKeyboard();
+            hideSoftKeyboard(MapActivity.this);
 
             final AutocompletePrediction item = mPlaceAutocompleteAdapter.getItem(position);
             final String placeID = item.getPlaceId();
@@ -368,9 +373,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
                     , DEFAULT_ZOOM, mPlace.getName());
             places.release();
-            hideKeyboard();
+           // hideSoftKeyboard(MapActivity.this);
         }
     };
+
+    public static void hideSoftKeyboard(Activity activity) {
+        Log.d(TAG,"hideSoftKeyboard: hides the keyboard");
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+
 }
 
 
