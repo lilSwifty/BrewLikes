@@ -24,6 +24,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     //Google Location and Activity Recognition
+    //Can change this to 9.0.0 or 11.4.2 if 11.6.0 version is too high
     implementation 'com.google.android.gms:play-services-location:11.6.0'
     //Google Maps
     implementation 'com.google.android.gms:play-services-maps:11.6.0'

@@ -33,18 +33,32 @@
             android:src="@drawable/ic_magnifying_glass"/>
 
         <!-- The text field that user writes in to search for a specific location -->
-        <EditText
-            android:id="@+id/searchFieldTextView"
+        <AutoCompleteTextView
+            android:id="@+id/searchFieldText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/ic_magnifying_glass"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@null"
             android:hint="@string/searchTextView"
             android:textColor="@color/black"
             android:textSize="15sp"
-            tools:text="Search address here" />
+            android:imeOptions="actionSearch"
+            android:singleLine="true"/>
 
     </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/relativeLayoutSearchBar"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/ic_gps"
+        android:src="@drawable/ic_gps"/>
 
 </RelativeLayout>
