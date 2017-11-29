@@ -16,22 +16,23 @@ import android.widget.ListView;
 import java.util.List;
 
  public class TopListActivity extends BottomNavigationBaseActivity {
-     private DBHelper dbHelper;
+
      private TopListCursorAdapter cursorAdapter;
-     private ListView beerListView;
+     private ListView topListView;
+     private DBHelper dbHelper = new DBHelper(this);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_list);
+        topListView = findViewById(R.id.beerTopList);
 
         setupBottomNavigation();
         //initialize();
         //showTopList();
-        createRoundPicture();
+        //createRoundPicture();
         createCursorAdapter();
-
 
     }
 
@@ -49,10 +50,9 @@ import java.util.List;
       * Sets up the Cursor Adapter
       */
      private void createCursorAdapter() {
-         /*Cursor cursor = dbHelper.getAllBeers();
+         Cursor cursor = dbHelper.getTopListCursor();
          cursorAdapter = new TopListCursorAdapter(this, cursor);
-         beerListView.setAdapter(cursorAdapter);
-         */
+         topListView.setAdapter(cursorAdapter);
      }
 
      /**

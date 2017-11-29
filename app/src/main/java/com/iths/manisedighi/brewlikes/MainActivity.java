@@ -35,6 +35,15 @@ public class MainActivity extends BottomNavigationBaseActivity {
         logo = findViewById(R.id.logoImageView);
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        adddddBeer();
+    }
+
+    public void adddddBeer() {
+        DBHelper db = new DBHelper(this);
+        Beer beer = new Beer("Godöl", 1, 45, 4, "Nice", null);
+        db.addBeer(beer);
+
     }
 
 
