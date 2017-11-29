@@ -41,6 +41,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
             mDBHelper = new DBHelper(this);
 
+
             setItems();
 
             //passing the 3 things; object of context, header array, chliddren
@@ -125,8 +126,6 @@ public class CategoriesActivity extends AppCompatActivity {
 
             List<Category> allCategories = mDBHelper.getAllCategories();
 
-
-
             // Array list for child items
             List<String> child1 = new ArrayList<String>();
             List<String> child2 = new ArrayList<String>();
@@ -166,12 +165,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         }
 
-
-
     //}
-
-
-
 
     /**
      * A method that sets up the bottom navigation
