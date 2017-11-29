@@ -123,7 +123,6 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public void addCategory(String categoryName) {
         Category category = new Category();
-        Log.d("MyLog", "In addCategory method");
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -131,7 +130,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("COL_CATEGORY_NAME", categoryName);
         long id = db.insert(CATEGORY_TABLE, null, values);
         category.setId(id);
-        Log.d("MyLog", categoryName + " placed in row " + id);
         category.setName(categoryName);
     }
 
@@ -144,7 +142,7 @@ public class DBHelper extends SQLiteOpenHelper {
         int id = beer.getCategoryId();
 
         String selection = "_id=?";
-        String[] selectionArgs = new String[] { Integer.toString(id) };
+        String[] selectionArgs = new String[] {Integer.toString(id)};
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(CATEGORY_TABLE, null, selection, selectionArgs, null, null, null, null);
 
@@ -164,7 +162,7 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public Beer getBeerById(long id) {
         String selection = "_id=?";
-        String[] selectionArgs = new String[] { Long.toString(id) };
+        String[] selectionArgs = new String[] {Long.toString(id)};
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(BEER_TABLE,null, selection, selectionArgs, null, null, null);
 
@@ -318,7 +316,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //STEP 1. What id/row nr does the category name have?
         String selection = "COL_CATEGORY_NAME=?";
-        String[] selectionArgs = new String[] { categoryName };
+        String[] selectionArgs = new String[] {categoryName};
 
         Cursor cursor = db.query(CATEGORY_TABLE, null, selection, selectionArgs, null, null, null);
 
@@ -330,7 +328,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //STEP 2. Use id from STEP 1 to return all beers within said category.
         String selectionTwo = "COL_BEER_CATEGORY=?";
-        String[] selectionArgsTwo = new String[] { Integer.toString(id) };
+        String[] selectionArgsTwo = new String[] {Integer.toString(id)};
 
         cursor = db.query(BEER_TABLE, null, selectionTwo, selectionArgsTwo, null, null, "COL_BEER_AVERAGE DESC");
 
