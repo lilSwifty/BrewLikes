@@ -57,11 +57,14 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //to add fragment to the layout
         addSharePhotoFragment();
 
+
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
     }
 
     /**
@@ -134,7 +137,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * A method that adds the fragment SharePhotoFragment to the layout and place it in the btnShare view
      */
     private void addSharePhotoFragment(){
-        Log.d(TAG, "addSharePhotoFragment: adds SharePhotoFragment to btnShare");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
         fragmentTransaction.commit();
@@ -149,7 +151,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method that takes us back to CategoriesActivity
+     * A method that takes us back to CategoriesActivity or to TopLitsActivity
      * @param view - the view being clicked and calling the method
      */
     public void onNavBackClick(View view){
