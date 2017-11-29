@@ -131,8 +131,8 @@ public class RankingActivity extends AppCompatActivity {
     private void onSaveButtonClick(View view){
         String name = saveBeerName();
         String comment = saveBeerComment();
-        int taste = saveTaste();
-        int price = savePrice();
+        double taste = saveTaste();
+        double price = savePrice();
         Object category = categorySpinner.getSelectedItem();
         //Beer beer = new Beer(name,category,price,taste,comment,bilden);
         //dbHelper.addBeer(beer);
@@ -162,18 +162,20 @@ public class RankingActivity extends AppCompatActivity {
      * A method to get the price rate.
      * @return an int with the price rate.
      */
-    private int savePrice(){
+    private double savePrice(){
         int price = priceRateNumber.getText().charAt(0);
-        return price;
+        double doublePrice = (double) price;
+        return doublePrice;
     }
 
     /**
      * A method to get the taste rate.
      * @return an int with the price rate.
      */
-    private int saveTaste(){
+    private double saveTaste(){
         int taste = tasteRateNumber.getText().charAt(0);
-        return taste;
+        double doubleTaste = (double)taste;
+        return doubleTaste;
     }
     /**
      * Saving the name of the beer.
