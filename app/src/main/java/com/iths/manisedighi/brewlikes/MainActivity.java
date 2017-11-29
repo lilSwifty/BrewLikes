@@ -36,7 +36,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        adddddBeer();
+        //adddddBeer();
     }
 
     public void adddddBeer() {

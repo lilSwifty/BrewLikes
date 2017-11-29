@@ -46,7 +46,6 @@ public class TopListCursorAdapter extends CursorAdapter {
      * @param view
      * @param context
      * @param cursor
-     * TODO vad gör denna?
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {

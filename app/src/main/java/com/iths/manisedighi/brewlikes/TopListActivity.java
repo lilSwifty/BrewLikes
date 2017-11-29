@@ -67,14 +67,6 @@ import java.util.List;
         beerImage.setImageDrawable(roundPic);
     }
 
-
-     /**
-      * TODO fixa navBackClick här så man kan gå bakåt
-      */
-    public void onNavBackClick() {
-
-    }
-
      /**
       * When pressing any of the items in the list, this method will send you to the Info Activity-class,
       * and show the beer you've pressed.
@@ -82,7 +74,9 @@ import java.util.List;
       */
     public void onItemClick(View view) {
         Intent intent = new Intent(this, InfoActivity.class);
+        //intent.putExtra();
         startActivity(intent);
+
     }
 
 
