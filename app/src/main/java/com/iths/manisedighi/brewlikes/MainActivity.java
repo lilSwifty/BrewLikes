@@ -3,6 +3,7 @@ package com.iths.manisedighi.brewlikes;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -35,9 +36,28 @@ public class MainActivity extends BottomNavigationBaseActivity {
         logo = findViewById(R.id.logoImageView);
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        //Sound
+        final MediaPlayer bottlesoundMP = MediaPlayer.create(this, R.raw.open_bottle_sound);
+        ImageView beerSound = findViewById(R.id.brewlikes_main_image);
+        beerSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bottlesoundMP.start();
+                Intent cameraIntent = new Intent(getApplicationContext(), RankingActivity.class);
+                startActivity(cameraIntent);
+            }
+        });
     }
 
+        //MILJA TEST - LAUNCH CAMERA WHEN CLICKING ON BOTTLE CAP
+    /*
+    public void onBrewLikesImageClicked(View view) {
 
+            Intent cameraIntent = new Intent(this, RankingActivity.class);
+            startActivity(cameraIntent);
+        }
+    */
         //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
         public void onTestMapButtonClicked(View v){
             if(isGpsServicesAvailable()){

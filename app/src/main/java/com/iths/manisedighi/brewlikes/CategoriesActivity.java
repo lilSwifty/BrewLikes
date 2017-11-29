@@ -33,7 +33,7 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        setupBottomNavigation();
+        //setupBottomNavigation();
 
 
 
@@ -164,10 +164,12 @@ public class CategoriesActivity extends AppCompatActivity {
     /**
      * A method that sets up the bottom navigation
      */
+    /*
     private void setupBottomNavigation(){
         BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
         BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
         BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
     }
+    */
 
 }
