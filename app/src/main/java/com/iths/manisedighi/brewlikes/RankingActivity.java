@@ -176,6 +176,11 @@ public class RankingActivity extends AppCompatActivity {
 
         // TODO: skicka personen till den activityn som vi vill
     }
+
+    /**
+     * A method to send the user to the gps-menu where the user can choose a place to log in to.
+     * @param view
+     */
     public void onMappingClick(View view){
         // TODO: skicka personen till moas map där man kan logga in, ändra färgen på map-pinnen ifall man har checkat in till ölfärgad.
     }
