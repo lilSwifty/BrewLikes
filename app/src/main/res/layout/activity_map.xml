@@ -40,6 +40,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/ic_magnifying_glass"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:background="@null"
             android:hint="@string/searchTextView"
             android:textColor="@color/black"

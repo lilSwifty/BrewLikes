@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,8 +24,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -65,6 +71,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
+    private PlaceInfo mPlace;
 
     //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -101,6 +108,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(this, this)
                 .build();
+
+        searchText.setOnItemClickListener(mAutocompleteClickListener);
 
         mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, null);
 
@@ -202,12 +211,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         hideKeyboard();
     }
 
+    /**
+     * Drops a pin on the location (everywhere but users actual position)
+     * @param latLng - The latitude and longitude
+     * @param zoom - How much it will zoom in on location
+     * @param title - Title (text) of the pin
+     */
     private void dropPin(LatLng latLng, float zoom, String title){
         Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
             MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
             mMap.addMarker(markerOptions);
         }
+        hideKeyboard();
     }
 
     /**
@@ -306,4 +322,55 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
+    // *********************** GOOGLE API AUTOCOMPLETE SUGGESTIONS **********************
+
+    /**
+     * Handles what happens when user clicks suggested location
+     */
+    private AdapterView.OnItemClickListener mAutocompleteClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            hideKeyboard();
+
+            final AutocompletePrediction item = mPlaceAutocompleteAdapter.getItem(position);
+            final String placeID = item.getPlaceId();
+            PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeID);
+            placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+
+        }
+    };
+
+    /**
+     * Callback that gives us a place object with all the information about the location
+     */
+    private ResultCallback<PlaceBuffer> mUpdatePlaceDetailsCallback = new ResultCallback<PlaceBuffer>() {
+        @Override
+        public void onResult(@NonNull PlaceBuffer places) {
+            if(!places.getStatus().isSuccess()){
+                Log.d(TAG, "onResultCallback: Place query did not complete successfully: " + places.getStatus().toString());
+                places.release(); //To prevent memory leak
+                return;
+            }
+
+            final Place place = places.get(0);
+
+            try {
+                mPlace = new PlaceInfo();
+                mPlace.setName(place.getName().toString());
+                mPlace.setAddress(place.getAddress().toString());
+                mPlace.setId(place.getId());
+                mPlace.setLatLng(place.getLatLng());
+                Log.d(TAG, "onResultCallBack: Getting all info from the location: " + mPlace.toString());
+            }catch (NullPointerException e){
+                Log.e(TAG, "onResultCallBack: Nullpointerexception: " + e.getMessage());
+            }
+
+            moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
+                    , DEFAULT_ZOOM, mPlace.getName());
+            places.release();
+            hideKeyboard();
+        }
+    };
 }
+
+
