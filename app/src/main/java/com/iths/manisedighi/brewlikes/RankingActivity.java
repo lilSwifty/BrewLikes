@@ -128,17 +128,18 @@ public class RankingActivity extends AppCompatActivity {
      * The method that does all the work with saving the rankings and put them into the database/infoviews.
      * @param view
      */
-    private void onSaveButtonClick(View view){
+    public void onSaveButtonClick(View view){
         String name = saveBeerName();
         String comment = saveBeerComment();
         double taste = saveTaste();
         double price = savePrice();
         Object category = categorySpinner.getSelectedItem();
+        // TODO: if-sats med uri eller mcurrentpath
         //Beer beer = new Beer(name,category,price,taste,comment,bilden);
         //dbHelper.addBeer(beer);
         // TODO: skicka personen till den activityn som vi vill
     }
-    private void onMappingClick(View view){
+    public void onMappingClick(View view){
         // TODO: skicka personen till moas map där man kan logga in, ändra färgen på map-pinnen ifall man har checkat in till ölfärgad.
     }
 
@@ -154,7 +155,7 @@ public class RankingActivity extends AppCompatActivity {
      * A method to send the user back to the main page of the app if he/she doesn't want to rank a beer anymore.
      * @param view
      */
-    private void onDiscardButtonClick(View view){
+    public void onDiscardButtonClick(View view){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
