@@ -15,11 +15,12 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.ScrollView;
+import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,25 +29,28 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
 
 public class RankingActivity extends AppCompatActivity {
     private ImageView beerImage;
     private TextView tasteText;
-    private RatingBar tasteRate;
+    private SeekBar tasteBar;
     private TextView priceText;
-    private RatingBar priceRate;
+    private SeekBar priceBar;
     private EditText beerComment;
-    private Button rankingButton;
+    private Button saveButton;
     private TextView awfulText;
     private TextView perfectText;
     private TextView expensiveText;
     private TextView cheapText;
-    private ScrollView categoryScroll;
     private EditText beerName;
     private TextView categoryText;
     private Button editButton;
-
-
+    private Button discardButton;
+    private Spinner categorySpinner;
+    private TextView tasteRateNumber;
+    private TextView priceRateNumber;
 
     static final int REQUEST_TAKE_PHOTO = 1337;
     static final int RESULT_LOAD_IMAGE = 2;
@@ -54,91 +58,137 @@ public class RankingActivity extends AppCompatActivity {
 
     private static final String TAG = "RankingActivity";
 
-
+    DBHelper dbHelper = new DBHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_ranking);
         findViews();
         cameraLauncher();
-
+        setSeekbars(tasteBar,tasteRateNumber);
+        setSeekbars(priceBar,priceRateNumber);
+        findBeerCategories();
     }
 
+    /**
+     * A method to set the seekbars and also show the number which the person has rated.
+     */
+    public void setSeekbars(SeekBar seekBar, final TextView textView){
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                textView.setText("" + progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+    }
+
+    /**
+     * A method to fill the Spinner with the categories.
+     */
+    public void findBeerCategories(){
+        List categoryList = dbHelper.getAllCategories();
+        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this,android.R.layout.simple_spinner_item,categoryList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(adapter);
+    }
     /**
      * A method to find the views.
      */
     private void findViews(){
         beerImage = findViewById(R.id.beerImage);
         tasteText = findViewById(R.id.tasteText);
-        tasteRate = findViewById(R.id.tasteRate);
+        tasteBar = findViewById(R.id.tasteBar);
         priceText = findViewById(R.id.priceText);
-        priceRate = findViewById(R.id.priceRate);
+        priceBar = findViewById(R.id.priceBar);
         beerComment = findViewById(R.id.beerComment);
-        rankingButton = findViewById(R.id.rankingButton);
+        saveButton = findViewById(R.id.saveButton);
         awfulText = findViewById(R.id.awfulText);
         perfectText = findViewById(R.id.perfectText);
         expensiveText = findViewById(R.id.expensiveText);
         cheapText = findViewById(R.id.cheapText);
-        categoryScroll = findViewById(R.id.categoryScroll);
         beerName = findViewById(R.id.beerName);
         categoryText = findViewById(R.id.categoryText);
         editButton = findViewById(R.id.editButton);
+        discardButton = findViewById(R.id.discardButton);
+        categorySpinner = findViewById(R.id.categorySpinner);
+        tasteRateNumber = findViewById(R.id.tasteRateNumber);
+        priceRateNumber = findViewById(R.id.priceRateNumber);
     }
 
     /**
      * The method that does all the work with saving the rankings and put them into the database/infoviews.
      * @param view
      */
-    private void onRankingButtonClick(View view){
-
-        float taste = saveTasteRate(view);
-        float price = savePriceRate(view);
-        String name = saveBeerName(view);
-        String comment = saveBeerComment(view);
-        // TODO: 2017-11-22 vilken position i listviewen som vi är på.
+    private void onSaveButtonClick(View view){
+        String name = saveBeerName();
+        String comment = saveBeerComment();
+        int taste = saveTaste();
+        int price = savePrice();
+        Object category = categorySpinner.getSelectedItem();
+        //Beer beer = new Beer(name,category,price,taste,comment,bilden);
+        //dbHelper.addBeer(beer);
+        // TODO: skicka personen till den activityn som vi vill
+    }
+    private void onMappingClick(View view){
+        // TODO: skicka personen till moas map där man kan logga in, ändra färgen på map-pinnen ifall man har checkat in till ölfärgad.
     }
 
+    /**
+     * A method to restart the camera and give the user a chance to take a new picture.
+     * @param view
+     */
     public void onEditButtonClick(View view){
-        // TODO: 2017-11-22 starta om kameraaktiviteten, så att man får ta en ny bild
         cameraLauncher();
     }
+
     /**
-     * Saving the ranking-number of the taste.
+     * A method to send the user back to the main page of the app if he/she doesn't want to rank a beer anymore.
      * @param view
-     * @return a float for the number of stars filled in.
      */
-    private float saveTasteRate(View view){
-        return tasteRate.getRating();
+    private void onDiscardButtonClick(View view){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+    /**
+     * A method to get the price rate.
+     * @return an int with the price rate.
+     */
+    private int savePrice(){
+        int price = priceRateNumber.getText().charAt(0);
+        return price;
     }
 
     /**
-     * Saving the ranking-number of the price.
-     * @param view
-     * @return a float for the number of stars filled in.
+     * A method to get the taste rate.
+     * @return an int with the price rate.
      */
-    private float savePriceRate(View view){
-        return priceRate.getRating();
+    private int saveTaste(){
+        int taste = tasteRateNumber.getText().charAt(0);
+        return taste;
     }
-
     /**
      * Saving the name of the beer.
-     * @param view
      * @return a String for the name of the beer.
      */
-    private String saveBeerName(View view){
+    private String saveBeerName(){
         return beerName.getText().toString();
     }
     /**
      * Saving the comment for the beer.
-     * @param view
      * @return a String for the comment to the beer.
      */
-    private String saveBeerComment(View view){
+    private String saveBeerComment(){
         return beerComment.getText().toString();
     }
-
 
 
     public void cameraLauncher() {
@@ -330,4 +380,5 @@ public class RankingActivity extends AppCompatActivity {
     public void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -5,37 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.iths.manisedighi.brewlikes.RankingActivity">
-        <RatingBar
-        android:id="@+id/priceRate"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:isIndicator="false"
-        android:numStars="5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceText" />
 
-    <RatingBar
-        android:id="@+id/tasteRate"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:isIndicator="false"
-        android:numStars="5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tasteText" />
-
-        <TextView
+    <TextView
         android:id="@+id/tasteText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +22,7 @@
         app:layout_constraintTop_toBottomOf="@+id/beerImage"
         tools:text="@string/tasterating" />
 
-        <TextView
+    <TextView
         android:id="@+id/priceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,10 +33,10 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tasteRate"
+        app:layout_constraintTop_toBottomOf="@+id/tasteBar"
         tools:text="@string/pricerating" />
 
-        <ImageView
+    <ImageView
         android:id="@+id/beerImage"
         android:layout_width="191dp"
         android:layout_height="147dp"
@@ -75,25 +46,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-        android:id="@+id/rankingButton"
+    <Button
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="72dp"
         android:layout_marginTop="8dp"
         android:background="@color/beer"
-        android:onClick="onRankingButtonClick"
-        android:text="@string/rankBeer"
+        android:onClick="onSaveButtonClick"
+        android:text="@string/saveBeer"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beerComment" />
+        app:layout_constraintTop_toBottomOf="@+id/beerComment"
+        app:layout_constraintVertical_bias="0.142" />
 
-        <EditText
+    <EditText
         android:id="@+id/beerComment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -106,69 +76,61 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryScroll" />
+        app:layout_constraintTop_toBottomOf="@+id/categorySpinner" />
 
-        <TextView
+    <TextView
         android:id="@+id/awfulText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
         android:text="@string/tasteAwful"
         android:textColor="@color/beer"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tasteRate"
-        app:layout_constraintEnd_toStartOf="@+id/tasteRate"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tasteBar"
         tools:text="@string/tasteAwful" />
 
-        <TextView
+    <TextView
         android:id="@+id/perfectText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="48dp"
         android:text="@string/tastePerfect"
         android:textColor="@color/beer"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tasteRate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tasteRate"
+        app:layout_constraintTop_toTopOf="@+id/tasteBar"
         tools:text="@string/tastePerfect" />
 
-        <TextView
+    <TextView
         android:id="@+id/expensiveText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="48dp"
         android:text="@string/priceExpensive"
         android:textColor="@color/beer"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/priceRate"
-        app:layout_constraintEnd_toStartOf="@+id/priceRate"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/priceBar"
         tools:text="@string/priceExpensive" />
 
-        <TextView
+    <TextView
         android:id="@+id/cheapText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="48dp"
         android:text="@string/priceCheap"
         android:textColor="@color/beer"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/priceRate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/priceRate"
+        app:layout_constraintTop_toTopOf="@+id/priceBar"
         tools:text="@string/priceCheap" />
 
-        <EditText
+    <EditText
         android:id="@+id/beerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -180,31 +142,19 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/priceRate" />
+        app:layout_constraintTop_toBottomOf="@+id/priceBar" />
 
-        <ScrollView
-        android:id="@+id/categoryScroll"
-        android:layout_width="289dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beerName">
-
-        </ScrollView>
-
-        <TextView
+    <TextView
         android:id="@+id/categoryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/category"
+        android:text="@string/beerCategory"
         android:textColor="@color/beer"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/categoryScroll"
-        app:layout_constraintEnd_toStartOf="@+id/categoryScroll"
+        app:layout_constraintBottom_toBottomOf="@+id/categorySpinner"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -222,5 +172,100 @@
         app:layout_constraintBottom_toBottomOf="@+id/beerImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/beerImage" />
+
+    <SeekBar
+        android:id="@+id/tasteBar"
+        android:layout_width="285dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:max="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tasteText" />
+
+    <SeekBar
+        android:id="@+id/priceBar"
+        android:layout_width="285dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:max="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/expensiveText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/priceText" />
+
+    <Button
+        android:id="@+id/discardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/beer"
+        android:onClick="onDiscardButtonClick"
+        android:text="@string/discardBeer"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beerComment"
+        app:layout_constraintVertical_bias="0.166" />
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="225dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/categoryText"
+        app:layout_constraintTop_toBottomOf="@+id/beerName" />
+
+    <TextView
+        android:id="@+id/tasteRateNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/beer"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tasteBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/priceRateNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/beer"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/priceBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/darkGrey"
+        android:onClick="onMappingClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/beerImage"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_mapview" />
 
 </android.support.constraint.ConstraintLayout>

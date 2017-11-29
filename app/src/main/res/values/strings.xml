@@ -51,6 +51,11 @@
     <string name="ItemTitleAbout">item title about</string>
     <string name="ItemTitleCamera">item title camera</string>
     <string name="aboutTextView">Hey detta är en infotext om appen och vi som har skapat den! Detta är en app för öl, och vi gillar öl. Här är vi!</string>
+    <string name="beerCategory">Category</string>
+    <string name="saveBeer">Save</string>
+    <string name="discardBeer">Discard</string>
+
+
     <string name="testButtonMap">Test Map</string>
     <string name="searchTextView">Search address here</string>
 </resources>
