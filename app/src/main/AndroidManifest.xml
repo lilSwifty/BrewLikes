@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.iths.manisedighi.brewlikes">
+    package="com.iths.manisedighi.brewlikes">
 
-    <!-- Use of any camera - back, front or external -->
-     
     <!-- The permissions needed for the GPS to work -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -48,28 +46,31 @@
         </activity>
         <activity android:name=".InfoActivity" android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".RankingActivity" android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait" />
+        <activity android:name=".CameraActivity" />
         <activity android:name=".CategoriesActivity"/>
         <activity android:name=".AboutActivity">
         </activity>
         <activity android:name=".MapActivity"></activity>
 
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.iths.manisedighi.brewlikes.FileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-             
+        <activity android:name=".TopListActivity"></activity>
 
+        <provider
+            android:authorities="com.iths.manisedighi.brewlikes.FileProvider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true" > 
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths">
+
+            </meta-data>
         </provider>
 
         <activity android:name=".DetailActivity"></activity>
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
         <provider android:authorities="com.facebook.app.FacebookContentProvider382927648827757"
-                  android:name="com.facebook.FacebookContentProvider"
-                  android:exported="true" />
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
 
     </application>
 

@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
- public class TopListActivity extends AppCompatActivity {
+ public class TopListActivity extends BottomNavigationBaseActivity {
      private DBHelper dbHelper;
      private TopListCursorAdapter cursorAdapter;
      private ListView beerListView;
@@ -26,15 +26,22 @@ import java.util.List;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_list);
 
-
-        initialize();
+        setupBottomNavigation();
+        //initialize();
+        //showTopList();
         createRoundPicture();
         createCursorAdapter();
+
+
     }
 
      @SuppressLint("WrongViewCast")
      private void initialize() {
-         beerListView = findViewById(R.id.topListItem);
+         //beerListView = findViewById(R.id.topListItem);
+     }
+
+     public void showTopList() {
+         //dbHelper.getTopList();
      }
 
      /**
@@ -53,7 +60,6 @@ import java.util.List;
      * TODO fixa så det blir en ölbild, och kontrollera att detta funkar
      */
     public void createRoundPicture() {
-
         ImageView beerImage = findViewById(R.id.beerImage);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.beer);
         RoundedBitmapDrawable roundPic = RoundedBitmapDrawableFactory.create(getResources(), bitmap);

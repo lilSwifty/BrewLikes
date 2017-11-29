@@ -29,8 +29,8 @@
             android:layout_height="15dp"
             android:id="@+id/ic_magnifying_glass"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_magnifying_glass"/>
+            android:layout_marginLeft="10dp"/>
+            <!--android:src="@drawable/ic_magnifying_glass"/-->
 
         <!-- The text field that user writes in to search for a specific location -->
         <AutoCompleteTextView
