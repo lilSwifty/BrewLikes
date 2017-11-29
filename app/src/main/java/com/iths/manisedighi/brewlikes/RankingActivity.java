@@ -61,6 +61,8 @@ public class RankingActivity extends AppCompatActivity {
 
     DBHelper dbHelper = new DBHelper(this);
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +134,8 @@ public class RankingActivity extends AppCompatActivity {
     public void onSaveButtonClick(View view){
         String name = saveBeerName();
         String comment = saveBeerComment();
+
+
         double taste = saveTaste();
         double price = savePrice();
         Category category = new Category();
@@ -145,12 +149,29 @@ public class RankingActivity extends AppCompatActivity {
             picture = mCurrentPhotoPath;
         }
 
-        Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
-        dbHelper.addBeer(beer);
+        if (name.isEmpty()) {
+            makeToast("You need fill all columns");
+        }else if (comment.isEmpty()){
+            makeToast("You need to describe the beer");
+        }else if (picture.isEmpty()){
+            makeToast("You need to take a picture of your beer");
+        }else if(category.toString().equals("none")){
+            makeToast("Please choose category");
+        }else{
+            Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
+            dbHelper.addBeer(beer);
+            Intent intent = new Intent(this, InfoActivity.class);
+            startActivity(intent);
+        }
 
-        Intent intent = new Intent(this, InfoActivity.class);
-        startActivity(intent);
+        /*
+        else if (tasteRateNumber.getText().charAt(0) != 0){
+            makeToast("Please rate the price of this beer");
+        }else if (priceRateNumber.getText().charAt(0) != 0){
+            makeToast("Please rate the taste of this beer");
+        }
 
+         */
 
 
 
@@ -369,12 +390,6 @@ public class RankingActivity extends AppCompatActivity {
 
     public void scalePicture() {
         //The dimensions of the View
-
-
-        /*beerImage.setMaxWidth(224);
-        beerImage.setMaxHeight(224);*/
-
-
         int targetW = beerImage.getWidth();
         int targetH = beerImage.getHeight();
 
