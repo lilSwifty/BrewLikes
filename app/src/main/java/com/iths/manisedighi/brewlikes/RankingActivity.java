@@ -154,7 +154,7 @@ public class RankingActivity extends AppCompatActivity {
 
         // TODO: skicka personen till den activityn som vi vill
     }
-    private void onMappingClick(View view){
+    public void onMappingClick(View view){
         // TODO: skicka personen till moas map där man kan logga in, ändra färgen på map-pinnen ifall man har checkat in till ölfärgad.
     }
 
