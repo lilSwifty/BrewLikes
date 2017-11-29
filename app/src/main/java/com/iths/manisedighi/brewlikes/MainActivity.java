@@ -46,18 +46,12 @@ public class MainActivity extends BottomNavigationBaseActivity {
                 bottlesoundMP.start();
                 Intent cameraIntent = new Intent(getApplicationContext(), RankingActivity.class);
                 startActivity(cameraIntent);
+
+                //TODO Credit http://www.freesfx.co.uk/ for sound file!
             }
         });
     }
 
-        //MILJA TEST - LAUNCH CAMERA WHEN CLICKING ON BOTTLE CAP
-    /*
-    public void onBrewLikesImageClicked(View view) {
-
-            Intent cameraIntent = new Intent(this, RankingActivity.class);
-            startActivity(cameraIntent);
-        }
-    */
         //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
         public void onTestMapButtonClicked(View v){
             if(isGpsServicesAvailable()){
