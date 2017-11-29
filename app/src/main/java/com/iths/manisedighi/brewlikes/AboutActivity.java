@@ -2,6 +2,7 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,9 +18,10 @@ public class AboutActivity extends AppCompatActivity {
     ListView myListView;
     String[] persons;
     String[] descriptions;
-    String[] images;
+    TypedArray image;
     ImageView line;
     ImageView logo;
+
 
 
     @Override
@@ -35,9 +37,9 @@ public class AboutActivity extends AppCompatActivity {
         myListView = findViewById(R.id.myListView);
         persons = res.getStringArray(R.array.persons);
         descriptions = res.getStringArray(R.array.descriptions);
-        //images = res.getStringArray(R.array.images);
+        image = res.obtainTypedArray(R.array.images);
 
-        ItemAdapter itemAdapter = new ItemAdapter(this, persons, descriptions);
+        ItemAdapter itemAdapter = new ItemAdapter(this, persons, descriptions,image);
         myListView.setAdapter(itemAdapter);
 
         myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,25 +65,6 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        /*
-
-        //ArrayList of all the members
-       ArrayList<String> memberList = new ArrayList<>();
-       memberList.add("EMMA");
-       memberList.add("MANI");
-       memberList.add("MILJA");
-       memberList.add("MOA");
-       memberList.add("PATRIK");
-       memberList.add("VICTOR");
-       memberList.add("VICTORIA");
-
-       //Array Adapter for the memberListView
-       ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, memberList);
-
-       //Connects the listView to the arrayAdapter
-       listView.setAdapter(arrayAdapter);
-
-       */
     }
 
 

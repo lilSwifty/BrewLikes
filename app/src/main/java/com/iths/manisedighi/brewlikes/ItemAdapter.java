@@ -1,10 +1,12 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -16,12 +18,13 @@ public class ItemAdapter extends BaseAdapter {
     LayoutInflater mInflator;
     String[] persons;
     String[] descriptions;
-    //String[] images;
+    TypedArray image;
 
 
-    public ItemAdapter(Context c, String[] p, String[] d){
+    public ItemAdapter(Context c, String[] p, String[] d, TypedArray img){
         persons = p;
         descriptions = d;
+        image = img;
         mInflator =(LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -46,14 +49,17 @@ public class ItemAdapter extends BaseAdapter {
         View v = mInflator.inflate(R.layout.detail, null);
         TextView nameTextView = (TextView)v.findViewById(R.id.nameTextView);
         TextView descriptionText = (TextView)v.findViewById(R.id.descriptionText);
-        //ImageView profile = (ImageView)v.findViewById(R.id.profile);
+        ImageView profile = (ImageView)v.findViewById(R.id.profile);
 
         String name = persons[p];
         String desc = descriptions[p];
-        //String img = images[p];
+
+
+
 
         nameTextView.setText(name);
         descriptionText.setText(desc);
+        profile.setImageResource(image.getResourceId(p, -1));
 
 
         return v;

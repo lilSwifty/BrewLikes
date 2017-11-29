@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="images">
+        <item>@drawable/emmas</item>
+        <item>@drawable/manis</item>
+        <item>@drawable/miljas</item>
+        <item>@drawable/moas</item>
+        <item>@drawable/patriks</item>
+        <item>@drawable/victors</item>
+        <item>@drawable/victorias</item>
+    </array>
+
+</resources>
