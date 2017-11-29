@@ -1,23 +1,27 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 public class AboutActivity extends AppCompatActivity {
 
-    ListView listView;
+    ListView myListView;
+    String[] persons;
+    String[] descriptions;
+    TypedArray image;
     ImageView line;
     ImageView logo;
+
 
 
     @Override
@@ -28,7 +32,28 @@ public class AboutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         line = findViewById(R.id.lineImageView);
         logo = findViewById(R.id.logoImageView);
-        listView = findViewById(R.id.membersListView);
+        //Hides the BrewLikes text from the upper toolbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        Resources res = getResources();
+        myListView = findViewById(R.id.myListView);
+        persons = res.getStringArray(R.array.persons);
+        descriptions = res.getStringArray(R.array.descriptions);
+        image = res.obtainTypedArray(R.array.images);
+
+        ItemAdapter itemAdapter = new ItemAdapter(this, persons, descriptions,image);
+        myListView.setAdapter(itemAdapter);
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int p, long l) {
+                Intent showDetailActivity = new Intent(getApplicationContext(), DetailActivity.class);
+                showDetailActivity.putExtra("com.example.manisedighi.brewlikes.ITEM_INDEX", p);
+                startActivity(showDetailActivity);
+
+            }
+        });
+
 
         /**
          * When BrewLikes logo in the toolbar is clicked it launches MainActivity.
@@ -42,22 +67,9 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        //ArrayList of all the members
-       ArrayList<String> memberList = new ArrayList<>();
-       memberList.add("EMMA");
-       memberList.add("MANI");
-       memberList.add("MILJA");
-       memberList.add("MOA");
-       memberList.add("PATRIK");
-       memberList.add("VICTOR");
-       memberList.add("VICTORIA");
-
-       //Array Adapter for the memberListView
-       ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, memberList);
-
-       //Connects the listView to the arrayAdapter
-       listView.setAdapter(arrayAdapter);
     }
+
+
 
     /**
      * Upper toolbar with icons

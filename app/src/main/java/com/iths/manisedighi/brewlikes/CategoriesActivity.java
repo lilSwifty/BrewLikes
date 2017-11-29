@@ -2,12 +2,9 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
-
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,13 +17,14 @@ import java.util.List;
  * HashMap is used to create array list with category and item relation.
  */
 
-public class CategoriesActivity extends AppCompatActivity {
+public class CategoriesActivity extends BottomNavigationBaseActivity{
     private Context context = CategoriesActivity.this;
     private static ExpandableListView expandableListView;
     private static ExpandableListAdapter adapter;
     private DBHelper mDBHelper;
     HashMap<String, List<String>> hashMap;
     ArrayList<String> header;
+
 
 
     @Override
@@ -156,7 +154,6 @@ public class CategoriesActivity extends AppCompatActivity {
                 child4.add("Child" + i);
             }
 
-
             // Adding header and childs to hash map
             hashMap.put(header.get(0), child1);
             hashMap.put(header.get(1), child2);
@@ -165,15 +162,9 @@ public class CategoriesActivity extends AppCompatActivity {
 
         }
 
-    //}
 
-    /**
-     * A method that sets up the bottom navigation
-     */
-    private void setupBottomNavigation(){
-        BottomNavigationViewEx bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
-        BottomNavigationHelper.manipulateBottomNavigation(bottomNavigationViewEx);
-        BottomNavigationHelper.activateBottomNavigation(context, bottomNavigationViewEx);
+
+    //}
     }
 
-}
+

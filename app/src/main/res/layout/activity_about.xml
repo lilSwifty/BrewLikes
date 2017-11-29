@@ -13,6 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/darkGrey">
 
+
+
     </android.support.v7.widget.Toolbar>
 
     <TextView
@@ -32,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbarTop" />
 
     <ListView
-        android:id="@+id/membersListView"
+        android:id="@+id/myListView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="16dp"
@@ -47,7 +49,7 @@
     <ImageView
         android:id="@+id/lineImageView"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
+        android:layout_height="25dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"

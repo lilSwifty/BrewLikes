@@ -1,212 +1,291 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.iths.manisedighi.brewlikes.InfoActivity">
+    android:layout_height="match_parent">
 
-        <!-- Title menu -->
+    <!-- toolbar -->
 
-        <RelativeLayout
-            android:id="@+id/titleMenu"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="55dp"
-            android:background="@color/beer">
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbarTop"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/darkGrey">
 
-            <ImageView
-                android:id="@+id/ivNavBack"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="12dp"
-                android:onClick="onNavBackClick"
-                android:src="@drawable/ic_left_arrow" />
+    </android.support.v7.widget.Toolbar>
 
-            <TextView
-                android:id="@+id/tvBeerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BeerName"
-                android:textSize="36sp"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold"
-                android:layout_marginTop="2dp"
-                android:layout_marginStart="8dp"/>
-        </RelativeLayout>
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarTop"
+        app:layout_constraintStart_toStartOf="@+id/toolbarTop"
+        app:layout_constraintTop_toTopOf="@+id/toolbarTop"
+        app:srcCompat="@drawable/brewlikes_placeholder_logo2" />
 
-        <!-- Middle section info -->
+    <!-- title menu -->
 
-        <RelativeLayout
-            android:id="@+id/infoView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/titleMenu">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/titleMenu"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="56dp"
+        android:background="@color/beer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/ivBeer"
-                android:layout_width="220dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp" />
+        <TextView
+            android:id="@+id/tvBeerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="sans-serif"
+            android:text="Beer"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/ivBeer"
-                android:text="@string/category"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif"/>
-
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/ivBeer"
-                android:layout_below="@+id/tvCategory"
-                android:text="@string/price"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif"/>
-
-            <TextView
-                android:id="@+id/tvPriceScore"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/tvPrice"
-                android:layout_below="@+id/tvCategory"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="35dp"
-                android:text="8.0"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif"/>
-
-            <TextView
-                android:id="@+id/tvTaste"
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/ivBeer"
-                android:layout_below="@+id/tvPrice"
-                android:text="@string/taste"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif"/>
-
-            <TextView
-                android:id="@+id/tvTasteScore"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/tvTaste"
-                android:layout_below="@+id/tvPriceScore"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="35dp"
-                android:text="7.0"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif"/>
-
-            <TextView
-                android:id="@+id/tvRate"
-                android:layout_width="52dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@+id/ivBeer"
-                android:layout_below="@+id/tvTaste"
-                android:text="@string/rate"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif"/>
-
-            <TextView
-                android:id="@+id/tvRateScore"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/tvRate"
-                android:layout_below="@+id/tvTasteScore"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="0dp"
-                android:text="7.5/10.0"
-                android:textSize="16sp"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif"/>
-
-            <ImageView
-                android:id="@+id/ivShare"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/tvInfo"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_toEndOf="@id/ivBeer"
-                android:onClick="onShareClick"
-                android:src="@drawable/ic_facebook_share" />
+        <ImageView
+            android:id="@+id/ivNavBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="200dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="12dp"
+            android:onClick="onNavBackClick"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 
-            <TextView
-                android:id="@+id/tvInfo"
-                android:layout_width="300dp"
-                android:layout_height="70dp"
-                android:layout_below="@+id/ivBeer"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
-                android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
-                android:textAllCaps="true" />
+    </android.support.v7.widget.Toolbar>
 
-            <ImageView
-                android:id="@+id/ivEdit"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_above="@id/tvLocation"
-                android:layout_toEndOf="@id/tvInfo"
-                android:onClick="onEditClick"
-                android:src="@drawable/ic_edit" />
+    <!-- middle section -->
 
-            <ImageView
-                android:id="@+id/ivLocation"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_below="@id/tvInfo"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:onClick="onLocationClick"
-                android:src="@drawable/ic_mapview_white">
+    <ImageView
+        android:id="@+id/ivBeer"
+        android:layout_width="220dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
 
-            </ImageView>
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/category"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/ivBeer"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/ivLocation"
-                android:layout_below="@id/tvInfo"
-                android:layout_marginTop="18dp"
-                android:layout_marginStart="8dp"
-                android:text="The Abyss, Andra Långgatan 35, Göteborg"
-                android:fontFamily="sans-serif"
-                android:textAllCaps="true">
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCategory"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/price"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/ivBeer"
+        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
 
-            </TextView>
-        </RelativeLayout>
+    <TextView
+        android:id="@+id/tvPriceScore"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="8.0"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tvPrice"
+        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
 
-        <!-- Bottom navigation -->
+    <TextView
+        android:id="@+id/tvTaste"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/taste"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/ivBeer"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
 
-        <include layout="@layout/bottom_navigation"/>
+    <TextView
+        android:id="@+id/tvTasteScore"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="7.0"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tvTaste"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceScore" />
 
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/tvRate"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/rate"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/ivBeer"
+        app:layout_constraintTop_toBottomOf="@+id/tvTaste" />
+
+    <TextView
+        android:id="@+id/tvRateScore"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif"
+        android:text="7.5/10.0"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tvRate"
+        app:layout_constraintTop_toBottomOf="@+id/tvTasteScore" />
+
+    <ImageView
+        android:id="@+id/ivShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onShareClick"
+        android:src="@drawable/ic_fb_share_white"
+        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
+        app:layout_constraintStart_toEndOf="@+id/ivBeer" />
+
+    <TextView
+        android:id="@+id/tvShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvInfo"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="6dp"
+        android:layout_toEndOf="@+id/ivShare"
+        android:onClick="onShareClick"
+        android:text="Share"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
+        app:layout_constraintStart_toEndOf="@+id/ivShare" />
+
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/ivBeer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBeer" />
+
+    <EditText
+        android:id="@+id/etInfo"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/ivBeer"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
+        android:textAllCaps="true"
+        android:textSize="16dp"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBeer"/>
+
+    <ImageView
+        android:id="@+id/ivEdit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_toEndOf="@id/tvInfo"
+        android:onClick="onEditClick"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toEndOf="@+id/tvInfo"
+        app:layout_constraintTop_toBottomOf="@+id/tvShare" />
+
+    <ImageView
+        android:id="@+id/ivSave"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_toEndOf="@id/tvInfo"
+        android:onClick="onSaveClick"
+        android:src="@drawable/ic_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toEndOf="@+id/etInfo"
+        app:layout_constraintTop_toBottomOf="@+id/tvShare" />
+
+
+    <ImageView
+        android:id="@+id/ivLocation"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onLocationClick"
+        android:src="@drawable/ic_mapview_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfo">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif"
+        android:text="The Abyss, Andra Långgatan 35, Göteborg"
+        android:textAllCaps="true"
+        app:layout_constraintStart_toEndOf="@+id/ivLocation"
+        app:layout_constraintTop_toBottomOf="@+id/tvInfo">
+
+    </TextView>
+
+    <!-- bottom navigation -->
+
+    <include layout="@layout/bottom_navigation"></include>
+
+</android.support.constraint.ConstraintLayout>

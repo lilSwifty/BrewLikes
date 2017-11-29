@@ -4,36 +4,47 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 /**
- * Created by Emma on 2017-11-15.
- * A helper class to setup and enable the bottom navigation
+ * Created by emmapersson on 2017-11-22.
+ *
+ * A class to setup and handle the BottomNavigation
  */
 
-public class BottomNavigationHelper {
+public class BottomNavigationBaseActivity extends AppCompatActivity {
+
+    private BottomNavigationViewEx bottomNavigationViewEx;
+    private Context context = BottomNavigationBaseActivity.this;
 
     /**
-     * A static method that when called manipulates some of
-     * the settings for the bottom navigation
-     * @param view - the BottomNavigationViewEx to manipulate
+     * A method that sets up the bottom navigation
      */
-    public static void manipulateBottomNavigation(BottomNavigationViewEx view){
-        view.enableAnimation(false);
-        view.enableShiftingMode(false);
-        view.enableItemShiftingMode(false);
-        view.setTextVisibility(true);
+    protected void setupBottomNavigation(){
+        bottomNavigationViewEx = findViewById(R.id.bottomNavigation);
+        manipulateBottomNavigation();
+        activateBottomNavigation();
     }
 
     /**
-     * A static method that handles clicks on the different icons in the navigation view
-     * @param context - from where this method being called
-     * @param view - the BottomNavigationViewEx to handle
+     * A method that when called manipulates some of
+     * the settings for the bottom navigation
      */
-    public static void activateBottomNavigation(final Context context, BottomNavigationViewEx view){
-        view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+    public void manipulateBottomNavigation(){
+        bottomNavigationViewEx.enableAnimation(false);
+        bottomNavigationViewEx.enableShiftingMode(false);
+        bottomNavigationViewEx.enableItemShiftingMode(false);
+        bottomNavigationViewEx.setTextVisibility(true);
+    }
+
+    /**
+     * A method that handles clicks on the different icons in the navigation view
+     */
+    private void activateBottomNavigation(){
+        bottomNavigationViewEx.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
@@ -49,13 +60,13 @@ public class BottomNavigationHelper {
                         break;
                     case R.id.ic_toplist:
                         item.setChecked(true);
-//                        Intent topListIntent = new Intent(context, ToplistActivity.class);
+//                        Intent topListIntent = new Intent(context, TopListActivity.class);
 //                        context.startActivity(topListIntent);
                         break;
                     case R.id.ic_mapview:
                         item.setChecked(true);
-//                        Intent mapViewIntent = new Intent(context, MapviewActivity.class);
-//                        context.startActivity(mapViewIntent);
+                        Intent mapIntent = new Intent(context, MapActivity.class);
+                        context.startActivity(mapIntent);
                         break;
                 }
                 return false;

@@ -1,4 +1,5 @@
 <resources>
+    <string name="Google_Maps_API_key">AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU</string>
     <string name="app_name">BrewLikes</string>
     <string name="pricerating">Price</string>
     <string name="tasterating">Taste</string>
@@ -20,10 +21,42 @@
     <string name="home">Home</string>
     <string name="topList">TopList</string>
     <string name="mapView">MapView</string>
+
+    <string-array name="persons">
+        <item>Emma</item>
+        <item>Mani</item>
+        <item>Milja</item>
+        <item>Moa</item>
+        <item>Patrik</item>
+        <item>Victor</item>
+        <item>Veronica</item>
+    </string-array>
+
+    <string-array name="descriptions">
+        <item>Emma är bla bla bla</item>
+        <item>Mani är bla bla bla</item>
+        <item>Milja är bla bla bla</item>
+        <item>Moa är bla bla bla</item>
+        <item>Patrik är bla bla bla</item>
+        <item>Victor är bla bla bla</item>
+        <item>Veronica är bla bla bla</item>
+    </string-array>
+
+
+
+
+
+    <!-- end of InfoActivity & BottomNavigation -->
+
     <string name="ItemTitleAbout">item title about</string>
     <string name="ItemTitleCamera">item title camera</string>
     <string name="aboutTextView">Hey detta är en infotext om appen och vi som har skapat den! Detta är en app för öl, och vi gillar öl. Här är vi!</string>
+    <string name="beerCategory">Category</string>
+    <string name="saveBeer">Save</string>
+    <string name="discardBeer">Discard</string>
 
     <string name="app_id">382927648827757</string>
 
+    <string name="testButtonMap">Test Map</string>
+    <string name="searchTextView">Search address here</string>
 </resources>
