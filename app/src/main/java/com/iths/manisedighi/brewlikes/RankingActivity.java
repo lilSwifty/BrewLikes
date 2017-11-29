@@ -134,12 +134,12 @@ public class RankingActivity extends AppCompatActivity {
         int taste = saveTaste();
         int price = savePrice();
         Object category = categorySpinner.getSelectedItem();
-        //Beer beer = new Beer(name,kategori,price,taste,comment,bilden);
+        //Beer beer = new Beer(name,category,price,taste,comment,bilden);
         //dbHelper.addBeer(beer);
         // TODO: skicka personen till den activityn som vi vill
     }
     private void onMappingClick(View view){
-        // TODO: skicka personen till där man kan lägga till location på bilden,ta med det i när man skapar ölen
+        // TODO: skicka personen till moas map där man kan logga in, ändra färgen på map-pinnen ifall man har checkat in till ölfärgad.
     }
 
     /**
