@@ -137,19 +137,24 @@ public class RankingActivity extends AppCompatActivity {
         Category category = new Category();
         category = (Category) categorySpinner.getSelectedItem();
         int categoryId = (int) category.getId();
-        String picture;
+        String picture = "";
 
         if (mCurrentPhotoPath == null && selectedImage != null){
             picture = selectedImage.toString();
         }else if (selectedImage == null && mCurrentPhotoPath != null){
             picture = mCurrentPhotoPath;
-        }else{
-            picture = null;
-            makeToast("No image selected");
         }
 
-        Beer beer = new Beer(name,categoryId,price,taste,comment,picture);
+        Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
         dbHelper.addBeer(beer);
+
+        Intent intent = new Intent(this, InfoActivity.class);
+        startActivity(intent);
+
+
+
+
+
 
 
         // TODO: skicka personen till den activityn som vi vill
