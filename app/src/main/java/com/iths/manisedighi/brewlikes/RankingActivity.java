@@ -276,6 +276,7 @@ public class RankingActivity extends AppCompatActivity {
     }
 
 
+
     /**
      * Adds the picture to the gallery
      */
