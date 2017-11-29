@@ -133,8 +133,9 @@ public class RankingActivity extends AppCompatActivity {
         String comment = saveBeerComment();
         int taste = saveTaste();
         int price = savePrice();
-        categorySpinner.getSelectedItem();
+        Object category = categorySpinner.getSelectedItem();
         //Beer beer = new Beer(name,kategori,price,taste,comment,bilden);
+        //dbHelper.addBeer(beer);
         // TODO: skicka personen till den activityn som vi vill
     }
     private void onMappingClick(View view){
