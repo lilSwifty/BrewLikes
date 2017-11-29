@@ -1,4 +1,5 @@
 <resources>
+    <string name="Google_Maps_API_key">AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU</string>
     <string name="app_name">BrewLikes</string>
     <string name="pricerating">Price</string>
     <string name="tasterating">Taste</string>
@@ -9,13 +10,11 @@
     <string name="priceExpensive">Expensive</string>
     <string name="priceCheap">Cheap</string>
     <string name="beerName">Name of the beer</string>
-    <string name="ItemTitleAbout">item title about</string>
-    <string name="ItemTitleCamera">item title camera</string>
-    <string name="aboutTextView">Hey detta är en infotext om appen och vi som har skapat den! Detta är en app för öl, och vi gillar öl. Här är vi!</string>
+    <string name="category">Category</string>
+    <string name="imageEdit">Edit</string>
 
     <!-- InfoActivity & BottomNavigation-->
 
-    <string name="category">Category</string>
     <string name="taste">Taste:</string>
     <string name="price">Price:</string>
     <string name="rate">Rate:</string>
@@ -46,4 +45,12 @@
 
 
 
+
+    <!-- end of InfoActivity & BottomNavigation -->
+
+    <string name="ItemTitleAbout">item title about</string>
+    <string name="ItemTitleCamera">item title camera</string>
+    <string name="aboutTextView">Hey detta är en infotext om appen och vi som har skapat den! Detta är en app för öl, och vi gillar öl. Här är vi!</string>
+    <string name="testButtonMap">Test Map</string>
+    <string name="searchTextView">Search address here</string>
 </resources>

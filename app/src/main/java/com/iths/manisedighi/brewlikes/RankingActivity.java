@@ -43,6 +43,8 @@ public class RankingActivity extends AppCompatActivity {
     private TextView cheapText;
     private ScrollView categoryScroll;
     private EditText beerName;
+    private TextView categoryText;
+    private Button editButton;
 
 
 
@@ -81,6 +83,8 @@ public class RankingActivity extends AppCompatActivity {
         cheapText = findViewById(R.id.cheapText);
         categoryScroll = findViewById(R.id.categoryScroll);
         beerName = findViewById(R.id.beerName);
+        categoryText = findViewById(R.id.categoryText);
+        editButton = findViewById(R.id.editButton);
     }
 
     /**
@@ -93,9 +97,13 @@ public class RankingActivity extends AppCompatActivity {
         float price = savePriceRate(view);
         String name = saveBeerName(view);
         String comment = saveBeerComment(view);
-
+        // TODO: 2017-11-22 vilken position i listviewen som vi är på.
     }
 
+    public void onEditButtonClick(View view){
+        // TODO: 2017-11-22 starta om kameraaktiviteten, så att man får ta en ny bild
+        cameraLauncher();
+    }
     /**
      * Saving the ranking-number of the taste.
      * @param view
@@ -130,6 +138,8 @@ public class RankingActivity extends AppCompatActivity {
     private String saveBeerComment(View view){
         return beerComment.getText().toString();
     }
+
+
 
     public void cameraLauncher() {
         AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
