@@ -10,9 +10,9 @@ public class Beer {
     private String name = null;
     private String categoryName = null;
     private int categoryId = 0;
-    private float price = 0;
-    private float taste = 0;
-    private float average = 0;
+    private double price = 0;
+    private double taste = 0;
+    private double average = 0;
     private String comment = null;
     private String location = null;
     private String photoPath = null; //file://.... <- path pointing to image
@@ -21,7 +21,7 @@ public class Beer {
     public Beer() {}
 
     //Constructor utan GPS
-    public Beer(String name, int categoryId, float price, float taste, String comment, String photoPath) {
+    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath) {
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
@@ -32,7 +32,7 @@ public class Beer {
     }
 
     //Constructor med GPS
-    public Beer(String name, int categoryId, float price, float taste, String comment, String photoPath, String location) {
+    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location) {
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
@@ -59,7 +59,7 @@ public class Beer {
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -67,7 +67,7 @@ public class Beer {
         this.price = price;
     }
 
-    public float getTaste() {
+    public double getTaste() {
         return taste;
     }
 
@@ -75,7 +75,7 @@ public class Beer {
         this.taste = taste;
     }
 
-    public float getAverage() {
+    public double getAverage() {
         return average;
     }
 
