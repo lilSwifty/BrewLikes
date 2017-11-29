@@ -38,7 +38,7 @@ public class SharePhotoFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //FacebookSdk.getSdkVersion();
+        FacebookSdk.getSdkVersion();
 
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
@@ -87,7 +87,6 @@ public class SharePhotoFragment extends Fragment {
                         .build())
                 .build();
 
-
         btnShare = view.findViewById(R.id.btnShare);
         btnShare.setShareContent(sharePhotoContent);
     }
@@ -116,3 +115,4 @@ public class SharePhotoFragment extends Fragment {
         }
     };
 }
+
