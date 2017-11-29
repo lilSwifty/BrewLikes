@@ -137,6 +137,9 @@ public class RankingActivity extends AppCompatActivity {
         //Beer beer = new Beer(name,kategori,price,taste,comment,bilden);
         // TODO: skicka personen till den activityn som vi vill
     }
+    private void onMappingClick(View view){
+        // TODO: skicka personen till där man kan lägga till location på bilden,ta med det i när man skapar ölen
+    }
 
     /**
      * A method to restart the camera and give the user a chance to take a new picture.
