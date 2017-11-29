@@ -133,15 +133,26 @@ public class RankingActivity extends AppCompatActivity {
         String comment = saveBeerComment();
         int taste = saveTaste();
         int price = savePrice();
-        // TODO: vilken plats i spinnern som vi är på
+        categorySpinner.getSelectedItem();
         //Beer beer = new Beer(name,kategori,price,taste,comment,bilden);
+        // TODO: skicka personen till den activityn som vi vill
     }
 
+    /**
+     * A method to restart the camera and give the user a chance to take a new picture.
+     * @param view
+     */
     public void onEditButtonClick(View view){
         cameraLauncher();
     }
+
+    /**
+     * A method to send the user back to the main page of the app if he/she doesn't want to rank a beer anymore.
+     * @param view
+     */
     private void onDiscardButtonClick(View view){
-        // TODO: lägg in vilken activity vi ska skickas till om vi trycker på discard.
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
     /**
      * A method to get the price rate.
