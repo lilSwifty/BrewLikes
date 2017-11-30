@@ -23,11 +23,6 @@ import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 
-import java.io.IOException;
-
-import bolts.AppLinks;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by emmapersson on 2017-11-28.
