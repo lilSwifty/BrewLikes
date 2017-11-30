@@ -28,8 +28,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Context context = InfoActivity.this;
 
     private ImageView ivBeer;
-    private ImageView ivEdit;
-    private ImageView ivLocation;
     private ImageView logo;
 
 
@@ -84,8 +82,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private void findViews(){
         Log.d(TAG, "findViews: get's all the views");
         ivBeer = findViewById(R.id.ivBeer);
-        ivEdit = findViewById(R.id.ivEdit);
-        ivLocation = findViewById(R.id.ivLocation);
         tvBeerName = findViewById(R.id.tvBeerName);
         tvCategory = findViewById(R.id.tvCategory);
         tvPriceScore = findViewById(R.id.tvPriceScore);
