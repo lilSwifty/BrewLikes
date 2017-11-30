@@ -2,6 +2,8 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +42,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private EditText etInfo;
 
+    private Beer beer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
@@ -63,7 +67,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         logo = findViewById(R.id.logoImageView);
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
     }
 
@@ -122,14 +125,22 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
-        /*ivBeer.setImageBitmap(?);
+
+        Intent intent = getIntent();
+        Long id = intent.getLongExtra("id", 0);
+        DBHelper helper = new DBHelper(context);
+        beer = helper.getBeerById(id);
+
+        Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
+        ivBeer.setImageBitmap(image);
+
         tvBeerName.setText(beer.getName());
-        tvCategory.setText(beer.getCategory());
+        tvCategory.setText(beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
-        tvInfo.setText(beer.getComment);
-        tvLocation.setText(beer.getLocation());*/
+        tvInfo.setText(beer.getComment());
+        tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
     }
 
@@ -156,8 +167,13 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onNavBackClick(View view){
         Log.d(TAG, "onNavBackClick: nav back clicked");
-        Intent intent = new Intent(context, CategoriesActivity.class);
-        startActivity(intent);
+        if(getCallingActivity().equals(CategoriesActivity.class)){
+            Intent intent = new Intent(context, CategoriesActivity.class);
+            startActivity(intent);
+        }/*else if(getCallingActivity().equals(TopListActivity.class)){
+            Intent intent = new Intent(context, CategoriesActivity.class);
+            startActivity(intent);
+        }*/
     }
 
     /**
@@ -199,6 +215,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     public void onLocationClick(View view){
         Log.d(TAG, "onLocationClick: location clicked.");
+        Intent mapIntent = new Intent(InfoActivity.this, MapActivity.class);
+        mapIntent.putExtra("location" ,beer.getLocation());
+        startActivity(mapIntent);
         //TODO takes you to map view
     }
 }
