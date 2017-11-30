@@ -32,8 +32,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
-            android:maxHeight="80dp"
-            android:maxWidth="80dp"/>
+            android:maxHeight="70dp"
+            android:maxWidth="70dp"/>
         <!--app:srcCompat="@drawable/beer"-->
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="50dp"
             android:text="9.5"
             android:textColor="@color/beer" />
 
