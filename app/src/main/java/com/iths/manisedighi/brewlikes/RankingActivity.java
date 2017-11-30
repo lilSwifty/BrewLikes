@@ -51,6 +51,7 @@ public class RankingActivity extends AppCompatActivity {
     private Spinner categorySpinner;
     private TextView tasteRateNumber;
     private TextView priceRateNumber;
+    private Uri selectedImage;
 
     static final int REQUEST_TAKE_PHOTO = 1337;
     static final int RESULT_LOAD_IMAGE = 2;
@@ -59,6 +60,8 @@ public class RankingActivity extends AppCompatActivity {
     private static final String TAG = "RankingActivity";
 
     DBHelper dbHelper = new DBHelper(this);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,14 +131,53 @@ public class RankingActivity extends AppCompatActivity {
      * The method that does all the work with saving the rankings and put them into the database/infoviews.
      * @param view
      */
-    private void onSaveButtonClick(View view){
+    public void onSaveButtonClick(View view){
         String name = saveBeerName();
         String comment = saveBeerComment();
-        int taste = saveTaste();
-        int price = savePrice();
-        Object category = categorySpinner.getSelectedItem();
-        //Beer beer = new Beer(name,category,price,taste,comment,bilden);
-        //dbHelper.addBeer(beer);
+
+
+        double taste = saveTaste();
+        double price = savePrice();
+        Category category = new Category();
+        category = (Category) categorySpinner.getSelectedItem();
+        int categoryId = (int) category.getId();
+        String picture = "";
+
+        if (mCurrentPhotoPath == null && selectedImage != null){
+            picture = selectedImage.toString();
+        }else if (selectedImage == null && mCurrentPhotoPath != null){
+            picture = mCurrentPhotoPath;
+        }
+
+        if (name.isEmpty()) {
+            makeToast("You need fill all columns");
+        }else if (comment.isEmpty()){
+            makeToast("You need to describe the beer");
+        }else if (picture.isEmpty()){
+            makeToast("You need to take a picture of your beer");
+        }else if(category.toString().equals("none")){
+            makeToast("Please choose category");
+        }else{
+            Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
+            dbHelper.addBeer(beer);
+            Intent intent = new Intent(this, InfoActivity.class);
+            startActivity(intent);
+        }
+
+        /*
+        else if (tasteRateNumber.getText().charAt(0) != 0){
+            makeToast("Please rate the price of this beer");
+        }else if (priceRateNumber.getText().charAt(0) != 0){
+            makeToast("Please rate the taste of this beer");
+        }
+
+         */
+
+
+
+
+
+
         // TODO: skicka personen till den activityn som vi vill
     }
     private void onMappingClick(View view){
@@ -154,7 +196,7 @@ public class RankingActivity extends AppCompatActivity {
      * A method to send the user back to the main page of the app if he/she doesn't want to rank a beer anymore.
      * @param view
      */
-    private void onDiscardButtonClick(View view){
+    public void onDiscardButtonClick(View view){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
@@ -190,6 +232,9 @@ public class RankingActivity extends AppCompatActivity {
         return beerComment.getText().toString();
     }
 
+    /**
+     * starts a dialog with options take/upload picture
+     */
 
     public void cameraLauncher() {
         AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
@@ -262,7 +307,7 @@ public class RankingActivity extends AppCompatActivity {
         } else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             //TODO find path to gallery
 
-            Uri selectedImage = data.getData();
+            selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
             Cursor cursor = getContentResolver().query(selectedImage,
@@ -342,16 +387,12 @@ public class RankingActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * TODO give mImageView the same name as the shown ImageView
-     * To scale down the picture and then decode it.
-     */
-
 
     public void scalePicture() {
         //The dimensions of the View
         int targetW = beerImage.getWidth();
         int targetH = beerImage.getHeight();
+
 
         //The dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();

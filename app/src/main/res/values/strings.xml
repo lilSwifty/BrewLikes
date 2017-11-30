@@ -27,19 +27,19 @@
         <item>Mani</item>
         <item>Milja</item>
         <item>Moa</item>
-        <item>Patrik</item>
+        <item>Pekka</item>
         <item>Victor</item>
         <item>Veronica</item>
     </string-array>
 
     <string-array name="descriptions">
-        <item>Emma är bla bla bla</item>
-        <item>Mani är bla bla bla</item>
-        <item>Milja är bla bla bla</item>
-        <item>Moa är bla bla bla</item>
-        <item>Patrik är bla bla bla</item>
-        <item>Victor är bla bla bla</item>
-        <item>Veronica är bla bla bla</item>
+        <item>Emma sponsrar oss</item>
+        <item>Mani är i ett förhållande med öl</item>
+        <item>Milja är öl</item>
+        <item>Moa rockar öl</item>
+        <item>Juoppo-Pekka puhuu kaljaa 50/60</item>
+        <item>Victor är också med</item>
+        <item>Veronica heter egentligen Victoria, eller?</item>
     </string-array>
 
 

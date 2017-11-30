@@ -37,7 +37,6 @@ public class MainActivity extends BottomNavigationBaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-
         //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
         public void onTestMapButtonClicked(View v){
             if(isGpsServicesAvailable()){
