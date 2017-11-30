@@ -19,10 +19,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-
     //Google Location and Activity Recognition
     //Can change this to 9.0.0 or 11.4.2 if 11.6.0 version is too high
     implementation 'com.google.android.gms:play-services-location:11.6.0'
@@ -32,9 +31,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:11.6.0'
     //Google Nearby
     implementation 'com.google.android.gms:play-services-nearby:11.6.0'
-
-
-
     //Facebook compatibility
     implementation 'com.android.support:support-v4:26.1.0'
     implementation 'com.android.support:cardview-v7:26.1.0'
@@ -49,13 +45,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.android.support', module: 'support-core-utils'
     }
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-
-    //Design support library
-    compile 'com.android.support:design:26.1.0'
 
     //BottomNavigationViewEx library
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
@@ -63,6 +55,4 @@ dependencies {
 
     implementation 'com.android.support:design:26.1.0'
 
-    //facebook support
-    compile 'com.facebook.android:facebook-android-sdk:4.8.0'
 }
