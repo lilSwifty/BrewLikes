@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="onBrewLikesImageClicked"
     tools:context="com.iths.manisedighi.brewlikes.MainActivity">
 
     <!--
@@ -25,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:onClick="onBrewLikesImageClicked"
         android:src="@drawable/brewlikes_main_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
