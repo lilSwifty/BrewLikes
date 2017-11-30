@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -21,6 +22,12 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
+
+import java.io.IOException;
+
+import bolts.AppLinks;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by emmapersson on 2017-11-28.
@@ -42,7 +49,8 @@ public class SharePhotoFragment extends Fragment {
 
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
-        shareDialog.registerCallback(callbackManager, callback);
+//        shareDialog.registerCallback(callbackManager, callback);
+
     }
 
     /**
@@ -94,14 +102,16 @@ public class SharePhotoFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+//          shareDialog.registerCallback(callbackManager, callback);
+        //TODO this call is were it's mess things up
     }
 
     private FacebookCallback<Sharer.Result> callback = new FacebookCallback<Sharer.Result>() {
         @Override
         public void onSuccess(Sharer.Result result) {
-            Log.d(TAG, "onSuccess: successfully upload");
+            Log.d(TAG, "onSuccess: successfully upload"+result);
+            Toast.makeText(getContext(), "Successfully upload", Toast.LENGTH_SHORT).show();
         }
 
         @Override
