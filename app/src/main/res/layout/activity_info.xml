@@ -207,7 +207,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
+        android:text="@string/comment"
         android:textAllCaps="true"
         android:textSize="16dp"
         android:inputType="text"
@@ -261,7 +261,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginStart="8dp"
         android:fontFamily="sans-serif"
-        android:text="The Abyss, Andra Långgatan 35, Göteborg"
+        android:text="@string/iths"
         android:textAllCaps="true"
         app:layout_constraintStart_toEndOf="@+id/ivLocation"
         app:layout_constraintTop_toBottomOf="@+id/tvInfo">
@@ -270,6 +270,6 @@
 
     <!-- bottom navigation -->
 
-    <include layout="@layout/bottom_navigation"></include>
+    <include layout="@layout/bottom_navigation"/>
 
 </android.support.constraint.ConstraintLayout>
