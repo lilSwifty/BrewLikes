@@ -14,7 +14,7 @@ import java.util.List;
  * The expandable listview uses 3 xml files: activity_categories, list_categories and list_categoryitems.
  * This Activity implements ExpandableListAdapter.java with 10 methods, creates the mechanics.
  * Array and HasMap is needed to form ExpandableList. And setItems() fills data and itemizes the list.
- * HashMap is used to create array list with category and item relation.
+ * HashMap is used to create array list with category and item relation with index, String parameters for category vs beer.
  */
 
 public class CategoriesActivity extends BottomNavigationBaseActivity{
@@ -24,7 +24,6 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     private DBHelper mDBHelper;
     HashMap<String, List<String>> hashMap;
     ArrayList<String> header;
-
 
 
     @Override
@@ -117,54 +116,30 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
             header = new ArrayList<String>();
 
             /*mDBHelper.addCategory("A");
-            mDBHelper.addCategory("B");
-            mDBHelper.addCategory("C");
-            mDBHelper.addCategory("D");
-            mDBHelper.addCategory("E");*/
+            */
 
             List<Category> allCategories = mDBHelper.getAllCategories();
 
-            // Array list for child items
-            List<String> child1 = new ArrayList<String>();
-            List<String> child2 = new ArrayList<String>();
-            List<String> child3 = new ArrayList<String>();
-            List<String> child4 = new ArrayList<String>();
 
             // Hash map for both header and child
             hashMap = new HashMap<String, List<String>>();
 
             // Adding headers to list
             for (int i = 0; i < allCategories.size(); i++) {
-                header.add(allCategories.get(i).getName());
-            }
-            // Adding child data
-            for (int i = 1; i < 5; i++) {
-                child1.add("Child" + i);
-            }
-            // Adding child data
-            for (int i = 1; i < 5; i++) {
-                child2.add("Child" + i);
-            }
-            // Adding child data
-            for (int i = 1; i < 6; i++) {
-                child3.add("Child" + i);
-            }
-            // Adding child data
-            for (int i = 1; i < 7; i++) {
-                child4.add("Child" + i);
-            }
 
-            // Adding header and childs to hash map
-            hashMap.put(header.get(0), child1);
-            hashMap.put(header.get(1), child2);
-            hashMap.put(header.get(2), child3);
-            hashMap.put(header.get(3), child4);
+                header.add(allCategories.get(i).getName());
+                List<Beer> beersByCategory = mDBHelper.getBeersByCategory(allCategories.get(i).getName());
+                //TODO: Convert from List<Beer> to List<String>
+                //List<Beer> beersByCategory = mDBHelper.getBeersByCategory(String categoryName);
+                List<String> newbeerList = new ArrayList<String>(beersByCategory.size());
+                for (Beer beer : beersByCategory) {
+                    newbeerList.add((beer.getName()));
+                }
+
+                hashMap.put(allCategories.get(i).getName(), newbeerList);
+
+            }
 
         }
 
-
-
-    //}
     }
-
-
