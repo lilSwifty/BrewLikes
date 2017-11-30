@@ -147,7 +147,6 @@
         app:layout_constraintStart_toEndOf="@+id/tvTaste"
         app:layout_constraintTop_toBottomOf="@+id/tvPriceScore" />
 
-
     <TextView
         android:id="@+id/tvRate"
         android:layout_width="52dp"
@@ -180,6 +179,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tvInfo"
         app:layout_constraintStart_toEndOf="@+id/ivBeer">
 
@@ -193,53 +194,23 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
-        android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
         android:textAllCaps="true"
+        android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBeer" />
-
-    <EditText
-        android:id="@+id/etInfo"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:layout_below="@+id/ivBeer"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/comment"
-        android:textAllCaps="true"
-        android:textSize="16dp"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivBeer"/>
 
     <ImageView
         android:id="@+id/ivEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/tvInfo"
         android:onClick="onEditClick"
         android:src="@drawable/ic_edit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toEndOf="@+id/tvInfo"
         app:layout_constraintTop_toBottomOf="@+id/btnShare" />
-
-    <ImageView
-        android:id="@+id/ivSave"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="50dp"
-        android:layout_toEndOf="@id/tvInfo"
-        android:onClick="onSaveClick"
-        android:src="@drawable/ic_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.21"
-        app:layout_constraintStart_toEndOf="@+id/etInfo"
-        app:layout_constraintTop_toBottomOf="@+id/btnShare" />
-
 
     <ImageView
         android:id="@+id/ivLocation"
@@ -263,6 +234,7 @@
         android:fontFamily="sans-serif"
         android:text="@string/iths"
         android:textAllCaps="true"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/ivLocation"
         app:layout_constraintTop_toBottomOf="@+id/tvInfo">
 
