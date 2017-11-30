@@ -22,6 +22,14 @@
     <string name="topList">TopList</string>
     <string name="mapView">MapView</string>
 
+    <!-- end of InfoActivity & BottomNavigation -->
+
+    <!-- Facebook -->
+
+    <string name="brewlikes_fid">311762962671719</string>
+
+    <!-- ************************* -->
+
     <string-array name="persons">
         <item>Emma</item>
         <item>Mani</item>
@@ -41,18 +49,7 @@
         <item>Victor är också med</item>
         <item>Veronica heter egentligen Victoria, eller?</item>
     </string-array>
-
-
-
-
-
-    <!-- end of InfoActivity & BottomNavigation -->
     
-    <!-- Facebook -->
-    
-    <string name="brewlikes_fid">311762962671719</string>
-    
-    <!-- ************************* -->
 
     <string name="ItemTitleAbout">item title about</string>
     <string name="ItemTitleCamera">item title camera</string>
@@ -60,8 +57,6 @@
     <string name="beerCategory">Category</string>
     <string name="saveBeer">Save</string>
     <string name="discardBeer">Discard</string>
-
-    <string name="app_id">382927648827757</string>
 
     <string name="testButtonMap">Test Map</string>
     <string name="searchTextView">Search address here</string>
