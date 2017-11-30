@@ -2,6 +2,7 @@ package com.iths.manisedighi.brewlikes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -28,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -37,6 +40,7 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -69,6 +73,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //The coordinate bounds that covers the whole world
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
+    private static final int PLACE_PICKER_REQUEST = 1;
 
     //Boolean that checks if location permissions are granted or not
     private boolean locationPermissionsGranted;
@@ -148,7 +153,34 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+        //TODO - Create an onClickListener here (first create an map icon) and then surround this code
+
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(MapActivity.this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            Log.e(TAG, "GooglePlayServicesRepairableException: " + e.getMessage());
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
+        }
+
+
+        //Surround All the way to here
+
         hideSoftKeyboard(MapActivity.this);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+
+                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, place.getId());
+                placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+
+            }
+        }
     }
 
     /**
@@ -238,7 +270,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //Just a test method for removing pin, ain't working at the moment
     private void removePin(LatLng latLng, String title){
-        
+
         Marker markerName = mMap.addMarker(new MarkerOptions().position(latLng).title(title));
         markerName.remove();
     }
