@@ -2,6 +2,8 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
@@ -116,6 +118,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
         etInfo.setVisibility(View.GONE);
         ivSave.setVisibility(View.GONE);
+
         /*ivBeer.setImageBitmap(?);
         tvBeerName.setText(beer.getName());
         tvCategory.setText(beer.getCategory());
