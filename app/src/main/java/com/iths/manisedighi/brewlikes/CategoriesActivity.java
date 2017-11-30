@@ -35,6 +35,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
             //Object of listView from xml. Setting group indicator null for custom indicator
             expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
+            // Setting group indicator null for custom indicator
             expandableListView.setGroupIndicator(null);
 
             mDBHelper = new DBHelper(this);
