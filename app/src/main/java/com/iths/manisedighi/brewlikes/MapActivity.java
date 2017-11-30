@@ -45,6 +45,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -70,7 +71,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     //The zoom amount in the map view
     private static final float DEFAULT_ZOOM = 15f;
-    //The coordinate bounds that covers the whole world
+    //The coordinate bounds that covers the (most important parts of the) world
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
     private static final int PLACE_PICKER_REQUEST = 1;
@@ -171,6 +172,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         hideSoftKeyboard(MapActivity.this);
     }
 
+    /**
+     * Makes the place picker (nearby suggestions) pop up when map is launched
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
@@ -260,11 +267,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     private void dropPin(LatLng latLng, float zoom, String title){
 
+        mMap.clear();
         Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
 
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
-                mMap.addMarker(markerOptions);
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_beer_icon_test));
+                Marker marker = mMap.addMarker(markerOptions);
+                marker.showInfoWindow();
+                //marker.setIcon();
         }
     }
 
