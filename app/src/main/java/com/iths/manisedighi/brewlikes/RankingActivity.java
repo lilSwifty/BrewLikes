@@ -151,7 +151,7 @@ public class RankingActivity extends AppCompatActivity {
             makeToast("You need to describe the beer");
         }else if (picture.isEmpty()){
             makeToast("You need to take a picture of your beer");
-        }else if(category.toString().equals("none")){
+        }else if(category.equals("Unknown")){
             makeToast("Please choose category");
         }else{
             Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
