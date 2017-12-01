@@ -98,6 +98,18 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
             }
         });*/
 
+        /*expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                Intent i = new Intent();
+                i.putExtra("","");
+                startActivity(i);
+
+            }
+        });*/
+
         /**
          * Outcommentted toast log that informs item selection inside expanded listview
          */
