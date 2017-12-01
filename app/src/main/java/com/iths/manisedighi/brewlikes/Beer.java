@@ -1,5 +1,7 @@
 package com.iths.manisedighi.brewlikes;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Milja on 2017-11-21.
  */
@@ -16,6 +18,8 @@ public class Beer {
     private String comment = null;
     private String location = null;
     private String photoPath = null; //file://.... <- path pointing to image
+    private double lat = 0;
+    private double lng = 0;
 
     //Empty constructor
     public Beer() {}
@@ -32,7 +36,7 @@ public class Beer {
     }
 
     //Constructor med GPS
-    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location) {
+    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, LatLng latLng) {
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
@@ -41,6 +45,12 @@ public class Beer {
         this.comment = comment;
         this.photoPath = photoPath;
         this.location = location;
+
+        //TEST FOR GETTING LATLNG VALUES
+        String ll = latLng.toString();
+        String[] llArray = ll.split(",");
+        this.lat = Double.parseDouble(llArray[0]);
+        this.lng = Double.parseDouble(llArray[1]);
     }
 
     public long getId() {
@@ -122,5 +132,24 @@ public class Beer {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+
+
 }
 
