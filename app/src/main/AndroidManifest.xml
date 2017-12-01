@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.iths.manisedighi.brewlikes">
+          package="com.iths.manisedighi.brewlikes">
      
     <!-- All the permissions needed  -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -66,6 +66,6 @@
         <activity android:name=".AboutActivity"/>
         <activity android:name=".MapActivity"/>
         <activity android:name=".DetailActivity"/>
-        <activity android:name="TopListActivity"/>
+     <!--   <activity android:name="TopListActivity"/> -->
     </application>
 </manifest>

@@ -1,10 +1,13 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 
 /**
  * Created by Emma on 2017-11-15.
+ * An activity that shows a specific beer and it's information
  */
 public class InfoActivity extends BottomNavigationBaseActivity {
 
@@ -24,10 +28,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Context context = InfoActivity.this;
 
     private ImageView ivBeer;
-    private ImageView ivShare;
-    private ImageView ivEdit;
-    private ImageView ivLocation;
-    private ImageView ivSave;
     private ImageView logo;
 
 
@@ -39,6 +39,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private TextView tvInfo;
     private TextView tvLocation;
 
+    private Beer beer;
+    private DBHelper helper;
+    private AlertDialog dialog;
     private EditText etInfo;
 
     @Override
@@ -46,8 +49,15 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+        init();
+    }
 
-        //find and bind all the widgets to the code
+    /**
+     * A method that triggers the setup of InfoActivity
+     */
+    private void init(){
+        Log.d(TAG, "init: starts the initializing");
+        //find and bind all the views to the code
         findViews();
         //for the tvInfo
         enableScrollFunction();
@@ -55,6 +65,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         setupBottomNavigation();
         //to set up info about the beer
         setupInfoView();
+        //to add fragment to the layout
+        addSharePhotoFragment();
+
 
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
@@ -67,11 +80,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * A method that finds all the views and binds them to the code
      */
     private void findViews(){
+        Log.d(TAG, "findViews: get's all the views");
         ivBeer = findViewById(R.id.ivBeer);
-        ivShare = findViewById(R.id.ivShare);
-        ivEdit = findViewById(R.id.ivEdit);
-        ivLocation = findViewById(R.id.ivLocation);
-        ivSave = findViewById(R.id.ivSave);
         tvBeerName = findViewById(R.id.tvBeerName);
         tvCategory = findViewById(R.id.tvCategory);
         tvPriceScore = findViewById(R.id.tvPriceScore);
@@ -79,7 +89,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvRateScore = findViewById(R.id.tvRateScore);
         tvInfo = findViewById(R.id.tvInfo);
         tvLocation = findViewById(R.id.tvLocation);
-        etInfo = findViewById(R.id.etInfo);
     }
 
     /**
@@ -116,22 +125,40 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     private void setupInfoView(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        etInfo.setVisibility(View.GONE);
-        ivSave.setVisibility(View.GONE);
 
-        /*ivBeer.setImageBitmap(?);
+        beer = new Beer("Hej", 2, 5.0,7.0, "God öl med en hint av sötlakrits och salta rostade mandlar, len i munnen","beer_glass", "IT-Högskolan");
+        //helper.addBeer(beer);
+
+        /*Intent intent = getIntent();
+        Long id = intent.getLongExtra("id", 0);
+        helper = new DBHelper(context);
+        beer = helper.getBeerById(id);*/
+
+        Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
+        ivBeer.setImageBitmap(image);
+
         tvBeerName.setText(beer.getName());
-        tvCategory.setText(beer.getCategory());
+        tvCategory.setText(beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
-        tvInfo.setText(beer.getComment);
-        tvLocation.setText(beer.getLocation());*/
+        tvInfo.setText(beer.getComment());
+        tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
     }
 
     /**
-     * a method that enables the scroll function in the TextView tvInfo
+     * A method that adds the fragment SharePhotoFragment to the layout and place it in the btnShare view
+     */
+    private void addSharePhotoFragment(){
+        Log.d(TAG, "addSharePhotoFragment: adds the SharePhotoFragment");
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
+        fragmentTransaction.commit();
+    }
+
+    /**
+     * A method that enables the scroll function in the TextView tvInfo
      */
     private void enableScrollFunction(){
         Log.d(TAG, "enableScrollFunction: enables scrollfunction in tvInfo view");
@@ -139,63 +166,46 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method that takes us back to CategoriesActivity
+     * A method that takes us back to the previous Activity
      * @param view - the view being clicked and calling the method
      */
     public void onNavBackClick(View view){
         Log.d(TAG, "onNavBackClick: nav back clicked");
-        Intent intent = new Intent(context, CategoriesActivity.class);
-        startActivity(intent);
+        onBackPressed();
     }
 
     /**
-     * A method that share picture on FaceBook
-     * @param view - the view being clicked and calling the method
-     */
-    public void onShareClick(View view) {
-        Log.d(TAG, "onShareClick: share clicked.");
-        //TODO here comes the upload to facebook
-    }
-
-    /**
-     * A method that edits the comment about a beer
+     * A method that shows an AlertDialog to edit the comment
+     * about a beer in and saves the new comment
      * @param view - the view being clicked and calling the method
      */
     public void onEditClick(View view){
         Log.d(TAG, "onEditClick: edit clicked.");
-        tvInfo.setVisibility(View.GONE);
-        etInfo.setVisibility(View.VISIBLE);
-        ivEdit.setVisibility(View.GONE);
-        ivLocation.setVisibility(View.GONE);
-        tvLocation.setVisibility(View.GONE);
-        ivSave.setVisibility(View.VISIBLE);
-        //etInfo.setText(beer.getComment());
+        dialog = new AlertDialog.Builder(this).create();
+        etInfo = new EditText(this);
+        dialog.setTitle("Edit comment");
+        dialog.setView(etInfo);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                beer.setComment(etInfo.getText().toString());
+                tvInfo.setText(beer.getComment());
+            }
+        });
+        etInfo.setText(beer.getComment());
+        dialog.show();
         //TODO get the comment about the beer to edit
     }
 
     /**
-     * A method that saves the changed comment to the database
-     * @param view - the view being clicked and calling the method
-     */
-    public void onSaveClick(View view){
-        Log.d(TAG, "onSaveClick: save clicked.");
-        tvInfo.setVisibility(View.VISIBLE);
-        etInfo.setVisibility(View.GONE);
-        ivEdit.setVisibility(View.VISIBLE);
-        ivLocation.setVisibility(View.VISIBLE);
-        tvLocation.setVisibility(View.VISIBLE);
-        ivSave.setVisibility(View.GONE);
-        /*beer.setComment(etInfo.getText().toString());
-        tvInfo.setText(etInfo.getText().toString());*/
-        //TODO save down the new comment to the database
-    }
-
-    /**
-     * A method that shows the beer in the map view
+     * A method that shows on a map were the user checked in the specific beer
      * @param view - the view being clicked and calling the method
      */
     public void onLocationClick(View view){
         Log.d(TAG, "onLocationClick: location clicked.");
+        Intent mapIntent = new Intent(InfoActivity.this, MapActivity.class);
+        mapIntent.putExtra("location" ,beer.getLocation());
+        startActivity(mapIntent);
         //TODO takes you to map view
     }
 }
