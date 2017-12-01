@@ -92,14 +92,47 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private AutoCompleteTextView searchText;
     private ImageView gpsIcon;
 
+    private String locationFromIntent;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         searchText = findViewById(R.id.searchFieldText);
         gpsIcon = (ImageView) findViewById(R.id.ic_gps);
+        DBHelper dbHelper = new DBHelper(this);
 
-        getLocationPermission();
+        Intent intent = getIntent();
+
+        int ID = intent.getIntExtra("ID", 0);
+        if(ID == 1){ //From ranking activity
+            getLocationPermission();
+            //Execute ALL CODE in map activity
+            //Send something back when CHECK IN is pressed. Something = Sting title and LatLng latLng
+
+        } else if(ID == 2){ //From info activity
+          // Long beerIDFromIntent = intent.getStringExtra("location");
+
+         //  Beer b = dbHelper.getBeerById(beerIDFromIntent); //ger en öl instans tillbaka
+          //  LatLng latLng = new LatLng(b.getLat(), b.getLng());
+         //   String title = b.getLocation();
+          // moveMapToLocation(latLng, DEFAULT_ZOOM, title);
+           //search bar + icons + check in view set visibility view Gone!!!!
+
+
+        } else if(ID == 3){ //From map view navigation button
+            List<Beer> beers = dbHelper.getAllBeers();
+
+            for (Beer b : beers) {
+              //  LatLng latLng = new LatLng(b.getLat(), b.getLng());
+                //Test later if it's possible to create LatLng in argument below to remove code
+              //  dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
+                //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDevideLocation
+                //search bar + icons + check in view set visibility view Gone!!!!
+            }
+        }
+
+
     }
 
     @Override
