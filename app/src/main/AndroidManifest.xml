@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.iths.manisedighi.brewlikes">
-
-    <!-- The permissions needed for the GPS to work -->
+     
+    <!-- All the permissions needed  -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <!-- Use of any camera - back, front or external -->
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
 
-    <!-- To be able to write to the external storage, for saving pictures to the gallery -->
-      
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- May need this for the GPS as well, but not for now...
+      <!-- May need this for the GPS as well, but not for now...
     <uses-feature android:name="android.hardware.location.gps" /> -->
 
     <application
@@ -37,6 +34,25 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <!-- Necessary for facebook interaction -->
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/brewlikes_fid"/>
+        <!-- Necessary for facebook interaction -->
+        <provider android:authorities="com.facebook.app.FacebookContentProvider311762962671719"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.iths.manisedighi.brewlikes.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+             
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
         <activity android:name=".MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -44,43 +60,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".InfoActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".RankingActivity" android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait" />
         <activity android:name=".CategoriesActivity"/>
-        <activity android:name=".AboutActivity">
-        </activity>
-        <activity android:name=".MapActivity"></activity>
-
-        <activity android:name=".TopListActivity"></activity>
-
-        <provider
-            android:authorities="com.iths.manisedighi.brewlikes.FileProvider"
-            android:name="android.support.v4.content.FileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true" > 
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths">
-
-            </meta-data>
-        </provider>
-
-        <activity android:name=".DetailActivity"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider382927648827757"
-            android:name="com.facebook.FacebookContentProvider"
-            android:exported="true" />
-
+        <activity android:name=".AboutActivity"/>
+        <activity android:name=".MapActivity"/>
+        <activity android:name=".DetailActivity"/>
+        <!--   <activity android:name="TopListActivity"/> -->
     </application>
-
-    <!--Use of any camera - back, front or external--> 
-    <uses-feature android:name="android.hardware.camera.any"
-        android:required="true"
-        />
-
-    <!--To be able to write to the external storage, for saving pictures to the gallery-->  
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-
 </manifest>
