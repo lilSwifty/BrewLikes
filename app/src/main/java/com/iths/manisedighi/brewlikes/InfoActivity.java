@@ -38,7 +38,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private TextView tvRateScore;
     private TextView tvInfo;
     private TextView tvLocation;
-    
+
     private Beer beer;
     private DBHelper helper;
     private AlertDialog dialog;
@@ -125,7 +125,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     private void setupInfoView(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        
+
         beer = new Beer("Hej", 2, 5.0,7.0, "God öl med en hint av sötlakrits och salta rostade mandlar, len i munnen","beer_glass", "IT-Högskolan");
         //helper.addBeer(beer);
 
@@ -175,7 +175,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method that shows an AlertDialog to edit the comment 
+     * A method that shows an AlertDialog to edit the comment
      * about a beer in and saves the new comment
      * @param view - the view being clicked and calling the method
      */
@@ -196,7 +196,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         dialog.show();
         //TODO get the comment about the beer to edit
     }
-    
+
     /**
      * A method that shows on a map were the user checked in the specific beer
      * @param view - the view being clicked and calling the method

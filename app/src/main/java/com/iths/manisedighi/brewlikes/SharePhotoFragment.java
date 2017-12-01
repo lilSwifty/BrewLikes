@@ -46,6 +46,7 @@ public class SharePhotoFragment extends Fragment {
         shareDialog = new ShareDialog(this);
 //        shareDialog.registerCallback(callbackManager, callback);
 
+        shareDialog.registerCallback(callbackManager, callback);
     }
 
     /**
