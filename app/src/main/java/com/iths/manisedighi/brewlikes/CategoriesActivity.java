@@ -2,9 +2,8 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnGroupClickListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,14 +51,14 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
         /**
          *Test listener for item clicks
          */
-            expandableListView.setOnGroupClickListener(new OnGroupClickListener() {
+          /*  expandableListView.setOnGroupClickListener(new OnGroupClickListener() {
 
                 @Override
                 public boolean onGroupClick(ExpandableListView parent, View v,
                                             int groupPosition, long id) {
                     return false;
                 }
-            });
+            });*/
 
 
         /**
@@ -88,6 +87,30 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                 }
             });*/
 
+        /*expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                Intent i = new Intent();
+                i.putExtra("","");
+                startActivity(i);
+
+            }
+        });*/
+
+        /*expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+
+                Intent i = new Intent();
+                i.putExtra("","");
+                startActivity(i);
+
+            }
+        });*/
+
         /**
          * Outcommentted toast log that informs item selection inside expanded listview
          */
@@ -109,9 +132,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                     return false;
                 }
             });*/
-
-
         }
+
 
         void setItems() {
 
