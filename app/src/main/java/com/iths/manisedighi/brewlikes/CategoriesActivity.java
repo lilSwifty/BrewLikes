@@ -5,17 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnGroupClickListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * The expandable listview uses 3 xml files: activity_categories, list_categories and list_categoryitems.
- * This Activity implements ExpandableListAdapter.java with 10 methods, creates the mechanics.
- * Array and HasMap is needed to form ExpandableList. And setItems() fills data and itemizes the list.
- * HashMap is used to create array list with category and item relation with index, String parameters for category vs beer.
+ * This activity implements ExpandableListAdapter.java with 10 built in methods that create the mechanics for expandable listview.
+ * The expandable listview referes 3xml files: activity_categories, list_categories and list_categoryitems.
+ * CategoryArray BeerArrays from db + HasMap is needed to form ExpandableList. The setItems() method fills data and itemizes the expandablelist.
+ * HashMap creates doubble array with category and item relation, it refers index of header(category to String from beername and keeps them in order.
+ * Created by patrikrikamahinnenberg on 22/11/17.
  */
+
 
 public class CategoriesActivity extends BottomNavigationBaseActivity{
     private Context context = CategoriesActivity.this;
@@ -38,7 +39,6 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
             mDBHelper = new DBHelper(this);
 
-
             setItems();
 
             //passing the 3 things; object of context, header array, chliddren
@@ -46,8 +46,10 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
             // Setting adpater for expandablelistview, the hard part start here:)
             expandableListView.setAdapter(adapter);
 
-        /*
-        You can add listeners for the item clicks
+
+
+        /**
+         *Test listener for item clicks
          */
             expandableListView.setOnGroupClickListener(new OnGroupClickListener() {
 
@@ -106,31 +108,27 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                     return false;
                 }
             });*/
+
+
         }
 
-
-        // Setting headers and childs to expandable listview
         void setItems() {
 
-            // Array list for header
             header = new ArrayList<String>();
 
-            /*mDBHelper.addCategory("A");
-            */
+            //mDBHelper.addCategory("A"); // <- Who added this testcode, can it be deleted? BR Patrik
 
             List<Category> allCategories = mDBHelper.getAllCategories();
 
-
-            // Hash map for both header and child
             hashMap = new HashMap<String, List<String>>();
 
-            // Adding headers to list
+            // Adding headers + beers to list from DB
             for (int i = 0; i < allCategories.size(); i++) {
 
                 header.add(allCategories.get(i).getName());
                 List<Beer> beersByCategory = mDBHelper.getBeersByCategory(allCategories.get(i).getName());
-                //TODO: Convert from List<Beer> to List<String>
-                //List<Beer> beersByCategory = mDBHelper.getBeersByCategory(String categoryName);
+                //TODO: Convert from List<Beer> to List<String> Advice from Martin.
+                //List<Beer> beersByCategory = mDBHelper.getBeersByCategory(String categoryName); not working
                 List<String> newbeerList = new ArrayList<String>(beersByCategory.size());
                 for (Beer beer : beersByCategory) {
                     newbeerList.add((beer.getName()));

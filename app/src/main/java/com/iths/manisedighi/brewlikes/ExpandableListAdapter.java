@@ -12,14 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * This class gives mechanics for expandable listview.
  * Created by patrikrikamahinnenberg on 22/11/17.
  */
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
-    private List<String> header; // header titles
-    // Child data in format of header title, child title
+    private List<String> header;
     private HashMap<String, List<String>> child;
 
     //Constructor
@@ -29,7 +29,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         this.child = listChildData;
     }
 
-    //We return the length of the headers
     @Override
     public int getGroupCount() {
         // Get header size
@@ -42,14 +41,12 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return this.child.get(this.header.get(groupPosition)).size();
     }
 
-    //Positions for headers
     @Override
     public Object getGroup(int groupPosition) {
         // Get header position
         return this.header.get(groupPosition);
     }
 
-    //Positions for children
     @Override
     public Object getChild(int groupPosition, int childPosition) {
         // This will return the child
@@ -72,7 +69,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
-    //Most important filler for group/headers changes the value of convert view
+
+    /**
+     * Most important filler for category/headers, changes the value of "convert" view
+     */
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
@@ -104,7 +105,11 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    //Most important filler for child/items  changes the value of convert view
+
+    /**
+     * Most important filler for beer/items changes the value of "convert" view
+    */
+
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         // Getting child text
