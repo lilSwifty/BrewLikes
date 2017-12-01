@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.sql.SQLInput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //TABLE: Beer
-        //Id (column 0) - Name - Category - Price - Taste - Average(Medeltal) - Comment - Image - Location
+        //Id (column 0) - Name - Category - Price - Taste - Average(Medeltal) - Comment - Image - Location - Lat - Lng
         String sql_beer = "CREATE TABLE " + BEER_TABLE + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "COL_BEER_NAME TEXT NOT NULL," +
                 "COL_BEER_CATEGORY INTEGER," +
@@ -42,7 +45,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "COL_BEER_AVERAGE INTEGER," +
                 "COL_BEER_COMMENT TEXT," +
                 "COL_BEER_IMAGE_PATH BLOB," +
-                "COL_BEER_LOCATION TEXT);";
+                "COL_BEER_LOCATION TEXT," +
+                "COL_BEER_LAT INTEGER," +
+                "COL_BEER_LNG INTEGER);";
 
         //TABLE: Categories
         String sql_categories = "CREATE TABLE " + CATEGORY_TABLE + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -108,6 +113,8 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("COL_BEER_COMMENT", beer.getComment());
         values.put("COL_BEER_IMAGE_PATH", beer.getPhotoPath());
         values.put("COL_BEER_LOCATION", beer.getLocation());
+        values.put("COL_BEER_LAT", beer.getLat());
+        values.put("COL_BEER_LNG", beer.getLng());
 
         //Insert() returns an id -> set this as the beer's id number
         long id = db.insert(BEER_TABLE,null, values);
@@ -180,6 +187,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setComment(cursor.getString(6));
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
+                beer.setLat(cursor.getDouble(9));
+                beer.setLng(cursor.getDouble(10));
 
                 //Se vilket Category Name CategoryId motsvara
                 getBeerCategoryName(beer);
@@ -204,75 +213,6 @@ public class DBHelper extends SQLiteOpenHelper {
             return db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT " + rows);
         }
     }
-
-    /*
-    public List<Beer> getTopList() {
-        List<Beer> topList = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-
-        long entries = DatabaseUtils.queryNumEntries(db, BEER_TABLE);
-        String e = Long.toString(entries);
-        Log.d("MyLog", "Entries: " + entries);
-
-        //If user has entered more than 10 beers -> Get top 10.
-        if (entries >= 10) {
-            Cursor cursor = db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT 10");
-            boolean success = cursor.moveToFirst();
-
-            if (success) {
-                do {
-                    Beer beer = new Beer();
-                    beer.setId(cursor.getLong(0));
-                    beer.setName(cursor.getString(1));
-                    beer.setCategoryId(cursor.getInt(2));
-                    beer.setPrice(cursor.getFloat(3));
-                    beer.setTaste(cursor.getFloat(4));
-                    beer.setAverage(cursor.getFloat(5));
-                    beer.setComment(cursor.getString(6));
-                    beer.setPhotoPath(cursor.getString(7));
-                    beer.setLocation(cursor.getString(8));
-
-                    beer.setCategoryName( getBeerCategoryName(beer) );
-
-                    //Add beer to array
-                    topList.add(beer);
-                    //For testing
-                    Log.d("MyLog", "Beer: " + beer.getName() + ", rating: " + beer.getAverage());
-                } while(cursor.moveToNext());
-            }
-            cursor.close();
-        }
-        //If user has entered fewer than 10 beers -> Get all.
-        else if (entries < 10){
-            Cursor cursor = db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT " +entries);
-            boolean success = cursor.moveToFirst();
-
-            if (success) {
-                do {
-                    Beer beer = new Beer();
-                    beer.setId(cursor.getLong(0));
-                    beer.setName(cursor.getString(1));
-                    beer.setCategoryId(cursor.getInt(2));
-                    beer.setPrice(cursor.getFloat(3));
-                    beer.setTaste(cursor.getFloat(4));
-                    beer.setAverage(cursor.getFloat(5));
-                    beer.setComment(cursor.getString(6));
-                    beer.setPhotoPath(cursor.getString(7));
-                    beer.setLocation(cursor.getString(8));
-
-                    beer.setCategoryName( getBeerCategoryName(beer) );
-
-                    //Add beer to array
-                    topList.add(beer);
-                    //For testing
-                    Log.d("MyLog", "Beer: " + beer.getName() + ", rating: " + beer.getAverage());
-                } while(cursor.moveToNext());
-            }
-            cursor.close();
-        }
-        return topList;
-    }
-    */
 
     /**
      * Returns a Cursor that points at individual beers within a certain beer category.
@@ -346,10 +286,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setComment(cursor.getString(6));
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
+                beer.setLat(cursor.getDouble(9));
+                beer.setLng(cursor.getDouble(10));
 
                 beer.setCategoryName( getBeerCategoryName(beer) );
-                //Bara för att testköra
-                Log.d("MyLog", "Added beer " + beer.getName() + " from category " + beer.getCategoryName() + ". Has rating: " + beer.getAverage());
 
                 beerList.add(beer);
             } while (cursor.moveToNext());
@@ -383,6 +323,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setComment(cursor.getString(6));
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
+                beer.setLat(cursor.getDouble(9));
+                beer.setLng(cursor.getDouble(10));
 
                 //Add category name of beer
                 beer.setCategoryName( getBeerCategoryName(beer) );
@@ -413,7 +355,7 @@ public class DBHelper extends SQLiteOpenHelper {
         List<Category> categoryList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
 
-        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, null);
+        Cursor cursor = db.query(CATEGORY_TABLE, null, null, null, null, null, "COL_CATEGORY_NAME COLLATE NOCASE");
 
         boolean success = cursor.moveToFirst();
 
@@ -457,15 +399,20 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param location new GPS location.
      * @return true if update successful, false if update failed.
      */
-    public boolean editBeer(long id, int categoryId, float price, float taste, String comment, String location) {
+    public boolean editBeer(long id, int categoryId, float price, float taste, String comment, String location, LatLng latLng) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
+
+        String ll = latLng.toString();
+        String[] llArray = ll.split(",");
 
         values.put("COL_BEER_CATEGORY", categoryId);
         values.put("COL_BEER_PRICE", price);
         values.put("COL_BEER_TASTE", taste);
         values.put("COL_BEER_COMMENT", comment);
         values.put("COL_BEER_LOCATION", location);
+        values.put("COL_BEER_LAT", Double.parseDouble(llArray[0]));
+        values.put("COL_BEER_LNG", Double.parseDouble(llArray[1]));
 
         String selection = "_id=?";
         String[] selectionArgs = new String[] {Long.toString(id)};
