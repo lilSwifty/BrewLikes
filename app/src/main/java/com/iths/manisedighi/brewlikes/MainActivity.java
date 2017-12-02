@@ -3,11 +3,13 @@ package com.iths.manisedighi.brewlikes;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,7 +39,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
 
                 //TODO Credit http://www.freesfx.co.uk/ for sound file!
 
-        /*final ImageView beerSound = this.findViewById(R.id.brewlikes_main_image);
+        final ImageView beerSound = this.findViewById(R.id.brewlikes_main_image);
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.open_bottle_sound);
         beerSound.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,9 +49,9 @@ public class MainActivity extends BottomNavigationBaseActivity {
                 Intent cameraIntent = new Intent(getApplicationContext(), RankingActivity.class);
                 startActivity(cameraIntent);
             }
-        });*/
+        });
 
-  //  }
+    }
 
 
     /*
