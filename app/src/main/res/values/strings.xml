@@ -37,6 +37,10 @@
     <string name="brewlikes_fid">xxx</string>
     <string name="content_provider">com.facebook.app.FacebookContentProviderxxx</string>
 
+    <!-- facebook values for the manifest -->
+    <string name="brewlikes_fid">xxx</string>
+    <string name="content_provider">com.facebook.app.FacebookContentProviderxxx</string>
+
     <string-array name="persons">
         <item>Emma</item>
         <item>Mani</item>
