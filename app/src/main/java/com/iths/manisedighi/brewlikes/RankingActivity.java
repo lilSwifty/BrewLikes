@@ -61,8 +61,6 @@ public class RankingActivity extends AppCompatActivity {
 
     DBHelper dbHelper = new DBHelper(this);
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,12 +132,10 @@ public class RankingActivity extends AppCompatActivity {
     public void onSaveButtonClick(View view){
         String name = saveBeerName();
         String comment = saveBeerComment();
-
-
         double taste = saveTaste();
         double price = savePrice();
         Category category = new Category();
-        category = (Category) categorySpinner.getSelectedItem();
+        category = (Category)categorySpinner.getSelectedItem();
         int categoryId = (int) category.getId();
         String picture = "";
 
@@ -161,7 +157,9 @@ public class RankingActivity extends AppCompatActivity {
             Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
             dbHelper.addBeer(beer);
             Intent intent = new Intent(this, InfoActivity.class);
+            intent.putExtra("BeerID", beer.getId());
             startActivity(intent);
+            finish();
         }
 
         /*
@@ -173,16 +171,18 @@ public class RankingActivity extends AppCompatActivity {
 
          */
 
-
-
-
-
-
-        // TODO: skicka personen till den activityn som vi vill
     }
-    private void onMappingClick(View view){
-        // TODO: skicka personen till moas map där man kan logga in, ändra färgen på map-pinnen ifall man har checkat in till ölfärgad.
+
+    /**
+     * A method to send the user to the gps-menu where the user can choose a place to log in to.
+     * @param view
+     */
+    public void onMappingClick(View view){
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("ID", 1);
+        //startActivityForResult(intent, );
     }
+
 
     /**
      * A method to restart the camera and give the user a chance to take a new picture.
@@ -204,18 +204,20 @@ public class RankingActivity extends AppCompatActivity {
      * A method to get the price rate.
      * @return an int with the price rate.
      */
-    private int savePrice(){
+    private double savePrice(){
         int price = priceRateNumber.getText().charAt(0);
-        return price;
+        double doublePrice = (double) price;
+        return doublePrice;
     }
 
     /**
      * A method to get the taste rate.
      * @return an int with the price rate.
      */
-    private int saveTaste(){
+    private double saveTaste(){
         int taste = tasteRateNumber.getText().charAt(0);
-        return taste;
+        double doubleTaste = (double)taste;
+        return doubleTaste;
     }
     /**
      * Saving the name of the beer.
@@ -390,6 +392,12 @@ public class RankingActivity extends AppCompatActivity {
 
     public void scalePicture() {
         //The dimensions of the View
+
+
+        /*beerImage.setMaxWidth(224);
+        beerImage.setMaxHeight(224);*/
+
+
         int targetW = beerImage.getWidth();
         int targetH = beerImage.getHeight();
 
