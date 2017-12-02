@@ -3,6 +3,7 @@
 
     <!-- icons for bottom navigation view -->
 
+
     <item
         android:id="@+id/ic_home"
         android:icon="@drawable/ic_home"
