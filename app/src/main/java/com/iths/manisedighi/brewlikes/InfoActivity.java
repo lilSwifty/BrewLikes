@@ -126,9 +126,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private void setupInfoView(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
 
-        beer = new Beer("Hej", 2, 5.0,7.0, "God öl med en hint av sötlakrits och salta rostade mandlar, len i munnen","beer_glass", "IT-Högskolan");
-        //helper.addBeer(beer);
-
         /*Intent intent = getIntent();
         Long id = intent.getLongExtra("id", 0);
         helper = new DBHelper(context);
