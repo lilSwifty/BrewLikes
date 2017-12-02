@@ -23,12 +23,6 @@
     <string name="mapView">MapView</string>
 
     <!-- end of InfoActivity & BottomNavigation -->
-    
-    <!-- Facebook -->
-    
-    <string name="brewlikes_fid">311762962671719</string>
-    
-    <!-- ************************* -->
 
     <string-array name="persons">
         <item>Emma</item>
