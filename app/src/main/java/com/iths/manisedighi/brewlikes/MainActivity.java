@@ -37,7 +37,8 @@ public class MainActivity extends BottomNavigationBaseActivity {
         logo = findViewById(R.id.logoImageView);
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-    }
+
+                //TODO Credit http://www.freesfx.co.uk/ for sound file!
 
         final ImageView beerSound = this.findViewById(R.id.brewlikes_main_image);
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.open_bottle_sound);
