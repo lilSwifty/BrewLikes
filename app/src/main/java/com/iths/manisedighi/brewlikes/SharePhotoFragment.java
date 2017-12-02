@@ -46,7 +46,8 @@ public class SharePhotoFragment extends Fragment {
         shareDialog = new ShareDialog(this);
 //        shareDialog.registerCallback(callbackManager, callback);
 
-        shareDialog.registerCallback(callbackManager, callback);
+
+   //     registerCallback(callbackManager);                        ----??
     }
 
     /**
@@ -79,8 +80,8 @@ public class SharePhotoFragment extends Fragment {
      * @param view - ShareButton
      */
     private void setSharePhoto(View view){
-
-        Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.brewlikes_placeholder_logo2);
+        //Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.brewlikes_placeholder_logo2);
+        Bitmap image = BitmapFactory.decodeFile(getArguments().getString("photoPath"));
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(image)
                 .build();
@@ -100,6 +101,7 @@ public class SharePhotoFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
             callbackManager.onActivityResult(requestCode, resultCode, data);
 //          shareDialog.registerCallback(callbackManager, callback);
+//        ShareInternalUtility.registerSharerCallback(requestCode ,callbackManager, callback); ------?????
         //TODO this call is were it's mess things up
     }
 

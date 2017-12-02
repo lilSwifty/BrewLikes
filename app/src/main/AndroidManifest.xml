@@ -38,7 +38,7 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/brewlikes_fid"/>
         <!-- Necessary for facebook interaction -->
-        <provider android:authorities="com.facebook.app.FacebookContentProvider311762962671719"
+        <provider android:authorities="@string/content_provider"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
 
@@ -66,6 +66,6 @@
         <activity android:name=".AboutActivity"/>
         <activity android:name=".MapActivity"/>
         <activity android:name=".DetailActivity"/>
-        <activity android:name="TopListActivity"/>
+        <activity android:name=".TopListActivity"/>
     </application>
 </manifest>
