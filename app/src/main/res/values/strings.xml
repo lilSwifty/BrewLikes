@@ -59,4 +59,5 @@
 
     <string name="testButtonMap">Test Map</string>
     <string name="searchTextView">Search address here</string>
+    <string name="spinnerNone">none</string>
 </resources>

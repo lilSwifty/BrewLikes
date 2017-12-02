@@ -157,7 +157,9 @@ public class RankingActivity extends AppCompatActivity {
             Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
             dbHelper.addBeer(beer);
             Intent intent = new Intent(this, InfoActivity.class);
+            intent.putExtra("BeerID", beer.getId());
             startActivity(intent);
+            finish();
         }
 
         /*
@@ -169,12 +171,6 @@ public class RankingActivity extends AppCompatActivity {
 
          */
 
-
-
-
-
-
-        // TODO: skicka personen till den activityn som vi vill
     }
 
     /**
@@ -182,8 +178,11 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      */
     public void onMappingClick(View view){
-        // TODO: skicka personen till moas map där man kan logga in, ändra färgen på map-pinnen ifall man har checkat in till ölfärgad.
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("ID", 1);
+        //startActivityForResult(intent, );
     }
+
 
     /**
      * A method to restart the camera and give the user a chance to take a new picture.
