@@ -45,7 +45,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private AlertDialog dialog;
     private EditText etInfo;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
@@ -132,7 +132,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivBeer.setImageBitmap(image);
 
         tvBeerName.setText(beer.getName());
-        tvCategory.setText(beer.getCategoryName());
+        tvCategory.setText(getResources().getString(R.string.category)+": "+beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
