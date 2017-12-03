@@ -50,7 +50,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info2);
+        setContentView(R.layout.activity_info5);
         init();
     }
 
@@ -182,6 +182,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "onEditClick: edit clicked.");
         dialog = new AlertDialog.Builder(this).create();
         etInfo = new EditText(this);
+        etInfo.setElevation(0);
+        etInfo.setTextColor(getResources().getColor(R.color.beer));
         dialog.setTitle("Edit comment");
         dialog.setView(etInfo);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save", new DialogInterface.OnClickListener() {
@@ -193,7 +195,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         });
         etInfo.setText(beer.getComment());
         dialog.show();
-        //TODO get the comment about the beer to edit
+        //TODO save the new comment to the database
     }
 
     /**
@@ -202,10 +204,25 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * @param view - the view being clicked and calling the method
      */
     public void onDeleteClick(View view){
-        helper.removeBeer(id);
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle("About to delete this beer");
+        dialog.setMessage("Do you want to continue deleting?");
+        dialog.setButton(DialogInterface.BUTTON_NEUTRAL,"Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                helper.removeBeer(id);
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     /**
