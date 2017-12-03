@@ -41,14 +41,16 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private Beer beer;
     private DBHelper helper;
+    private Long id;
+
     private AlertDialog dialog;
     private EditText etInfo;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
+        setContentView(R.layout.activity_info2);
         init();
     }
 
@@ -122,7 +124,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
 
         Intent intent = getIntent();
-        Long id = intent.getLongExtra("BeerID", 0);
+        id = intent.getLongExtra("BeerID", 0);
         helper = new DBHelper(context);
         beer = helper.getBeerById(id);
 
@@ -130,12 +132,12 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivBeer.setImageBitmap(image);
 
         tvBeerName.setText(beer.getName());
-        tvCategory.setText(beer.getCategoryName());
+        tvCategory.setText(getResources().getString(R.string.category)+": "+beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
-        tvLocation.setText(beer.getLocation());
+ //       tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
     }
 
@@ -151,7 +153,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         SharePhotoFragment spf = new SharePhotoFragment();
         spf.setArguments(bundle);
         fragmentTransaction.add(R.id.btnShare, spf);
-
         fragmentTransaction.commit();
     }
 
@@ -193,6 +194,18 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         etInfo.setText(beer.getComment());
         dialog.show();
         //TODO get the comment about the beer to edit
+    }
+
+    /**
+     * A method that removes all the information about
+     * a specific beer that the user wants to delete
+     * @param view - the view being clicked and calling the method
+     */
+    public void onDeleteClick(View view){
+        helper.removeBeer(id);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**
