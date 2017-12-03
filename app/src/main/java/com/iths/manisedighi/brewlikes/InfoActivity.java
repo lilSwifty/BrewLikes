@@ -41,6 +41,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private Beer beer;
     private DBHelper helper;
+    private Long id;
+
     private AlertDialog dialog;
     private EditText etInfo;
 
@@ -48,7 +50,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
+        setContentView(R.layout.activity_info2);
         init();
     }
 
@@ -67,7 +69,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         setupInfoView();
         //to add fragment to the layout
         addSharePhotoFragment();
-
 
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
@@ -97,7 +98,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.about_and_camera_icons, menu);
+        getMenuInflater().inflate(R.menu.camera_icon, menu);
         return true;
     }
 
@@ -107,14 +108,10 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.aboutIcon){
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-            return true;
-
-        } else if(id == R.id.cameraIcon){
+        if(id == R.id.cameraIcon2){
             Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
+            //TODO - Use flags here so the activities don't get put on the stack?
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -127,7 +124,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
 
         Intent intent = getIntent();
-        Long id = intent.getLongExtra("BeerID", 0);
+        id = intent.getLongExtra("BeerID", 0);
         helper = new DBHelper(context);
         beer = helper.getBeerById(id);
 
@@ -140,17 +137,22 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
-        tvLocation.setText(beer.getLocation());
+ //       tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
     }
 
     /**
-     * A method that adds the fragment SharePhotoFragment to the layout and place it in the btnShare view
+     * A method that adds the fragment SharePhotoFragment
+     * to the layout and place it in the btnShare view
      */
     private void addSharePhotoFragment(){
         Log.d(TAG, "addSharePhotoFragment: adds the SharePhotoFragment");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        //fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
+        Bundle bundle = new Bundle();
+        bundle.putString("photoPath", beer.getPhotoPath());
+        SharePhotoFragment spf = new SharePhotoFragment();
+        spf.setArguments(bundle);
+        fragmentTransaction.add(R.id.btnShare, spf);
         fragmentTransaction.commit();
     }
 
@@ -192,6 +194,18 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         etInfo.setText(beer.getComment());
         dialog.show();
         //TODO get the comment about the beer to edit
+    }
+
+    /**
+     * A method that removes all the information about
+     * a specific beer that the user wants to delete
+     * @param view - the view being clicked and calling the method
+     */
+    public void onDeleteClick(View view){
+        helper.removeBeer(id);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     /**
