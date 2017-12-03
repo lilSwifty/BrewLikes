@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+                                             android:background="@color/blackbrew"
     tools:context="com.iths.manisedighi.brewlikes.MainActivity">
 
 
@@ -23,7 +24,7 @@
         android:id="@+id/toolbarTop"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/darkGrey">
+        android:background="@color/blackbrew">
 
     </android.support.v7.widget.Toolbar>
 

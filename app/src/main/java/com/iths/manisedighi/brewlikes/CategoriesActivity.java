@@ -1,8 +1,13 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,13 +29,19 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     private DBHelper mDBHelper;
     HashMap<String, List<String>> hashMap;
     ArrayList<String> header;
-
+    ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         setupBottomNavigation();
+        Toolbar toolbar = findViewById(R.id.toolbarTop);
+        setSupportActionBar(toolbar);
+        logo = findViewById(R.id.logoImageView);
+        //Hides the BrewLikes text from the upper toolbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
             //Object of listView from xml. Setting group indicator null for custom indicator
             expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
@@ -162,5 +173,35 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
             }
 
         }
+
+    /**
+     * Upper toolbar with icons
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.about_and_camera_icons, menu);
+        return true;
+    }
+
+    /**
+     * Handles what happens when the icons in the toolbar are clicked
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.aboutIcon){
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            return true;
+
+        } else if(id == R.id.cameraIcon){
+            Intent cameraIntent = new Intent(this, RankingActivity.class);
+            startActivity(cameraIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -54,6 +53,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
 
     }
 
+
     /*
         public void onBrewLikesImageClicked(View view) {
             Intent cameraIntent = new Intent(this, RankingActivity.class);
@@ -61,12 +61,12 @@ public class MainActivity extends BottomNavigationBaseActivity {
         }
         */
 
-        //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
+        /*//Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
         public void onTestMapButtonClicked(View v){
             if(isGpsServicesAvailable()){
                 initMapActivity();
             }
-        }
+        }*/
 
         //Initializes MapActivity
         private void initMapActivity(){
