@@ -45,7 +45,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private AlertDialog dialog;
     private EditText etInfo;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
