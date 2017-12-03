@@ -198,6 +198,8 @@
         android:textAllCaps="true"
         android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
         android:textSize="16dp"
+        android:background="@drawable/beer_comment"
+        android:padding="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBeer" />
 
