@@ -1,25 +1,15 @@
  package com.iths.manisedighi.brewlikes;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-
-import java.util.List;
 
  public class TopListActivity extends BottomNavigationBaseActivity {
 
@@ -49,7 +39,7 @@ import java.util.List;
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
-                intent.putExtra("id", id);
+                intent.putExtra("BeerID", id);
                 startActivity(intent);
             }
         });

@@ -245,7 +245,7 @@ public class RankingActivity extends AppCompatActivity {
         builder.setMessage("Please choose an alternative").setCancelable(false)
                 .setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
-                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                    public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
                         if (keyCode == KeyEvent.KEYCODE_BACK &&
                                 event.getAction() == KeyEvent.ACTION_UP &&
                                 !event.isCanceled()) {
@@ -269,16 +269,11 @@ public class RankingActivity extends AppCompatActivity {
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
 
                     }
-                })
-                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
                 });
         AlertDialog alert = builder.create();
         alert.setTitle("Time to brew...");
         alert.show();
+
     }
 
     /**
