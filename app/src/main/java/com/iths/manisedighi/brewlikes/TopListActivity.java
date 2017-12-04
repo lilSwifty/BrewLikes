@@ -27,6 +27,8 @@ import java.util.List;
      private ListView topListView;
      private DBHelper dbHelper = new DBHelper(this);
      ImageView logo;
+     private static final String TAG = "TopListActivity";
+     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +49,9 @@ import java.util.List;
         topListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Log.d(TAG, "onItemClick: Click on item works");
                 Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
-                intent.putExtra("id", id);
+                intent.putExtra("BeerID", id);
                 startActivity(intent);
             }
         });
@@ -59,6 +61,7 @@ import java.util.List;
       * Initializes the activity
       */
      private void initialize() {
+         Log.d(TAG, "initialize: works");
          setupBottomNavigation();
          createCursorAdapter();
      }
@@ -67,6 +70,7 @@ import java.util.List;
       * Sets up the Cursor Adapter
       */
      private void createCursorAdapter() {
+         Log.d(TAG, "createCursorAdapter: works");
          Cursor cursor = dbHelper.getTopListCursor();
          cursorAdapter = new TopListCursorAdapter(this, cursor);
          topListView.setAdapter(cursorAdapter);
@@ -90,11 +94,13 @@ import java.util.List;
          int id = item.getItemId();
          if(id == R.id.aboutIcon){
              Intent intent = new Intent(this, AboutActivity.class);
+             Log.d(TAG, "onOptionsItemSelected: aboutActivity clicked");
              startActivity(intent);
              return true;
 
          } else if(id == R.id.cameraIcon){
              Intent cameraIntent = new Intent(this, RankingActivity.class);
+             Log.d(TAG, "onOptionsItemSelected: RankingActivity clicked");
              startActivity(cameraIntent);
              return true;
          }
