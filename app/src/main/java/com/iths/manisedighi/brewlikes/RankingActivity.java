@@ -141,6 +141,8 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      */
     public void onSaveButtonClick(View view){
+
+        //int x = 0;
         String name = saveBeerName();
         String comment = saveBeerComment();
         double taste = saveTaste();
