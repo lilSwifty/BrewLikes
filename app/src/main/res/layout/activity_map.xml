@@ -50,6 +50,7 @@
 
     </RelativeLayout>
 
+    <!-- The GPS icon in the upper right corner -->
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"

@@ -68,6 +68,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //to add fragment to the layout
         addSharePhotoFragment();
 
+
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
@@ -96,7 +97,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.camera_icon, menu);
+        getMenuInflater().inflate(R.menu.about_and_camera_icons, menu);
         return true;
     }
 
@@ -106,10 +107,14 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.cameraIcon2){
+        if(id == R.id.aboutIcon){
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            return true;
+
+        } else if(id == R.id.cameraIcon){
             Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
-            //TODO - Use flags here so the activities don't get put on the stack?
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -140,18 +145,12 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method that adds the fragment SharePhotoFragment
-     * to the layout and place it in the btnShare view
+     * A method that adds the fragment SharePhotoFragment to the layout and place it in the btnShare view
      */
     private void addSharePhotoFragment(){
         Log.d(TAG, "addSharePhotoFragment: adds the SharePhotoFragment");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("photoPath", beer.getPhotoPath());
-        SharePhotoFragment spf = new SharePhotoFragment();
-        spf.setArguments(bundle);
-        fragmentTransaction.add(R.id.btnShare, spf);
-
+        fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
         fragmentTransaction.commit();
     }
 
@@ -159,7 +158,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * A method that enables the scroll function in the TextView tvInfo
      */
     private void enableScrollFunction(){
-        Log.d(TAG, "enableScrollFunction: enables scrollFunction in tvInfo view");
+        Log.d(TAG, "enableScrollFunction: enables scrollfunction in tvInfo view");
         tvInfo.setMovementMethod(new ScrollingMovementMethod());
     }
 

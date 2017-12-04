@@ -2,6 +2,7 @@ package com.iths.manisedighi.brewlikes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,20 +15,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
@@ -37,12 +37,15 @@ import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,40 +62,75 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //Log tag for this specific activity
     private static final String TAG = "MapActivity";
-
     //Permissions from the manifest
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     //The zoom amount in the map view
     private static final float DEFAULT_ZOOM = 15f;
-    //The coordinate bounds that covers the whole world
+    //The coordinate bounds that covers the (most important parts of the) world
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
-
+    private static final int PLACE_PICKER_REQUEST = 1;
     //Boolean that checks if location permissions are granted or not
     private boolean locationPermissionsGranted;
-
     private static final int LOCATION_PERMISSION_CODE = 1234;
     private GoogleMap mMap;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
-
     //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
-
     //Widgets
-    private AutoCompleteTextView searchText;
+    private AutoCompleteTextView mSearchText;
     private ImageView gpsIcon;
+    //ID from intent to make sure which activity is sending the intent
+    private int ID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        searchText = findViewById(R.id.searchFieldText);
+        mSearchText = findViewById(R.id.searchFieldText);
         gpsIcon = (ImageView) findViewById(R.id.ic_gps);
+        DBHelper dbHelper = new DBHelper(this);
 
-        getLocationPermission();
+        Intent intent = getIntent();
+
+        ID = intent.getIntExtra("ID", 0);
+        if(ID == 1){ //From ranking activity
+            Log.d(TAG, "Checking intent ID: 1");
+
+            getLocationPermission();
+            //initializeMap();
+            //onMapReady();
+            //getDeviceLocation();
+            //onMapReady();
+            //initializeSearch();
+
+        } else if(ID == 2){ //From info activity
+            Log.d(TAG, "Checking intent ID: 2");
+           Long beerIDFromIntent = intent.getLongExtra("beerId", 0);
+           Beer b = dbHelper.getBeerById(beerIDFromIntent); 
+           LatLng latLng = new LatLng(b.getLat(), b.getLng());
+           String title = b.getLocation();
+           moveMapToLocation(latLng, DEFAULT_ZOOM, title);
+           //search bar + icons + check in view set visibility view Gone!!!!
+
+
+        } else if(ID == 3){ //From map view navigation button
+            Log.d(TAG, "Checking intent ID: 3");
+            List<Beer> beers = dbHelper.getAllBeers();
+
+            for (Beer b : beers) {
+                LatLng latLng = new LatLng(b.getLat(), b.getLng());
+                //Test later if it's possible to create LatLng in argument below to remove code
+                dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
+                //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDevideLocation
+                //search bar + icons + check in view set visibility view Gone!!!!
+            }
+        }
+
+
     }
 
     @Override
@@ -114,13 +152,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .enableAutoManage(this, this)
                 .build();
 
-        searchText.setOnItemClickListener(mAutocompleteClickListener);
+        mSearchText.setOnItemClickListener(mAutocompleteClickListener);
 
         mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, null);
 
-        searchText.setAdapter(mPlaceAutocompleteAdapter);
+        mSearchText.setAdapter(mPlaceAutocompleteAdapter);
 
-        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
                 Log.d(TAG, "initializeSearch: onEditorAction");
@@ -147,7 +185,62 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
+        //TODO - Create an onClickListener here (first create an map icon) and then surround this code??????????
+
+        if(ID == 1) {
+            placePicker();
+        }
+
+        /*PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(MapActivity.this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            Log.e(TAG, "GooglePlayServicesRepairableException: " + e.getMessage());
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
+        }
+
+*/
+        //TODO - Surround All the way to here
+
         hideSoftKeyboard(MapActivity.this);
+    }
+
+    public void placePicker(){
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(MapActivity.this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            Log.e(TAG, "GooglePlayServicesRepairableException: " + e.getMessage());
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
+        }
+
+    }
+
+
+
+    //TODO - Surround All the way to here
+
+
+    /**
+     * Makes the place picker (nearby suggestions) pop up when map is launched
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this, data);
+
+                PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, place.getId());
+                placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
+
+            }
+        }
     }
 
     /**
@@ -155,7 +248,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     private void geoLocate(){
         Log.d(TAG, "geoLocate: geolocating");
-        String searchString = searchText.getText().toString();
+        String searchString = mSearchText.getText().toString();
 
         Geocoder geocoder = new Geocoder(MapActivity.this);
         List<Address> list = new ArrayList<>();
@@ -211,9 +304,33 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void moveMapToLocation(LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveMapToLocation: moving the map to current location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
-        //Passes the arguments to the drop pin method
-        dropPin(latLng, zoom, title);
-        // hideSoftKeyboard(MapActivity.this);
+
+        if(ID == 1) {
+            mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
+
+            //When custom info window is clicked
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Log.i(TAG, "onInfoWindowCLick: clicked check in button");
+                    Intent intent = new Intent();
+                    intent.putExtra("location", mPlace.getName());
+                    Log.i(TAG, "onInfoWindowCLick: sets location to " + mPlace.getName());
+                    intent.putExtra("latLng", mPlace.getLatLng());
+                    Log.i(TAG, "onInfoWindowCLick: sets latlng to " + mPlace.getLatLng());
+                    setResult(1, intent); //Setting resultCode to 1
+                    finish(); //Finishes this activity
+                }
+            });
+
+            dropPin(latLng, zoom, title);
+        }
+
+        /*if(ID == 1) {
+            //Passes the arguments to the drop pin method
+            dropPin(latLng, zoom, title);
+        } */
+
     }
 
     /**
@@ -223,12 +340,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * @param title - Title (text) of the pin
      */
     private void dropPin(LatLng latLng, float zoom, String title){
+
+        mMap.clear();
         Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
-            MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title);
-            mMap.addMarker(markerOptions);
+
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_beer_icon_test));
+                Marker marker = mMap.addMarker(markerOptions);
+                marker.showInfoWindow();
+                //marker.setIcon();
         }
-      //  hideSoftKeyboard();
     }
 
     /**
@@ -251,7 +372,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
             Log.d(TAG, "onMapReady: set my location enabled true");
             mMap.setMyLocationEnabled(true);
-            //If you want to hide the "myLocationButton" up in the right corner
+            //Hides the "myLocationButton" up in the right corner
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
             initializeSearch();
@@ -297,7 +418,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);  //Probably won't be needed
         Log.d(TAG, "onRequestPermissionsResult: called");
         locationPermissionsGranted = false;
 
@@ -318,14 +438,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
-
-    /**
-     * Hides the keyboard BUT THIS DOESN'T WORK!!!!
-     *//*
-    private void hideKeyboard(){
-        Log.d(TAG,"hideKeyboard: hides the keyboard");
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    } */
 
     // *********************** GOOGLE API AUTOCOMPLETE SUGGESTIONS **********************
 
@@ -373,10 +485,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
                     , DEFAULT_ZOOM, mPlace.getName());
             places.release();
-           // hideSoftKeyboard(MapActivity.this);
+
         }
     };
 
+    /**
+     * Hides the keyboard to make more space on the screen
+     * @param activity
+     */
     public static void hideSoftKeyboard(Activity activity) {
         Log.d(TAG,"hideSoftKeyboard: hides the keyboard");
         InputMethodManager inputMethodManager =

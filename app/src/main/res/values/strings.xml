@@ -23,6 +23,12 @@
     <string name="mapView">MapView</string>
 
     <!-- end of InfoActivity & BottomNavigation -->
+    
+    <!-- Facebook -->
+    
+    <string name="brewlikes_fid">311762962671719</string>
+    
+    <!-- ************************* -->
 
     <string-array name="persons">
         <item>Emma</item>
@@ -60,4 +66,5 @@
     <string name="myFavouriteBeer">My favourite beer</string>
     <!--End of Top List Activity-->
 
+    <string name="checkin_text">CHECK IN</string>
 </resources>
