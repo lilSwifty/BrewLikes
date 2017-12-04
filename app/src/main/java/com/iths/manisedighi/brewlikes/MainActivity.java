@@ -50,16 +50,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
                 startActivity(cameraIntent);
             }
         });
-
     }
-
-
-    /*
-        public void onBrewLikesImageClicked(View view) {
-            Intent cameraIntent = new Intent(this, RankingActivity.class);
-            startActivity(cameraIntent);
-        }
-        */
 
         /*//Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
         public void onTestMapButtonClicked(View v){
