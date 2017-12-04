@@ -147,7 +147,7 @@ public class RankingActivity extends AppCompatActivity {
         }
 
         if (name.isEmpty()) {
-            makeToast("You need fill all columns");
+            makeToast("You need to name the beer");
         }else if (comment.isEmpty()){
             makeToast("You need to describe the beer");
         }else if (picture.isEmpty()){
