@@ -158,7 +158,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
-        tvLocation.setText(beer.getLocation());
+//        tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
     }
 
