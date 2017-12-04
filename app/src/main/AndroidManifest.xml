@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".RankingActivity" android:windowSoftInputMode="adjustResize" android:screenOrientation="portrait" />
+        <activity android:name=".RankingActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" />
         <activity android:name=".CategoriesActivity"/>
         <activity android:name=".AboutActivity"/>
         <activity android:name=".MapActivity"/>
