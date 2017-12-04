@@ -15,15 +15,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +61,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     //Log tag for this specific activity
     private static final String TAG = "MapActivity";
-
     //Permissions from the manifest
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -75,58 +70,63 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
     private static final int PLACE_PICKER_REQUEST = 1;
-
     //Boolean that checks if location permissions are granted or not
     private boolean locationPermissionsGranted;
-
     private static final int LOCATION_PERMISSION_CODE = 1234;
     private GoogleMap mMap;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace;
-
     //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
-
     //Widgets
-    private AutoCompleteTextView searchText;
+    private AutoCompleteTextView mSearchText;
     private ImageView gpsIcon;
 
-    private String locationFromIntent;
+    private int ID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        searchText = findViewById(R.id.searchFieldText);
+        mSearchText = findViewById(R.id.searchFieldText);
         gpsIcon = (ImageView) findViewById(R.id.ic_gps);
         DBHelper dbHelper = new DBHelper(this);
 
         Intent intent = getIntent();
 
-        int ID = intent.getIntExtra("ID", 0);
+        ID = intent.getIntExtra("ID", 0);
         if(ID == 1){ //From ranking activity
+            Log.d(TAG, "Checking intent ID: 1");
             getLocationPermission();
+            //initializeMap();
+            //onMapReady();
+            //getDeviceLocation();
+            //onMapReady();
+            //initializeSearch();
+
+
             //Execute ALL CODE in map activity
             //Send something back when CHECK IN is pressed. Something = Sting title and LatLng latLng
 
         } else if(ID == 2){ //From info activity
-          // Long beerIDFromIntent = intent.getStringExtra("location");
-
-         //  Beer b = dbHelper.getBeerById(beerIDFromIntent); //ger en öl instans tillbaka
-          //  LatLng latLng = new LatLng(b.getLat(), b.getLng());
-         //   String title = b.getLocation();
-          // moveMapToLocation(latLng, DEFAULT_ZOOM, title);
+            Log.d(TAG, "Checking intent ID: 2");
+           Long beerIDFromIntent = intent.getLongExtra("beerId", 0);
+           Beer b = dbHelper.getBeerById(beerIDFromIntent); //ger en ölinstans tillbaka
+           LatLng latLng = new LatLng(b.getLat(), b.getLng());
+           String title = b.getLocation();
+           moveMapToLocation(latLng, DEFAULT_ZOOM, title);
            //search bar + icons + check in view set visibility view Gone!!!!
 
 
         } else if(ID == 3){ //From map view navigation button
+            Log.d(TAG, "Checking intent ID: 3");
             List<Beer> beers = dbHelper.getAllBeers();
 
             for (Beer b : beers) {
-              //  LatLng latLng = new LatLng(b.getLat(), b.getLng());
+                LatLng latLng = new LatLng(b.getLat(), b.getLng());
                 //Test later if it's possible to create LatLng in argument below to remove code
-              //  dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
+                dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
                 //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDevideLocation
                 //search bar + icons + check in view set visibility view Gone!!!!
             }
@@ -154,13 +154,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .enableAutoManage(this, this)
                 .build();
 
-        searchText.setOnItemClickListener(mAutocompleteClickListener);
+        mSearchText.setOnItemClickListener(mAutocompleteClickListener);
 
         mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, null);
 
-        searchText.setAdapter(mPlaceAutocompleteAdapter);
+        mSearchText.setAdapter(mPlaceAutocompleteAdapter);
 
-        searchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
                 Log.d(TAG, "initializeSearch: onEditorAction");
@@ -187,8 +187,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        //TODO - Create an onClickListener here (first create an map icon) and then surround this code
+        //TODO - Create an onClickListener here (first create an map icon) and then surround this code??????????
 
+        if(ID == 1) {
+            placePicker();
+        }
+
+        /*PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(MapActivity.this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            Log.e(TAG, "GooglePlayServicesRepairableException: " + e.getMessage());
+        } catch (GooglePlayServicesNotAvailableException e) {
+            Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
+        }
+
+*/
+        //TODO - Surround All the way to here
+
+        hideSoftKeyboard(MapActivity.this);
+    }
+
+    public void placePicker(){
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
         try {
@@ -199,11 +220,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
         }
 
-
-        //Surround All the way to here
-
-        hideSoftKeyboard(MapActivity.this);
     }
+
+
+
+    //TODO - Surround All the way to here
+
 
     /**
      * Makes the place picker (nearby suggestions) pop up when map is launched
@@ -228,7 +250,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     private void geoLocate(){
         Log.d(TAG, "geoLocate: geolocating");
-        String searchString = searchText.getText().toString();
+        String searchString = mSearchText.getText().toString();
 
         Geocoder geocoder = new Geocoder(MapActivity.this);
         List<Address> list = new ArrayList<>();
@@ -287,9 +309,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
 
-        //Passes the arguments to the drop pin method
-        dropPin(latLng, zoom, title);
-        // hideSoftKeyboard(MapActivity.this);
+
+        if(ID == 1) {
+            //Passes the arguments to the drop pin method
+            dropPin(latLng, zoom, title);
+        }
+
     }
 
     /**
@@ -309,13 +334,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 marker.showInfoWindow();
                 //marker.setIcon();
         }
-    }
-
-    //Just a test method for removing pin, ain't working at the moment
-    private void removePin(LatLng latLng, String title){
-
-        Marker markerName = mMap.addMarker(new MarkerOptions().position(latLng).title(title));
-        markerName.remove();
     }
 
     /**
@@ -338,7 +356,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
             Log.d(TAG, "onMapReady: set my location enabled true");
             mMap.setMyLocationEnabled(true);
-            //If you want to hide the "myLocationButton" up in the right corner
+            //Hides the "myLocationButton" up in the right corner
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
             // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
             initializeSearch();
@@ -384,7 +402,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);  //Probably won't be needed
         Log.d(TAG, "onRequestPermissionsResult: called");
         locationPermissionsGranted = false;
 
@@ -405,14 +422,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
-
-    /**
-     * Hides the keyboard BUT THIS DOESN'T WORK!!!!
-     *//*
-    private void hideKeyboard(){
-        Log.d(TAG,"hideKeyboard: hides the keyboard");
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-    } */
 
     // *********************** GOOGLE API AUTOCOMPLETE SUGGESTIONS **********************
 
@@ -460,10 +469,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
                     , DEFAULT_ZOOM, mPlace.getName());
             places.release();
-           // hideSoftKeyboard(MapActivity.this);
         }
     };
 
+    /**
+     * Hides the keyboard to make more space on the screen
+     * @param activity
+     */
     public static void hideSoftKeyboard(Activity activity) {
         Log.d(TAG,"hideSoftKeyboard: hides the keyboard");
         InputMethodManager inputMethodManager =

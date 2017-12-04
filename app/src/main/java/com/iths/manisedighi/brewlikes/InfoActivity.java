@@ -201,7 +201,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     public void onLocationClick(View view){
         Log.d(TAG, "onLocationClick: location clicked.");
         Intent mapIntent = new Intent(InfoActivity.this, MapActivity.class);
-        mapIntent.putExtra("location" ,beer.getLocation());
+        mapIntent.putExtra("beerId" ,beer.getId());
+        mapIntent.putExtra("ID", 2);
         startActivity(mapIntent);
         //TODO takes you to map view
     }

@@ -38,7 +38,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
-
+/*
         final ImageView beerSound = this.findViewById(R.id.brewlikes_main_image);
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.open_bottle_sound);
         beerSound.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +51,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
             }
         });
 
-    }
+    } */
 
     /*
         public void onBrewLikesImageClicked(View view) {
@@ -70,6 +70,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
         //Initializes MapActivity
         private void initMapActivity(){
             Intent intent = new Intent(this, MapActivity.class);
+            intent.putExtra("ID", 1);
             startActivity(intent);
         }
 
