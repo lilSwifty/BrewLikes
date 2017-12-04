@@ -158,7 +158,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
- //       tvLocation.setText(beer.getLocation());
+        tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
     }
 
@@ -239,9 +239,10 @@ public class InfoActivity extends BottomNavigationBaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 helper.removeBeer(id);
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, TopListActivity.class);
                 startActivity(intent);
                 finish();
+                //TODO fix so that it knows were be to go back (TopList or Category)
             }
         });
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
