@@ -9,7 +9,9 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,6 +23,9 @@ import java.util.List;
      private TopListCursorAdapter cursorAdapter;
      private ListView topListView;
      private DBHelper dbHelper = new DBHelper(this);
+     //Cursor cursor = dbHelper.getTopListCursor();
+
+
 
 
     @Override
@@ -30,6 +35,16 @@ import java.util.List;
         topListView = findViewById(R.id.beerTopList);
 
         initialize();
+
+        topListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+            }
+        });
     }
 
      /**
@@ -39,6 +54,8 @@ import java.util.List;
          setupBottomNavigation();
          createCursorAdapter();
          //createRoundPicture();
+         //cursorAdapter = new TopListCursorAdapter(this, cursor);
+         //topListView.setAdapter(cursorAdapter);
      }
 
      /**
@@ -67,16 +84,19 @@ import java.util.List;
       * and show the beer you've pressed.
       * TODO kolla hur man skickar till rätt öl-info
       */
-    public void onItemClick(View view) {
+    /*public void onItemClick(View view) {
         Cursor cursor = dbHelper.getTopListCursor();
         cursorAdapter = new TopListCursorAdapter(this, cursor);
         topListView.setAdapter(cursorAdapter);
 
         Intent intent = new Intent(this, InfoActivity.class);
-        //Long id = cursor.getLong(0);
+        Log.d("MyLog", "HERE I AM");
+        Long id = cursor.getLong(0);
         //Long id = cursor.getLong(cursor.getColumnIndex("_id"));
-        //intent.putExtra("id", id);
+        intent.putExtra("id", id);
+        Log.d("MyLog", "onItemClick: id");
         startActivity(intent);
     }
+    */
 
  }
