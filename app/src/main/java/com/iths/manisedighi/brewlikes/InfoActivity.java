@@ -50,7 +50,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info5);
+        setContentView(R.layout.activity_info3);
         init();
     }
 
@@ -132,7 +132,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivBeer.setImageBitmap(image);
 
         tvBeerName.setText(beer.getName());
-        tvCategory.setText(getResources().getString(R.string.category)+": "+beer.getCategoryName());
+        tvCategory.setText(beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
