@@ -194,7 +194,7 @@ public class RankingActivity extends AppCompatActivity {
     }
     /**
      * A method to get the price rate.
-     * @return an int with the price rate.
+     * @return a double with the price rate.
      */
     private double savePrice(){
         int price = priceRateNumber.getText().charAt(0);
@@ -204,7 +204,7 @@ public class RankingActivity extends AppCompatActivity {
 
     /**
      * A method to get the taste rate.
-     * @return an int with the price rate.
+     * @return a double with the price rate.
      */
     private double saveTaste(){
         int taste = tasteRateNumber.getText().charAt(0);
