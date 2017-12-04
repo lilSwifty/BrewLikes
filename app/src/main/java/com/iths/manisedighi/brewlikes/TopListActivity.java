@@ -17,6 +17,8 @@ import android.widget.ListView;
      private ListView topListView;
      private DBHelper dbHelper = new DBHelper(this);
      ImageView logo;
+     private static final String TAG = "TopListActivity";
+     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ import android.widget.ListView;
         topListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Log.d(TAG, "onItemClick: Click on item works");
                 Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
                 intent.putExtra("BeerID", id);
                 startActivity(intent);
@@ -49,6 +51,7 @@ import android.widget.ListView;
       * Initializes the activity
       */
      private void initialize() {
+         Log.d(TAG, "initialize: works");
          setupBottomNavigation();
          createCursorAdapter();
      }
@@ -57,6 +60,7 @@ import android.widget.ListView;
       * Sets up the Cursor Adapter
       */
      private void createCursorAdapter() {
+         Log.d(TAG, "createCursorAdapter: works");
          Cursor cursor = dbHelper.getTopListCursor();
          cursorAdapter = new TopListCursorAdapter(this, cursor);
          topListView.setAdapter(cursorAdapter);
@@ -80,11 +84,13 @@ import android.widget.ListView;
          int id = item.getItemId();
          if(id == R.id.aboutIcon){
              Intent intent = new Intent(this, AboutActivity.class);
+             Log.d(TAG, "onOptionsItemSelected: aboutActivity clicked");
              startActivity(intent);
              return true;
 
          } else if(id == R.id.cameraIcon){
              Intent cameraIntent = new Intent(this, RankingActivity.class);
+             Log.d(TAG, "onOptionsItemSelected: RankingActivity clicked");
              startActivity(cameraIntent);
              return true;
          }
