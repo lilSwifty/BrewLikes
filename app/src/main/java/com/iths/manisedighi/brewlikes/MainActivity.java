@@ -71,7 +71,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
         private void initMapActivity(){
             Intent intent = new Intent(this, MapActivity.class);
             intent.putExtra("ID", 1);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
         }
 
         /**

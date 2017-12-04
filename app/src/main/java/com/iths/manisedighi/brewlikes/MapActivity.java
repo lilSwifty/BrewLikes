@@ -20,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +83,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //Widgets
     private AutoCompleteTextView mSearchText;
     private ImageView gpsIcon;
-
+    //ID from intent to make sure which activity is sending the intent
     private int ID;
 
     @Override
@@ -98,16 +99,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         ID = intent.getIntExtra("ID", 0);
         if(ID == 1){ //From ranking activity
             Log.d(TAG, "Checking intent ID: 1");
+
             getLocationPermission();
             //initializeMap();
             //onMapReady();
             //getDeviceLocation();
             //onMapReady();
             //initializeSearch();
-
-
-            //Execute ALL CODE in map activity
-            //Send something back when CHECK IN is pressed. Something = Sting title and LatLng latLng
 
         } else if(ID == 2){ //From info activity
             Log.d(TAG, "Checking intent ID: 2");
@@ -307,13 +305,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Log.d(TAG, "moveMapToLocation: moving the map to current location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-        mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
-
-
         if(ID == 1) {
-            //Passes the arguments to the drop pin method
+            mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
+
+            //When custom info window is clicked
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Log.i(TAG, "onInfoWindowCLick: clicked check in button");
+                    Intent intent = new Intent();
+                    intent.putExtra("location", mPlace.getName());
+                    Log.i(TAG, "onInfoWindowCLick: sets location to " + mPlace.getName());
+                    intent.putExtra("latLng", mPlace.getLatLng());
+                    Log.i(TAG, "onInfoWindowCLick: sets latlng to " + mPlace.getLatLng());
+                    setResult(1, intent); //Setting resultCode to 1
+                    finish(); //Finishes this activity
+                }
+            });
+
             dropPin(latLng, zoom, title);
         }
+
+        /*if(ID == 1) {
+            //Passes the arguments to the drop pin method
+            dropPin(latLng, zoom, title);
+        } */
 
     }
 
@@ -469,6 +485,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
                     , DEFAULT_ZOOM, mPlace.getName());
             places.release();
+
         }
     };
 
