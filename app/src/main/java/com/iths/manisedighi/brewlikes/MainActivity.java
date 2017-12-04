@@ -37,20 +37,22 @@ public class MainActivity extends BottomNavigationBaseActivity {
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-                //TODO Credit http://www.freesfx.co.uk/ for sound file!
+        //TODO Credit http://www.freesfx.co.uk/ for sound file!
 
         final ImageView beerSound = this.findViewById(R.id.brewlikes_main_image);
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.open_bottle_sound);
-        beerSound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mp.setVolume(1.0f, 1.0f);
-                mp.start();
-                Intent cameraIntent = new Intent(getApplicationContext(), RankingActivity.class);
-                startActivity(cameraIntent);
-            }
-        });
+        {
+            final MediaPlayer mp = MediaPlayer.create(this, R.raw.open_bottle_sound);
+            beerSound.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mp.setVolume(1.0f, 1.0f);
+                    mp.start();
+                    Intent cameraIntent = new Intent(getApplicationContext(), RankingActivity.class);
+                    startActivity(cameraIntent);
+                }
+            });
 
+        }
     }
 
 

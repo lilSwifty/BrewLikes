@@ -206,11 +206,15 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         long rows = DatabaseUtils.queryNumEntries(db, BEER_TABLE);
+        Log.d("MyLog", "Rows" + rows);
 
         if (rows >= 10) {
             return db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT 10");
-        } else {
+        } else if (rows < 10){
+            Log.d("MyLog", "We have less than 10");
             return db.query(BEER_TABLE, null, null, null, null, null, "COL_BEER_AVERAGE DESC LIMIT " + rows);
+        } else {
+            return null;
         }
     }
 
