@@ -21,6 +21,8 @@
     <string name="home">Home</string>
     <string name="topList">TopList</string>
     <string name="mapView">MapView</string>
+    <string name="edit">Edit comment</string>
+    <string name="delete">Delete beer</string>
 
     <!-- end of InfoActivity & BottomNavigation -->
     

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,33 +30,44 @@
     <!-- title menu -->
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/titleMenu"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
         android:layout_marginTop="56dp"
         android:background="@color/beer"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/titleMenu"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvBeerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/beerName"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
     </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toEndOf="@id/tvInfo"
+        android:onClick="onDeleteClick"
+        android:src="@drawable/ic_delete"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/titleMenu"
+        app:layout_constraintTop_toTopOf="@+id/titleMenu" />
+
+    <TextView
+        android:id="@+id/tvBeerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/beerName"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/ivNavBack"
+        app:layout_constraintTop_toTopOf="@id/titleMenu" />
 
     <ImageView
         android:id="@+id/ivNavBack"
@@ -67,16 +79,17 @@
         android:onClick="onNavBackClick"
         android:src="@drawable/ic_left_arrow"
         app:layout_constraintTop_toTopOf="@id/titleMenu"
-        app:layout_constraintEnd_toEndOf="@id/titleMenu"/>
+        app:layout_constraintStart_toStartOf="@id/titleMenu"/>
+
 
     <!-- middle section -->
 
     <ImageView
         android:id="@+id/ivBeer"
         android:layout_width="220dp"
-        android:layout_height="250dp"
+        android:layout_height="220dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu"
         app:srcCompat="@android:drawable/btn_star_big_off" />
@@ -85,13 +98,15 @@
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:fontFamily="sans-serif"
-        android:text="@string/category"
+        android:text="@string/beerCategory"
+        android:textColor="@color/beer"
         android:textAllCaps="true"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ivBeer"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
     <TextView
@@ -100,26 +115,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvCategory"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="46dp"
         android:fontFamily="sans-serif"
         android:text="@string/price"
         android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/ivBeer"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
     <TextView
         android:id="@+id/tvPriceScore"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="46dp"
         android:fontFamily="sans-serif"
         android:text="8.0"
         android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/tvPrice"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
     <TextView
         android:id="@+id/tvTaste"
@@ -174,14 +189,13 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTasteScore" />
 
     <!-- This is where the fb share button gets put in -->
-
     <LinearLayout
         android:id="@+id/btnShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="6dp"
         app:layout_constraintBottom_toTopOf="@+id/tvInfo"
         app:layout_constraintStart_toEndOf="@+id/ivBeer">
 
@@ -198,8 +212,9 @@
         android:textAllCaps="true"
         android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
         android:textSize="16dp"
-        android:background="@drawable/beer_comment"
         android:padding="4dp"
+        android:background="@drawable/beer_comment"
+        android:elevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivBeer" />
 
@@ -207,13 +222,13 @@
         android:id="@+id/ivEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/tvInfo"
         android:onClick="onEditClick"
         android:src="@drawable/ic_edit"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="18dp"
         app:layout_constraintStart_toEndOf="@+id/tvInfo"
-        app:layout_constraintTop_toBottomOf="@+id/btnShare" />
+        app:layout_constraintBottom_toTopOf="@+id/tvLocation" />
 
     <ImageView
         android:id="@+id/ivLocation"
@@ -237,6 +252,7 @@
         android:fontFamily="sans-serif"
         android:textAllCaps="true"
         android:textSize="16sp"
+        android:text="The Abyss, Göteborg"
         app:layout_constraintStart_toEndOf="@+id/ivLocation"
         app:layout_constraintTop_toBottomOf="@+id/tvInfo">
 

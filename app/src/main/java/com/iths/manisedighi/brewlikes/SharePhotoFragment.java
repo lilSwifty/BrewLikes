@@ -1,6 +1,5 @@
 package com.iths.manisedighi.brewlikes;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -39,11 +38,28 @@ public class SharePhotoFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: starts");
 
         FacebookSdk.getSdkVersion();
 
         callbackManager = CallbackManager.Factory.create();
-        shareDialog = new ShareDialog(this);
+/*        shareDialog = new ShareDialog(this);
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });*/
 //        shareDialog.registerCallback(callbackManager, callback);
 
 
@@ -72,6 +88,7 @@ public class SharePhotoFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onViewCreated: ");
         setSharePhoto(view);
     }
 
@@ -80,7 +97,7 @@ public class SharePhotoFragment extends Fragment {
      * @param view - ShareButton
      */
     private void setSharePhoto(View view){
-        //Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.brewlikes_placeholder_logo2);
+        Log.d(TAG, "setSharePhoto: ");
         Bitmap image = BitmapFactory.decodeFile(getArguments().getString("photoPath"));
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(image)
@@ -93,19 +110,40 @@ public class SharePhotoFragment extends Fragment {
                 .build();
 
         btnShare = view.findViewById(R.id.btnShare);
+
         btnShare.setShareContent(sharePhotoContent);
+        btnShare.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+        /*if(btnShare.isActivated()) {
+            shareDialog.show(sharePhotoContent);
+        }*/
     }
 
-    @Override
+/*    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "onActivityResult: ");
             callbackManager.onActivityResult(requestCode, resultCode, data);
-//          shareDialog.registerCallback(callbackManager, callback);
+//            shareDialog.registerCallback(callbackManager, callback);
 //        ShareInternalUtility.registerSharerCallback(requestCode ,callbackManager, callback); ------?????
         //TODO this call is were it's mess things up
     }
 
-    private FacebookCallback<Sharer.Result> callback = new FacebookCallback<Sharer.Result>() {
+  /*  private FacebookCallback<Sharer.Result> callback = new FacebookCallback<Sharer.Result>() {
         @Override
         public void onSuccess(Sharer.Result result) {
             Log.d(TAG, "onSuccess: successfully upload"+result);
@@ -121,6 +159,6 @@ public class SharePhotoFragment extends Fragment {
         public void onError(FacebookException error) {
             Log.d(TAG, "onError: "+error.getMessage());
         }
-    };
+    };*/
 }
 

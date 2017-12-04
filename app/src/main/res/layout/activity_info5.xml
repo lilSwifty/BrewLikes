@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/darkGrey"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,7 +50,7 @@
             android:fontFamily="sans-serif"
             android:text="@string/beerName"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/darkGrey"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,27 +73,25 @@
     <!-- middle section -->
 
     <ImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="onDeleteClick"
+        android:src="@drawable/ic_delete_white"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
         android:id="@+id/ivBeer"
         android:layout_width="220dp"
-        android:layout_height="250dp"
+        android:layout_height="220dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu"
         app:srcCompat="@android:drawable/btn_star_big_off" />
-
-    <TextView
-        android:id="@+id/tvCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/category"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer"
-        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
     <TextView
         android:id="@+id/tvPrice"
@@ -106,7 +105,7 @@
         android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/ivBeer"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
     <TextView
         android:id="@+id/tvPriceScore"
@@ -119,7 +118,7 @@
         android:textAllCaps="true"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/tvPrice"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
 
     <TextView
         android:id="@+id/tvTaste"
@@ -180,12 +179,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tvInfo"
         app:layout_constraintStart_toEndOf="@+id/ivBeer">
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/category"
+        android:textAllCaps="true"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/ivBeer"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvInfo"
@@ -200,20 +212,21 @@
         android:textSize="16dp"
         android:background="@drawable/beer_comment"
         android:padding="4dp"
+        android:elevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivBeer" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
 
     <ImageView
         android:id="@+id/ivEdit"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="18dp"
         android:layout_toEndOf="@id/tvInfo"
         android:onClick="onEditClick"
         android:src="@drawable/ic_edit"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvInfo"
-        app:layout_constraintTop_toBottomOf="@+id/btnShare" />
+        app:layout_constraintBottom_toTopOf="@+id/tvLocation" />
 
     <ImageView
         android:id="@+id/ivLocation"
