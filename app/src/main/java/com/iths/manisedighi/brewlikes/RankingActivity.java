@@ -184,6 +184,12 @@ public class RankingActivity extends AppCompatActivity {
 
         }
 
+        /*
+        else if(category.equals("Unknown")){
+            makeToast("Please choose category");
+        }
+         */
+
     }
 
     /**
