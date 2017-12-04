@@ -73,33 +73,34 @@
     <!-- middle section -->
 
     <ImageView
-        android:id="@+id/ivDelete"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="onDeleteClick"
-        android:src="@drawable/ic_delete_white"
-        app:layout_constraintTop_toBottomOf="@+id/titleMenu"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <ImageView
         android:id="@+id/ivBeer"
         android:layout_width="220dp"
         android:layout_height="220dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu"
-        app:srcCompat="@android:drawable/btn_star_big_off" />
+        app:srcCompat="@android:drawable/btn_star_big_off"/>
+
+    <!--<ImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:onClick="onDeleteClick"
+        android:src="@drawable/ic_delete_white"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu"
+        app:layout_constraintStart_toStartOf="parent"/>-->
+
 
     <TextView
         android:id="@+id/tvPrice"
         android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvCategory"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:text="@string/price"
         android:textAllCaps="true"
@@ -109,10 +110,10 @@
 
     <TextView
         android:id="@+id/tvPriceScore"
-        android:layout_width="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
         android:text="8.0"
         android:textAllCaps="true"
@@ -124,8 +125,8 @@
         android:id="@+id/tvTaste"
         android:layout_width="52dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:text="@string/taste"
         android:textAllCaps="true"
@@ -135,10 +136,10 @@
 
     <TextView
         android:id="@+id/tvTasteScore"
-        android:layout_width="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
         android:text="7.0"
         android:textAllCaps="true"
@@ -150,8 +151,8 @@
         android:id="@+id/tvRate"
         android:layout_width="52dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="6dp"
         android:fontFamily="sans-serif"
         android:text="@string/rate"
         android:textAllCaps="true"
@@ -161,10 +162,10 @@
 
     <TextView
         android:id="@+id/tvRateScore"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
         android:text="7.5/10.0"
         android:textAllCaps="true"
@@ -179,7 +180,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tvInfo"
         app:layout_constraintStart_toEndOf="@+id/ivBeer">
@@ -190,7 +191,7 @@
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="sans-serif"
         android:text="@string/category"
@@ -201,31 +202,20 @@
 
     <TextView
         android:id="@+id/tvInfo"
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_below="@+id/ivBeer"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
         android:textAllCaps="true"
-        android:text="Man kan ju fylla på i en evighet. Hej jag heter Emma och jag gillar öl! En lättsam sötma av karamell stöder snyggt upp fina rostade toner med kaffe och choklad plus aningens sötlakrits endast en gnutta röda bär"
+        android:text=""
         android:textSize="16dp"
         android:background="@drawable/beer_comment"
         android:padding="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
-
-    <ImageView
-        android:id="@+id/ivEdit"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="18dp"
-        android:layout_toEndOf="@id/tvInfo"
-        android:onClick="onEditClick"
-        android:src="@drawable/ic_edit"
-        app:layout_constraintStart_toEndOf="@+id/tvInfo"
-        app:layout_constraintBottom_toTopOf="@+id/tvLocation" />
 
     <ImageView
         android:id="@+id/ivLocation"
