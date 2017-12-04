@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -239,8 +240,21 @@ public class RankingActivity extends AppCompatActivity {
      */
 
     public void cameraLauncher() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
+        builder.setIcon(R.drawable.brewlikes_main_image);
         builder.setMessage("Please choose an alternative").setCancelable(false)
+                .setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK &&
+                                event.getAction() == KeyEvent.ACTION_UP &&
+                                !event.isCanceled()) {
+                            finish();
+                            return true;
+                        }
+                        return false;
+                    }
+                })
                 .setPositiveButton("Take photo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -265,9 +279,7 @@ public class RankingActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.setTitle("Time to brew...");
         alert.show();
-
     }
-
 
     /**
      * To create and invoke the Intent for the picture. First, ensure that there's a camera activity to handle the intent.
