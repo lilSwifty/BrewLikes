@@ -219,6 +219,12 @@ public class RankingActivity extends AppCompatActivity {
             }else {*/
         }
 
+        /*
+        else if(category.equals("Unknown")){
+            makeToast("Please choose category");
+        }
+         */
+
     }
     public void addBeer(){
         Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng);
