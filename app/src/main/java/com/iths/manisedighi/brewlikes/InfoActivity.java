@@ -70,6 +70,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //to add fragment to the layout
         addSharePhotoFragment();
 
+
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
