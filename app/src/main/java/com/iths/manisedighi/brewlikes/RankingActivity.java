@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -151,7 +152,7 @@ public class RankingActivity extends AppCompatActivity {
             makeToast("You need to describe the beer");
         }else if (picture.isEmpty()){
             makeToast("You need to take a picture of your beer");
-        }else if(category.toString().equals("none")){
+        }else if(category.equals("Unknown")){
             makeToast("Please choose category");
         }else{
             Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
@@ -239,8 +240,21 @@ public class RankingActivity extends AppCompatActivity {
      */
 
     public void cameraLauncher() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
+        builder.setIcon(R.drawable.brewlikes_main_image);
         builder.setMessage("Please choose an alternative").setCancelable(false)
+                .setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if (keyCode == KeyEvent.KEYCODE_BACK &&
+                                event.getAction() == KeyEvent.ACTION_UP &&
+                                !event.isCanceled()) {
+                            finish();
+                            return true;
+                        }
+                        return false;
+                    }
+                })
                 .setPositiveButton("Take photo", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -248,7 +262,7 @@ public class RankingActivity extends AppCompatActivity {
 
                     }
                 })
-                .setNeutralButton("Upload image", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Upload image", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -261,7 +275,6 @@ public class RankingActivity extends AppCompatActivity {
         alert.show();
 
     }
-
 
     /**
      * To create and invoke the Intent for the picture. First, ensure that there's a camera activity to handle the intent.

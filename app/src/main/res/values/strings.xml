@@ -60,5 +60,10 @@
 
     <string name="testButtonMap">Test Map</string>
     <string name="searchTextView">Search address here</string>
-    <string name="spinnerNone">none</string>
+
+
+    <!--Top List Activity-->
+    <string name="myFavouriteBeer">My favourite beer</string>
+    <!--End of Top List Activity-->
+
 </resources>

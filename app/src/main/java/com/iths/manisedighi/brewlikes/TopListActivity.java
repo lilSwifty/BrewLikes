@@ -1,27 +1,22 @@
  package com.iths.manisedighi.brewlikes;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.CursorAdapter;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-
-import java.util.List;
 
  public class TopListActivity extends BottomNavigationBaseActivity {
 
      private TopListCursorAdapter cursorAdapter;
      private ListView topListView;
      private DBHelper dbHelper = new DBHelper(this);
-
+     ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +24,25 @@ import java.util.List;
         setContentView(R.layout.activity_top_list);
         topListView = findViewById(R.id.beerTopList);
 
+        //Copy and paste this toolbar to every activity!
+        Toolbar toolbar = findViewById(R.id.toolbarTop);
+        setSupportActionBar(toolbar);
+        logo = findViewById(R.id.logoImageView);
+        //Hides the BrewLikes text from the upper toolbar
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+
         initialize();
+
+        topListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
+                intent.putExtra("BeerID", id);
+                startActivity(intent);
+            }
+        });
     }
 
      /**
@@ -38,7 +51,6 @@ import java.util.List;
      private void initialize() {
          setupBottomNavigation();
          createCursorAdapter();
-         //createRoundPicture();
      }
 
      /**
@@ -51,32 +63,32 @@ import java.util.List;
      }
 
      /**
-     * Makes the image of the beer round
-     * TODO fixa så att denna kan vara kopplad till annan xml-fil
-     */
-    public void createRoundPicture() {
-        ImageView beerImage = findViewById(R.id.beerImage);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.beer);
-        RoundedBitmapDrawable roundPic = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-        roundPic.setCircular(true);
-        beerImage.setImageDrawable(roundPic);
-    }
+      * Upper toolbar with icons
+      */
+     @Override
+     public boolean onCreateOptionsMenu(Menu menu) {
+         super.onCreateOptionsMenu(menu);
+         getMenuInflater().inflate(R.menu.about_and_camera_icons, menu);
+         return true;
+     }
 
      /**
-      * When pressing any of the items in the list, this method will send you to the Info Activity-class,
-      * and show the beer you've pressed.
-      * TODO kolla hur man skickar till rätt öl-info
+      * Handles what happens when the icons in the toolbar are clicked
       */
-    public void onItemClick(View view) {
-        Cursor cursor = dbHelper.getTopListCursor();
-        cursorAdapter = new TopListCursorAdapter(this, cursor);
-        topListView.setAdapter(cursorAdapter);
+     @Override
+     public boolean onOptionsItemSelected(MenuItem item) {
+         int id = item.getItemId();
+         if(id == R.id.aboutIcon){
+             Intent intent = new Intent(this, AboutActivity.class);
+             startActivity(intent);
+             return true;
 
-        Intent intent = new Intent(this, InfoActivity.class);
-        //Long id = cursor.getLong(0);
-        //Long id = cursor.getLong(cursor.getColumnIndex("_id"));
-        //intent.putExtra("id", id);
-        startActivity(intent);
-    }
+         } else if(id == R.id.cameraIcon){
+             Intent cameraIntent = new Intent(this, RankingActivity.class);
+             startActivity(cameraIntent);
+             return true;
+         }
+         return super.onOptionsItemSelected(item);
+     }
 
  }
