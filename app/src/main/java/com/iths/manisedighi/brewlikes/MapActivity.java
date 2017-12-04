@@ -110,7 +110,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } else if(ID == 2){ //From info activity
             Log.d(TAG, "Checking intent ID: 2");
            Long beerIDFromIntent = intent.getLongExtra("beerId", 0);
-           Beer b = dbHelper.getBeerById(beerIDFromIntent); //ger en ölinstans tillbaka
+           Beer b = dbHelper.getBeerById(beerIDFromIntent); 
            LatLng latLng = new LatLng(b.getLat(), b.getLng());
            String title = b.getLocation();
            moveMapToLocation(latLng, DEFAULT_ZOOM, title);
