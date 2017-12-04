@@ -55,7 +55,7 @@ public class RankingActivity extends AppCompatActivity {
     private Uri selectedImage;
 
     static final int REQUEST_TAKE_PHOTO = 1337;
-    static final int RESULT_LOAD_IMAGE = 2;
+    static final int RESULT_LOAD_IMAGE = 217;
     static final int REQUEST_CODE = 7175;
 
     private static final String TAG = "RankingActivity";
@@ -163,25 +163,16 @@ public class RankingActivity extends AppCompatActivity {
             finish();
         }
 
-        /*
-        else if (tasteRateNumber.getText().charAt(0) != 0){
-            makeToast("Please rate the price of this beer");
-        }else if (priceRateNumber.getText().charAt(0) != 0){
-            makeToast("Please rate the taste of this beer");
-        }
-
-         */
-
     }
 
     /**
      * A method to send the user to the gps-menu where the user can choose a place to log in to.
      * @param view
      */
-    public void onMappingClick(View view){
+    public void onCheckinClick(View view){
         Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("ID", 1);
-        //startActivityForResult(intent, );
+        //startActivityForResult(intent, 1 );
     }
 
 
@@ -203,21 +194,19 @@ public class RankingActivity extends AppCompatActivity {
     }
     /**
      * A method to get the price rate.
-     * @return an int with the price rate.
+     * @return a double with the price rate.
      */
     private double savePrice(){
-        int price = priceRateNumber.getText().charAt(0);
-        double doublePrice = (double) price;
+        double doublePrice = Double.parseDouble(priceRateNumber.getText().toString());
         return doublePrice;
     }
 
     /**
      * A method to get the taste rate.
-     * @return an int with the price rate.
+     * @return a double with the price rate.
      */
     private double saveTaste(){
-        int taste = tasteRateNumber.getText().charAt(0);
-        double doubleTaste = (double)taste;
+        double doubleTaste = Double.parseDouble(tasteRateNumber.getText().toString());
         return doubleTaste;
     }
     /**

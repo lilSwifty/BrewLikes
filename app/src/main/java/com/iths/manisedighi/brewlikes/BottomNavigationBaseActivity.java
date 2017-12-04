@@ -6,7 +6,10 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -20,6 +23,8 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
 
     private BottomNavigationViewEx bottomNavigationViewEx;
     private Context context = BottomNavigationBaseActivity.this;
+    private Toolbar toolbar;
+
 
     /**
      * A method that sets up the bottom navigation
@@ -52,22 +57,23 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
                     case R.id.ic_home:
                         item.setChecked(true);
                         Intent mainIntent = new Intent(context, MainActivity.class);
-                        context.startActivity(mainIntent);
+                        startActivity(mainIntent);
                         break;
                     case R.id.ic_category:
                         item.setChecked(true);
                         Intent categoriesIntent = new Intent(context, CategoriesActivity.class);
-                        context.startActivity(categoriesIntent);
+                        startActivity(categoriesIntent);
                         break;
                     case R.id.ic_toplist:
                         item.setChecked(true);
                         Intent topListIntent = new Intent(context, TopListActivity.class);
-                        context.startActivity(topListIntent);
+                        startActivity(topListIntent);
                         break;
                     case R.id.ic_mapview:
                         item.setChecked(true);
                         Intent mapIntent = new Intent(context, MapActivity.class);
-                        context.startActivity(mapIntent);
+                        mapIntent.putExtra("ID", 3);
+                        startActivity(mapIntent);
                         break;
                 }
                 return false;
