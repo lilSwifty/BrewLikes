@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +19,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.FileDescriptor;
+import java.io.IOException;
 
 /**
  * Created by Emma on 2017-11-15.
@@ -50,7 +55,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info5);
+        setContentView(R.layout.activity_info3);
         init();
     }
 
@@ -99,7 +104,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.camera_icon, menu);
+        getMenuInflater().inflate(R.menu.info_activity_menu, menu);
         return true;
     }
 
@@ -107,15 +112,19 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * Handles what happens when the icons in the toolbar are clicked
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.cameraIcon2){
-            Intent cameraIntent = new Intent(this, RankingActivity.class);
-            startActivity(cameraIntent);
-            //TODO - Use flags here so the activities don't get put on the stack?
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.ic_camera:
+                Intent cameraIntent = new Intent(this, RankingActivity.class);
+                startActivity(cameraIntent);
+                break;
+            case R.id.ic_edit:
+                onEditClick();
+                break;
+            case R.id.ic_delete:
+                onDeleteClick();
+                break;
+        }return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -129,7 +138,18 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         helper = new DBHelper(context);
         beer = helper.getBeerById(id);
 
-        Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
+        Bitmap image = null;
+        String s = beer.getPhotoPath();
+        if(s.charAt(0) == 'c'){
+            Uri uri = Uri.parse(s);
+            try{
+                image = getBitmapFromUri(uri);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }else if(s.charAt(0) == '/'){
+            image = BitmapFactory.decodeFile(beer.getPhotoPath());
+        }
         ivBeer.setImageBitmap(image);
 
         tvBeerName.setText(beer.getName());
@@ -140,6 +160,15 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvInfo.setText(beer.getComment());
  //       tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
+    }
+
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
     }
 
     /**
@@ -177,9 +206,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     /**
      * A method that shows an AlertDialog to edit the comment
      * about a beer in and saves the new comment
-     * @param view - the view being clicked and calling the method
      */
-    public void onEditClick(View view){
+    public void onEditClick(){
         Log.d(TAG, "onEditClick: edit clicked.");
         dialog = new AlertDialog.Builder(this).create();
         etInfo = new EditText(this);
@@ -202,9 +230,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     /**
      * A method that removes all the information about
      * a specific beer that the user wants to delete
-     * @param view - the view being clicked and calling the method
      */
-    public void onDeleteClick(View view){
+    public void onDeleteClick(){
         dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle("About to delete this beer");
         dialog.setMessage("Do you want to continue deleting?");
