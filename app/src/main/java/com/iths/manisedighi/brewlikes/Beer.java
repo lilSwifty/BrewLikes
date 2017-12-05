@@ -52,6 +52,7 @@ public class Beer {
         this.location = location;
         this.lat = latitude;
         this.lng = longitude;
+        this.latLng = new LatLng(latitude, longitude);
 
         /*
         //TEST FOR GETTING LATLNG VALUES
