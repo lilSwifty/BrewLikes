@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -322,8 +320,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setComment(cursor.getString(6));
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
-                beer.setLat(cursor.getDouble(9));
-                beer.setLng(cursor.getDouble(10));
+                //beer.setLat(cursor.getDouble(9));
+                //beer.setLng(cursor.getDouble(10));
 
                 //Add category name of beer
                 beer.setCategoryName( getBeerCategoryName(beer) );
