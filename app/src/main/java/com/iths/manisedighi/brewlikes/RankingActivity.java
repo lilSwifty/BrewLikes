@@ -129,6 +129,8 @@ public class RankingActivity extends AppCompatActivity {
         categorySpinner = findViewById(R.id.categorySpinner);
         tasteRateNumber = findViewById(R.id.tasteRateNumber);
         priceRateNumber = findViewById(R.id.priceRateNumber);
+        beerComment.setElevation(0);
+        beerName.setElevation(0);
     }
 
     /**
@@ -168,7 +170,7 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else {
-                Beer beer = new Beer(name,categoryId,price,taste,comment,picture,location,lat, lng);
+                Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng);
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("BeerID", beer.getId());
