@@ -198,6 +198,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
             }
         });
         etInfo.setText(beer.getComment());
+        //helper.editBeer("", beer.getId());
         dialog.show();
         //TODO save the new comment to the database
     }
