@@ -150,7 +150,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private void addSharePhotoFragment(){
         Log.d(TAG, "addSharePhotoFragment: adds the SharePhotoFragment");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
+        //fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
         fragmentTransaction.commit();
     }
 

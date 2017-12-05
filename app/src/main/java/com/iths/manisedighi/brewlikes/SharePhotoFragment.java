@@ -80,7 +80,6 @@ public class SharePhotoFragment extends Fragment {
      * @param view - ShareButton
      */
     private void setSharePhoto(View view){
-        //Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.brewlikes_placeholder_logo2);
         Bitmap image = BitmapFactory.decodeFile(getArguments().getString("photoPath"));
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(image)
@@ -123,4 +122,3 @@ public class SharePhotoFragment extends Fragment {
         }
     };
 }
-
