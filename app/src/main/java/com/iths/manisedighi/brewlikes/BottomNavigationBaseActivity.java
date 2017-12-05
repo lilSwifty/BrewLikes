@@ -2,14 +2,10 @@ package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -23,8 +19,6 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
 
     private BottomNavigationViewEx bottomNavigationViewEx;
     private Context context = BottomNavigationBaseActivity.this;
-    private Toolbar toolbar;
-
 
     /**
      * A method that sets up the bottom navigation

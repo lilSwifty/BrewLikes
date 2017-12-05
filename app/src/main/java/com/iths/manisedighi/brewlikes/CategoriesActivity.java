@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
@@ -30,6 +32,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     HashMap<String, List<String>> hashMap;
     ArrayList<String> header;
     ImageView logo;
+    private static final String TAG = "CategoriesActivity";
+    private List<Long> beersById = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,17 +102,23 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                 }
             });*/
 
-        /*expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
 
-                Intent i = new Intent();
-                i.putExtra("","");
+                Log.d(TAG, "onChildClick: "+id+"HERE ID");
+
+
+                Intent i = new Intent(getApplicationContext(),InfoActivity.class);
+                long beerId = beersById.get(childPosition);
+                i.putExtra("BeerID", beerId);
                 startActivity(i);
 
+                return true;
+
             }
-        });*/
+        });
 
         /*expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -166,6 +176,11 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                 List<String> newbeerList = new ArrayList<String>(beersByCategory.size());
                 for (Beer beer : beersByCategory) {
                     newbeerList.add((beer.getName()));
+
+                }
+
+                for (Beer beer :  beersByCategory) {
+                    beersById.add((beer.getId()));
                 }
 
                 hashMap.put(allCategories.get(i).getName(), newbeerList);

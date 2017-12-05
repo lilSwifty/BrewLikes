@@ -35,7 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //TABLE: Beer
-        //Id (column 0) - Name - Category - Price - Taste - Average(Medeltal) - Comment - Image - Location - Lat - Lng
         String sql_beer = "CREATE TABLE " + BEER_TABLE + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "COL_BEER_NAME TEXT NOT NULL," +
                 "COL_BEER_CATEGORY INTEGER," +
@@ -89,11 +88,8 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO Drop all tables and recreate (obs - deletes all data)
         db.execSQL("DROP TABLE IF EXISTS " + BEER_TABLE);
         onCreate(db);
-
-        //TODO Update tables - ALTER TABLE
     }
 
     /**
@@ -392,16 +388,7 @@ public class DBHelper extends SQLiteOpenHelper {
        }
     }
 
-    /**
-     * Updates a beer's information in the database.
-     * @param id id of the beer to be updated.
-     * @param categoryId new beer category.
-     * @param price new price rating.
-     * @param taste new taste rating.
-     * @param comment new user comment.
-     * @param location new GPS location.
-     * @return true if update successful, false if update failed.
-     */
+    /*
     public boolean editBeer(long id, int categoryId, float price, float taste, String comment, String location, LatLng latLng) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -420,6 +407,30 @@ public class DBHelper extends SQLiteOpenHelper {
         String selection = "_id=?";
         String[] selectionArgs = new String[] {Long.toString(id)};
 
+        int result = db.update(BEER_TABLE, values, selection, selectionArgs);
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    */
+
+    /**
+     * Edit the comment for a beer in the database.
+     * @param id The beer of the id.
+     * @param comment The beer's new comment.
+     * @return true if update successful, false if update failed.
+     */
+    public boolean editBeer(long id, String comment) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("COL_BEER_COMMENT", comment);
+
+        String selection = "_id=?";
+        String[] selectionArgs = new String[] {Long.toString(id)};
         int result = db.update(BEER_TABLE, values, selection, selectionArgs);
 
         if (result == 0) {

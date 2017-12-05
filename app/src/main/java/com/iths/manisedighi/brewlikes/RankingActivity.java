@@ -25,6 +25,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -53,7 +55,10 @@ public class RankingActivity extends AppCompatActivity {
     private TextView tasteRateNumber;
     private TextView priceRateNumber;
     private Uri selectedImage;
-
+    private String location;
+    private double lat = 0.0;
+    private double lng = 0.0;
+    private LatLng latLng;
     static final int REQUEST_TAKE_PHOTO = 1337;
     static final int RESULT_LOAD_IMAGE = 217;
     static final int REQUEST_CODE = 7175;
@@ -147,7 +152,7 @@ public class RankingActivity extends AppCompatActivity {
         }
 
         if (name.isEmpty()) {
-            makeToast("You need fill all columns");
+            makeToast("You need to name the beer");
         }else if (comment.isEmpty()){
             makeToast("You need to describe the beer");
         }else if (picture.isEmpty()){
@@ -155,12 +160,21 @@ public class RankingActivity extends AppCompatActivity {
         }else if(category.equals("Unknown")){
             makeToast("Please choose category");
         }else{
-            Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
-            dbHelper.addBeer(beer);
-            Intent intent = new Intent(this, InfoActivity.class);
-            intent.putExtra("BeerID", beer.getId());
-            startActivity(intent);
-            finish();
+            if(lat==0.0 && lng == 0.0) {
+                Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
+                dbHelper.addBeer(beer);
+                Intent intent = new Intent(this, InfoActivity.class);
+                intent.putExtra("BeerID", beer.getId());
+                startActivity(intent);
+                finish();
+            }else {
+                Beer beer = new Beer(name,categoryId,price,taste,comment,picture,location,latLng);
+                dbHelper.addBeer(beer);
+                Intent intent = new Intent(this, InfoActivity.class);
+                intent.putExtra("BeerID", beer.getId());
+                startActivity(intent);
+                finish();
+            }
         }
 
     }
@@ -172,7 +186,7 @@ public class RankingActivity extends AppCompatActivity {
     public void onCheckinClick(View view){
         Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("ID", 1);
-        //startActivityForResult(intent, 1 );
+        startActivityForResult(intent, 1 );
     }
 
 
@@ -251,11 +265,17 @@ public class RankingActivity extends AppCompatActivity {
 
                     }
                 })
-                .setNegativeButton("Upload image", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        finish();
+
+                        /*
+                        //For later use, if we want to upload image from gallery
                         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
+                        */
 
                     }
                 });
@@ -334,8 +354,11 @@ public class RankingActivity extends AppCompatActivity {
             }
 
             imageView.setImageBitmap(bmp);
-
-
+        } else if(requestCode == 1 && resultCode == 1){
+            location=data.getStringExtra("location");
+            latLng = new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
+            lat = latLng.latitude;
+            lng = latLng.longitude;
         }
 
     }

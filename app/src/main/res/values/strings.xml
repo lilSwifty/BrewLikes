@@ -21,6 +21,8 @@
     <string name="home">Home</string>
     <string name="topList">TopList</string>
     <string name="mapView">MapView</string>
+    <string name="edit">Edit comment</string>
+    <string name="delete">Delete beer</string>
 
     <!-- end of InfoActivity & BottomNavigation -->
     
@@ -28,7 +30,10 @@
     
     <string name="brewlikes_fid">311762962671719</string>
     <string name="content_provider">com.facebook.app.FacebookContentProvider311762962671719</string>
-    
+    <string name="ok">Ok</string>
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Successfully posted</string>
     <!-- ************************* -->
 
     <string-array name="persons">

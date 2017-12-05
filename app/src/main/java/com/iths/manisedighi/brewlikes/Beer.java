@@ -6,6 +6,9 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by Milja on 2017-11-21.
  */
 
+/**
+ * Beer class.
+ */
 public class Beer {
 
     private long id;
@@ -17,9 +20,11 @@ public class Beer {
     private double average = 0;
     private String comment = null;
     private String location = null;
-    private String photoPath = null; //file://.... <- path pointing to image
+    private String photoPath = null;
     private double lat = 0;
     private double lng = 0;
+    private LatLng latLng;
+
 
     //Empty constructor
     public Beer() {}
@@ -45,6 +50,7 @@ public class Beer {
         this.comment = comment;
         this.photoPath = photoPath;
         this.location = location;
+        this.latLng = latLng;
 
         //TEST FOR GETTING LATLNG VALUES
         String ll = latLng.toString();
@@ -149,7 +155,11 @@ public class Beer {
         this.lng = lng;
     }
 
+    public LatLng getLatLng() {
+        return latLng;
+    }
 
-
+    public void setLatLng(LatLng latLng) {
+        this.latLng = latLng;
+    }
 }
-

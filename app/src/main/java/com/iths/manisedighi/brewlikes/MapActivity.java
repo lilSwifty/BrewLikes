@@ -109,25 +109,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         } else if(ID == 2){ //From info activity
             Log.d(TAG, "Checking intent ID: 2");
-           Long beerIDFromIntent = intent.getLongExtra("beerId", 0);
-           Beer b = dbHelper.getBeerById(beerIDFromIntent); 
-           LatLng latLng = new LatLng(b.getLat(), b.getLng());
-           String title = b.getLocation();
-           moveMapToLocation(latLng, DEFAULT_ZOOM, title);
+            Long beerIDFromIntent = intent.getLongExtra("beerId", 0);
+            Beer b = dbHelper.getBeerById(beerIDFromIntent);
+            getLocationPermission();
+            LatLng latLng = new LatLng(b.getLat(), b.getLng());
+            String title = b.getLocation();
+            moveMapToLocation(latLng, DEFAULT_ZOOM, title);
            //search bar + icons + check in view set visibility view Gone!!!!
 
 
         } else if(ID == 3){ //From map view navigation button
             Log.d(TAG, "Checking intent ID: 3");
+            getLocationPermission();
             List<Beer> beers = dbHelper.getAllBeers();
 
             for (Beer b : beers) {
                 LatLng latLng = new LatLng(b.getLat(), b.getLng());
                 //Test later if it's possible to create LatLng in argument below to remove code
                 dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
-                //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDevideLocation
+                //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDeviceLocation
                 //search bar + icons + check in view set visibility view Gone!!!!
             }
+            //moveMapToLocation();
         }
 
 
@@ -191,17 +194,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             placePicker();
         }
 
-        /*PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
-        try {
-            startActivityForResult(builder.build(MapActivity.this), PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException e) {
-            Log.e(TAG, "GooglePlayServicesRepairableException: " + e.getMessage());
-        } catch (GooglePlayServicesNotAvailableException e) {
-            Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
-        }
-
-*/
         //TODO - Surround All the way to here
 
         hideSoftKeyboard(MapActivity.this);
@@ -316,10 +308,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     Intent intent = new Intent();
                     intent.putExtra("location", mPlace.getName());
                     Log.i(TAG, "onInfoWindowCLick: sets location to " + mPlace.getName());
-                    intent.putExtra("latLng", mPlace.getLatLng());
-                    Log.i(TAG, "onInfoWindowCLick: sets latlng to " + mPlace.getLatLng());
-                    setResult(1, intent); //Setting resultCode to 1
-                    finish(); //Finishes this activity
+                    intent.putExtra("lat", mPlace.getLatLng().latitude);
+                    Log.i(TAG, "onInfoWindowCLick: sets latitude to " + mPlace.getLatLng().latitude);
+                    intent.putExtra("lng", mPlace.getLatLng().longitude);
+                    Log.i(TAG, "onInfoWindowCLick: sets longitude to " + mPlace.getLatLng().longitude);
+                    setResult(1, intent);
+                    finish();
                 }
             });
 
