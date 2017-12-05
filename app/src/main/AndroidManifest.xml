@@ -67,5 +67,6 @@
         <activity android:name=".MapActivity"/>
         <activity android:name=".DetailActivity"/>
         <activity android:name=".TopListActivity"/>
+        <activity android:name=".BottomNavigationBaseActivity"/>
     </application>
 </manifest>
