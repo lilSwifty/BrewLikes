@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbarTop"
         app:layout_constraintStart_toStartOf="@+id/toolbarTop"
         app:layout_constraintTop_toTopOf="@+id/toolbarTop"
-        app:srcCompat="@drawable/brewlikes_placeholder_logo2"/>
+        app:srcCompat="@drawable/brewlikes_actionbar_logo"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/titleMenu"

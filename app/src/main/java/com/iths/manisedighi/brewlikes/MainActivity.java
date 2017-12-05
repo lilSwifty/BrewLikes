@@ -60,7 +60,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
             startActivity(cameraIntent);
         }
         */
-
+/*
         //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
         public void onTestMapButtonClicked(View v){
             if(isGpsServicesAvailable()){
@@ -68,6 +68,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
             }
         }
 
+/*
         //Initializes MapActivity
         private void initMapActivity(){
             Intent intent = new Intent(this, MapActivity.class);
@@ -75,7 +76,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
             intent.putExtra("beerId", 0);
            // startActivityForResult(intent, 1);
             startActivity(intent);
-        }
+        } */
 
         /**
         Method that checks if user has the correct version of Google Services.
