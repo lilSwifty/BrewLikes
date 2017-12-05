@@ -168,7 +168,7 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else {
-                Beer beer = new Beer(name,categoryId,price,taste,comment,picture,location,latLng);
+                Beer beer = new Beer(name,categoryId,price,taste,comment,picture,location,latLng); // skicka med 2 doubles istället för ett latLng objekt efter att milja har pushat upp ändringarna till master
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("BeerID", beer.getId());
