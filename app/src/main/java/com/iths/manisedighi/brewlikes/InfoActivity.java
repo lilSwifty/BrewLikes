@@ -48,7 +48,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info);
+        setContentView(R.layout.activity_info3);
         init();
     }
 
