@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -107,12 +106,11 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
 
-                Log.d(TAG, "onChildClick: "+id+"HERE ID");
-
-
+                // Log.d(TAG, "onChildClick: "+id+"HERE ID");
                 Intent i = new Intent(getApplicationContext(),InfoActivity.class);
                 long beerId = beersById.get(childPosition);
                 i.putExtra("BeerID", beerId);
+                //Log.d(TAG, "onChildClick: "+beerId+"beer ID");
                 startActivity(i);
 
                 return true;
