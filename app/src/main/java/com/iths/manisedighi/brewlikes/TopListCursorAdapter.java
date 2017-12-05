@@ -44,6 +44,7 @@ public class TopListCursorAdapter extends CursorAdapter {
         return inflater.inflate(R.layout.top_list_listview, parent, false);
     }
 
+    /*
     public RoundedBitmapDrawable createRoundPicture() {
 
         //ImageView beerImage = findViewById(R.id.beerImage);
@@ -53,6 +54,7 @@ public class TopListCursorAdapter extends CursorAdapter {
 
         return roundPic;
     }
+    */
 
     /**
      * A method that binds the data from the cursor to each row view. Also makes the picture round.

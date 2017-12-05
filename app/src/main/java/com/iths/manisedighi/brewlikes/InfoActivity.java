@@ -41,16 +41,14 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private Beer beer;
     private DBHelper helper;
-    private Long id;
-
     private AlertDialog dialog;
     private EditText etInfo;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info3);
+        setContentView(R.layout.activity_info);
         init();
     }
 
@@ -69,6 +67,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         setupInfoView();
         //to add fragment to the layout
         addSharePhotoFragment();
+
 
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
@@ -98,7 +97,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.info_activity_menu, menu);
+        getMenuInflater().inflate(R.menu.about_and_camera_icons, menu);
         return true;
     }
 
@@ -106,19 +105,19 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * Handles what happens when the icons in the toolbar are clicked
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case R.id.ic_camera:
-                Intent cameraIntent = new Intent(this, RankingActivity.class);
-                startActivity(cameraIntent);
-                break;
-            case R.id.ic_edit:
-                onEditClick();
-                break;
-            case R.id.ic_delete:
-                onDeleteClick();
-                break;
-        }return super.onOptionsItemSelected(item);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.aboutIcon){
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            return true;
+
+        } else if(id == R.id.cameraIcon){
+            Intent cameraIntent = new Intent(this, RankingActivity.class);
+            startActivity(cameraIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -128,12 +127,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
 
         Intent intent = getIntent();
-        id = intent.getLongExtra("BeerID", 0);
+        Long id = intent.getLongExtra("BeerID", 0);
         helper = new DBHelper(context);
         beer = helper.getBeerById(id);
 
         Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
-
         ivBeer.setImageBitmap(image);
 
         tvBeerName.setText(beer.getName());
@@ -142,22 +140,17 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
-//        tvLocation.setText(beer.getLocation());
+        tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
     }
 
     /**
-     * A method that adds the fragment SharePhotoFragment
-     * to the layout and place it in the btnShare view
+     * A method that adds the fragment SharePhotoFragment to the layout and place it in the btnShare view
      */
     private void addSharePhotoFragment(){
         Log.d(TAG, "addSharePhotoFragment: adds the SharePhotoFragment");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("photoPath", beer.getPhotoPath());
-        SharePhotoFragment spf = new SharePhotoFragment();
-        spf.setArguments(bundle);
-        fragmentTransaction.add(R.id.btnShare, spf);
+        //fragmentTransaction.add(R.id.btnShare, new SharePhotoFragment());
         fragmentTransaction.commit();
     }
 
@@ -181,13 +174,12 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     /**
      * A method that shows an AlertDialog to edit the comment
      * about a beer in and saves the new comment
+     * @param view - the view being clicked and calling the method
      */
-    public void onEditClick(){
+    public void onEditClick(View view){
         Log.d(TAG, "onEditClick: edit clicked.");
         dialog = new AlertDialog.Builder(this).create();
         etInfo = new EditText(this);
-        etInfo.setElevation(0);
-        etInfo.setTextColor(getResources().getColor(R.color.beer));
         dialog.setTitle("Edit comment");
         dialog.setView(etInfo);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save", new DialogInterface.OnClickListener() {
@@ -198,36 +190,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
             }
         });
         etInfo.setText(beer.getComment());
-        //helper.editBeer("", beer.getId());
         dialog.show();
-        //TODO save the new comment to the database
-    }
-
-    /**
-     * A method that removes all the information about
-     * a specific beer that the user wants to delete
-     */
-    public void onDeleteClick(){
-        dialog = new AlertDialog.Builder(this).create();
-        dialog.setTitle("About to delete this beer");
-        dialog.setMessage("Do you want to continue deleting?");
-        dialog.setButton(DialogInterface.BUTTON_NEUTRAL,"Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                helper.removeBeer(id);
-                Intent intent = new Intent(context, TopListActivity.class);
-                startActivity(intent);
-                finish();
-                //TODO fix so that it knows were be to go back (TopList or Category)
-            }
-        });
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+        //TODO get the comment about the beer to edit
     }
 
     /**
