@@ -265,11 +265,17 @@ public class RankingActivity extends AppCompatActivity {
 
                     }
                 })
-                .setNegativeButton("Upload image", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        finish();
+
+                        /*
+                        //For later use, if we want to upload image from gallery
                         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
+                        */
 
                     }
                 });
