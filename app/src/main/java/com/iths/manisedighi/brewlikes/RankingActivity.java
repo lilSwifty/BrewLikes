@@ -129,6 +129,8 @@ public class RankingActivity extends AppCompatActivity {
         categorySpinner = findViewById(R.id.categorySpinner);
         tasteRateNumber = findViewById(R.id.tasteRateNumber);
         priceRateNumber = findViewById(R.id.priceRateNumber);
+        beerComment.setElevation(0);
+        beerName.setElevation(0);
     }
 
     /**
