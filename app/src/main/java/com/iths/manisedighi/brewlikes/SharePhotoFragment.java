@@ -1,8 +1,5 @@
 package com.iths.manisedighi.brewlikes;
 
-import android.app.AlertDialog;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,24 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
-import com.facebook.share.ShareApi;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
-import com.facebook.share.widget.ShareDialog;
-
-import java.util.Arrays;
-
 
 /**
  * Created by emmapersson on 2017-11-28.
@@ -42,11 +31,11 @@ public class SharePhotoFragment extends Fragment {
     private static final String TAG = "SharePhotoFragment";
     private static final String PERMISSION = "publish_actions";
 
-    private CallbackManager callbackManager;
+//    private CallbackManager callbackManager;
     private ShareButton btnShare;
-    private ShareDialog shareDialog;
-    private boolean canPresentShareDialogWithPhotos;
-    private FacebookCallback<Sharer.Result> shareCallback = new FacebookCallback<Sharer.Result>() {
+  //  private ShareDialog shareDialog;
+  //  private boolean canPresentShareDialogWithPhotos;
+    /*private FacebookCallback<Sharer.Result> shareCallback = new FacebookCallback<Sharer.Result>() {
         @Override
         public void onCancel() {
             Log.d("HelloFacebook", "Canceled");
@@ -78,20 +67,16 @@ public class SharePhotoFragment extends Fragment {
                     .setPositiveButton(R.string.ok, null)
                     .show();
         }
-    };
+    };*/
 
 
-    @Override
+/*    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: starts");
+        Log.d(TAG, "onCreate: starts");*/
+//TODO kanske ha kvar för login?
 
-        FacebookSdk.getSdkVersion();
-
-        callbackManager = CallbackManager.Factory.create();
-
-        shareDialog = new ShareDialog(this);                //kan ta bort för dem verkar inte fylla någon funktion
-        shareDialog.registerCallback(callbackManager, shareCallback); // -||-
+//        callbackManager = CallbackManager.Factory.create();
 
 
 /*      shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
@@ -104,8 +89,8 @@ public class SharePhotoFragment extends Fragment {
             @Override
             public void onError(FacebookException error) {
             }
-        });*/
-    }
+        });
+    }*/
 
     /**
      * A method that makes the fragment instantiate and return its user
@@ -149,19 +134,18 @@ public class SharePhotoFragment extends Fragment {
                         .setHashtag("#BrewLikes")
                         .build())
                 .build();
-
-        if (canPresentShareDialogWithPhotos) {
-            Log.d(TAG, "setSharePhoto: showing share dialog");
-            shareDialog.show(sharePhotoContent);
-        } else if (hasPublishPermission()) {
-            ShareApi.share(sharePhotoContent, shareCallback);
-        }
+       // hasPublishPermission();
+//        if (canPresentShareDialogWithPhotos) {
+//            Log.d(TAG, "setSharePhoto: showing share dialog");
+//            shareDialog.show(sharePhotoContent);
+//        } else if (hasPublishPermission()) {
+//            ShareApi.share(sharePhotoContent, shareCallback);
+//        }
 
         btnShare = view.findViewById(R.id.btnShare);
 
         btnShare.setShareContent(sharePhotoContent);
-        canPresentShareDialogWithPhotos = ShareDialog.canShow(SharePhotoContent.class);
-/*        btnShare.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+ /*       btnShare.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
             @Override
             public void onSuccess(Sharer.Result result) {
                 Log.d(TAG, "onSuccess: ");
@@ -174,24 +158,21 @@ public class SharePhotoFragment extends Fragment {
             public void onError(FacebookException error) {
                 Log.d(TAG, "onError: "+error.getMessage());
             }
-        });
-        /*if(btnShare.isActivated()) {
-            shareDialog.show(sharePhotoContent);
-        }*/ //TODO Var ska denna förbaskade callbackskiten va=???
+        });*/
+
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "onActivityResult: ");
+ //   @Override
+   /* public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+    }*/
 
-    private boolean hasPublishPermission() {
+  /*  private boolean hasPublishPermission() {
         Log.d(TAG, "hasPublishPermission: ");
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null && accessToken.getPermissions().contains("publish_actions");
-    }
+    }*/
 
     /*@Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
