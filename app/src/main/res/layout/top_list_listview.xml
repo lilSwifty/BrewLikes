@@ -31,16 +31,17 @@
             android:adjustViewBounds="true"
             android:maxHeight="70dp"
             android:maxWidth="70dp"
-            android:foregroundGravity="clip_horizontal"
+
             android:contentDescription="@string/beerPic" />
         <!--app:srcCompat="@drawable/beer"
-        android:layout_marginLeft="8dp"-->
+        android:layout_marginLeft="8dp"
+        android:foregroundGravity="clip_horizontal"-->
 
         <TextView
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="50dp"
             android:fontFamily="sans-serif"
             android:textStyle="bold"
