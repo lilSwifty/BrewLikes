@@ -41,7 +41,7 @@ public class Beer {
     }
 
     //Constructor med GPS
-    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, LatLng latLng) {
+    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, double latitude, double longitude) {
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
@@ -50,13 +50,16 @@ public class Beer {
         this.comment = comment;
         this.photoPath = photoPath;
         this.location = location;
-        this.latLng = latLng;
+        this.lat = latitude;
+        this.lng = longitude;
 
+        /*
         //TEST FOR GETTING LATLNG VALUES
         String ll = latLng.toString();
         String[] llArray = ll.split(",");
         this.lat = Double.parseDouble(llArray[0]);
         this.lng = Double.parseDouble(llArray[1]);
+        */
     }
 
     public long getId() {
