@@ -194,6 +194,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 beer.setComment(etInfo.getText().toString());
+                helper.editBeer(beer.getId(), beer.getComment());
                 tvInfo.setText(beer.getComment());
             }
         });
