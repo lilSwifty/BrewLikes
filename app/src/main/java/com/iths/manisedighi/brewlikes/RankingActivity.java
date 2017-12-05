@@ -172,7 +172,7 @@ public class RankingActivity extends AppCompatActivity {
     public void onCheckinClick(View view){
         Intent intent = new Intent(this, MapActivity.class);
         intent.putExtra("ID", 1);
-        //startActivityForResult(intent, 1 );
+        startActivityForResult(intent, 1 );
     }
 
 

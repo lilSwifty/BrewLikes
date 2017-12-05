@@ -71,8 +71,10 @@ public class MainActivity extends BottomNavigationBaseActivity {
         //Initializes MapActivity
         private void initMapActivity(){
             Intent intent = new Intent(this, MapActivity.class);
-            intent.putExtra("ID", 1);
-            startActivityForResult(intent, 1);
+            intent.putExtra("ID", 2);
+            intent.putExtra("beerId", 0);
+           // startActivityForResult(intent, 1);
+            startActivity(intent);
         }
 
         /**
