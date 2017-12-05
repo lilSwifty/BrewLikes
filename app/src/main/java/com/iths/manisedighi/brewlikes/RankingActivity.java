@@ -168,7 +168,7 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else {
-                Beer beer = new Beer(name,categoryId,price,taste,comment,picture,location,latLng);
+                Beer beer = new Beer(name,categoryId,price,taste,comment,picture,location,lat, lng);
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("BeerID", beer.getId());
