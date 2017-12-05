@@ -5,9 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +17,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.FileDescriptor;
-import java.io.IOException;
 
 /**
  * Created by Emma on 2017-11-15.
@@ -52,7 +47,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private EditText etInfo;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info3);
@@ -74,7 +69,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         setupInfoView();
         //to add fragment to the layout
         addSharePhotoFragment();
-
 
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
@@ -138,18 +132,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         helper = new DBHelper(context);
         beer = helper.getBeerById(id);
 
-        Bitmap image = null;
-        String s = beer.getPhotoPath();
-        if(s.charAt(0) == 'c'){
-            Uri uri = Uri.parse(s);
-            try{
-                image = getBitmapFromUri(uri);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-        }else if(s.charAt(0) == '/'){
-            image = BitmapFactory.decodeFile(beer.getPhotoPath());
-        }
+        Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
+
         ivBeer.setImageBitmap(image);
 
         tvBeerName.setText(beer.getName());
@@ -160,15 +144,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvInfo.setText(beer.getComment());
 //        tvLocation.setText(beer.getLocation());
         //TODO set up the info about the beer, takes info out from database
-    }
-
-    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
-        ParcelFileDescriptor parcelFileDescriptor =
-                getContentResolver().openFileDescriptor(uri, "r");
-        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-        parcelFileDescriptor.close();
-        return image;
     }
 
     /**
