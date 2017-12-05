@@ -70,7 +70,9 @@
 
     <!--Top List Activity-->
     <string name="myFavouriteBeer">My favourite beers</string>
+    <string name="beerPic">Picture for beer</string>
     <!--End of Top List Activity-->
 
     <string name="checkin_text">CHECK IN</string>
+
 </resources>

@@ -20,20 +20,21 @@
 
         <!-- android:layout_marginLeft="8dp"
     -->
-
-        <!--TODO change pic to beer picture, evt ta bort maxWidth, maxHeight och adjustViewBounds-->
         <ImageView
             android:id="@+id/beerImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
+
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:maxHeight="70dp"
-            android:maxWidth="70dp"/>
-        <!--app:srcCompat="@drawable/beer"-->
+            android:maxWidth="70dp"
+            android:foregroundGravity="clip_horizontal"
+            android:contentDescription="@string/beerPic" />
+        <!--app:srcCompat="@drawable/beer"
+        android:layout_marginLeft="8dp"-->
 
         <TextView
             android:id="@+id/score"
