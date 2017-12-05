@@ -27,9 +27,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private static final String TAG = "InfoActivity";
     private Context context = InfoActivity.this;
 
-    private ImageView ivBeer;
-    private ImageView logo;
+    private Toolbar toolbar;
 
+    private ImageView ivBeer;
 
     private TextView tvBeerName;
     private TextView tvCategory;
@@ -42,6 +42,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Beer beer;
     private DBHelper helper;
     private Long id;
+    private int caller;
 
     private AlertDialog dialog;
     private EditText etInfo;
@@ -51,29 +52,21 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info3);
-        init();
+        startInitialize();
     }
 
     /**
      * A method that triggers the setup of InfoActivity
      */
-    private void init(){
+    private void startInitialize(){
         Log.d(TAG, "init: starts the initializing");
-        //find and bind all the views to the code
         findViews();
-        //for the tvInfo
         enableScrollFunction();
-        //for the bottom navigation
         setupBottomNavigation();
-        //to set up info about the beer
-        setupInfoView();
-        //to add fragment to the layout
+        getSpecificBeer();
+        setupBeerInfo();
         addSharePhotoFragment();
-
-        Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
-        logo = findViewById(R.id.logoImageView);
-        //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
@@ -90,6 +83,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvRateScore = findViewById(R.id.tvRateScore);
         tvInfo = findViewById(R.id.tvInfo);
         tvLocation = findViewById(R.id.tvLocation);
+        toolbar = findViewById(R.id.toolbarTop);
     }
 
     /**
@@ -122,28 +116,31 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method to show all the necessary information about a beer
+     * A method that receives the Id for a specific beer and
+     * puts it's information in an instance of an Beer object.
      */
-    private void setupInfoView(){
-        Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-
+    private void getSpecificBeer(){
         Intent intent = getIntent();
         id = intent.getLongExtra("BeerID", 0);
+        caller = intent.getIntExtra("info",0);
         helper = new DBHelper(context);
         beer = helper.getBeerById(id);
+    }
 
+    /**
+     * A method to show all the information about the specific beer
+     */
+    private void setupBeerInfo(){
+        Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
         Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
-
         ivBeer.setImageBitmap(image);
-
         tvBeerName.setText(beer.getName());
         tvCategory.setText(beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
-//        tvLocation.setText(beer.getLocation());
-        //TODO set up the info about the beer, takes info out from database
+        tvLocation.setText(beer.getLocation());
     }
 
     /**
@@ -179,15 +176,14 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method that shows an AlertDialog to edit the comment
-     * about a beer in and saves the new comment
+     * A method that enables edit for the beer comment, shown in an AlertDialog
+     * New comment gets saved into the database
      */
     public void onEditClick(){
         Log.d(TAG, "onEditClick: edit clicked.");
         dialog = new AlertDialog.Builder(this).create();
         etInfo = new EditText(this);
         etInfo.setElevation(0);
-        etInfo.setTextColor(getResources().getColor(R.color.beer));
         dialog.setTitle("Edit comment");
         dialog.setView(etInfo);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save", new DialogInterface.OnClickListener() {
@@ -200,14 +196,15 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         });
         etInfo.setText(beer.getComment());
         dialog.show();
-        //TODO save the new comment to the database
     }
 
     /**
      * A method that removes all the information about
      * a specific beer that the user wants to delete
+     * and sends the user back to the activity that started InfoActivity
      */
     public void onDeleteClick(){
+        Log.d(TAG, "onDeleteClick: clicked");
         dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle("About to delete this beer");
         dialog.setMessage("Do you want to continue deleting?");
@@ -215,10 +212,20 @@ public class InfoActivity extends BottomNavigationBaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 helper.removeBeer(id);
-                Intent intent = new Intent(context, TopListActivity.class);
-                startActivity(intent);
-                finish();
-                //TODO fix so that it knows were be to go back (TopList or Category)
+                switch(caller){
+                    case 1:
+                        Intent rankingIntent = new Intent(context, RankingActivity.class);
+                        startActivity(rankingIntent);
+                        break;
+                    case 2:
+                        Intent categoriesIntent = new Intent(context, CategoriesActivity.class);
+                        startActivity(categoriesIntent);
+                        break;
+                    case 3:
+                        Intent topListIntent = new Intent(context, TopListActivity.class);
+                        startActivity(topListIntent);
+                        break;
+                }
             }
         });
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
