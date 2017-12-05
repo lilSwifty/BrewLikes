@@ -28,8 +28,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     private static ExpandableListView expandableListView;
     private static ExpandableListAdapter adapter;
     private DBHelper mDBHelper;
-    HashMap<String, List<String>> hashMap;
-    ArrayList<String> header;
+    private HashMap<String, List<Beer>> hashMap;
+    private List<Category> header;
     ImageView logo;
     private static final String TAG = "CategoriesActivity";
     private List<Long> beersById = new ArrayList<>();
@@ -108,8 +108,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
                 // Log.d(TAG, "onChildClick: "+id+"HERE ID");
                 Intent i = new Intent(getApplicationContext(),InfoActivity.class);
-                long beerId = beersById.get(childPosition);
-                i.putExtra("BeerID", beerId);
+                //long beerId = beersById.get(childPosition);
+                i.putExtra("BeerID", id);
                 //Log.d(TAG, "onChildClick: "+beerId+"beer ID");
                 startActivity(i);
 
@@ -156,33 +156,18 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
         void setItems() {
 
-            header = new ArrayList<String>();
+            //header = new ArrayList<>();
 
             //mDBHelper.addCategory("A"); // <- Who added this testcode, can it be deleted? BR Patrik
 
-            List<Category> allCategories = mDBHelper.getAllCategories();
+            header= mDBHelper.getAllCategories();
 
-            hashMap = new HashMap<String, List<String>>();
+            hashMap = new HashMap<>();
 
             // Adding headers + beers to list from DB
-            for (int i = 0; i < allCategories.size(); i++) {
-
-                header.add(allCategories.get(i).getName());
-                List<Beer> beersByCategory = mDBHelper.getBeersByCategory(allCategories.get(i).getName());
-                //TODO: Convert from List<Beer> to List<String> Advice from Martin.
-                //List<Beer> beersByCategory = mDBHelper.getBeersByCategory(String categoryName); not working
-                List<String> newbeerList = new ArrayList<String>(beersByCategory.size());
-                for (Beer beer : beersByCategory) {
-                    newbeerList.add((beer.getName()));
-
-                }
-
-                for (Beer beer :  beersByCategory) {
-                    beersById.add((beer.getId()));
-                }
-
-                hashMap.put(allCategories.get(i).getName(), newbeerList);
-
+            for (int i = 0; i < header.size(); i++) {
+                List<Beer> beersByCategory = mDBHelper.getBeersByCategory(header.get(i).getName());
+                hashMap.put(header.get(i).getName(), beersByCategory);
             }
 
         }
