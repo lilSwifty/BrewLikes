@@ -1,6 +1,5 @@
 package com.iths.manisedighi.brewlikes;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,12 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
@@ -29,68 +22,7 @@ import com.facebook.share.widget.ShareButton;
 public class SharePhotoFragment extends Fragment {
 
     private static final String TAG = "SharePhotoFragment";
-    private static final String PERMISSION = "publish_actions";
-
-//    private CallbackManager callbackManager;
     private ShareButton btnShare;
-  //  private ShareDialog shareDialog;
-  //  private boolean canPresentShareDialogWithPhotos;
-    /*private FacebookCallback<Sharer.Result> shareCallback = new FacebookCallback<Sharer.Result>() {
-        @Override
-        public void onCancel() {
-            Log.d("HelloFacebook", "Canceled");
-        }
-
-        @Override
-        public void onError(FacebookException error) {
-            Log.d("HelloFacebook", String.format("Error: %s", error.toString()));
-            String title = getString(R.string.error);
-            String alertMessage = error.getMessage();
-            showResult(title, alertMessage);
-        }
-
-        @Override
-        public void onSuccess(Sharer.Result result) {
-            Log.d("HelloFacebook", "Success!");
-            if (result.getPostId() != null) {
-                String title = getString(R.string.success);
-                String id = result.getPostId();
-                String alertMessage = getResources().getString(R.string.successfully_posted_post) + id;
-                showResult(title, alertMessage);
-            }
-        }
-
-        private void showResult(String title, String alertMessage) {
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(title)
-                    .setMessage(alertMessage)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-        }
-    };*/
-
-
-/*    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: starts");*/
-//TODO kanske ha kvar för login?
-
-//        callbackManager = CallbackManager.Factory.create();
-
-
-/*      shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-            @Override
-            public void onSuccess(Sharer.Result result) {
-            }
-            @Override
-            public void onCancel() {
-            }
-            @Override
-            public void onError(FacebookException error) {
-            }
-        });
-    }*/
 
     /**
      * A method that makes the fragment instantiate and return its user
@@ -134,53 +66,8 @@ public class SharePhotoFragment extends Fragment {
                         .setHashtag("#BrewLikes")
                         .build())
                 .build();
-       // hasPublishPermission();
-//        if (canPresentShareDialogWithPhotos) {
-//            Log.d(TAG, "setSharePhoto: showing share dialog");
-//            shareDialog.show(sharePhotoContent);
-//        } else if (hasPublishPermission()) {
-//            ShareApi.share(sharePhotoContent, shareCallback);
-//        }
 
         btnShare = view.findViewById(R.id.btnShare);
-
         btnShare.setShareContent(sharePhotoContent);
- /*       btnShare.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
-            @Override
-            public void onSuccess(Sharer.Result result) {
-                Log.d(TAG, "onSuccess: ");
-            }
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "onCancel: ");
-            }
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "onError: "+error.getMessage());
-            }
-        });*/
-
     }
-
- //   @Override
-   /* public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }*/
-
-  /*  private boolean hasPublishPermission() {
-        Log.d(TAG, "hasPublishPermission: ");
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        return accessToken != null && accessToken.getPermissions().contains("publish_actions");
-    }*/
-
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: ");
-            callbackManager.onActivityResult(requestCode, resultCode, data);
-//            shareDialog.registerCallback(callbackManager, callback);
-//        ShareInternalUtility.registerSharerCallback(requestCode ,callbackManager, callback); ------?????
-        //TODO this call is were it's mess things up
-    }*/
 }
