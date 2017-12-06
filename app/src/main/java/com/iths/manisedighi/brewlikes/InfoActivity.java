@@ -3,8 +3,6 @@ package com.iths.manisedighi.brewlikes;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +29,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Toolbar toolbar;
 
     private ImageView ivBeer;
+
+    private BitmapHelper bitmapHelper;
 
     private TextView tvBeerName;
     private TextView tvCategory;
@@ -133,8 +133,14 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      */
     private void setupBeerInfo(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
-        Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
-        ivBeer.setImageBitmap(image);
+
+        //Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath(), BitmapOptions().isSampleSize);
+
+        //ivBeer.setImageBitmap(image);
+
+        ivBeer.setImageBitmap(
+                bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(), 220, 220));
+
         tvBeerName.setText(beer.getName());
         tvCategory.setText(beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
@@ -250,4 +256,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         startActivity(mapIntent);
         //TODO takes you to map view
     }
+
+
+
+
 }

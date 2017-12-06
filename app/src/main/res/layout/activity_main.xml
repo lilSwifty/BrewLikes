@@ -36,22 +36,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/toolbarTop"
         app:layout_constraintStart_toStartOf="@+id/toolbarTop"
         app:layout_constraintTop_toTopOf="@+id/toolbarTop"
-        app:srcCompat="@drawable/brewlikes_placeholder_logo2" />
+        app:srcCompat="@drawable/brewlikes_actionbar_logo" />
 
-    <!-- Remove this button when bottom nav bar is implemented -->
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:onClick="onTestMapButtonClicked"
-        android:text="@string/testButtonMap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarTop" />
+
 
     <include layout="@layout/bottom_navigation"></include>
 
