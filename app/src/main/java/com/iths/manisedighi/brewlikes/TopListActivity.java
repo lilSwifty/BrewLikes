@@ -74,7 +74,7 @@ import android.widget.ListView;
      @Override
      public boolean onCreateOptionsMenu(Menu menu) {
          super.onCreateOptionsMenu(menu);
-         getMenuInflater().inflate(R.menu.about_and_camera_icons, menu);
+         getMenuInflater().inflate(R.menu.camera_icon, menu);
          return true;
      }
 
@@ -84,13 +84,7 @@ import android.widget.ListView;
      @Override
      public boolean onOptionsItemSelected(MenuItem item) {
          int id = item.getItemId();
-         if(id == R.id.aboutIcon){
-             Intent intent = new Intent(this, AboutActivity.class);
-             Log.d(TAG, "onOptionsItemSelected: aboutActivity clicked");
-             startActivity(intent);
-             return true;
-
-         } else if(id == R.id.cameraIcon){
+         if(id == R.id.cameraIcon){
              Intent cameraIntent = new Intent(this, RankingActivity.class);
              Log.d(TAG, "onOptionsItemSelected: RankingActivity clicked");
              startActivity(cameraIntent);
