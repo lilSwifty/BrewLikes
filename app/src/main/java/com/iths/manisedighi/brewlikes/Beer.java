@@ -1,5 +1,7 @@
 package com.iths.manisedighi.brewlikes;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -52,6 +54,7 @@ public class Beer {
         this.location = location;
         this.lat = latitude;
         this.lng = longitude;
+        this.latLng = new LatLng(latitude, longitude);
 
         /*
         //TEST FOR GETTING LATLNG VALUES
@@ -111,6 +114,7 @@ public class Beer {
     }
 
     public String getLocation() {
+        Log.d("BeerActivity", "Got location");
         return location;
     }
 

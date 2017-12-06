@@ -168,7 +168,7 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else {
-                Beer beer = new Beer(name,categoryId,price,taste,comment,picture,location,latLng);
+                Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location, lat, lng);
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("BeerID", beer.getId());
@@ -356,9 +356,11 @@ public class RankingActivity extends AppCompatActivity {
             imageView.setImageBitmap(bmp);
         } else if(requestCode == 1 && resultCode == 1){
             location=data.getStringExtra("location");
-            latLng = new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
-            lat = latLng.latitude;
-            lng = latLng.longitude;
+            // latLng = new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
+            //lat = latLng.latitude;
+            //lng = latLng.longitude;
+            lat = data.getDoubleExtra("lat",0.0);
+            lng = data.getDoubleExtra("lng",0.0);
         }
 
     }
