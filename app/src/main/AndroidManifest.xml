@@ -62,11 +62,14 @@
         </activity>
         <activity android:name=".InfoActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".RankingActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" />
-        <activity android:name=".CategoriesActivity"/>
-        <activity android:name=".AboutActivity"/>
+        <activity android:name=".CategoriesActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".MapActivity"/>
         <activity android:name=".DetailActivity"/>
-        <activity android:name=".TopListActivity"/>
+        <activity android:name=".TopListActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".BottomNavigationBaseActivity"/>
     </application>
 </manifest>
