@@ -167,6 +167,7 @@ public class RankingActivity extends AppCompatActivity {
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("BeerID", beer.getId());
+                intent.putExtra("info",1);
                 startActivity(intent);
                 finish();
             }else {
@@ -174,6 +175,7 @@ public class RankingActivity extends AppCompatActivity {
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
                 intent.putExtra("BeerID", beer.getId());
+                intent.putExtra("info",1);
                 startActivity(intent);
                 finish();
             }
