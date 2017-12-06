@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -51,6 +52,7 @@ public class RankingActivity extends AppCompatActivity {
     private TextView categoryText;
     private Button editButton;
     private Button discardButton;
+    private ImageButton mapButton;
     private Spinner categorySpinner;
     private TextView tasteRateNumber;
     private TextView priceRateNumber;
@@ -129,6 +131,7 @@ public class RankingActivity extends AppCompatActivity {
         categorySpinner = findViewById(R.id.categorySpinner);
         tasteRateNumber = findViewById(R.id.tasteRateNumber);
         priceRateNumber = findViewById(R.id.priceRateNumber);
+        mapButton = findViewById(R.id.mapButton);
         beerComment.setElevation(0);
         beerName.setElevation(0);
     }
@@ -363,6 +366,7 @@ public class RankingActivity extends AppCompatActivity {
             latLng = new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
             lat = latLng.latitude;
             lng = latLng.longitude;
+            mapButton.setBackgroundResource(R.drawable.brewlikes_pin);
         }
 
     }
