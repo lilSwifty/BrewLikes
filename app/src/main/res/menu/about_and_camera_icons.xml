@@ -5,12 +5,12 @@
     <item
         android:id="@+id/aboutIcon"
         android:icon="@drawable/ic_action_about2"
-        android:title="@string/itemTitleAbout"
+        android:title="@string/ItemTitleAbout"
         android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/cameraIcon"
         android:icon="@drawable/ic_action_camera2"
-        android:title="@string/itemTitleCamera"
+        android:title="@string/ItemTitleCamera"
         app:showAsAction="always" />
 </menu>
