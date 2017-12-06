@@ -83,8 +83,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //Widgets
     private AutoCompleteTextView mSearchText;
     private ImageView gpsIcon;
+    private DBHelper dbHelper;
+
     //ID from intent to make sure which activity is sending the intent
     private int ID;
+    private  Long beerIDFromIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,48 +95,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         mSearchText = findViewById(R.id.searchFieldText);
         gpsIcon = (ImageView) findViewById(R.id.ic_gps);
-        DBHelper dbHelper = new DBHelper(this);
+        dbHelper = new DBHelper(this);
 
         Intent intent = getIntent();
-
         ID = intent.getIntExtra("ID", 0);
-        if(ID == 1){ //From ranking activity
-            Log.d(TAG, "Checking intent ID: 1");
+        beerIDFromIntent = intent.getLongExtra("beerId", 0);
 
-            getLocationPermission();
-            //initializeMap();
-            //onMapReady();
-            //getDeviceLocation();
-            //onMapReady();
-            //initializeSearch();
-
-        } else if(ID == 2){ //From info activity
-            Log.d(TAG, "Checking intent ID: 2");
-            Long beerIDFromIntent = intent.getLongExtra("beerId", 0);
-            Beer b = dbHelper.getBeerById(beerIDFromIntent);
-            getLocationPermission();
-            LatLng latLng = new LatLng(b.getLat(), b.getLng());
-            String title = b.getLocation();
-            moveMapToLocation(latLng, DEFAULT_ZOOM, title);
-           //search bar + icons + check in view set visibility view Gone!!!!
-
-
-        } else if(ID == 3){ //From map view navigation button
-            Log.d(TAG, "Checking intent ID: 3");
-            getLocationPermission();
-            List<Beer> beers = dbHelper.getAllBeers();
-
-            for (Beer b : beers) {
-                LatLng latLng = new LatLng(b.getLat(), b.getLng());
-                //Test later if it's possible to create LatLng in argument below to remove code
-                dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
-                //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDeviceLocation
-                //search bar + icons + check in view set visibility view Gone!!!!
-            }
-            //moveMapToLocation();
-        }
-
-
+        getLocationPermission();
     }
 
     @Override
@@ -175,10 +143,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                }
                 return false;
             }
-
-
         });
-        Log.d(TAG, "initializeSearch: search code failed");
 
         gpsIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,31 +227,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     /**
      * Getter method for the location of the device
      */
-    private void getDeviceLocation() {
-        Log.d(TAG, "getDeviceLocation: getting the current location of the device");
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        try {
-            if (locationPermissionsGranted) {
-                Task location = fusedLocationProviderClient.getLastLocation();
-                location.addOnCompleteListener(new OnCompleteListener() {
-                    @Override
-                    public void onComplete(@NonNull Task task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "getDeviceLocation: found device location");
-                            Location currentLocation = (Location) task.getResult();
-                            moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
-                        } else {
-                            Log.d(TAG, "getDeviceLocation: couldn't find device location (null)");
-                            Toast.makeText(MapActivity.this, "Couldn't get device location", Toast.LENGTH_SHORT).show();
+
+    private void getDeviceLocation() {
+        //if(ID == 1) {
+            Log.d(TAG, "getDeviceLocation: getting the current location of the device");
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+            try {
+                if (locationPermissionsGranted) {
+                    Task location = fusedLocationProviderClient.getLastLocation();
+                    location.addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "getDeviceLocation: found device location");
+                                Location currentLocation = (Location) task.getResult();
+                                moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
+                            } else {
+                                Log.d(TAG, "getDeviceLocation: couldn't find device location (null)");
+                                Toast.makeText(MapActivity.this, "Couldn't get device location", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            } catch (SecurityException e) {
+                Log.e(TAG, "getDeviceLocation: SecurityException" + e.getMessage());
             }
-        } catch (SecurityException e) {
-            Log.e(TAG, "getDeviceLocation: SecurityException" + e.getMessage());
         }
-    }
+   // }
 
     /**
      * Moves the "camera" of the map to the right location
@@ -294,10 +263,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * @param zoom - The possibility to zoom in and out of the map
      */
     private void moveMapToLocation(LatLng latLng, float zoom, String title) {
-        Log.d(TAG, "moveMapToLocation: moving the map to current location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+       // Log.d(TAG, "moveMapToLocation: moving the map to location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
+        Log.d(TAG, "moveMapToLocation: moving the map to location. " + latLng);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom)); //TA BORT KOMMENTAR
 
-        if(ID == 1) {
+       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 13));
+
+       if(ID == 1) {
             mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
 
             //When custom info window is clicked
@@ -316,15 +288,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     finish();
                 }
             });
-
+        } else if (ID == 2 || ID == 3){
+            mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
+        }
+        if(ID != 3) {
             dropPin(latLng, zoom, title);
         }
-
-        /*if(ID == 1) {
-            //Passes the arguments to the drop pin method
-            dropPin(latLng, zoom, title);
-        } */
-
     }
 
     /**
@@ -335,15 +304,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     private void dropPin(LatLng latLng, float zoom, String title){
 
-        mMap.clear();
+       if(ID == 1 || ID == 2){
+          mMap.clear();  
+       }
+
+
         Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
 
-               // MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_beer_icon_test));
                 MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
                 Marker marker = mMap.addMarker(markerOptions);
-                marker.showInfoWindow();
-                //marker.setIcon();
+                if(ID != 3) {
+                    marker.showInfoWindow();
+                }
+
         }
     }
 
@@ -357,20 +331,48 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         if (locationPermissionsGranted) {
-            getDeviceLocation();
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                    (this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG, "onMapReady: if if permissions granted");
-                return;
+            if (ID == 1) {
+                Log.d(TAG, "Checking intent ID: 1");
+                getDeviceLocation();
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                        (this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG, "onMapReady: if if permissions granted");
+                    return;
+                }
+                Log.d(TAG, "onMapReady: set my location enabled true");
+                mMap.setMyLocationEnabled(true);
+                //Hides the "myLocationButton" up in the right corner
+                mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
+                initializeSearch();
+
+            } else if (ID == 2) {
+                Log.d(TAG, "Checking intent ID: 2");
+                Beer b = dbHelper.getBeerById(beerIDFromIntent);
+                String locationName = b.getLocation();
+                Log.d(TAG, "Got location: " + b.getLocation() + "and lat: " + b.getLat() + ", lng: " + b.getLng());
+                LatLng latLng = new LatLng(b.getLat(), b.getLng());
+                moveMapToLocation(latLng, DEFAULT_ZOOM, locationName);
+                //search bar + icons + check in view set visibility view Gone!!!!
+
+
+            } else if (ID == 3) { //From map view navigation button
+                Log.d(TAG, "Checking intent ID: 3");
+
+                List<Beer> beers = dbHelper.getAllBeers();
+
+                for (Beer b : beers) {
+                    LatLng latLng = new LatLng(b.getLat(), b.getLng());
+                    //Test later if it's possible to create LatLng in argument below to remove code
+                    dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
+                    //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDeviceLocation
+                    //search bar + icons + check in view set visibility view Gone!!!!
+
+                }
+                    initializeSearch();
             }
-            Log.d(TAG, "onMapReady: set my location enabled true");
-            mMap.setMyLocationEnabled(true);
-            //Hides the "myLocationButton" up in the right corner
-            mMap.getUiSettings().setMyLocationButtonEnabled(false);
-            // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
-            initializeSearch();
         }
     }
 
