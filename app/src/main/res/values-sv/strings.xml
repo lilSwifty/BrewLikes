@@ -32,4 +32,12 @@
     <string name="checkin_text">CHECKA IN</string>
     <string name="success">Genomfört</string>
     <string name="aboutTextView">Detta är en app för att betygsätta dina favoritöl! Gå ut, ta en öl, fota den och drick lagom.</string>
+    <string name="infoMani">Honungsöl från Stallhagens bryggeri på Åland är min favorit</string>
+    <string name="infoMilja">Dricker inte öl men gillar appar (särskilt vår app).</string>
+    <string name="infoVictoria">Vilken öl som helst efter en lång dag funkar fint.</string>
+    <string name="infoVictor">En kall Chang på en strand skulle jag döda för.</string>
+    <string name="timeToBrew">Dags att brygga...</string>
+    <string name="chooseAlternative">Välj ett alternativ</string>
+    <string name="cancel">Avbryt</string>
+    <string name="takePhoto">Ta ett foto</string>
 </resources>
