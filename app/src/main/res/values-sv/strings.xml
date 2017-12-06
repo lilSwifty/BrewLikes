@@ -40,4 +40,7 @@
     <string name="chooseAlternative">Välj ett alternativ</string>
     <string name="cancel">Avbryt</string>
     <string name="takePhoto">Ta ett foto</string>
+    <string name="infoMoa">Stor ljus lager under en svettig rockkonsert!!</string>
+    <string name="infoEmma">Aldrig öl, bara bröl.</string>
+    <string name="infoPatrik">Om jag inte får min Lapin Kulta går jag hem.</string>
 </resources>
