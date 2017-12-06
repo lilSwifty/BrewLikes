@@ -31,5 +31,13 @@
     <string name="beerPic">Oluen kuva</string>
     <string name="checkin_text">Lisää kohde</string>
     <string name="success">Lisätty</string>
-    <string name="aboutTextView">Tällä sovelluksella arvostelet kaikki lempioluesi! Nauti oluesta, ota kuva, pisteytä ja muista juoda kohtuudella.</string>
+    <string name="aboutTextView">Tällä sovelluksella arvostelet kaikki lempioluesi! Ota kuva, pisteytä ja nauti oluestasi. Muista myös juoda kohtuudella.</string>
+    <string name="chooseAlternative">Valitse</string>
+    <string name="cancel">Keskeytä</string>
+    <string name="takePhoto">Ota valokuva</string>
+    <string name="timeToBrew">Aika korkata...</string>
+    <string name="infoMani">Panimo Stallhagenin hunajaolut on suosikkini.</string>
+    <string name="infoMilja">En juo olutta mutta pidän sovelluksista.</string>
+    <string name="infoVictor">Kylmä Chang rannalla.</string>
+    <string name="infoVictoria">Mikä tahansa olut pitkän päivän jälkeen.</string>
 </resources>
