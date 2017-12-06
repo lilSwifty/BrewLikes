@@ -23,7 +23,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
      */
     public CustomInfoWindowAdapter(Context context) {
         this.mContext = mContext;
-        mWindow = LayoutInflater.from(context).inflate(R.layout.custom_checkin_window, null);
+        mWindow = LayoutInflater.from(context).inflate(R.layout.custom_info_window_adapter, null);
     }
 
     private void renderWindowText(Marker marker, View view){

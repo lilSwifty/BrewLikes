@@ -98,7 +98,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         dbHelper = new DBHelper(this);
 
         Intent intent = getIntent();
-
         ID = intent.getIntExtra("ID", 0);
         beerIDFromIntent = intent.getLongExtra("beerId", 0);
 
@@ -144,10 +143,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                }
                 return false;
             }
-
-
         });
-        Log.d(TAG, "initializeSearch: search code failed");
 
         gpsIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +230,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
     private void getDeviceLocation() {
-        if(ID == 1 || ID == 3) {
+        //if(ID == 1) {
             Log.d(TAG, "getDeviceLocation: getting the current location of the device");
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -259,7 +255,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.e(TAG, "getDeviceLocation: SecurityException" + e.getMessage());
             }
         }
-    }
+   // }
 
     /**
      * Moves the "camera" of the map to the right location
@@ -273,7 +269,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 13));
 
-        if(ID == 1) {
+       if(ID == 1) {
             mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
 
             //When custom info window is clicked
@@ -292,17 +288,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     finish();
                 }
             });
-        } else if (ID == 2){
+        } else if (ID == 2 || ID == 3){
             mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
         }
-
-        dropPin(latLng, zoom, title);
-
-        /*if(ID == 1) {
-            //Passes the arguments to the drop pin method
+        if(ID != 3) {
             dropPin(latLng, zoom, title);
-        } */
-
+        }
     }
 
     /**
@@ -313,15 +304,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     private void dropPin(LatLng latLng, float zoom, String title){
 
-        mMap.clear();
+       if(ID == 1 || ID == 2){
+          mMap.clear();  
+       }
+
+
         Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
 
-               // MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_beer_icon_test));
                 MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
                 Marker marker = mMap.addMarker(markerOptions);
-                marker.showInfoWindow();
-                //marker.setIcon();
+                if(ID != 3) {
+                    marker.showInfoWindow();
+                }
+
         }
     }
 
@@ -334,9 +330,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Log.d(TAG, "onMapReady: Map is ready");
         mMap = googleMap;
 
-
         if (locationPermissionsGranted) {
-            if(ID == 1){ //From ranking activity
+            if (ID == 1) {
                 Log.d(TAG, "Checking intent ID: 1");
                 getDeviceLocation();
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -353,46 +348,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
                 initializeSearch();
 
-            } else if(ID == 2){ //From info activity
-                //getLocationPermission();
-                //onMapReady(mMap);
+            } else if (ID == 2) {
                 Log.d(TAG, "Checking intent ID: 2");
-
-                Log.d(TAG, "Got beer ID: " + beerIDFromIntent);
                 Beer b = dbHelper.getBeerById(beerIDFromIntent);
-                //LatLng latLng = b.getLatLng();
-                Log.d(TAG, "Got latLng: " + b.getLatLng());
                 String locationName = b.getLocation();
-                Log.d(TAG, "Got location: " + b.getLocation());
-                Log.d(TAG, "Setting lat to: " + b.getLat() + " and lng to: " + b.getLng());
+                Log.d(TAG, "Got location: " + b.getLocation() + "and lat: " + b.getLat() + ", lng: " + b.getLng());
                 LatLng latLng = new LatLng(b.getLat(), b.getLng());
-
                 moveMapToLocation(latLng, DEFAULT_ZOOM, locationName);
                 //search bar + icons + check in view set visibility view Gone!!!!
 
 
-            } else if(ID == 3){ //From map view navigation button
+            } else if (ID == 3) { //From map view navigation button
                 Log.d(TAG, "Checking intent ID: 3");
-               // getLocationPermission();
+
                 List<Beer> beers = dbHelper.getAllBeers();
 
                 for (Beer b : beers) {
-                    LatLng latLng = b.getLatLng();
+                    LatLng latLng = new LatLng(b.getLat(), b.getLng());
                     //Test later if it's possible to create LatLng in argument below to remove code
                     dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
                     //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDeviceLocation
                     //search bar + icons + check in view set visibility view Gone!!!!
+
                 }
-                //moveMapToLocation();
+                    initializeSearch();
             }
-
-
-
-
-
-
-
-
         }
     }
 
