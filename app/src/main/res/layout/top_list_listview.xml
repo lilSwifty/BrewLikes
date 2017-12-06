@@ -20,27 +20,32 @@
 
         <!-- android:layout_marginLeft="8dp"
     -->
-
-        <!--TODO change pic to beer picture, evt ta bort maxWidth, maxHeight och adjustViewBounds-->
         <ImageView
             android:id="@+id/beerImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
+
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
             android:maxHeight="70dp"
-            android:maxWidth="70dp"/>
-        <!--app:srcCompat="@drawable/beer"-->
+            android:maxWidth="70dp"
+
+            android:contentDescription="@string/beerPic" />
+        <!--app:srcCompat="@drawable/beer"
+        android:layout_marginLeft="8dp"
+        android:foregroundGravity="clip_horizontal"-->
 
         <TextView
             android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
+            android:layout_marginStart="70dp"
             android:layout_marginTop="50dp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:textSize="20sp"
             android:text="9.5"
             android:textColor="@color/beer" />
 
@@ -50,14 +55,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="110dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_toEndOf="@+id/beerImage"
+            android:fontFamily="sans-serif"
             android:text="TextView"
+            android:textAllCaps="true"
             android:textColor="@color/beer"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
 
 
     </android.support.v7.widget.CardView>
-    <!--</ListView>-->
+    <!--    android:fontFamily="sans-serif"
+            android:textColor="@color/blackbrew"
+            android:textAllCaps="true"
+            android:textSize="30sp"-->
 
 </android.support.constraint.ConstraintLayout>

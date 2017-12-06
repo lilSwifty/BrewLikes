@@ -43,6 +43,7 @@ import android.widget.ListView;
                 Log.d(TAG, "onItemClick: Click on item works");
                 Intent intent = new Intent(getApplicationContext(), InfoActivity.class);
                 intent.putExtra("BeerID", id);
+                intent.putExtra("info", 3);
                 startActivity(intent);
             }
         });
