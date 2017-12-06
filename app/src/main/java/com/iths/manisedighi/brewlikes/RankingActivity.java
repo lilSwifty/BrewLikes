@@ -108,6 +108,7 @@ public class RankingActivity extends AppCompatActivity {
         ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this,android.R.layout.simple_spinner_item,categoryList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
+
     }
     /**
      * A method to find the views.
@@ -162,7 +163,7 @@ public class RankingActivity extends AppCompatActivity {
             makeToast("You need to describe the beer");
         }else if (picture.isEmpty()){
             makeToast("You need to take a picture of your beer");
-        }else if(category.equals("Unknown")){
+        }else if(category.getName().equals("Unknown")){
             makeToast("Please choose category");
         }else{
             if(lat==0.0 && lng == 0.0) {
