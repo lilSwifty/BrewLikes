@@ -108,6 +108,7 @@ public class RankingActivity extends AppCompatActivity {
         ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this,android.R.layout.simple_spinner_item,categoryList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(adapter);
+
     }
     /**
      * A method to find the views.
