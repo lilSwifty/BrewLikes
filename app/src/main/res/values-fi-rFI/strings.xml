@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BrewLikes</string>
+    <string name="pricerating">Hinta</string>
+    <string name="tasterating">Maku</string>
+    <string name="rankingComment">Kommentoi olutta</string>
+    <string name="rankBeer">Arvostele olut</string>
+    <string name="tasteAwful">Kamala</string>
+    <string name="tastePerfect">Täydellinen</string>
+    <string name="priceExpensive">Kallis</string>
+    <string name="priceCheap">Halpa</string>
+    <string name="beerName">Oluen nimi</string>
+    <string name="category">Kategoria</string>
+    <string name="imageEdit">Editoi</string>
+    <string name="taste">Maku:</string>
+    <string name="price">Hinta:</string>
+    <string name="rate">Keskiarvo:</string>
+    <string name="home">Koti</string>
+    <string name="topList">Toplista</string>
+    <string name="mapView">Kartta</string>
+    <string name="edit">Korjaa kommenttia</string>
+    <string name="delete">Poista olut</string>
+    <string name="ok">Ok</string>
+    <string name="error">Virhe</string>
+    <string name="successfully_posted_post">Postaus onnistui</string>
+    <string name="beerCategory">Kategoria</string>
+    <string name="saveBeer">Tallenna</string>
+    <string name="discardBeer">Keskeytä</string>
+    <string name="searchTextView">Etsi osoite</string>
+    <string name="myFavouriteBeer">Lempiolueni</string>
+    <string name="beerPic">Oluen kuva</string>
+    <string name="checkin_text">Lisää kohde</string>
+    <string name="success">Lisätty</string>
+    <string name="aboutTextView">Tällä sovelluksella arvostelet kaikki lempioluesi! Nauti oluesta, ota kuva, pisteytä ja muista juoda kohtuudella.</string>
+</resources>
