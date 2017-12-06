@@ -1,6 +1,8 @@
 <resources>
-    <string name="Google_Maps_API_key">AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU</string>
+
     <string name="app_name">BrewLikes</string>
+
+    <!--Ranking-->
     <string name="pricerating">Price</string>
     <string name="tasterating">Taste</string>
     <string name="rankingComment">Comment the beer</string>
@@ -12,9 +14,12 @@
     <string name="beerName">Name of the beer</string>
     <string name="category">Category</string>
     <string name="imageEdit">Edit</string>
+    <string name="beerCategory">Category</string>
+    <string name="saveBeer">Save</string>
+    <string name="discardBeer">Discard</string>
+    <!--End of ranking-->
 
     <!-- InfoActivity & BottomNavigation-->
-
     <string name="taste">Taste:</string>
     <string name="price">Price:</string>
     <string name="rate">Rate:</string>
@@ -23,18 +28,27 @@
     <string name="mapView">MapView</string>
     <string name="edit">Edit comment</string>
     <string name="delete">Delete beer</string>
-
     <!-- end of InfoActivity & BottomNavigation -->
     
     <!-- Facebook -->
-    
-    <string name="brewlikes_fid">311762962671719</string>
-    <string name="content_provider">com.facebook.app.FacebookContentProvider311762962671719</string>
+    <string name="brewlikes_fid" translatable="false">311762962671719</string>
+    <string name="content_provider" translatable="false">com.facebook.app.FacebookContentProvider311762962671719</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
     <string name="success">Success</string>
     <string name="successfully_posted_post">Successfully posted</string>
-    <!-- ************************* -->
+    <!-- End of Facebook -->
+
+    <!--About-->
+    <string name="aboutTextView">This is an app for rating your favourite beers! So go out, have a beer, take a pic, rate it and drink responsibly.</string>
+
+    <string name="infoEmma">Emma sponsrar oss</string>
+    <string name="infoMani">Honey beer from Åland is my favourite beer.</string>
+    <string name="infoMilja">I don\'t drink beer but I like apps (especially our app).</string>
+    <string name="infoMoa">Moa rockar öl</string>
+    <string name="infoPatrik">abcdefghijklmnopqrstuvxyzåäöabcdefghijklmnopqrstuvqyzåäöabcd</string>
+    <string name="infoVictor">I\'d love a cold Chang on a beach.</string>
+    <string name="infoVictoria">Any beer after a long day would suit me fine.</string>
 
     <string-array name="persons">
         <item>Emma</item>
@@ -47,30 +61,35 @@
     </string-array>
 
     <string-array name="descriptions">
-        <item>Emma sponsrar oss</item>
-        <item>Mani är i ett förhållande med öl</item>
-        <item>Milja är öl</item>
-        <item>Moa rockar öl</item>
-        <item>Juoppo-Pekka puhuu kaljaa 50/60</item>
-        <item>Victor är också med</item>
-        <item>Veronica heter egentligen Victoria, eller?</item>
+        <item>@string/infoEmma</item>
+        <item>@string/infoMani</item>
+        <item>@string/infoMilja</item>
+        <item>@string/infoMoa</item>
+        <item>@string/infoPatrik</item>
+        <item>@string/infoVictor</item>
+        <item>@string/infoVictoria</item>
     </string-array>
-    
+    <!--End of About-->
 
-    <string name="ItemTitleAbout">item title about</string>
-    <string name="ItemTitleCamera">item title camera</string>
-    <string name="aboutTextView">Hey detta är en infotext om appen och vi som har skapat den! Detta är en app för öl, och vi gillar öl. Här är vi!</string>
-    <string name="beerCategory">Category</string>
-    <string name="saveBeer">Save</string>
-    <string name="discardBeer">Discard</string>
-
-    <string name="testButtonMap">Test Map</string>
-    <string name="searchTextView">Search address here</string>
-
+    <string name="ItemTitleAbout" translatable="false">item title about</string>
+    <string name="ItemTitleCamera" translatable="false">item title camera</string>
 
     <!--Top List Activity-->
-    <string name="myFavouriteBeer">My favourite beer</string>
+    <string name="myFavouriteBeer">My favourite beers</string>
+    <string name="beerPic">Picture for beer</string>
     <!--End of Top List Activity-->
 
+    <!--Map-->
+    <string name="searchTextView">Search address here</string>
     <string name="checkin_text">CHECK IN</string>
+    <string name="Google_Maps_API_key" translatable="false">AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU</string>
+    <!--End of map-->
+
+    <!--Take photo-text-->
+    <string name="timeToBrew">Time to brew…</string>
+    <string name="chooseAlternative">Please choose an alternative</string>
+    <string name="cancel">Cancel</string>
+    <string name="takePhoto">Take photo</string>
+    <!--End of Take photo-text-->
+
 </resources>

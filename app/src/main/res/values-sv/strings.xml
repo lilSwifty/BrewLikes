@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BrewLikes</string>
+    <string name="pricerating">Pris</string>
+    <string name="tasterating">Smak</string>
+    <string name="rankingComment">Kommentera ölen</string>
+    <string name="rankBeer">Betygsätt ölen</string>
+    <string name="tasteAwful">Fruktansvärd</string>
+    <string name="tastePerfect">Perfekt</string>
+    <string name="priceExpensive">Dyr</string>
+    <string name="priceCheap">Billig</string>
+    <string name="beerName">Namnet på ölen</string>
+    <string name="category">Kategori</string>
+    <string name="imageEdit">Redigera</string>
+    <string name="taste">Smak:</string>
+    <string name="price">Pris:</string>
+    <string name="rate">Snitt:</string>
+    <string name="home">Hem</string>
+    <string name="topList">Topplista</string>
+    <string name="mapView">Karta</string>
+    <string name="edit">Redigera kommentar</string>
+    <string name="delete">Radera öl</string>
+    <string name="ok">Ok</string>
+    <string name="error">Error</string>
+    <string name="successfully_posted_post">Lyckades posta</string>
+    <string name="beerCategory">Kategori</string>
+    <string name="saveBeer">Spara</string>
+    <string name="discardBeer">Avbryt</string>
+    <string name="searchTextView">Sök efter adress här</string>
+    <string name="myFavouriteBeer">Mina favoritöl</string>
+    <string name="beerPic">Bild för öl</string>
+    <string name="checkin_text">CHECKA IN</string>
+    <string name="success">Genomfört</string>
+    <string name="aboutTextView">Detta är en app för att betygsätta dina favoritöl! Gå ut, ta en öl, fota den och drick lagom.</string>
+    <string name="infoMani">Honungsöl från Stallhagens bryggeri på Åland är min favorit</string>
+    <string name="infoMilja">Dricker inte öl men gillar appar (särskilt vår app).</string>
+    <string name="infoVictoria">Vilken öl som helst efter en lång dag funkar fint.</string>
+    <string name="infoVictor">En kall Chang på en strand skulle jag döda för.</string>
+    <string name="timeToBrew">Dags att brygga...</string>
+    <string name="chooseAlternative">Välj ett alternativ</string>
+    <string name="cancel">Avbryt</string>
+    <string name="takePhoto">Ta ett foto</string>
+</resources>
