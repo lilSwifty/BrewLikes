@@ -176,6 +176,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tasteText"
         app:layout_constraintEnd_toStartOf="@+id/tasteText"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -242,14 +243,14 @@
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="100dp"
-        android:layout_height="27dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="137dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tasteText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.373"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toEndOf="@+id/categoryText" />
 
     <TextView
