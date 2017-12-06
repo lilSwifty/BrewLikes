@@ -43,12 +43,12 @@
     <string name="aboutTextView">This is an app for rating your favourite beers! So go out, have a beer, take a pic, rate it and drink responsibly.</string>
 
     <string name="infoEmma">Emma sponsrar oss</string>
-    <string name="infoMani">Mani är i ett förhållande med öl</string>
-    <string name="infoMilja">Milja är öl</string>
+    <string name="infoMani">Honey beer from Åland is my favourite beer.</string>
+    <string name="infoMilja">I don\'t drink beer but I like apps (especially our app).</string>
     <string name="infoMoa">Moa rockar öl</string>
     <string name="infoPatrik">abcdefghijklmnopqrstuvxyzåäöabcdefghijklmnopqrstuvqyzåäöabcd</string>
-    <string name="infoVictor">Victor är också med</string>
-    <string name="infoVictoria">Veronica heter egentligen Victoria, eller? Juoppo-Pekka puhuu kaljaa 50/60</string>
+    <string name="infoVictor">I\'d love a cold Chang on a beach.</string>
+    <string name="infoVictoria">Any beer after a long day would suit me fine.</string>
 
     <string-array name="persons">
         <item>Emma</item>
