@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,6 +80,8 @@ public class RankingActivity extends AppCompatActivity {
     private Bitmap litenBild;
     private Bitmap storBild;
     DBHelper dbHelper = new DBHelper(this);
+
+    //private static final String TAG = "RankingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,8 +161,6 @@ public class RankingActivity extends AppCompatActivity {
         price = savePrice();
         category = (Category)categorySpinner.getSelectedItem();
         categoryId = (int) category.getId();
-        picture = storBild.toString();
-        smallPicture = litenBild.toString();
         /*
         if (mCurrentPhotoPath == null && selectedImage != null){
             picture = selectedImage.toString();
@@ -347,7 +348,7 @@ public class RankingActivity extends AppCompatActivity {
             File photoFile = null;
 
             try {
-                photoFile = createImageFile();
+                photoFile = createImageFile("");
             } catch (IOException ioException) {
                 //Error occured while creating the File
                 makeToast("Cannot create file");
@@ -376,10 +377,32 @@ public class RankingActivity extends AppCompatActivity {
             beerImage.setImageBitmap(beerPhoto);
 
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
-            storBild=scalePicture(720,720);
-            litenBild=scalePicture(100,100);
+
+            storBild = scaleSmallPicture(960,960);
+
+            litenBild=scaleSmallPicture(500,500);
+
+            try {
+                File fbig = createImageFile("big");
+                File fsmall = createImageFile("small");
+
+                saveBitmapToFile(storBild, fbig);
+                saveBitmapToFile(litenBild, fsmall);
+
+                picture = fbig.getAbsolutePath();
+                smallPicture = fsmall.getAbsolutePath();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+            //scalePicture();
             beerImage.setImageBitmap(storBild);
-            addPictureToGallery();
+
+            Log.d(TAG, "onActivityResult: " + storBild + "   " +litenBild);
+
         } else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             //TODO find path to gallery
 
@@ -421,6 +444,25 @@ public class RankingActivity extends AppCompatActivity {
 
     }
 
+    private void saveBitmapToFile(Bitmap bitmap, File file) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out); // bmp is your Bitmap instance
+            // PNG is a lossless format, the compression factor (100) is ignored
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private Bitmap getBitmapFromUri(Uri uri) throws IOException {
         ParcelFileDescriptor parcelFileDescriptor =
                 getContentResolver().openFileDescriptor(uri, "r");
@@ -440,10 +482,10 @@ public class RankingActivity extends AppCompatActivity {
 
     String mCurrentPhotoPath;
 
-    public File createImageFile() throws IOException {
+    public File createImageFile(String postfix) throws IOException {
         // Create a name for the image file
         String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + dateStamp + "_";
+        String imageFileName = "JPEG_" + dateStamp + "_" + postfix;
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
         //within parentheses: prefix, suffix, directory
@@ -473,8 +515,9 @@ public class RankingActivity extends AppCompatActivity {
 
 
 
-    public Bitmap scalePicture(int targetW, int targetH ) {
+    public Bitmap scaleSmallPicture(int targetW, int targetH ) {
         //The dimensions of the bitmap
+
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
@@ -493,6 +536,32 @@ public class RankingActivity extends AppCompatActivity {
         //beerImage.setImageBitmap(bitmap);
 
         return bitmap;
+    }
+
+    public void scalePicture() {
+        //The dimensions of the bitmap
+
+        int targetW = beerImage.getMaxWidth();
+        int targetH = beerImage.getMaxHeight();
+
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        //Decides how much to scale down the picture
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        //Decodes the image into Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        beerImage.setImageBitmap(bitmap);
+
+        //return bitmap;
     }
 
 
