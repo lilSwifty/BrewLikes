@@ -53,23 +53,34 @@
                 android:resource="@xml/file_paths"/>
         </provider>
 
-        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize">
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".RankingActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait" />
+        <activity android:name=".InfoActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RankingActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" />
         <activity android:name=".CategoriesActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".AboutActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".MapActivity"/>
-        <activity android:name=".DetailActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MapActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DetailActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".TopListActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".BottomNavigationBaseActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".BottomNavigationBaseActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
