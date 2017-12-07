@@ -218,9 +218,6 @@ public class RankingActivity extends AppCompatActivity {
                 finish();
             }else {*/
         }
-
-
-
     }
 
     /**
