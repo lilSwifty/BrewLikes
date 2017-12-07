@@ -243,8 +243,8 @@
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="187dp"
-        android:layout_height="29dp"
+        android:layout_width="218dp"
+        android:layout_height="31dp"
         android:layout_marginBottom="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
