@@ -37,48 +37,12 @@ public class MainActivity extends BottomNavigationBaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //TODO Credit http://www.freesfx.co.uk/ for sound file!
-        //TODO Set video background and beersoundClick in own method.
         Multimedia multimedia = new Multimedia(this);
         multimedia.setMultimedia(this);
 
-
-        /*VideoView videoview = (VideoView) findViewById(R.id.videoView);
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.beer_bubbles);
-        videoview.setVideoURI(uri);
-        videoview.start();
-
-
-        final ImageView beerSound = this.findViewById(R.id.brewlikes_main_image);
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.open_bottle_sound);
-        beerSound.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mp.setVolume(1.0f, 1.0f);
-                mp.start();
-                Intent cameraIntent = new Intent(getApplicationContext(), RankingActivity.class);
-                startActivity(cameraIntent);
-            }
-        });*/
-
     }
 
-/*
-        //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
-        public void onTestMapButtonClicked(View v){
-            if(isGpsServicesAvailable()){
-                initMapActivity();
-            }
-        }
 
-/*
-        //Initializes MapActivity
-        private void initMapActivity(){
-            Intent intent = new Intent(this, MapActivity.class);
-            intent.putExtra("ID", 2);
-            intent.putExtra("beerId", 0);
-           // startActivityForResult(intent, 1);
-            startActivity(intent);
-        } */
 
         /**
         Method that checks if user has the correct version of Google Services.

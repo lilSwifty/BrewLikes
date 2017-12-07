@@ -52,6 +52,16 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info3);
         init();
+
+        //When BrewLikes logo in the toolbar is clicked it launches MainActivity.
+        //TODO - Use flags here so the activities don't get put on the stack?
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent (InfoActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**

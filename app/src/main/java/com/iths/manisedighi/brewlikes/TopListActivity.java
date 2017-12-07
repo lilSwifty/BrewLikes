@@ -46,6 +46,17 @@ import android.widget.ListView;
                 startActivity(intent);
             }
         });
+
+        //When BrewLikes logo in the toolbar is clicked it launches MainActivity.
+        //TODO - Use flags here so the activities don't get put on the stack?
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent (TopListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
      /**
