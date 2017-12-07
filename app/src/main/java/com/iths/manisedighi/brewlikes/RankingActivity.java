@@ -75,6 +75,9 @@ public class RankingActivity extends AppCompatActivity {
     private String address;
     private String phoneNumber;
     private String website;
+    private String smallPicture;
+    private Bitmap litenBild;
+    private Bitmap storBild;
     DBHelper dbHelper = new DBHelper(this);
 
     @Override
@@ -155,13 +158,14 @@ public class RankingActivity extends AppCompatActivity {
         price = savePrice();
         category = (Category)categorySpinner.getSelectedItem();
         categoryId = (int) category.getId();
-        picture = "";
-
+        picture = storBild.toString();
+        smallPicture = litenBild.toString();
+        /*
         if (mCurrentPhotoPath == null && selectedImage != null){
             picture = selectedImage.toString();
         }else if (selectedImage == null && mCurrentPhotoPath != null){
             picture = mCurrentPhotoPath;
-        }
+        }*/
 
         if (name.isEmpty()) {
             makeToast("You need to name the beer");
@@ -210,15 +214,6 @@ public class RankingActivity extends AppCompatActivity {
             alert.show();
         }else{
             addBeer();
-            /*if(lat==0.0 && lng == 0.0) {
-                Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
-                dbHelper.addBeer(beer);
-                Intent intent = new Intent(this, InfoActivity.class);
-                intent.putExtra("BeerID", beer.getId());
-                intent.putExtra("info",1);
-                startActivity(intent);
-                finish();
-            }else {*/
         }
     }
 
@@ -226,7 +221,7 @@ public class RankingActivity extends AppCompatActivity {
      * A method to add a beer and send the user to the info activity.
      */
     public void addBeer(){
-        Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng,address,phoneNumber,website);
+        Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng,address,phoneNumber,website,smallPicture);
         dbHelper.addBeer(beer);
         Intent intent = new Intent(this, InfoActivity.class);
         intent.putExtra("BeerID", beer.getId());
@@ -381,7 +376,9 @@ public class RankingActivity extends AppCompatActivity {
             beerImage.setImageBitmap(beerPhoto);
 
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
-            scalePicture();
+            storBild=scalePicture(720,720);
+            litenBild=scalePicture(100,100);
+            beerImage.setImageBitmap(storBild);
             addPictureToGallery();
         } else if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK){
             //TODO find path to gallery
@@ -476,18 +473,7 @@ public class RankingActivity extends AppCompatActivity {
 
 
 
-    public void scalePicture() {
-        //The dimensions of the View
-
-
-        /*beerImage.setMaxWidth(224);
-        beerImage.setMaxHeight(224);*/
-
-
-        int targetW = beerImage.getWidth();
-        int targetH = beerImage.getHeight();
-
-
+    public Bitmap scalePicture(int targetW, int targetH ) {
         //The dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
@@ -504,9 +490,9 @@ public class RankingActivity extends AppCompatActivity {
         bmOptions.inPurgeable = true;
 
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        beerImage.setImageBitmap(bitmap);
+        //beerImage.setImageBitmap(bitmap);
 
-        //return bitmap;
+        return bitmap;
     }
 
 
