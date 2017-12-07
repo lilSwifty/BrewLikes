@@ -198,9 +198,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         dialog = new AlertDialog.Builder(this).create();
         etInfo = new EditText(this);
         etInfo.setElevation(0);
-        dialog.setTitle("Edit comment");
+        dialog.setTitle(getResources().getString(R.string.edit));
         dialog.setView(etInfo);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 beer.setComment(etInfo.getText().toString());
@@ -218,11 +218,12 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * and sends the user back to the activity that started InfoActivity
      */
     public void onDeleteClick(){
+        //TODO sätt stringvalues på Yes, No och Messsage
         Log.d(TAG, "onDeleteClick: clicked");
         dialog = new AlertDialog.Builder(this).create();
-        dialog.setTitle("About to delete this beer");
+        dialog.setTitle(getResources().getString(R.string.delete));
         dialog.setMessage("Do you want to continue deleting?");
-        dialog.setButton(DialogInterface.BUTTON_NEUTRAL,"Yes", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 helper.removeBeer(id);
@@ -242,7 +243,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
                 }
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "No", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
