@@ -174,11 +174,11 @@
 
     <TextView
         android:id="@+id/categoryText"
-        android:layout_width="97dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="70dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="64dp"
         android:fontFamily="sans-serif"
         android:text="@string/beerCategory"
         android:textColor="@color/beer"
@@ -186,7 +186,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tasteText"
         app:layout_constraintEnd_toStartOf="@+id/tasteText"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -257,13 +257,12 @@
         android:id="@+id/categorySpinner"
         android:layout_width="218dp"
         android:layout_height="31dp"
-        android:layout_marginBottom="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tasteText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toEndOf="@+id/categoryText" />
+        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tasteRateNumber"
