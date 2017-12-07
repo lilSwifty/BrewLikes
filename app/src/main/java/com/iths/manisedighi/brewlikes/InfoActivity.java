@@ -139,7 +139,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //ivBeer.setImageBitmap(image);
 
         ivBeer.setImageBitmap(
-                bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(), 220, 220));
+                bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(), 100, 100));
 
         tvBeerName.setText(beer.getName());
         tvCategory.setText(beer.getCategoryName());
