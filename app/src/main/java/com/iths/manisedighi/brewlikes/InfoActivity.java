@@ -147,7 +147,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
-        tvLocation.setText(beer.getLocation());
+        if(beer.getLocation() == null){
+            tvLocation.setVisibility(View.GONE);
+        }else {
+            tvLocation.setText(beer.getLocation());
+        }
     }
 
     /**
