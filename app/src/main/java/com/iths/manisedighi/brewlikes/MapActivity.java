@@ -261,8 +261,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     intent.putExtra("location", mPlace.getName());
                     intent.putExtra("lat", mPlace.getLatLng().latitude);
                     intent.putExtra("lng", mPlace.getLatLng().longitude);
-                    intent.putExtra("website", mPlace.getWebsiteUri());
                     intent.putExtra("phoneNumber", mPlace.getPhoneNumber());
+                    intent.putExtra("website", mPlace.getWebsiteUri());
                     intent.putExtra("address", mPlace.getAddress());
                     Log.i(TAG, "onInfoWindowCLick: sets location to " + mPlace.getName());
                     Log.i(TAG, "onInfoWindowCLick: sets latitude to " + mPlace.getLatLng().latitude);
@@ -301,33 +301,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
                 Marker marker = mMap.addMarker(markerOptions);
                 marker.showInfoWindow();
-
-            } /*else{
-                if(placeInfo != null){
-                    try{
-                        String snippet = "Address: " + placeInfo.getAddress() + "\n" +
-                                "Phone number: " + placeInfo.getPhoneNumber() + "\n" +
-                                "Website: " + placeInfo.getWebsiteUri() + "\n";
-
-                        MarkerOptions markerOptions = new MarkerOptions()
-                                .position(latLng)
-                                .title(placeInfo.getName())
-                                .snippet(snippet)
-                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
-                        Marker mMarker = mMap.addMarker(markerOptions);
-
-                        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
-
-                        if(ID ==2){
-                            mMarker.showInfoWindow();
-                        }
-                    }catch (NullPointerException e){
-                        Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage());
-                    }
-                } else{
-                    mMap.addMarker(new MarkerOptions().position(latLng));
-                }
-            } */
+            }
         }
     }
 
