@@ -14,7 +14,7 @@ public class PlaceInfo {
     private String address;
     private String id;
     private LatLng latLng;
-    private Uri websiteUri;
+    private String websiteUri;
     private String phoneNumber;
     // private float rating;
     // private String attributions;
@@ -32,7 +32,7 @@ public class PlaceInfo {
     /**
      * Constructor with all the info about the location
      */
-    public PlaceInfo(String name, String address, String id, LatLng latLng, String phoneNumber, Uri websiteUri) {
+    public PlaceInfo(String name, String address, String id, LatLng latLng, String phoneNumber, String websiteUri) {
         this.name = name;
         this.address = address;
         this.id = id;
@@ -80,11 +80,11 @@ public class PlaceInfo {
         this.latLng = latLng;
     }
 
-    public Uri getWebsiteUri() {
+    public String getWebsiteUri() {
         return websiteUri;
     }
 
-    public void setWebsiteUri(Uri websiteUri) {
+    public void setWebsiteUri(String websiteUri) {
         this.websiteUri = websiteUri;
     }
 
