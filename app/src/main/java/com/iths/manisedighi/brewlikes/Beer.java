@@ -23,6 +23,16 @@ public class Beer {
     private String comment = null;
     private String location = null;
     private String photoPath = null;
+
+    public String getPhotoPathSmall() {
+        return photoPathSmall;
+    }
+
+    public void setPhotoPathSmall(String photoPathSmall) {
+        this.photoPathSmall = photoPathSmall;
+    }
+
+    private String photoPathSmall = null;
     private double lat = 0;
     private double lng = 0;
     private LatLng latLng;
@@ -73,7 +83,7 @@ public class Beer {
     */
 
     //Constructor med GPS
-    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, double latitude, double longitude, String address, String tel, String web) {
+    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, double latitude, double longitude, String address, String tel, String web, String photoPathSmall) {
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
@@ -88,6 +98,7 @@ public class Beer {
         this.address = address;
         this.tel = tel;
         this.web = web;
+        this.photoPathSmall = photoPathSmall;
 
         /*
         //TEST FOR GETTING LATLNG VALUES
