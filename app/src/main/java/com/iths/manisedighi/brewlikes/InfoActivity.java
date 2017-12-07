@@ -154,13 +154,6 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         }else{
            tvLocation.setText(beer.getLocation());
         }
-        if(beer.getLocation() == null){
-            tvLocation.setVisibility(View.GONE);
-        }else {
-            tvLocation.setText(beer.getLocation());
-        }
-    }
-
     }
 
     /**
