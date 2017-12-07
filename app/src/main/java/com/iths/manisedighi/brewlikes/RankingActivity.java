@@ -57,7 +57,7 @@ public class RankingActivity extends AppCompatActivity {
     private TextView tasteRateNumber;
     private TextView priceRateNumber;
     private Uri selectedImage;
-    private String location;
+    private String location = null;
     private double lat = 0.0;
     private double lng = 0.0;
     private LatLng latLng;
@@ -165,7 +165,7 @@ public class RankingActivity extends AppCompatActivity {
         }else if(category.getName().equals("Unknown")){
             makeToast("Please choose category");
         }else{
-            if(lat==0.0 && lng == 0.0) {
+            /*if(lat==0.0 && lng == 0.0) {
                 Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
@@ -173,7 +173,7 @@ public class RankingActivity extends AppCompatActivity {
                 intent.putExtra("info",1);
                 startActivity(intent);
                 finish();
-            }else {
+            }else {*/
                 Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng);
                 dbHelper.addBeer(beer);
                 Intent intent = new Intent(this, InfoActivity.class);
@@ -181,7 +181,7 @@ public class RankingActivity extends AppCompatActivity {
                 intent.putExtra("info",1);
                 startActivity(intent);
                 finish();
-            }
+
         }
 
     }
