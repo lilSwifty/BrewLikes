@@ -168,15 +168,15 @@ public class RankingActivity extends AppCompatActivity {
         }*/
 
         if (name.isEmpty()) {
-            makeToast("You need to name the beer");
+            makeToast(getApplicationContext().getString(R.string.nameTheBeer));
         }else if (comment.isEmpty()){
-            makeToast("You need to describe the beer");
+            makeToast(getApplicationContext().getString(R.string.describeTheBeer));
         }else if (picture.isEmpty()){
-            makeToast("You need to take a picture of your beer");
+            makeToast(getApplicationContext().getString(R.string.pictureTheBeer));
         }else if(category.getName().equals("Unknown")){
             final AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
             builder.setIcon(R.drawable.brewlikes_main_image);
-            builder.setMessage("Are you sure you want the category Unknown?").setCancelable(false)
+            builder.setMessage(getApplicationContext().getString(R.string.saveToUnknown)).setCancelable(false)
                     .setOnKeyListener(new DialogInterface.OnKeyListener() {
                         @Override
                         public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -189,14 +189,14 @@ public class RankingActivity extends AppCompatActivity {
                             return false;
                         }
                     })
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    .setPositiveButton(getApplicationContext().getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             addBeer();
 
                         }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(getApplicationContext().getString(R.string.no), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             return;
