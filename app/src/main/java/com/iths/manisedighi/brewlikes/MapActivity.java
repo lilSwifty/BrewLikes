@@ -335,14 +335,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Log.d(TAG, "dropPin: receiving place info: " + beer.getLatLng());
 
         String snippet = "";
-        if(!beer.getAddress() == null){
-            snippet = snippet + beer.getAddress();
+        if(beer.getAddress() != null){
+            snippet = snippet + getResources().getString(R.string.addressInSnippet) + " " + beer.getAddress();
         }
-        if(!beer.getWeb() == null){
-            snippet = snippet + beer.getWeb();
+        if(beer.getWeb() != null){
+            snippet = snippet + '\n' + getResources().getString(R.string.websiteInSnippet) + " " + beer.getWeb();
         }
-        if(!beer.getTel() == null){
-            snippet = snippet + beer.getTel();
+        if(beer.getTel() != null){
+            snippet = snippet + '\n' + getResources().getString(R.string.telInSnippet) + " " + beer.getTel();
         }
 
         MarkerOptions markerOptions = new MarkerOptions()
@@ -394,14 +394,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             } else if (ID == 3) { //From map view navigation button
                 Log.d(TAG, "Checking intent ID: 3");
-                List<Beer> beers = dbHelper.getAllBeers();
-
-                for (Beer b : beers) {
-                    if(b.getLat() != 0.0 && b.getLng() != 0.0) {
-                        dropPin(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation(), b);
+                if(dbHelper.getAllBeers().isEmpty()){
+                    Log.d(TAG, "beer list is empty");
+                    Toast.makeText(this, getResources().getString(R.string.noCheckedInBeers),Toast.LENGTH_SHORT).show();
+                } else {
+                    List<Beer> beers = dbHelper.getAllBeers();
+                    for (Beer b : beers) {
+                        if (b.getLat() != 0.0 && b.getLng() != 0.0) {
+                            dropPin(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation(), b);
+                        }
                     }
                 }
-                    initializeSearch();
+                initializeSearch();
             }
         }
     }

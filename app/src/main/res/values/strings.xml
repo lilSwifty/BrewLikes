@@ -87,6 +87,10 @@
     <string name="searchTextView">Search address here</string>
     <string name="checkin_text">CHECK IN</string>
     <string name="Google_Maps_API_key" translatable="false">AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU</string>
+    <string name="noCheckedInBeers">You haven\'t checked in any beers yet</string>
+    <string name="addressInSnippet">Address: </string>
+    <string name="websiteInSnippet">Website: </string>
+    <string name="telInSnippet">Phone number: </string>
     <!--End of map-->
 
     <!--Take photo-text-->
