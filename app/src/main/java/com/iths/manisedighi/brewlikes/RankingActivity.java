@@ -323,11 +323,13 @@ public class RankingActivity extends AppCompatActivity {
 
                         finish();
 
+
                         /*
                         //For later use, if we want to upload image from gallery
                         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
                         */
+
 
                     }
                 });
@@ -398,14 +400,19 @@ public class RankingActivity extends AppCompatActivity {
 
             Bitmap bmp = null;
 
+
             try {
+
                 bmp = getBitmapFromUri(selectedImage);
+
+                //Ta en bitmap och spara som en File
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
             imageView.setImageBitmap(bmp);
+
         } else if(requestCode == 1 && resultCode == 1){
             location=data.getStringExtra("location");
             latLng = new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
@@ -433,24 +440,6 @@ public class RankingActivity extends AppCompatActivity {
      */
 
 
-    String mCurrentPhotoPath;
-
-    public File createImageFile() throws IOException {
-        // Create a name for the image file
-        String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + dateStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        //within parentheses: prefix, suffix, directory
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-
-        //Save the file, path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        Log.d(TAG, "createImageFile: this works");
-        return image;
-    }
-
-
 
     /**
      * Adds the picture to the gallery
@@ -471,14 +460,8 @@ public class RankingActivity extends AppCompatActivity {
     public void scalePicture() {
         //The dimensions of the View
 
-
-        /*beerImage.setMaxWidth(224);
-        beerImage.setMaxHeight(224);*/
-
-
         int targetW = beerImage.getWidth();
         int targetH = beerImage.getHeight();
-
 
         //The dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -500,6 +483,40 @@ public class RankingActivity extends AppCompatActivity {
 
         //return bitmap;
     }
+
+    String mCurrentPhotoPath;
+
+    public File createImageFile() throws IOException {
+        // Create a name for the image file
+        String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + dateStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        //within parentheses: prefix, suffix, directory
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+
+        //Save the file, path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        Log.d(TAG, "createImageFile: this works");
+        return image;
+    }
+
+
+
+
+    /*
+    public static File savebitmap(Bitmap bmp) throws IOException {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 60, bytes);
+        File f = new File(Environment.getExternalStorageDirectory()
+                + File.separator + "testimage.jpg");
+        f.createNewFile();
+        FileOutputStream fo = new FileOutputStream(f);
+        fo.write(bytes.toByteArray());
+        fo.close();
+        return f;
+    }
+    */
 
 
 
