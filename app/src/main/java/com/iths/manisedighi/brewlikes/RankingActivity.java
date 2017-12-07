@@ -64,7 +64,13 @@ public class RankingActivity extends AppCompatActivity {
     static final int REQUEST_TAKE_PHOTO = 1337;
     static final int RESULT_LOAD_IMAGE = 217;
     static final int REQUEST_CODE = 7175;
-
+    private String name;
+    private String comment;
+    private double taste;
+    private double price;
+    private int categoryId;
+    private String picture;
+    private Category category = new Category();
     private static final String TAG = "RankingActivity";
 
     DBHelper dbHelper = new DBHelper(this);
@@ -141,14 +147,13 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      */
     public void onSaveButtonClick(View view){
-        String name = saveBeerName();
-        String comment = saveBeerComment();
-        double taste = saveTaste();
-        double price = savePrice();
-        Category category = new Category();
+        name = saveBeerName();
+        comment = saveBeerComment();
+        taste = saveTaste();
+        price = savePrice();
         category = (Category)categorySpinner.getSelectedItem();
-        int categoryId = (int) category.getId();
-        String picture = "";
+        categoryId = (int) category.getId();
+        picture = "";
 
         if (mCurrentPhotoPath == null && selectedImage != null){
             picture = selectedImage.toString();
@@ -163,8 +168,46 @@ public class RankingActivity extends AppCompatActivity {
         }else if (picture.isEmpty()){
             makeToast("You need to take a picture of your beer");
         }else if(category.getName().equals("Unknown")){
-            makeToast("Please choose category");
+            final AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
+            builder.setIcon(R.drawable.brewlikes_main_image);
+            builder.setMessage("Are you sure you want the category Unknown?").setCancelable(false)
+                    .setOnKeyListener(new DialogInterface.OnKeyListener() {
+                        @Override
+                        public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
+                            if (keyCode == KeyEvent.KEYCODE_BACK &&
+                                    event.getAction() == KeyEvent.ACTION_UP &&
+                                    !event.isCanceled()) {
+                                finish();
+                                return true;
+                            }
+                            return false;
+                        }
+                    })
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            addBeer();
+
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+
+                        /*
+                        //For later use, if we want to upload image from gallery
+                        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(i, RESULT_LOAD_IMAGE);
+                        */
+
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.setTitle("Last chance to change");
+            alert.show();
         }else{
+            addBeer();
             /*if(lat==0.0 && lng == 0.0) {
                 Beer beer = new Beer(name, categoryId, price, taste, comment, picture);
                 dbHelper.addBeer(beer);
@@ -174,18 +217,18 @@ public class RankingActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }else {*/
-                Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng);
-                dbHelper.addBeer(beer);
-                Intent intent = new Intent(this, InfoActivity.class);
-                intent.putExtra("BeerID", beer.getId());
-                intent.putExtra("info",1);
-                startActivity(intent);
-                finish();
-
         }
 
     }
-
+    public void addBeer(){
+        Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng);
+        dbHelper.addBeer(beer);
+        Intent intent = new Intent(this, InfoActivity.class);
+        intent.putExtra("BeerID", beer.getId());
+        intent.putExtra("info",1);
+        startActivity(intent);
+        finish();
+    }
     /**
      * A method to send the user to the gps-menu where the user can choose a place to log in to.
      * @param view
