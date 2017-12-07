@@ -226,7 +226,7 @@ public class RankingActivity extends AppCompatActivity {
      * A method to add a beer and send the user to the info activity.
      */
     public void addBeer(){
-        Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng);
+        Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng,address,phoneNumber,website);
         dbHelper.addBeer(beer);
         Intent intent = new Intent(this, InfoActivity.class);
         intent.putExtra("BeerID", beer.getId());
