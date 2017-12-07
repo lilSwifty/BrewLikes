@@ -415,7 +415,8 @@ public class RankingActivity extends AppCompatActivity {
             latLng = new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
             lat = latLng.latitude;
             lng = latLng.longitude;
-            mapButton.setImageResource(R.drawable.brewlikes_pin);
+            mapButton.setImageResource(R.drawable.ic_location_beer);
+
         }
 
     }
