@@ -1,16 +1,12 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -19,7 +15,9 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 public class MainActivity extends BottomNavigationBaseActivity {
 
-    private Context context = MainActivity.this;
+    //private Context context = this;
+
+    Multimedia instance = new Multimedia(this);
 
     ImageView logo;
     //Error message the user gets if not having the correct version of the phone
@@ -39,6 +37,16 @@ public class MainActivity extends BottomNavigationBaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //TODO Credit http://www.freesfx.co.uk/ for sound file!
+        //TODO Set video background and beersoundClick in own method.
+        Multimedia multimedia = new Multimedia(this);
+        multimedia.setMultimedia(this);
+
+
+        /*VideoView videoview = (VideoView) findViewById(R.id.videoView);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.beer_bubbles);
+        videoview.setVideoURI(uri);
+        videoview.start();
+
 
         final ImageView beerSound = this.findViewById(R.id.brewlikes_main_image);
         final MediaPlayer mp = MediaPlayer.create(this, R.raw.open_bottle_sound);
@@ -50,16 +58,10 @@ public class MainActivity extends BottomNavigationBaseActivity {
                 Intent cameraIntent = new Intent(getApplicationContext(), RankingActivity.class);
                 startActivity(cameraIntent);
             }
-        });
+        });*/
 
     }
 
-    /*
-        public void onBrewLikesImageClicked(View view) {
-            Intent cameraIntent = new Intent(this, RankingActivity.class);
-            startActivity(cameraIntent);
-        }
-        */
 /*
         //Test button that launches MapActivity. Remove this when the bottom nav bar is implemented!!
         public void onTestMapButtonClicked(View v){
