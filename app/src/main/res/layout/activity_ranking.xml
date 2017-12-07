@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blackbrew"
     tools:context="com.iths.manisedighi.brewlikes.RankingActivity">
 
     <TextView
@@ -42,7 +43,7 @@
     <ImageView
         android:id="@+id/beerImage"
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="206dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/beerName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -301,7 +302,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@color/darkGrey"
+        android:background="@color/blackbrew"
         android:onClick="onCheckinClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.431"
