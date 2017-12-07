@@ -2,6 +2,7 @@ package com.iths.manisedighi.brewlikes;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -153,7 +154,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(ID == 1) {
             placePicker();
         }
-        hideSoftKeyboard(MapActivity.this);
+       // hideSoftKeyboard(MapActivity.this);
     }
 
     public void placePicker(){
@@ -168,11 +169,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
 
     }
-
-
-
-    //TODO - Surround All the way to here
-
 
     /**
      * Makes the place picker (nearby suggestions) pop up when "check in map" is launched
@@ -245,11 +241,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * @param latLng - The latitude and longitude for the current location
      * @param zoom - The possibility to zoom in and out of the map
      */
-    private void moveMapToLocation(LatLng latLng, float zoom, String title) {
+    private void moveMapToLocation(final LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveMapToLocation: moving the map to location. " + latLng);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if(ID == 1) {
+
+           // if(mPlace.getName().toString().contains("°")) {
+               // Toast.makeText(this, getResources().getString(R.string.noCheckedInBeers),Toast.LENGTH_SHORT).show();
+           // }
+
             mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
 
             //When custom info window is clicked
@@ -257,16 +258,39 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 @Override
                 public void onInfoWindowClick(Marker marker) {
                     Log.i(TAG, "onInfoWindowCLick: clicked check in button");
+
                     Intent intent = new Intent();
-                    intent.putExtra("location", mPlace.getName());
-                    intent.putExtra("lat", mPlace.getLatLng().latitude);
-                    intent.putExtra("lng", mPlace.getLatLng().longitude);
                     intent.putExtra("phoneNumber", mPlace.getPhoneNumber());
+
+                    Log.i(TAG, "onInfoWindowCLick: sends phonenumber: " + mPlace.getPhoneNumber() + " to intent");
+
                     intent.putExtra("website", mPlace.getWebsiteUri());
                     intent.putExtra("address", mPlace.getAddress());
+
+
+                    if(mPlace.getName().toString().contains("°")){
+                        Log.d(TAG, "checkIn: null");
+                        intent.putExtra("location", mPlace.getAddress());
+
+                        LatLng newLatLng = getLatLngFromAddress(MapActivity.this, mPlace.getAddress());
+                        Log.d(TAG, "checkIn: getting address: " + mPlace.getAddress());
+                        Log.d(TAG, "checkIn: getting latLng that should be null, it is: " + mPlace.getLatLng());
+                        Log.i(TAG, "onInfoWindowCLick: sets new latitude to " + newLatLng.latitude);
+                        Log.i(TAG, "onInfoWindowCLick: sets new longitude to " + newLatLng.longitude);
+
+                        intent.putExtra("lat", newLatLng.latitude);
+                        intent.putExtra("lng", newLatLng.longitude);
+
+                    } else {
+                        intent.putExtra("location", mPlace.getName());
+                        intent.putExtra("lat", mPlace.getLatLng().latitude);
+                        intent.putExtra("lng", mPlace.getLatLng().longitude);
+
+                        Log.i(TAG, "onInfoWindowCLick: sets latitude to " + mPlace.getLatLng().latitude);
+                        Log.i(TAG, "onInfoWindowCLick: sets longitude to " + mPlace.getLatLng().longitude);
+                    }
+
                     Log.i(TAG, "onInfoWindowCLick: sets location to " + mPlace.getName());
-                    Log.i(TAG, "onInfoWindowCLick: sets latitude to " + mPlace.getLatLng().latitude);
-                    Log.i(TAG, "onInfoWindowCLick: sets longitude to " + mPlace.getLatLng().longitude);
                     Log.i(TAG, "onInfoWindowCLick: sets address to " + mPlace.getAddress());
                     Log.i(TAG, "onInfoWindowCLick: sets website to " + mPlace.getWebsiteUri());
                     Log.i(TAG, "onInfoWindowCLick: sets phone number to " + mPlace.getPhoneNumber());
@@ -279,6 +303,40 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(ID != 3) {
             dropPin(latLng, zoom, title, mPlace);
         }
+    }
+
+    public LatLng getLatLngFromAddress(Context context, String strAddress) {
+
+        Log.d(TAG, "getLatLngFromAddress: Receiving address:  " + strAddress);
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            Log.d(TAG, "getLatLngFromAddress: try");
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                Log.d(TAG, "getLatLngFromAddress: address is null");
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+            Log.d(TAG, "getLatLngFromAddress: got location");
+
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+            Log.d(TAG, "getLatLngFromAddress: created new latLng "+ p1);
+
+        } catch (IOException ex) {
+            Log.d(TAG, "getLatLngFromAddress: caught IOEcxeption");
+            ex.printStackTrace();
+
+        }
+
+        Log.d(TAG, "getLatLngFromAddress: returns "+ p1);
+        return p1;
     }
 
     /**
@@ -363,6 +421,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.d(TAG, "Got location: " + b.getLocation() + "and lat: " + b.getLat() + ", lng: " + b.getLng());
                 LatLng latLng = new LatLng(b.getLat(), b.getLng());
                 moveMapToLocation(latLng, DEFAULT_ZOOM, locationName);
+                dropPin(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation(), b);
                 //search bar + icons + check in view set visibility view Gone!!!!
 
 
@@ -475,6 +534,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             final Place place = places.get(0);
 
+            Log.d(TAG, "onResultCallBack: preparing to set values to place info");
             try {
                 //mPlace = new PlaceInfo();
                 mPlace.setName(place.getName().toString());
@@ -482,10 +542,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mPlace.setPhoneNumber(place.getPhoneNumber().toString());
                 mPlace.setWebsiteUri(place.getWebsiteUri().toString());
                 mPlace.setId(place.getId());
-                mPlace.setLatLng(place.getLatLng());
+
+                if(place.getLatLng()== null){
+                    LatLng newLatLng = getLatLngFromAddress(MapActivity.this, mPlace.getAddress());
+                     mPlace.setLatLng(newLatLng);
+                     Log.d(TAG, "onResultCallBack: LatLng was null so called method to set it to: " + newLatLng);
+                } else {
+                    mPlace.setLatLng(place.getLatLng());
+                }
                 Log.d(TAG, "onResultCallBack: Getting all info from the location: " + mPlace.toString());
             }catch (NullPointerException e){
-                Log.e(TAG, "onResultCallBack: Nullpointerexception: " + e.getMessage());
+                Log.e(TAG, "onResultCallBack: NullPointerException: " + e.getMessage());
             }
                 moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
                         , DEFAULT_ZOOM, mPlace.getName());
