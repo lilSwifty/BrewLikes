@@ -21,6 +21,9 @@
     <string name="saveToUnknown">Are you sure you want the category Unknown?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="nameTheBeer">You need to name the beer</string>
+    <string name="commentTheBeer">You need to comment the beer</string>
+    <string name="pictureTheBeer">You need to take a picture of your beer</string>
     <!--End of ranking-->
 
     <!-- InfoActivity & BottomNavigation-->
