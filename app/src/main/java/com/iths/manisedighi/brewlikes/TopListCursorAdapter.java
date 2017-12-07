@@ -70,12 +70,12 @@ public class TopListCursorAdapter extends CursorAdapter {
         TextView score = view.findViewById(R.id.score);
         score.setText(cursor.getString(5));
 
-        String string = cursor.getString(7);
+        //String string = cursor.getString(14);
 
-        Bitmap bitmap = BitmapFactory.decodeFile(string);
+        Bitmap bitmap = BitmapFactory.decodeFile(cursor.getString(14));
         ImageView beerImage = view.findViewById(R.id.beerImage);
 
-        beerImage.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(string, 100, 100));
+        beerImage.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(cursor.getString(14), 100, 100));
 
         //Makes the picture round.
         beerImage.setImageBitmap(bitmap);
