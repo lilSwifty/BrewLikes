@@ -3,6 +3,8 @@ package com.iths.manisedighi.brewlikes;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -15,7 +17,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 /**
  * Created by Emma on 2017-11-15.
@@ -264,8 +265,4 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         startActivity(mapIntent);
         //TODO takes you to map view
     }
-
-
-
-
 }
