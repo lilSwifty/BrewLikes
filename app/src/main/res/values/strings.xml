@@ -93,18 +93,4 @@
     <!--End of Take photo-text-->
 
 
-    <!--Category names-->
-    <string name="unknownCategory">Unknown</string>
-    <string name="aleCategory">Ale</string>
-    <string name="ipaCategory">IPA</string>
-    <string name="fruitBeerCategory">Fruit Beer</string>
-    <string name="lagerCategory">Lager</string>
-    <string name="lagerDarkCategory">Lager Dark</string>
-    <string name="nonAlcoCategory">Low &amp; non-alcoholic</string>
-    <string name="porterCategory">Porter</string>
-    <string name="sourBeerCategory">Sour Beer</string>
-    <string name="stoutCategory">Stout</string>
-    <string name="wheatCategory">Wheat</string>
-    <!--End of Category names-->
-
 </resources>
