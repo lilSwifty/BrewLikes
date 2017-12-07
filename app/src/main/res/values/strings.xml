@@ -17,6 +17,10 @@
     <string name="beerCategory">Category</string>
     <string name="saveBeer">Save</string>
     <string name="discardBeer">Discard</string>
+    <string name="lastChange">Last chance to change</string>
+    <string name="saveToUnknown">Are you sure you want the category Unknown?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <!--End of ranking-->
 
     <!-- InfoActivity & BottomNavigation-->
@@ -91,6 +95,8 @@
     <string name="cancel">Cancel</string>
     <string name="takePhoto">Take photo</string>
     <!--End of Take photo-text-->
+
+
 
 
 </resources>
