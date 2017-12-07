@@ -23,48 +23,13 @@ public class Beer {
     private String comment = null;
     private String location = null;
     private String photoPath = null;
-
-    public String getPhotoPathSmall() {
-        return photoPathSmall;
-    }
-
-    public void setPhotoPathSmall(String photoPathSmall) {
-        this.photoPathSmall = photoPathSmall;
-    }
-
     private String photoPathSmall = null;
     private double lat = 0;
     private double lng = 0;
     private LatLng latLng;
-    private String address;
-    private String tel;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
-
-    public String getWeb() {
-        return web;
-    }
-
-    public void setWeb(String web) {
-        this.web = web;
-    }
-
-    private String web;
-
+    private String address = null;
+    private String tel = null;
+    private String web = null;
 
     //Empty constructor
     public Beer() {}
@@ -212,5 +177,37 @@ public class Beer {
 
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
+    }
+
+
+    public String getPhotoPathSmall() {
+        return photoPathSmall;
+    }
+
+    public void setPhotoPathSmall(String photoPathSmall) {
+        this.photoPathSmall = photoPathSmall;
+    }
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
     }
 }
