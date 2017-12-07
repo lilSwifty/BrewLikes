@@ -77,7 +77,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
-    private PlaceInfo mPlace;
+    private PlaceInfo mPlace = new PlaceInfo();
     //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
     //Widgets
@@ -269,9 +269,48 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     finish();
                 }
             });
-        } else if (ID == 2 || ID == 3){
-            mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
         }
+
+        if(ID != 3) {
+            dropPin(latLng, zoom, title);
+        }
+    }
+
+    /**
+     * Another method for moving the map camera but this includes a PlaceInfo object.
+     * ONLY IF ID IS 2 OR 3
+     * @param latLng
+     * @param zoom
+     * @param title
+     * @param placeInfo
+     */
+    private void moveMapToLocation(LatLng latLng, float zoom, String title, PlaceInfo placeInfo) {
+        Log.d(TAG, "moveMapToLocation: moving the map to location. " + latLng);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
+
+        if(placeInfo != null){
+            try{
+                String snippet = "Address: " + placeInfo.getAddress() + "\n" +
+                        "Phone number: " + placeInfo.getPhoneNumber() + "\n" +
+                        "Website: " + placeInfo.getWebsiteUri() + "\n";
+
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(latLng)
+                        .title(placeInfo.getName())
+                        .snippet(snippet)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
+                Marker mMarker = mMap.addMarker(markerOptions);
+                mMarker.showInfoWindow();
+
+
+            }catch (NullPointerException e){
+                Log.e(TAG, "moveCamera: NullPointerException: " + e.getMessage());
+            }
+        } else{
+            mMap.addMarker(new MarkerOptions().position(latLng));
+        }
+
         if(ID != 3) {
             dropPin(latLng, zoom, title);
         }
@@ -289,15 +328,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
           mMap.clear();  
        }
 
-
         Log.d(TAG, "dropPin: dropping pin");
         if(title != "My Location"){
 
+            if(ID == 1) {
                 MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
                 Marker marker = mMap.addMarker(markerOptions);
+
                 if(ID != 3) {
                     marker.showInfoWindow();
                 }
+            }
+
         }
     }
 
@@ -334,7 +376,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 String locationName = b.getLocation();
                 Log.d(TAG, "Got location: " + b.getLocation() + "and lat: " + b.getLat() + ", lng: " + b.getLng());
                 LatLng latLng = new LatLng(b.getLat(), b.getLng());
-                moveMapToLocation(latLng, DEFAULT_ZOOM, locationName);
+                moveMapToLocation(latLng, DEFAULT_ZOOM, locationName, mPlace);
                 //search bar + icons + check in view set visibility view Gone!!!!
 
 
@@ -344,7 +386,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 for (Beer b : beers) {
                     if(b.getLat() != 0.0 && b.getLng() != 0.0) {
-                        dropPin(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation());
+                        moveMapToLocation(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation(), mPlace);
+                        //dropPin(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation());
                     }
                 }
                     initializeSearch();
@@ -445,9 +488,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             final Place place = places.get(0);
 
             try {
-                mPlace = new PlaceInfo();
+                //mPlace = new PlaceInfo();
                 mPlace.setName(place.getName().toString());
                 mPlace.setAddress(place.getAddress().toString());
+                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
+                mPlace.setWebsiteUri(place.getWebsiteUri());
                 mPlace.setId(place.getId());
                 mPlace.setLatLng(place.getLatLng());
                 Log.d(TAG, "onResultCallBack: Getting all info from the location: " + mPlace.toString());
@@ -455,9 +500,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.e(TAG, "onResultCallBack: Nullpointerexception: " + e.getMessage());
             }
 
-            moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
-                    , DEFAULT_ZOOM, mPlace.getName());
-            places.release();
+            if(ID == 1) {
+                moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
+                        , DEFAULT_ZOOM, mPlace.getName());
+                places.release();
+            } else{
+                moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
+                        , DEFAULT_ZOOM, mPlace.getName(), mPlace);
+                places.release();
+            }
 
         }
     };
