@@ -84,7 +84,7 @@ import android.widget.ListView;
      @Override
      public boolean onOptionsItemSelected(MenuItem item) {
          int id = item.getItemId();
-         if(id == R.id.cameraIcon){
+         if(id == R.id.cameraIcon2){
              Intent cameraIntent = new Intent(this, RankingActivity.class);
              Log.d(TAG, "onOptionsItemSelected: RankingActivity clicked");
              startActivity(cameraIntent);
