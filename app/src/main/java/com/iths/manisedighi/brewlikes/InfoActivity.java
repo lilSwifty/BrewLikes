@@ -141,8 +141,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         //ivBeer.setImageBitmap(image);
 
         ivBeer.setImageBitmap(
-                bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(), 100, 100));
-
+                bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(), 720, 720));
+        ivBeer.setAdjustViewBounds(true);
+        ivBeer.setScaleType(ImageView.ScaleType.CENTER_CROP);
         tvBeerName.setText(beer.getName());
         tvCategory.setText(beer.getCategoryName());
         tvPriceScore.setText(String.valueOf(beer.getPrice()));
@@ -154,6 +155,17 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         }else{
            tvLocation.setText(beer.getLocation());
         }
+    }
+
+    /**
+     * A method that shows a bigger beer picture
+     * @param view
+     */
+    public void onBeerImageClick(View view){
+        setContentView(R.layout.activity_info_beer_picture);
+        ImageView imageView = findViewById(R.id.imageView);
+                imageView.setAdjustViewBounds(true);
+                imageView.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(),960,960 ));
     }
 
     /**
@@ -263,8 +275,4 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         startActivity(mapIntent);
         //TODO takes you to map view
     }
-
-
-
-
 }
