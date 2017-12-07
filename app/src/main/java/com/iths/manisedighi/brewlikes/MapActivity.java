@@ -373,7 +373,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(beer.getWeb() != null){
             snippet = snippet + '\n' + getResources().getString(R.string.websiteInSnippet) + " " + beer.getWeb();
         }
-        if(beer.getTel() != null){
+        if(beer.getTel() != null || beer.getTel().equals("")){
             snippet = snippet + '\n' + getResources().getString(R.string.telInSnippet) + " " + beer.getTel();
         }
 
@@ -540,8 +540,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mPlace.setName(place.getName().toString());
                 mPlace.setAddress(place.getAddress().toString());
                 mPlace.setPhoneNumber(place.getPhoneNumber().toString());
+
+                Log.d(TAG, "onResultCallBack: latLng is " + place.getLatLng());
+
                 mPlace.setWebsiteUri(place.getWebsiteUri().toString());
                 mPlace.setId(place.getId());
+
+                Log.d(TAG, "onResultCallBack: latLng is " + place.getLatLng());
 
                 if(place.getLatLng()== null){
                     LatLng newLatLng = getLatLngFromAddress(MapActivity.this, mPlace.getAddress());
