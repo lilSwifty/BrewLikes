@@ -62,44 +62,17 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
 
 
-        /**
-         *Test listener for item clicks
-         */
-          /*  expandableListView.setOnGroupClickListener(new OnGroupClickListener() {
-
-                @Override
-                public boolean onGroupClick(ExpandableListView parent, View v,
-                                            int groupPosition, long id) {
-                    return false;
-                }
-            });*/
+        //When BrewLikes logo in the toolbar is clicked it launches MainActivity.
+        //TODO - Use flags here so the activities don't get put on the stack?
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                Intent intent = new Intent (CategoriesActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
-        /**
-         * Outcommentted toast log that informs list expand and collapse for each category
-         */
-           /* // Listview Group expanded listener
-            expandableListView.setOnGroupExpandListener(new OnGroupExpandListener() {
-
-                @Override
-                public void onGroupExpand(int groupPosition) {
-                    Toast.makeText(getApplicationContext(),
-                            header.get(groupPosition) + " Expanded",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });*/
-
-            /*// Listview Group collasped listener
-            expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-                @Override
-                public void onGroupCollapse(int groupPosition) {
-                    Toast.makeText(getApplicationContext(),
-                            header.get(groupPosition) + " Collapsed",
-                            Toast.LENGTH_SHORT).show();
-
-                }
-            });*/
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override

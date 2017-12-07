@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blackbrew"
     tools:context="com.iths.manisedighi.brewlikes.RankingActivity">
 
     <TextView
@@ -42,7 +43,7 @@
     <ImageView
         android:id="@+id/beerImage"
         android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_height="206dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/beerName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,8 +99,8 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tasteRateNumber"
-        app:layout_constraintEnd_toStartOf="@+id/tasteText"
-        app:layout_constraintHorizontal_bias="0.412"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/tasteAwful" />
 
@@ -117,8 +118,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tasteRateNumber"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.884"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tasteText"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/tastePerfect" />
 
     <TextView
@@ -133,8 +135,8 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/priceRateNumber"
-        app:layout_constraintEnd_toStartOf="@+id/priceText"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/priceExpensive" />
 
@@ -151,8 +153,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/priceRateNumber"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.663"
-        app:layout_constraintStart_toEndOf="@+id/priceText"
+        app:layout_constraintHorizontal_bias="0.945"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/priceCheap" />
 
     <EditText
@@ -176,17 +178,16 @@
         android:id="@+id/categoryText"
         android:layout_width="70dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="sans-serif"
         android:text="@string/beerCategory"
         android:textColor="@color/beer"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tasteText"
-        app:layout_constraintEnd_toStartOf="@+id/tasteText"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -255,13 +256,13 @@
 
     <Spinner
         android:id="@+id/categorySpinner"
-        android:layout_width="218dp"
-        android:layout_height="31dp"
+        android:layout_width="279dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/tasteText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.76"
+        app:layout_constraintHorizontal_bias="0.595"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -302,7 +303,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@color/darkGrey"
+        android:background="@color/blackbrew"
         android:onClick="onCheckinClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.431"

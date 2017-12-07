@@ -72,7 +72,9 @@ public class RankingActivity extends AppCompatActivity {
     private String picture;
     private Category category = new Category();
     private static final String TAG = "RankingActivity";
-
+    private String address;
+    private String phoneNumber;
+    private String website;
     DBHelper dbHelper = new DBHelper(this);
 
     @Override
@@ -218,16 +220,13 @@ public class RankingActivity extends AppCompatActivity {
                 finish();
             }else {*/
         }
-
-
-
     }
 
     /**
      * A method to add a beer and send the user to the info activity.
      */
     public void addBeer(){
-        Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng);
+        Beer beer = new Beer(name, categoryId, price, taste, comment, picture, location,lat,lng,address,phoneNumber,website);
         dbHelper.addBeer(beer);
         Intent intent = new Intent(this, InfoActivity.class);
         intent.putExtra("BeerID", beer.getId());
@@ -412,10 +411,14 @@ public class RankingActivity extends AppCompatActivity {
             imageView.setImageBitmap(bmp);
         } else if(requestCode == 1 && resultCode == 1){
             location=data.getStringExtra("location");
-            latLng = new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
-            lat = latLng.latitude;
-            lng = latLng.longitude;
+            latLng=new LatLng(data.getDoubleExtra("lat",0.0),data.getDoubleExtra("lng",0.0));
+            lat=latLng.latitude;
+            lng=latLng.longitude;
+            website=data.getStringExtra("website");
+            address=data.getStringExtra("address");
+            phoneNumber=data.getStringExtra("phoneNumber");
             mapButton.setImageResource(R.drawable.ic_location_beer);
+            mapButton.setBackgroundColor(getResources().getColor(R.color.blackbrew));
 
         }
 

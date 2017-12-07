@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "COL_BEER_IMAGE_PATH BLOB," +
                 "COL_BEER_LOCATION TEXT," +
                 "COL_BEER_LAT INTEGER," +
-                "COL_BEER_LNG INTEGER);";
+                "COL_BEER_LNG INTEGER," +
+                "COL_BEER_ADD TEXT," +
+                "COL_BEER_TEL TEXT," +
+                "COL_BEER_WEB TEXT," +
+                "COL_BEER_IMAGE_SMALL TEXT);";
 
         //TABLE: Categories
         String sql_categories = "CREATE TABLE " + CATEGORY_TABLE + " ( _id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -108,6 +114,10 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("COL_BEER_LOCATION", beer.getLocation());
         values.put("COL_BEER_LAT", beer.getLat());
         values.put("COL_BEER_LNG", beer.getLng());
+        values.put("COL_BEER_ADD", beer.getAddress());
+        values.put("COL_BEER_TEL", beer.getTel());
+        values.put("COL_BEER_WEB", beer.getWeb());
+        values.put("COL_BEER_IMAGE_SMALL", beer.getPhotoPathSmall());
 
         //Insert() returns an id -> set this as the beer's id number
         long id = db.insert(BEER_TABLE,null, values);
@@ -182,6 +192,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setLocation(cursor.getString(8));
                 beer.setLat(cursor.getDouble(9));
                 beer.setLng(cursor.getDouble(10));
+                beer.setAddress(cursor.getString(11));
+                beer.setTel(cursor.getString(12));
+                beer.setWeb(cursor.getString(13));
+                beer.setPhotoPathSmall(cursor.getString(14));
 
                 //Se vilket Category Name CategoryId motsvara
                 getBeerCategoryName(beer);
@@ -285,6 +299,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setLocation(cursor.getString(8));
                 beer.setLat(cursor.getDouble(9));
                 beer.setLng(cursor.getDouble(10));
+                beer.setAddress(cursor.getString(11));
+                beer.setTel(cursor.getString(12));
+                beer.setWeb(cursor.getString(13));
+                beer.setPhotoPathSmall(cursor.getString(14));
 
                 beer.setCategoryName( getBeerCategoryName(beer) );
 
@@ -320,8 +338,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setComment(cursor.getString(6));
                 beer.setPhotoPath(cursor.getString(7));
                 beer.setLocation(cursor.getString(8));
-                //beer.setLat(cursor.getDouble(9));
-                //beer.setLng(cursor.getDouble(10));
+                beer.setLat(cursor.getDouble(9));
+                beer.setLng(cursor.getDouble(10));
+                beer.setAddress(cursor.getString(11));
+                beer.setTel(cursor.getString(12));
+                beer.setWeb(cursor.getString(13));
+                beer.setPhotoPathSmall(cursor.getString(14));
 
                 //Add category name of beer
                 beer.setCategoryName( getBeerCategoryName(beer) );

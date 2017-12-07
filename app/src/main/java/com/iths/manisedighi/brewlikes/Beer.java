@@ -23,14 +23,53 @@ public class Beer {
     private String comment = null;
     private String location = null;
     private String photoPath = null;
+
+    public String getPhotoPathSmall() {
+        return photoPathSmall;
+    }
+
+    public void setPhotoPathSmall(String photoPathSmall) {
+        this.photoPathSmall = photoPathSmall;
+    }
+
+    private String photoPathSmall = null;
     private double lat = 0;
     private double lng = 0;
     private LatLng latLng;
+    private String address;
+    private String tel;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    private String web;
 
 
     //Empty constructor
     public Beer() {}
 
+    /*
     //Constructor utan GPS
     public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath) {
         this.name = name;
@@ -41,9 +80,10 @@ public class Beer {
         this.comment = comment;
         this.photoPath = photoPath;
     }
+    */
 
     //Constructor med GPS
-    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, double latitude, double longitude) {
+    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, double latitude, double longitude, String address, String tel, String web, String photoPathSmall) {
         this.name = name;
         this.categoryId = categoryId;
         this.price = price;
@@ -55,6 +95,10 @@ public class Beer {
         this.lat = latitude;
         this.lng = longitude;
         this.latLng = new LatLng(latitude, longitude);
+        this.address = address;
+        this.tel = tel;
+        this.web = web;
+        this.photoPathSmall = photoPathSmall;
 
         /*
         //TEST FOR GETTING LATLNG VALUES
