@@ -3,6 +3,8 @@ package com.iths.manisedighi.brewlikes;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -16,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 /**
  * Created by Emma on 2017-11-15.
  * An activity that shows a specific beer and it's information
@@ -28,8 +29,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     private Toolbar toolbar;
 
+    private ImageView logo;
     private ImageView ivBeer;
-    private ImageView ivLocation;                       //
+    private ImageView ivLocation;
 
     private BitmapHelper bitmapHelper;
 
@@ -68,6 +70,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         getSpecificBeer();
         setupBeerInfo();
         addSharePhotoFragment();
+        setupLogo();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
@@ -78,7 +81,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private void findViews(){
         Log.d(TAG, "findViews: get's all the views");
         ivBeer = findViewById(R.id.ivBeer);
-        ivLocation = findViewById(R.id.ivLocation);                         //
+        ivLocation = findViewById(R.id.ivLocation);                     
+        logo = findViewById(R.id.logoImageView);
         tvBeerName = findViewById(R.id.tvBeerName);
         tvCategory = findViewById(R.id.tvCategory);
         tvPriceScore = findViewById(R.id.tvPriceScore);
@@ -87,6 +91,20 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvInfo = findViewById(R.id.tvInfo);
         tvLocation = findViewById(R.id.tvLocation);
         toolbar = findViewById(R.id.toolbarTop);
+    }
+
+    /**
+     * A method
+     */
+    private void setupLogo(){
+        logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
@@ -136,12 +154,10 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private void setupBeerInfo(){
         Log.d(TAG, "setupInfoView: setting up all the necessary information about the beer");
 
-        //Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath(), BitmapOptions().isSampleSize);
+        Bitmap image = BitmapFactory.decodeFile(beer.getPhotoPath());
 
-        //ivBeer.setImageBitmap(image);
+        ivBeer.setImageBitmap(image);
 
-        ivBeer.setImageBitmap(
-                bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(), 720, 720));
         ivBeer.setAdjustViewBounds(true);
         ivBeer.setScaleType(ImageView.ScaleType.CENTER_CROP);
         tvBeerName.setText(beer.getName());
@@ -164,8 +180,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     public void onBeerImageClick(View view){
         setContentView(R.layout.activity_info_beer_picture);
         ImageView imageView = findViewById(R.id.imageView);
-                imageView.setAdjustViewBounds(true);
-                imageView.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(),960,960 ));
+        imageView.setAdjustViewBounds(true);
+        imageView.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(),960,960));
     }
 
     /**
