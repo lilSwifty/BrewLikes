@@ -42,13 +42,11 @@ public class MainActivity extends BottomNavigationBaseActivity {
 
     }
 
-
-
-        /**
-        Method that checks if user has the correct version of Google Services.
-         If true - user can use GPS, if false - user can't use GPS.
-         */
-        public boolean isGpsServicesAvailable(){
+    /**
+     Method that checks if user has the correct version of Google Services.
+     If true - user can use GPS, if false - user can't use GPS.
+     */
+    public boolean isGpsServicesAvailable(){
         Log.d(TAG, "isGpsServicesAvailable(): checking Google Services version");
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(MainActivity.this);
 
@@ -64,21 +62,6 @@ public class MainActivity extends BottomNavigationBaseActivity {
         }
         return false;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * Upper toolbar with icons
