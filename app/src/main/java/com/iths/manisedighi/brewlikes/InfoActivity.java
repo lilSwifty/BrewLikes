@@ -154,6 +154,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         }else{
            tvLocation.setText(beer.getLocation());
         }
+    }
 
     /**
      * A method that adds the fragment SharePhotoFragment
