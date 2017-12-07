@@ -111,7 +111,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * Initializes the search and overrides the "enter button" to be a search button
-     * Also calls the method geoLocate() that tries to locate the text
      */
     private void initializeSearch(){
         Log.d(TAG, "initializeSearch: initializing the search function");
@@ -124,9 +123,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .build();
 
         mSearchText.setOnItemClickListener(mAutocompleteClickListener);
-
         mPlaceAutocompleteAdapter = new PlaceAutocompleteAdapter(this, mGoogleApiClient, LAT_LNG_BOUNDS, null);
-
         mSearchText.setAdapter(mPlaceAutocompleteAdapter);
 
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -153,14 +150,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        //TODO - Create an onClickListener here (first create an map icon) and then surround this code??????????
-
         if(ID == 1) {
             placePicker();
         }
-
-        //TODO - Surround All the way to here
-
         hideSoftKeyboard(MapActivity.this);
     }
 
@@ -183,19 +175,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
     /**
-     * Makes the place picker (nearby suggestions) pop up when map is launched
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * Makes the place picker (nearby suggestions) pop up when "check in map" is launched
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(this, data);
-
                 PendingResult<PlaceBuffer> placeResult = Places.GeoDataApi.getPlaceById(mGoogleApiClient, place.getId());
                 placeResult.setResultCallback(mUpdatePlaceDetailsCallback);
-
             }
         }
     }
@@ -206,7 +193,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void geoLocate(){
         Log.d(TAG, "geoLocate: geolocating");
         String searchString = mSearchText.getText().toString();
-
         Geocoder geocoder = new Geocoder(MapActivity.this);
         List<Address> list = new ArrayList<>();
 
@@ -227,8 +213,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     /**
      * Getter method for the location of the device
      */
-
-
     private void getDeviceLocation() {
         //if(ID == 1) {
             Log.d(TAG, "getDeviceLocation: getting the current location of the device");
@@ -263,13 +247,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * @param zoom - The possibility to zoom in and out of the map
      */
     private void moveMapToLocation(LatLng latLng, float zoom, String title) {
-       // Log.d(TAG, "moveMapToLocation: moving the map to location. Lat: " + latLng.latitude + ", Lng: " + latLng.longitude);
         Log.d(TAG, "moveMapToLocation: moving the map to location. " + latLng);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom)); //TA BORT KOMMENTAR
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
-       // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 13));
-
-       if(ID == 1) {
+        if(ID == 1) {
             mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
 
             //When custom info window is clicked
@@ -317,7 +298,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if(ID != 3) {
                     marker.showInfoWindow();
                 }
-
         }
     }
 
@@ -360,16 +340,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             } else if (ID == 3) { //From map view navigation button
                 Log.d(TAG, "Checking intent ID: 3");
-
                 List<Beer> beers = dbHelper.getAllBeers();
 
                 for (Beer b : beers) {
-                    LatLng latLng = new LatLng(b.getLat(), b.getLng());
-                    //Test later if it's possible to create LatLng in argument below to remove code
-                    dropPin(latLng, DEFAULT_ZOOM, b.getLocation());
-                    //Move camera to users current position via moveMapTpLocation or getLocationPermission - geoLocate - getDeviceLocation
-                    //search bar + icons + check in view set visibility view Gone!!!!
-
+                    if(b.getLat() != 0.0 && b.getLng() != 0.0) {
+                        dropPin(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation());
+                    }
                 }
                     initializeSearch();
             }
