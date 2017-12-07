@@ -30,6 +30,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private Toolbar toolbar;
 
     private ImageView ivBeer;
+    private ImageView ivLocation;                       //
 
     private TextView tvBeerName;
     private TextView tvCategory;
@@ -76,6 +77,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     private void findViews(){
         Log.d(TAG, "findViews: get's all the views");
         ivBeer = findViewById(R.id.ivBeer);
+        ivLocation = findViewById(R.id.ivLocation);                         //
         tvBeerName = findViewById(R.id.tvBeerName);
         tvCategory = findViewById(R.id.tvCategory);
         tvPriceScore = findViewById(R.id.tvPriceScore);
@@ -140,11 +142,12 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         tvTasteScore.setText(String.valueOf(beer.getTaste()));
         tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
         tvInfo.setText(beer.getComment());
-        if(beer.getLocation() == null){
-            tvLocation.setVisibility(View.GONE);
-        }else {
-            tvLocation.setText(beer.getLocation());
+        if(beer.getLocation()==null) {
+            ivLocation.setVisibility(View.GONE);
+        }else{
+           tvLocation.setText(beer.getLocation());
         }
+
     }
 
     /**
