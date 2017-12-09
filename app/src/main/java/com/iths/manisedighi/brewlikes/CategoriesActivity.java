@@ -179,11 +179,9 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
             return true;
         } else if (id == R.id.ic_addCategory) {
             onAddCategoryClick();
-
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     public void onAddCategoryClick() {
@@ -197,12 +195,10 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 mDBHelper.addCategory(editTextAdd.getText().toString());
                 setItems();
-                //adapter.notifyDataSetChanged();
                 adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
                 expandableListView.setAdapter(adapter);
             }
         });
         dialog.show();
     }
-
 }

@@ -107,6 +107,7 @@
 
     <!--Category view-->
     <string name="add">Add category</string>
+    <!--End of category view-->
 
 
 </resources>
