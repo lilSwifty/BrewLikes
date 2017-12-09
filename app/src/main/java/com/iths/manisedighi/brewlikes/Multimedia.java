@@ -51,6 +51,7 @@ public class Multimedia {
     }
 
     public void beerSoundClick(Context context) {
+
         final Context _context = context;
         final ImageView beerSound = this.activity.findViewById(R.id.brewlikes_main_image);
         final MediaPlayer mp = MediaPlayer.create(this.activity, R.raw.open_bottle_sound);
@@ -59,10 +60,17 @@ public class Multimedia {
             public void onClick(View view) {
                 mp.setVolume(1.0f, 1.0f);
                 mp.start();
+
+                final Animation animScale = AnimationUtils.loadAnimation(_context, R.anim.scale_up);
+                beerSound.startAnimation(animScale);
+
+
                 Intent cameraIntent = new Intent(_context.getApplicationContext(), RankingActivity.class);
                 _context.startActivity(cameraIntent);
             }
         });
+
+        final Animation animScale = AnimationUtils.loadAnimation(_context, R.anim.scale_up);
 
     }
 
