@@ -15,8 +15,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 public class MainActivity extends BottomNavigationBaseActivity {
 
-    //private Context context = this;
-
     Multimedia instance = new Multimedia(this);
 
     ImageView logo;
