@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
@@ -27,6 +29,7 @@ public class Multimedia {
         //Log.v(TAG, "starts");
         videoBackground();
         beerSoundClick(context);
+        rotateLogo();
     }
 
     public void videoBackground() {
@@ -37,7 +40,15 @@ public class Multimedia {
         videoview.start();
     }
 
-
+    public void rotateLogo() {
+        //Rotate
+        ImageView logoRotate = this.activity.findViewById(R.id.brewlikes_main_image);
+        final Animation animRotate = AnimationUtils.loadAnimation(this.activity, R.anim.animation);
+        logoRotate.startAnimation(animRotate);
+        //Sound
+        MediaPlayer mp = MediaPlayer.create(this.activity, R.raw.capopen);
+        mp.start();
+    }
 
     public void beerSoundClick(Context context) {
         final Context _context = context;

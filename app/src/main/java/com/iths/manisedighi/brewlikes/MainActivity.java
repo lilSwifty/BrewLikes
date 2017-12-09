@@ -30,7 +30,7 @@ public class MainActivity extends BottomNavigationBaseActivity {
         //Copy and paste this toolbar to every activity!
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
-        logo = findViewById(R.id.logoImageView);
+        //logo = findViewById(R.id.logoImageView);
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
