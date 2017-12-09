@@ -102,9 +102,11 @@
     <string name="chooseAlternative">Please choose an alternative</string>
     <string name="cancel">Cancel</string>
     <string name="takePhoto">Take photo</string>
+    <!-- <string name="add">add</string> -->
     <!--End of Take photo-text-->
 
-
+    <!--Category view-->
+    <string name="add">Add category</string>
 
 
 </resources>
