@@ -185,7 +185,7 @@
         android:text="@string/category"
         android:textAllCaps="true"
         android:textSize="18sp"
-        android:background="@color/beer"
+        android:background="@drawable/little_rounded_background"
         android:textColor="@color/blackbrew"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
