@@ -27,9 +27,9 @@
     <!--End of ranking-->
 
     <!-- InfoActivity & BottomNavigation-->
-    <string name="taste">Taste</string>
-    <string name="price">Price</string>
-    <string name="rate">Rate</string>
+    <string name="taste">Taste: </string>
+    <string name="price">Price: </string>
+    <string name="rate">Rate: </string>
     <string name="home">Home</string>
     <string name="topList">Top List</string>
     <string name="mapView">Map View</string>
