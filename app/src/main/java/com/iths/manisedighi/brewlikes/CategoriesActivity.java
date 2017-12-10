@@ -151,9 +151,10 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.about_and_camera_icons, menu);
+        getMenuInflater().inflate(R.menu.categories_activity_menu, menu);
         return true;
     }
+
 
     /**
      * Handles what happens when the icons in the toolbar are clicked
