@@ -84,5 +84,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".BottomNavigationBaseActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ShowBigBeerActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
