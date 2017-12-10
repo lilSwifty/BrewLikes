@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/blackbrew"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- toolbar -->
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbarTop"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blackbrew">
+
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbarTop"
+        app:layout_constraintStart_toStartOf="@+id/toolbarTop"
+        app:layout_constraintTop_toTopOf="@+id/toolbarTop"
+        app:srcCompat="@drawable/brewlikes_actionbar_logo" />
+
+    <!-- title menu -->
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/titleMenu"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="56dp"
+        android:background="@color/beer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tvBeerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/beerName"
+        android:textAllCaps="true"
+        android:textColor="@color/blackbrew"
+        android:textSize="25sp"
+        app:layout_constraintStart_toEndOf="@id/ivNavBack"
+        app:layout_constraintTop_toTopOf="@id/titleMenu" />
+
+    <ImageView
+        android:id="@+id/ivNavBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="12dp"
+        android:onClick="onNavBackClick"
+        android:src="@drawable/ic_left_arrow"
+        app:layout_constraintTop_toTopOf="@id/titleMenu"
+        app:layout_constraintStart_toStartOf="@id/titleMenu"/>
+
+    <!-- middle section -->
+
+    <ImageView
+        android:id="@+id/ivBeer"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:onClick="onBeerImageClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu"
+        app:srcCompat="@android:drawable/btn_star_big_off"/>
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/price"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvPriceScore"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
+
+    <TextView
+        android:id="@+id/tvPriceScore"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif"
+        android:text="8.0"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textColor="@color/blackbrew"
+        android:elevation="6dp"
+        android:gravity="center"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
+
+    <TextView
+        android:id="@+id/tvTaste"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/taste"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvTasteScore"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+
+    <TextView
+        android:id="@+id/tvTasteScore"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:elevation="6dp"
+        android:textSize="18sp"
+        android:text="7.5"
+        android:textColor="@color/blackbrew"
+        android:gravity="center"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceScore"/>
+
+    <TextView
+        android:id="@+id/tvRate"
+        android:layout_width="52dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/rate"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvRateScore"
+        app:layout_constraintTop_toBottomOf="@+id/tvTaste" />
+
+    <TextView
+        android:id="@+id/tvRateScore"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif"
+        android:text="7.5"
+        android:textAllCaps="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/blackbrew"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTasteScore" />
+
+    <!-- This is where the fb share button gets put in -->
+
+    <LinearLayout
+        android:id="@+id/btnShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@id/container"
+        app:layout_constraintStart_toEndOf="@+id/ivBeer">
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:elevation="8dp"
+        android:background="@drawable/beer_comment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBeer">
+
+    <TextView
+        android:id="@+id/tvCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/category"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/container"
+        app:layout_constraintStart_toStartOf="@id/container" />
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="hejhej jag tänkte att jag ska va störig igen och köra på med min super långa text"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@id/container"
+            app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+    <LinearLayout
+        android:id="@+id/container2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:onClick="onLocationClick">
+        <ImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_mapview_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleMenu"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="10dp"
+            android:text="theyyggj ghghfj kghf gk fgk"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/ivLocation"
+            app:layout_constraintEnd_toEndOf="@+id/container2"/>
+    </LinearLayout>
+    </LinearLayout>
+
+    <!-- bottom navigation -->
+
+    <include layout="@layout/bottom_navigation"/>
+
+</android.support.constraint.ConstraintLayout>
