@@ -25,7 +25,7 @@ public class ShowBigBeerActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: beerphoto");
-        setContentView(R.layout.activity_big_beer_picture);
+        setContentView(R.layout.activity_show_big_beer);
         showBigPicture();
     }
 
