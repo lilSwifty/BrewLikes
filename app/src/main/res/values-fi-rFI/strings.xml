@@ -43,4 +43,18 @@
     <string name="infoMoa">Iso vaalea lager rock-konsertissa.</string>
     <string name="infoEmma">Kaikki kelpaa!</string>
     <string name="infoPatrik">Jos en saa Lapin Kultaa, lähen himaan.</string>
+    <string name="saveToUnknown">Haluatko varmasti valita kategorian Unknown?</string>
+    <string name="yes">Kyllä</string>
+    <string name="no">Ei</string>
+    <string name="nameTheBeer">Sinun täytyy nimetä olut</string>
+    <string name="describeTheBeer">Sinun täytyy kommentoida olutta</string>
+    <string name="pictureTheBeer">Sinun täytyy lisätä kuva oluesta</string>
+    <string name="commentTheBeer">Sinun täytyy kommentoida olutta</string>
+    <string name="noCheckedInBeers">Et ole lisännyt olutta kartalle</string>
+    <string name="addressInSnippet">Osoite:</string>
+    <string name="telInSnippet">Puh:</string>
+    <string name="websiteInSnippet">Kotisivu:</string>
+    <string name="lastChange">Viimeinen mahdollisuus tehdä muutoksia</string>
+    <string name="invalidLocation">Kelpaamaton kohde. Valitse toinen kohde.</string>
+    <string name="add">Lisää kategoria</string>
 </resources>
