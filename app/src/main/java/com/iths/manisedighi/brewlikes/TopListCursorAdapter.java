@@ -75,7 +75,7 @@ public class TopListCursorAdapter extends CursorAdapter {
         Bitmap bitmap = BitmapFactory.decodeFile(cursor.getString(14));
         ImageView beerImage = view.findViewById(R.id.beerImage);
 
-        beerImage.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(cursor.getString(14), 100, 100));
+        //beerImage.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(cursor.getString(14), 100, 100));
 
         //Makes the picture round.
         beerImage.setImageBitmap(bitmap);
