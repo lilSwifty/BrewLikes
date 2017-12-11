@@ -94,7 +94,6 @@
     <string name="addressInSnippet">Address: </string>
     <string name="websiteInSnippet">Website: </string>
     <string name="telInSnippet">Phone number: </string>
-    <string name="invalidLocation">Invalid location. Please choose an established location </string>
     <!--End of map-->
 
     <!--Take photo-text-->
