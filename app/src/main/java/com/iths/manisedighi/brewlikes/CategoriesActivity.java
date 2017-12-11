@@ -1,17 +1,21 @@
 package com.iths.manisedighi.brewlikes;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -191,10 +195,22 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                mDBHelper.addCategory(editTextAdd.getText().toString());
-                setItems();
-                adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
-                expandableListView.setAdapter(adapter);
+                if (editTextAdd.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "You cannot add an empty category", Toast.LENGTH_SHORT).show();
+                    onAddCategoryClick();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Added category " + editTextAdd.getText().toString(), Toast.LENGTH_SHORT).show();
+                    mDBHelper.addCategory(editTextAdd.getText().toString());
+                    setItems();
+                    adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
+                    expandableListView.setAdapter(adapter);
+                }
+            }
+        });
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
         dialog.show();
