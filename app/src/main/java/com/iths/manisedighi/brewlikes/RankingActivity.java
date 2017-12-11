@@ -211,7 +211,7 @@ public class RankingActivity extends AppCompatActivity {
                         }
                     });
             AlertDialog alert = builder.create();
-            alert.setTitle("Last chance to change");
+            alert.setTitle(getApplicationContext().getString(R.string.lastChange));
             alert.show();
         }else{
             addBeer();
