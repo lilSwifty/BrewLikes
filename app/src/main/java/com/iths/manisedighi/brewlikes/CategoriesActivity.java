@@ -6,12 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.BaseAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -173,7 +170,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
             startActivity(intent);
             return true;
 
-        } else if (id == R.id.cameraIcon) {
+        } else if (id == R.id.ic_camera) {
             Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
             return true;
