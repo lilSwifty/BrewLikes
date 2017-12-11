@@ -267,7 +267,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
                 helper.removeBeer(id);
                 switch(caller){
                     case 1:
-                        Intent rankingIntent = new Intent(context, RankingActivity.class);
+                        Intent rankingIntent = new Intent(context, MainActivity.class);
                         startActivity(rankingIntent);
                         break;
                     case 2:
