@@ -5,11 +5,10 @@ import android.util.Log;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Created by Milja on 2017-11-21.
- */
-
-/**
  * Beer class.
+ *
+ * @author Milja Virtanen
+ * @since 2017-11-21
  */
 public class Beer {
 
@@ -34,19 +33,6 @@ public class Beer {
     //Empty constructor
     public Beer() {}
 
-    /*
-    //Constructor utan GPS
-    public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath) {
-        this.name = name;
-        this.categoryId = categoryId;
-        this.price = price;
-        this.taste = taste;
-        this.average = ((price+taste)/2);
-        this.comment = comment;
-        this.photoPath = photoPath;
-    }
-    */
-
     //Constructor med GPS
     public Beer(String name, int categoryId, double price, double taste, String comment, String photoPath, String location, double latitude, double longitude, String address, String tel, String web, String photoPathSmall) {
         this.name = name;
@@ -64,14 +50,6 @@ public class Beer {
         this.tel = tel;
         this.web = web;
         this.photoPathSmall = photoPathSmall;
-
-        /*
-        //TEST FOR GETTING LATLNG VALUES
-        String ll = latLng.toString();
-        String[] llArray = ll.split(",");
-        this.lat = Double.parseDouble(llArray[0]);
-        this.lng = Double.parseDouble(llArray[1]);
-        */
     }
 
     public long getId() {
@@ -178,7 +156,6 @@ public class Beer {
     public void setLatLng(LatLng latLng) {
         this.latLng = latLng;
     }
-
 
     public String getPhotoPathSmall() {
         return photoPathSmall;
