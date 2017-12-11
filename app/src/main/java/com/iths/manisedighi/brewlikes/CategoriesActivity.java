@@ -1,12 +1,15 @@
 package com.iths.manisedighi.brewlikes;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
@@ -23,7 +26,7 @@ import java.util.List;
  */
 
 
-public class CategoriesActivity extends BottomNavigationBaseActivity{
+public class CategoriesActivity extends BottomNavigationBaseActivity {
     private Context context = CategoriesActivity.this;
     private static ExpandableListView expandableListView;
     private static ExpandableListAdapter adapter;
@@ -33,6 +36,9 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     ImageView logo;
     private static final String TAG = "CategoriesActivity";
     private List<Long> beersById = new ArrayList<>();
+
+    private AlertDialog dialog;
+    private EditText editTextAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,32 +52,30 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-            //Object of listView from xml. Setting group indicator null for custom indicator
-            expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
-            // Setting group indicator null for custom indicator
-            expandableListView.setGroupIndicator(null);
+        //Object of listView from xml. Setting group indicator null for custom indicator
+        expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
+        // Setting group indicator null for custom indicator
+        expandableListView.setGroupIndicator(null);
 
-            mDBHelper = new DBHelper(this);
+        mDBHelper = new DBHelper(this);
 
-            setItems();
+        setItems();
 
-            //passing the 3 things; object of context, header array, chliddren
-            adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
-            // Setting adpater for expandablelistview, the hard part start here:)
-            expandableListView.setAdapter(adapter);
-
+        //passing the 3 things; object of context, header array, chliddren
+        adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
+        // Setting adpater for expandablelistview, the hard part start here:)
+        expandableListView.setAdapter(adapter);
 
 
         //When BrewLikes logo in the toolbar is clicked it launches MainActivity.
         //TODO - Use flags here so the activities don't get put on the stack?
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Intent intent = new Intent (CategoriesActivity.this, MainActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
 
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -80,7 +84,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                                         int groupPosition, int childPosition, long id) {
 
                 // Log.d(TAG, "onChildClick: "+id+"HERE ID");
-                Intent i = new Intent(getApplicationContext(),InfoActivity.class);
+                Intent i = new Intent(getApplicationContext(), InfoActivity.class);
                 //long beerId = beersById.get(childPosition);
                 i.putExtra("BeerID", id);
                 //Log.d(TAG, "onChildClick: "+beerId+"beer ID");
@@ -124,26 +128,26 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                     return false;
                 }
             });*/
+    }
+
+
+    void setItems() {
+
+        //header = new ArrayList<>();
+
+        //mDBHelper.addCategory("A"); // <- Who added this testcode, can it be deleted? BR Patrik
+
+        header = mDBHelper.getAllCategories();
+
+        hashMap = new HashMap<>();
+
+        // Adding headers + beers to list from DB
+        for (int i = 0; i < header.size(); i++) {
+            List<Beer> beersByCategory = mDBHelper.getBeersByCategory(header.get(i).getName());
+            hashMap.put(header.get(i).getName(), beersByCategory);
         }
 
-
-        void setItems() {
-
-            //header = new ArrayList<>();
-
-            //mDBHelper.addCategory("A"); // <- Who added this testcode, can it be deleted? BR Patrik
-
-            header= mDBHelper.getAllCategories();
-
-            hashMap = new HashMap<>();
-
-            // Adding headers + beers to list from DB
-            for (int i = 0; i < header.size(); i++) {
-                List<Beer> beersByCategory = mDBHelper.getBeersByCategory(header.get(i).getName());
-                hashMap.put(header.get(i).getName(), beersByCategory);
-            }
-
-        }
+    }
 
     /**
      * Upper toolbar with icons
@@ -151,10 +155,9 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.categories_activity_menu, menu);
+        getMenuInflater().inflate(R.menu.category_activity_menu, menu);
         return true;
     }
-
 
     /**
      * Handles what happens when the icons in the toolbar are clicked
@@ -162,18 +165,37 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.aboutIcon){
+        if (id == R.id.aboutIcon) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
             return true;
 
-        } else if(id == R.id.cameraIcon){
+        } else if (id == R.id.ic_camera) {
             Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
+            return true;
+        } else if (id == R.id.ic_addCategory) {
+            onAddCategoryClick();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-
+    public void onAddCategoryClick() {
+        dialog = new AlertDialog.Builder(this).create();
+        editTextAdd = new EditText(this);
+        editTextAdd.setElevation(0);
+        dialog.setTitle(getResources().getString(R.string.add));
+        dialog.setView(editTextAdd);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mDBHelper.addCategory(editTextAdd.getText().toString());
+                setItems();
+                adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
+                expandableListView.setAdapter(adapter);
+            }
+        });
+        dialog.show();
     }
+}

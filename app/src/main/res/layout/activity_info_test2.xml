@@ -32,7 +32,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/titleMenu"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="59dp"
         android:layout_marginEnd="0dp"
         android:layout_marginStart="0dp"
         android:layout_marginTop="56dp"
@@ -41,21 +41,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvBeerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/beerName"
-            android:textAllCaps="true"
-            android:textColor="@color/blackbrew"
-            android:textSize="25sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tvBeerName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/beerName"
+        android:textAllCaps="true"
+        android:textColor="@color/blackbrew"
+        android:textSize="25sp"
+        android:maxLines="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/titleMenu"/>
 
     <ImageView
         android:id="@+id/ivNavBack"
@@ -73,54 +74,28 @@
 
     <ImageView
         android:id="@+id/ivBeer"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:onClick="onBeerImageClick"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu"
         app:srcCompat="@android:drawable/btn_star_big_off"/>
 
     <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCategory"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/price"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer"
-        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
-
-    <TextView
         android:id="@+id/tvPriceScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="sans-serif"
-        android:text="8.0"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleMenu" />
-
-    <TextView
-        android:id="@+id/tvTaste"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:paddingTop="0dp"
         android:fontFamily="sans-serif"
-        android:text="@string/taste"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+        android:text="8.6"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleMenu"/>
+
 
     <TextView
         android:id="@+id/tvTasteScore"
@@ -129,24 +104,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
-        android:text="7.0"
-        android:textAllCaps="true"
-        android:textSize="16sp"
+        android:text="7.5"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriceScore" />
-
-    <TextView
-        android:id="@+id/tvRate"
-        android:layout_width="52dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="6dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/rate"
-        android:textAllCaps="true"
-        android:textSize="16sp"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer"
-        app:layout_constraintTop_toBottomOf="@+id/tvTaste" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceScore"/>
 
     <TextView
         android:id="@+id/tvRateScore"
@@ -155,11 +116,22 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
-        android:text="7.5/10.0"
-        android:textAllCaps="true"
-        android:textSize="16sp"
+        android:text="7.5"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTasteScore" />
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="95dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/gradient_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRateScore"/>
 
     <!-- This is where the fb share button gets put in -->
 
@@ -168,74 +140,98 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="40dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvInfo"
-        app:layout_constraintStart_toEndOf="@+id/ivBeer">
-
-    </LinearLayout>
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <TextView
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:text="Low or Non alcoholic"
+        android:layout_marginStart="8sp"
         android:layout_marginTop="8dp"
+        android:textSize="20sp"
         android:fontFamily="sans-serif"
-        android:text="@string/category"
-        android:textAllCaps="true"
-        android:textSize="18sp"
-        android:background="@color/beer"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:gravity="center"
         android:textColor="@color/blackbrew"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/ivBeer"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:background="@drawable/little_rounded_background"
+        app:layout_constraintTop_toBottomOf="@id/ivBeer"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivLine2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/gradient_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCategory"/>
 
     <TextView
         android:id="@+id/tvInfo"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_below="@+id/ivBeer"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
-        android:textAllCaps="true"
-        android:text=""
-        android:textSize="16dp"
-        android:background="@drawable/beer_comment"
-        android:padding="4dp"
+        android:text="hejhej jag tänkte att jag ska va störig igen och köra på med min super långa text"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/ivLine2"/>
 
     <ImageView
-        android:id="@+id/ivLocation"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:id="@+id/ivLine3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="onLocationClick"
-        android:src="@drawable/ic_mapview_white"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/gradient_line"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvInfo">
+        app:layout_constraintTop_toBottomOf="@+id/tvInfo"/>
 
-    </ImageView>
-
-    <TextView
-        android:id="@+id/tvLocation"
+    <LinearLayout
+        android:id="@+id/container2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginStart="8dp"
-        android:fontFamily="sans-serif"
-        android:textAllCaps="true"
-        android:textSize="16sp"
+        android:orientation="horizontal"
         android:onClick="onLocationClick"
-        app:layout_constraintStart_toEndOf="@+id/ivLocation"
-        app:layout_constraintTop_toBottomOf="@+id/tvInfo">
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvInfo"
+        app:layout_constraintStart_toStartOf="parent">
 
-    </TextView>
+        <ImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_mapview_white"
+            app:layout_constraintStart_toStartOf="@id/container2"
+            app:layout_constraintTop_toBottomOf="@+id/container2"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:textSize="18sp"
+            android:maxLines="1"
+            app:layout_constraintStart_toEndOf="@+id/ivLocation"
+            app:layout_constraintEnd_toEndOf="@+id/container2"/>
+    </LinearLayout>
 
     <!-- bottom navigation -->
 

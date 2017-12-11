@@ -50,4 +50,12 @@
     <string name="nameTheBeer">Du måste ge ölen ett namn</string>
     <string name="describeTheBeer">Du måste kommentera ölen</string>
     <string name="pictureTheBeer">Du måste ta en bild på ölen</string>
+    <string name="commentTheBeer">Du måste kommentera ölen</string>
+    <string name="deleteQuestion">Vill du radera ölen?</string>
+    <string name="noCheckedInBeers">Du har inte checkat in några öl än</string>
+    <string name="addressInSnippet">Adress:</string>
+    <string name="websiteInSnippet">Hemsida:</string>
+    <string name="telInSnippet">Telefonnummer:</string>
+    <string name="invalidLocation">Ogiltig plats. Välj en plats.</string>
+    <string name="addCategory">Lägg till kategori</string>
 </resources>

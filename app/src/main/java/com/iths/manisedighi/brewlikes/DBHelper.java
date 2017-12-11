@@ -80,6 +80,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Stout");
         db.insert(CATEGORY_TABLE, null, values);
+        values.put("COL_CATEGORY_NAME", "Uncategorized");
+        db.insert(CATEGORY_TABLE, null, values);
         values.put("COL_CATEGORY_NAME", "Wheat");
         db.insert(CATEGORY_TABLE, null, values);
     }
@@ -123,7 +125,7 @@ public class DBHelper extends SQLiteOpenHelper {
         long id = db.insert(BEER_TABLE,null, values);
         beer.setId(id);
         //Get the categoryName for the beer based on its categoryId
-        beer.setCategoryName( getBeerCategoryName(beer) );
+        beer.setCategoryName(getBeerCategoryName(beer));
     }
 
     /**
@@ -143,7 +145,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Returns the category name of the beer and sets the value of beer.categoryName.
+     * Returns the category name of the beer and sets the value of beer's category.
      * @param beer
      * @return String Name of the category
      */
@@ -165,7 +167,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Returns a beer from the database by its id
+     * Returns a beer from the database by its id.
      * @param id id of the beer
      * @return beer
      */
@@ -197,7 +199,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 beer.setWeb(cursor.getString(13));
                 beer.setPhotoPathSmall(cursor.getString(14));
 
-                //Se vilket Category Name CategoryId motsvara
+                //See which category name the id stands for
                 getBeerCategoryName(beer);
             } while (cursor.moveToNext());
         }
@@ -245,10 +247,9 @@ public class DBHelper extends SQLiteOpenHelper {
             id = cursor.getInt(0);
         }
 
-        //Close cursor here??
         cursor.close();
 
-        //STEP 2. Use ID from Step 1 to return all beers within that category.
+        //STEP 2. Use the id from STEP 1 to return all beers within that category.
         String selectionTwo = "COL_BEER_CATEGORY=?";
         String[] selectionArgsTwo = new String[] {Integer.toString(id)};
 
@@ -314,7 +315,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Get all beers
+     * Get all beers from the database.
      * @return List with all beers
      */
     public List<Beer> getAllBeers() {
