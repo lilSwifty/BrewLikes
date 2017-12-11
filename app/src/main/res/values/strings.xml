@@ -35,6 +35,7 @@
     <string name="mapView">MapView</string>
     <string name="edit">Edit comment</string>
     <string name="delete">Delete beer</string>
+    <string name="deleteQuestion">Do you wan to delete beer?</string>
     <!-- end of InfoActivity & BottomNavigation -->
     
     <!-- Facebook -->
@@ -48,7 +49,6 @@
 
     <!--About-->
     <string name="aboutTextView">This is an app for rating your favourite beers! So go out, have a beer, take a pic, rate it and drink responsibly.</string>
-
     <string name="infoEmma">Never beer, always jäger.</string>
     <string name="infoMani">Honey beer from Åland is my favourite beer.</string>
     <string name="infoMilja">I don\'t drink beer but I like apps (especially our app).</string>
@@ -103,8 +103,10 @@
     <string name="cancel">Cancel</string>
     <string name="takePhoto">Take photo</string>
     <!--End of Take photo-text-->
-
-
+    
+    <!--Category-->
+    <string name="addCategory">Add category</string>
+    <!--End of category-->
 
 
 </resources>
