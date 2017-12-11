@@ -162,9 +162,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivBeer.setScaleType(ImageView.ScaleType.CENTER_CROP);
         tvBeerName.setText(beer.getName());
         tvCategory.setText(beer.getCategoryName());
-        tvPriceScore.setText(getResources().getString(R.string.price)+" "+String.valueOf(beer.getPrice()));
-        tvTasteScore.setText(getResources().getString(R.string.taste)+" "+String.valueOf(beer.getTaste()));
-        tvRateScore.setText(getResources().getString(R.string.rate)+" "+String.valueOf(beer.getAverage()/*+"/10.0"*/));
+        int newPrice = ((int) beer.getPrice());
+        int newTaste = ((int) beer.getTaste());
+        tvPriceScore.setText(getResources().getString(R.string.price)+" "+newPrice);
+        tvTasteScore.setText(getResources().getString(R.string.taste)+" "+newTaste);
+        tvRateScore.setText(getResources().getString(R.string.rate)+" "+String.valueOf(beer.getAverage()));
         tvInfo.setText(beer.getComment());
         if(beer.getLocation()==null) {
             ivLocation.setVisibility(View.GONE);
