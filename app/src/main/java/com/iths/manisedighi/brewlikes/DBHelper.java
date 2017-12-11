@@ -460,4 +460,21 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    public boolean editBeerName(long id, String name) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("COL_BEER_NAME", name);
+
+        String selection = "_id=?";
+        String[] selectionArgs = new String[] {Long.toString(id)};
+        int result = db.update(BEER_TABLE, values, selection, selectionArgs);
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
