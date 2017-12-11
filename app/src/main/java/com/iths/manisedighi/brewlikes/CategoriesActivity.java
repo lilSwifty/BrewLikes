@@ -84,6 +84,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                 //long beerId = beersById.get(childPosition);
                 i.putExtra("BeerID", id);
                 //Log.d(TAG, "onChildClick: "+beerId+"beer ID");
+                i.putExtra("info", 2);
                 startActivity(i);
 
                 return true;
