@@ -31,11 +31,11 @@
     <string name="price">Price:</string>
     <string name="rate">Rate:</string>
     <string name="home">Home</string>
-    <string name="topList">TopList</string>
-    <string name="mapView">MapView</string>
+    <string name="topList">Top List</string>
+    <string name="mapView">Map View</string>
     <string name="edit">Edit comment</string>
     <string name="delete">Delete beer</string>
-    <string name="deleteQuestion">Do you wan to delete beer?</string>
+    <string name="deleting">Are you sure you want to delete this beer?</string>
     <!-- end of InfoActivity & BottomNavigation -->
     
     <!-- Facebook -->
@@ -103,7 +103,7 @@
     <string name="cancel">Cancel</string>
     <string name="takePhoto">Take photo</string>
     <!--End of Take photo-text-->
-    
+
     <!--Category-->
     <string name="addCategory">Add category</string>
     <!--End of category-->

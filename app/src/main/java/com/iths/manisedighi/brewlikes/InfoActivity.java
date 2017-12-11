@@ -55,7 +55,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate: started.");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info3);
+        setContentView(R.layout.activity_info_test2);
         startInitialize();
     }
 
@@ -94,7 +94,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * A method
+     * A method that handles what hapens when the logo get's clicked
      */
     private void setupLogo(){
         logo.setOnClickListener(new View.OnClickListener() {
@@ -162,9 +162,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         ivBeer.setScaleType(ImageView.ScaleType.CENTER_CROP);
         tvBeerName.setText(beer.getName());
         tvCategory.setText(beer.getCategoryName());
-        tvPriceScore.setText(String.valueOf(beer.getPrice()));
-        tvTasteScore.setText(String.valueOf(beer.getTaste()));
-        tvRateScore.setText(String.valueOf(beer.getAverage()+"/10.0"));
+        int newPrice = ((int) beer.getPrice());
+        int newTaste = ((int) beer.getTaste());
+        tvPriceScore.setText(getResources().getString(R.string.price)+" "+newPrice);
+        tvTasteScore.setText(getResources().getString(R.string.taste)+" "+newTaste);
+        tvRateScore.setText(getResources().getString(R.string.rate)+" "+String.valueOf(beer.getAverage()));
         tvInfo.setText(beer.getComment());
         if(beer.getLocation()==null) {
             ivLocation.setVisibility(View.GONE);
@@ -175,13 +177,13 @@ public class InfoActivity extends BottomNavigationBaseActivity {
 
     /**
      * A method that shows a bigger beer picture
-     * @param view
+     * @param view - the picture being clicked
      */
     public void onBeerImageClick(View view){
-        setContentView(R.layout.activity_info_beer_picture);
-        ImageView imageView = findViewById(R.id.imageView);
-        imageView.setAdjustViewBounds(true);
-        imageView.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(beer.getPhotoPath(),960,960));
+        Log.d(TAG, "onBeerImageClick: true");
+        Intent intent = new Intent(context, ShowBigBeerActivity.class);
+        intent.putExtra("photoPath", beer.getPhotoPath());
+        startActivity(intent);
     }
 
     /**
@@ -226,13 +228,21 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         etInfo = new EditText(this);
         etInfo.setElevation(0);
         dialog.setTitle(getResources().getString(R.string.edit));
+        dialog.setIcon(R.drawable.brewlikes_main_image);
         dialog.setView(etInfo);
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 beer.setComment(etInfo.getText().toString());
                 helper.editBeer(beer.getId(), beer.getComment());
                 tvInfo.setText(beer.getComment());
+            }
+        });
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
         etInfo.setText(beer.getComment());
@@ -245,12 +255,13 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * and sends the user back to the activity that started InfoActivity
      */
     public void onDeleteClick(){
-        //TODO sätt stringvalues på Yes, No och Messsage
         Log.d(TAG, "onDeleteClick: clicked");
         dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle(getResources().getString(R.string.delete));
-        dialog.setMessage("Do you want to continue deleting?");
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+        dialog.setIcon(R.drawable.brewlikes_main_image);
+        dialog.setMessage(getResources().getString(R.string.deleting));
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 helper.removeBeer(id);
@@ -270,7 +281,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
                 }
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
