@@ -41,7 +41,7 @@ public class TopListCursorAdapter extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return inflater.inflate(R.layout.top_list_listview, parent, false);
+        return inflater.inflate(R.layout.top_list_listview2, parent, false);
     }
 
     /*
