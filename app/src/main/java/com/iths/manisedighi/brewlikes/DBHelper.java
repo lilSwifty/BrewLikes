@@ -458,7 +458,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    //TEST - CHANGE NAME OF A CATEGORY
+    /* SAVE FOR LATER APP UPDATE
     public boolean changeCategoryName(String previousName, String newName) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -475,4 +475,5 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+    */
 }
