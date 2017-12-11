@@ -296,7 +296,7 @@ public class RankingActivity extends AppCompatActivity {
     public void cameraLauncher() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
         builder.setIcon(R.drawable.brewlikes_main_image);
-        builder.setMessage("Please choose an alternative").setCancelable(false)
+        builder.setMessage(getApplicationContext().getString(R.string.chooseAlternative)).setCancelable(false)
                 .setOnKeyListener(new DialogInterface.OnKeyListener() {
                     @Override
                     public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
@@ -309,14 +309,14 @@ public class RankingActivity extends AppCompatActivity {
                         return false;
                     }
                 })
-                .setPositiveButton("Take photo", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getApplicationContext().getString(R.string.takePhoto), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dispatchTakePictureIntent();
 
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getApplicationContext().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -331,7 +331,7 @@ public class RankingActivity extends AppCompatActivity {
                     }
                 });
         AlertDialog alert = builder.create();
-        alert.setTitle("Time to brew...");
+        alert.setTitle(getApplicationContext().getString(R.string.timeToBrew));
         alert.show();
 
     }
