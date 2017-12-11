@@ -457,4 +457,22 @@ public class DBHelper extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    //TEST - CHANGE NAME OF A CATEGORY
+    public boolean changeCategoryName(String previousName, String newName) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("COL_CATEGORY_NAME", newName);
+
+        String selection = "COL_CATEGORY_NAME=?";
+        String[] selectionArgs = new String[] {previousName};
+        int result = db.update(BEER_TABLE, values, selection, selectionArgs);
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
