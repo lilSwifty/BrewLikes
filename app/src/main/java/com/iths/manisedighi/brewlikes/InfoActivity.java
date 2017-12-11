@@ -127,10 +127,13 @@ public class InfoActivity extends BottomNavigationBaseActivity {
                 Intent cameraIntent = new Intent(this, RankingActivity.class);
                 startActivity(cameraIntent);
                 break;
-            case R.id.ic_edit:
+            case R.id.editComment:
                 onEditClick();
                 break;
-            case R.id.ic_delete:
+            case R.id.editBeerName:
+                onEditBeerNameClick();
+                break;
+            case R.id.deleteBeer:
                 onDeleteClick();
                 break;
         }return super.onOptionsItemSelected(item);
@@ -219,16 +222,33 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
+     * A method that enables edit for the beer name, shown in an AlertDialog
+     * New beer name gets saved into the database
+     */
+    private void onEditBeerNameClick(){
+        Log.d(TAG, "editBeerName: ");
+        makeAlertDialog(getResources().getString(R.string.editBeerName), null,
+                getResources().getString(R.string.cancel), beer.getId());
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                beer.setName(etInfo.getText().toString());
+           //     helper.editBeerName(beer.getId(), beer.getName());
+                tvInfo.setText(beer.getName());
+            }
+        });
+        etInfo.setText(beer.getName());
+        dialog.show();
+    }
+
+    /**
      * A method that enables edit for the beer comment, shown in an AlertDialog
      * New comment gets saved into the database
      */
     public void onEditClick(){
         Log.d(TAG, "onEditClick: edit clicked.");
         makeAlertDialog(getResources().getString(R.string.edit), null,
-                getResources().getString(R.string.cancel));
-        etInfo = new EditText(this);
-        etInfo.setElevation(0);
-        dialog.setView(etInfo);
+                getResources().getString(R.string.cancel), beer.getId());
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -249,7 +269,7 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     public void onDeleteClick(){
         Log.d(TAG, "onDeleteClick: clicked");
         makeAlertDialog(getResources().getString(R.string.delete), getResources().getString(R.string.deleting),
-                getResources().getString(R.string.no));
+                getResources().getString(R.string.no), 0);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -265,8 +285,9 @@ public class InfoActivity extends BottomNavigationBaseActivity {
      * @param title - the Title of the dialog
      * @param message - the message of the dialog
      * @param button - the text on the button
+     * @param id - id of the beer to edit
      */
-    private void makeAlertDialog(String title, String message, String button){
+    private void makeAlertDialog(String title, String message, String button, long id){
         dialog = new AlertDialog.Builder(this).create();
         dialog.setTitle(title);
         dialog.setIcon(R.drawable.brewlikes_main_image);
@@ -278,6 +299,11 @@ public class InfoActivity extends BottomNavigationBaseActivity {
                 dialog.dismiss();
             }
         });
+        if(id != 0){
+            etInfo = new EditText(this);
+            etInfo.setElevation(0);
+            dialog.setView(etInfo);
+        }
     }
 
     /**
