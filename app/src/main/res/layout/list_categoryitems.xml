@@ -13,7 +13,7 @@
         android:paddingTop="4dp"
         android:paddingLeft="12dp"
         android:textSize="18sp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:text="Item"/>
 
 </android.support.constraint.ConstraintLayout>
