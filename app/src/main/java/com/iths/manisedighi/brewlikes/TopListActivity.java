@@ -97,7 +97,7 @@ import android.widget.ListView;
          int id = item.getItemId();
          if(id == R.id.cameraIcon2){
              Intent cameraIntent = new Intent(this, RankingActivity.class);
-             Log.d(TAG, "onOptionsItemSelected: RankingActivity clicked");
+             //Log.d(TAG, "onOptionsItemSelected: RankingActivity clicked");
              startActivity(cameraIntent);
              return true;
          }

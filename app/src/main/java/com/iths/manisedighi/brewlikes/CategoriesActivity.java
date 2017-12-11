@@ -162,12 +162,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.aboutIcon){
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-            return true;
-
-        } else if(id == R.id.cameraIcon){
+        if(id == R.id.ic_camera){
             Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
             return true;
