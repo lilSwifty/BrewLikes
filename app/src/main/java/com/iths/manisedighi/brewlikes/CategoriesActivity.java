@@ -186,6 +186,9 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Opens a dialog box when user clicks the Add category button.
+     */
     public void onAddCategoryClick() {
         dialog = new AlertDialog.Builder(this).create();
         editTextAdd = new EditText(this);
@@ -196,7 +199,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (editTextAdd.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "You cannot add an empty category", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please give a category name", Toast.LENGTH_SHORT).show();
                     onAddCategoryClick();
                 } else {
                     Toast.makeText(getApplicationContext(), "Added category " + editTextAdd.getText().toString(), Toast.LENGTH_SHORT).show();

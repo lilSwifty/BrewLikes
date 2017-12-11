@@ -1,9 +1,11 @@
 package com.iths.manisedighi.brewlikes;
 
 /**
- * Created by Milja on 2017-11-22.
+ * Category (beer) class.
+ *
+ * @author Milja Virtanen
+ * @since 2017-11-21
  */
-
 public class Category {
 
     private long id;

@@ -15,6 +15,9 @@ import java.util.List;
 
 /**
  * This class is specifically for working with the database.
+ *
+ * @author Milja Virtanen
+ * @since 2017-11-21
  */
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -409,39 +412,10 @@ public class DBHelper extends SQLiteOpenHelper {
        }
     }
 
-    /*
-    public boolean editBeer(long id, int categoryId, float price, float taste, String comment, String location, LatLng latLng) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        String ll = latLng.toString();
-        String[] llArray = ll.split(",");
-
-        values.put("COL_BEER_CATEGORY", categoryId);
-        values.put("COL_BEER_PRICE", price);
-        values.put("COL_BEER_TASTE", taste);
-        values.put("COL_BEER_COMMENT", comment);
-        values.put("COL_BEER_LOCATION", location);
-        values.put("COL_BEER_LAT", Double.parseDouble(llArray[0]));
-        values.put("COL_BEER_LNG", Double.parseDouble(llArray[1]));
-
-        String selection = "_id=?";
-        String[] selectionArgs = new String[] {Long.toString(id)};
-
-        int result = db.update(BEER_TABLE, values, selection, selectionArgs);
-
-        if (result == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    */
-
     /**
      * Edit the comment for a beer in the database.
-     * @param id The beer of the id.
-     * @param comment The beer's new comment.
+     * @param id The id of the beer.
+     * @param comment The new comment.
      * @return true if update successful, false if update failed.
      */
     public boolean editBeer(long id, String comment) {
@@ -461,6 +435,12 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Edit the name of a beer in the database.
+     * @param id Id of the beer to be edited.
+     * @param name the new name of the beer.
+     * @return true if update successful, false if update failed.
+     */
     public boolean editBeerName(long id, String name) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
