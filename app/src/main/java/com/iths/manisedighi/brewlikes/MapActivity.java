@@ -95,7 +95,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         mSearchText = findViewById(R.id.searchFieldText);
-        gpsIcon = (ImageView) findViewById(R.id.ic_gps);
+        gpsIcon = findViewById(R.id.ic_gps);
         dbHelper = new DBHelper(this);
 
         Intent intent = getIntent();
@@ -209,7 +209,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * Getter method for the location of the device
      */
     private void getDeviceLocation() {
-        //if(ID == 1) {
             Log.d(TAG, "getDeviceLocation: getting the current location of the device");
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -222,7 +221,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "getDeviceLocation: found device location");
                                 Location currentLocation = (Location) task.getResult();
-                               // moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
+                                moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
                             } else {
                                 Log.d(TAG, "getDeviceLocation: couldn't find device location (null)");
                                 Toast.makeText(MapActivity.this, "Couldn't get device location", Toast.LENGTH_SHORT).show();
@@ -234,12 +233,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 Log.e(TAG, "getDeviceLocation: SecurityException" + e.getMessage());
             }
         }
-   // }
 
     /**
      * Moves the "camera" of the map to the right location
      * @param latLng - The latitude and longitude for the current location
-     * @param zoom - The possibility to zoom in and out of the map
+     * @param zoom - Zooms in
      */
     private void moveMapToLocation(final LatLng latLng, float zoom, String title) {
         Log.d(TAG, "moveMapToLocation: moving the map to location. " + latLng);
@@ -247,13 +245,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if(ID == 1) {
 
-           // if(mPlace.getName().toString().contains("°")) {
-               // Toast.makeText(this, getResources().getString(R.string.noCheckedInBeers),Toast.LENGTH_SHORT).show();
-           // }
-
             mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
-
-            //When custom info window is clicked
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
@@ -266,30 +258,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     intent.putExtra("website", mPlace.getWebsiteUri());
                     intent.putExtra("address", mPlace.getAddress());
+                    intent.putExtra("location", mPlace.getName());
+                    intent.putExtra("lat", mPlace.getLatLng().latitude);
+                    intent.putExtra("lng", mPlace.getLatLng().longitude);
 
-
-                    if(mPlace.getName().toString().contains("°")){
-                        Log.d(TAG, "checkIn: null");
-                        intent.putExtra("location", mPlace.getAddress());
-
-                        LatLng newLatLng = getLatLngFromAddress(MapActivity.this, mPlace.getAddress());
-                        Log.d(TAG, "checkIn: getting address: " + mPlace.getAddress());
-                        Log.d(TAG, "checkIn: getting latLng that should be null, it is: " + mPlace.getLatLng());
-                        Log.i(TAG, "onInfoWindowCLick: sets new latitude to " + newLatLng.latitude);
-                        Log.i(TAG, "onInfoWindowCLick: sets new longitude to " + newLatLng.longitude);
-
-                        intent.putExtra("lat", newLatLng.latitude);
-                        intent.putExtra("lng", newLatLng.longitude);
-
-                    } else {
-                        intent.putExtra("location", mPlace.getName());
-                        intent.putExtra("lat", mPlace.getLatLng().latitude);
-                        intent.putExtra("lng", mPlace.getLatLng().longitude);
-
-                        Log.i(TAG, "onInfoWindowCLick: sets latitude to " + mPlace.getLatLng().latitude);
-                        Log.i(TAG, "onInfoWindowCLick: sets longitude to " + mPlace.getLatLng().longitude);
-                    }
-
+                    Log.i(TAG, "onInfoWindowCLick: sets latitude to " + mPlace.getLatLng().latitude);
+                    Log.i(TAG, "onInfoWindowCLick: sets longitude to " + mPlace.getLatLng().longitude);
                     Log.i(TAG, "onInfoWindowCLick: sets location to " + mPlace.getName());
                     Log.i(TAG, "onInfoWindowCLick: sets address to " + mPlace.getAddress());
                     Log.i(TAG, "onInfoWindowCLick: sets website to " + mPlace.getWebsiteUri());
@@ -356,7 +330,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(title != "My Location"){
 
             if(ID == 1) {
-                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
+                MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(mPlace.getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
                 Marker marker = mMap.addMarker(markerOptions);
                 marker.showInfoWindow();
             }
@@ -367,13 +341,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Log.d(TAG, "dropPin: receiving place info: " + beer.getLatLng());
 
         String snippet = "";
-        if(beer.getAddress() != null){
+        if(!(beer.getAddress() == null)){
             snippet = snippet + getResources().getString(R.string.addressInSnippet) + " " + beer.getAddress();
         }
-        if(beer.getWeb() != null){
+        if(!(beer.getWeb() == null)){
             snippet = snippet + '\n' + getResources().getString(R.string.websiteInSnippet) + " " + beer.getWeb();
         }
-        if(beer.getTel() != null || beer.getTel().equals("")){
+        if(!(beer.getTel() == null) || !(beer.getTel().equals("")) || beer.getTel().isEmpty()){
             snippet = snippet + '\n' + getResources().getString(R.string.telInSnippet) + " " + beer.getTel();
         }
 
@@ -385,6 +359,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(MapActivity.this));
         Marker marker = mMap.addMarker(markerOptions);
+        if(ID == 2){
+            marker.showInfoWindow();
+        }
     }
 
     /**
@@ -411,7 +388,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 mMap.setMyLocationEnabled(true);
                 //Hides the "myLocationButton" up in the right corner
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
-                // TODO - mMap.getUiSettings().WHATEVER_TRY_THESE_OUT!!!!!
                 initializeSearch();
 
             } else if (ID == 2) {
@@ -422,10 +398,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 LatLng latLng = new LatLng(b.getLat(), b.getLng());
                 moveMapToLocation(latLng, DEFAULT_ZOOM, locationName);
                 dropPin(new LatLng(b.getLat(), b.getLng()), DEFAULT_ZOOM, b.getLocation(), b);
-                //search bar + icons + check in view set visibility view Gone!!!!
+                mSearchText.setVisibility(View.GONE);
+                gpsIcon.setVisibility(View.GONE);
+                View v = findViewById(R.id.relativeLayoutSearchBar);
+                v.setVisibility(View.GONE);
 
-
-            } else if (ID == 3) { //From map view navigation button
+            } else if (ID == 3) {
                 Log.d(TAG, "Checking intent ID: 3");
                 if(dbHelper.getAllBeers().isEmpty()){
                     Log.d(TAG, "beer list is empty");
@@ -471,7 +449,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } else {
             ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_CODE);
         }
-
     }
 
     /**
@@ -502,7 +479,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
-
     // *********************** GOOGLE API AUTOCOMPLETE SUGGESTIONS **********************
 
     /**
@@ -537,31 +513,52 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Log.d(TAG, "onResultCallBack: preparing to set values to place info");
             try {
                 //mPlace = new PlaceInfo();
-                mPlace.setName(place.getName().toString());
-                mPlace.setAddress(place.getAddress().toString());
-                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
 
-                Log.d(TAG, "onResultCallBack: latLng is " + place.getLatLng());
+                if(place.getName().toString().contains("°") || place.getName() == null || place.getName().equals("")){
 
-                mPlace.setWebsiteUri(place.getWebsiteUri().toString());
-                mPlace.setId(place.getId());
+                  if(place.getAddress() == null || place.getAddress().equals("")){
+                      mPlace.setName(place.getLatLng().toString());
+                      Log.d(TAG, "onResultCallBack: name is null and address is null, sets name to: " + mPlace.getName());
+                  } else{
+                      mPlace.setName(place.getAddress().toString());
+                      Log.d(TAG, "onResultCallBack: name is latLng and sets it to address" + place.getAddress().toString());
+                  }
+                    Log.d(TAG, "onResultCallBack: Name was null so sets name to address instead: " + mPlace.getName());
 
-                Log.d(TAG, "onResultCallBack: latLng is " + place.getLatLng());
+                } else{
+                    mPlace.setName(place.getName().toString());
+                }
 
                 if(place.getLatLng()== null){
                     LatLng newLatLng = getLatLngFromAddress(MapActivity.this, mPlace.getAddress());
-                     mPlace.setLatLng(newLatLng);
-                     Log.d(TAG, "onResultCallBack: LatLng was null so called method to set it to: " + newLatLng);
+                    mPlace.setLatLng(newLatLng);
+                    Log.d(TAG, "onResultCallBack: LatLng was null so called method to set it to: " + newLatLng);
                 } else {
                     mPlace.setLatLng(place.getLatLng());
                 }
                 Log.d(TAG, "onResultCallBack: Getting all info from the location: " + mPlace.toString());
+
+                if(place.getAddress() == null){
+                    mPlace.setAddress(place.getLatLng().toString());
+                }else {
+                    mPlace.setAddress(place.getAddress().toString());
+                }
+
+                mPlace.setPhoneNumber(place.getPhoneNumber().toString());
+                mPlace.setWebsiteUri(place.getWebsiteUri().toString());
+
+
             }catch (NullPointerException e){
                 Log.e(TAG, "onResultCallBack: NullPointerException: " + e.getMessage());
             }
-                moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
+               /* moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
                         , DEFAULT_ZOOM, mPlace.getName());
-                places.release();
+                        */
+
+            moveMapToLocation(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude)
+                    , DEFAULT_ZOOM, mPlace.getName());
+
+            places.release();
         }
     };
 
