@@ -22,12 +22,19 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private List<Category> header;
     private HashMap<String, List<Beer>> child;
 
-    //Constructor
+    /**
+     * Constructor
+     */
+
     public ExpandableListAdapter(Context context, List<Category> listDataHeader, HashMap<String, List<Beer>> listChildData) {
         this._context = context;
         this.header = listDataHeader;
         this.child = listChildData;
     }
+
+    /**
+     * Standard methods for ExpandableList Adapter
+     */
 
     @Override
     public int getGroupCount() {
