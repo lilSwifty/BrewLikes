@@ -12,7 +12,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
-
+/**
+ * Multimedia class combining animations, sounds and a video background.
+ * Created by patrikrikamahinnenberg on 8/12/17.
+ */
 
 public class Multimedia {
 
@@ -25,7 +28,6 @@ public class Multimedia {
 
 
     protected void setMultimedia(Context context){
-
         //Log.v(TAG, "starts");
         videoBackground();
         beerSoundClick(context);
@@ -73,6 +75,5 @@ public class Multimedia {
         final Animation animScale = AnimationUtils.loadAnimation(_context, R.anim.scale_up);
 
     }
-
 
 }
