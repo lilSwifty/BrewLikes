@@ -458,26 +458,11 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    /* SAVE FOR LATER APP UPDATE
-    public boolean changeCategoryName(String previousName, String newName) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("COL_CATEGORY_NAME", newName);
-
-        String selection = "COL_CATEGORY_NAME=?";
-        String[] selectionArgs = new String[] {previousName};
-        int result = db.update(BEER_TABLE, values, selection, selectionArgs);
-
-        if (result == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    */
-
-    //TEST
+    /**
+     * Delete a beer category from the database.
+     * @param name Name of the category to delete.
+     * @return true if update successful, false if update failed.
+     */
     public boolean deleteCategory(String name) {
         SQLiteDatabase db = getWritableDatabase();
 
