@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="72dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/little_rounded_background"
         android:fontFamily="sans-serif"
@@ -238,7 +238,7 @@
         android:layout_height="20dp"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="72dp"
         android:background="@drawable/little_rounded_background"
         android:fontFamily="sans-serif"
         android:onClick="onDiscardButtonClick"
@@ -319,4 +319,5 @@
         app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toEndOf="@+id/beerImage"
         app:layout_constraintTop_toBottomOf="@+id/mapButton" />
+
 </android.support.constraint.ConstraintLayout>
