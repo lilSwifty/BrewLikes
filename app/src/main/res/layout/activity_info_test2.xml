@@ -45,7 +45,7 @@
 
     <TextView
         android:id="@+id/tvBeerName"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginStart="8dp"
@@ -79,6 +79,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:onClick="onBeerImageClick"
+        android:contentDescription="@string/beerPic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu"
         app:srcCompat="@android:drawable/btn_star_big_off"/>
@@ -91,7 +92,6 @@
         android:layout_marginEnd="8dp"
         android:paddingTop="0dp"
         android:fontFamily="sans-serif"
-        android:text="8.6"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleMenu"/>
@@ -104,7 +104,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
-        android:text="7.5"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPriceScore"/>
@@ -116,7 +115,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
-        android:text="7.5"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -149,7 +147,6 @@
         android:id="@+id/tvCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Low or Non alcoholic"
         android:layout_marginStart="8sp"
         android:layout_marginTop="8dp"
         android:textSize="20sp"
@@ -182,7 +179,6 @@
         android:layout_marginTop="6dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif"
-        android:text="hejhej jag tänkte att jag ska va störig igen och köra på med min super långa text"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivLine2"/>

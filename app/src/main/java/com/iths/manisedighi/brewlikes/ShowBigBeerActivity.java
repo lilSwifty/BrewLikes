@@ -37,7 +37,7 @@ public class ShowBigBeerActivity extends AppCompatActivity {
         image = BitmapFactory.decodeFile(photoPath);
         ivBigBeer.setImageBitmap(image);
 
-        ivBigBeer.setAdjustViewBounds(true);
-        ivBigBeer.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(photoPath, 960, 960));
+        //ivBigBeer.setAdjustViewBounds(true);
+        //ivBigBeer.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(photoPath, 960, 960));
     }
 }

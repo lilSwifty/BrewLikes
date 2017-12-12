@@ -127,10 +127,13 @@ public class InfoActivity extends BottomNavigationBaseActivity {
                 Intent cameraIntent = new Intent(this, RankingActivity.class);
                 startActivity(cameraIntent);
                 break;
-            case R.id.ic_edit:
+            case R.id.editComment:
                 onEditClick();
                 break;
-            case R.id.ic_delete:
+            case R.id.editBeerName:
+                onEditBeerNameClick();
+                break;
+            case R.id.deleteBeer:
                 onDeleteClick();
                 break;
         }return super.onOptionsItemSelected(item);
@@ -219,18 +222,33 @@ public class InfoActivity extends BottomNavigationBaseActivity {
     }
 
     /**
+     * A method that enables edit for the beer name, shown in an AlertDialog
+     * New beer name gets saved into the database
+     */
+    private void onEditBeerNameClick(){
+        Log.d(TAG, "editBeerName: ");
+        makeAlertDialog(getResources().getString(R.string.editBeerName), null,
+                getResources().getString(R.string.cancel), beer.getId());
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                beer.setName(etInfo.getText().toString());
+           //     helper.editBeerName(beer.getId(), beer.getName());
+                tvInfo.setText(beer.getName());
+            }
+        });
+        etInfo.setText(beer.getName());
+        dialog.show();
+    }
+
+    /**
      * A method that enables edit for the beer comment, shown in an AlertDialog
      * New comment gets saved into the database
      */
     public void onEditClick(){
         Log.d(TAG, "onEditClick: edit clicked.");
-        dialog = new AlertDialog.Builder(this).create();
-        etInfo = new EditText(this);
-        etInfo.setElevation(0);
-        dialog.setTitle(getResources().getString(R.string.edit));
-        dialog.setIcon(R.drawable.brewlikes_main_image);
-        dialog.setView(etInfo);
-        dialog.setCanceledOnTouchOutside(false);
+        makeAlertDialog(getResources().getString(R.string.edit), null,
+                getResources().getString(R.string.cancel), beer.getId());
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -239,55 +257,78 @@ public class InfoActivity extends BottomNavigationBaseActivity {
                 tvInfo.setText(beer.getComment());
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
         etInfo.setText(beer.getComment());
         dialog.show();
     }
 
     /**
-     * A method that removes all the information about
-     * a specific beer that the user wants to delete
-     * and sends the user back to the activity that started InfoActivity
+     * A method that takes help from the DBHelper to removes all
+     * the information about a specific beer that the user wants to delete
+     * and then checks for the activity who triggered InfoActivity
      */
     public void onDeleteClick(){
         Log.d(TAG, "onDeleteClick: clicked");
-        dialog = new AlertDialog.Builder(this).create();
-        dialog.setTitle(getResources().getString(R.string.delete));
-        dialog.setIcon(R.drawable.brewlikes_main_image);
-        dialog.setMessage(getResources().getString(R.string.deleting));
-        dialog.setCanceledOnTouchOutside(false);
+        makeAlertDialog(getResources().getString(R.string.delete), getResources().getString(R.string.deleting),
+                getResources().getString(R.string.no), 0);
         dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 helper.removeBeer(id);
-                switch(caller){
-                    case 1:
-                        Intent rankingIntent = new Intent(context, MainActivity.class);
-                        startActivity(rankingIntent);
-                        break;
-                    case 2:
-                        Intent categoriesIntent = new Intent(context, CategoriesActivity.class);
-                        startActivity(categoriesIntent);
-                        break;
-                    case 3:
-                        Intent topListIntent = new Intent(context, TopListActivity.class);
-                        startActivity(topListIntent);
-                        break;
-                }
+                checkCaller();
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+        dialog.show();
+    }
+
+    /**
+     * A method that helps to create an AlertDialog
+     * @param title - the Title of the dialog
+     * @param message - the message of the dialog
+     * @param button - the text on the button
+     * @param id - id of the beer to edit
+     */
+    private void makeAlertDialog(String title, String message, String button, long id){
+        dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setIcon(R.drawable.brewlikes_main_image);
+        dialog.setMessage(message);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-        dialog.show();
+        if(id != 0){
+            etInfo = new EditText(this);
+            etInfo.setElevation(0);
+            dialog.setView(etInfo);
+        }
+    }
+
+    /**
+     * A method that checks which activity that triggered InfoActivity
+     * and takes us back to that activity after deleting the specific beer
+     * if it was RankingActivity, we want the user to go back to MainActivity
+     */
+    private void checkCaller(){
+        switch(caller){
+            case 1:
+                Intent mainIntent = new Intent(context, MainActivity.class);
+                mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(mainIntent);
+                break;
+            case 2:
+                Intent categoriesIntent = new Intent(context, CategoriesActivity.class);
+                categoriesIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(categoriesIntent);
+                break;
+            case 3:
+                Intent topListIntent = new Intent(context, TopListActivity.class);
+                topListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(topListIntent);
+                break;
+        }
     }
 
     /**
@@ -300,6 +341,5 @@ public class InfoActivity extends BottomNavigationBaseActivity {
         mapIntent.putExtra("beerId" , beer.getId());
         mapIntent.putExtra("ID", 2);
         startActivity(mapIntent);
-        //TODO takes you to map view
     }
 }
