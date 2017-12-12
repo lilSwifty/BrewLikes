@@ -81,6 +81,7 @@ public class RankingActivity extends AppCompatActivity {
     private Bitmap storBild;
     private String mCurrentPhotoPath;
     private TextView checkInText;
+    private Boolean edited = false;
     DBHelper dbHelper = new DBHelper(this);
 
     @Override
@@ -241,7 +242,9 @@ public class RankingActivity extends AppCompatActivity {
      * @param view
      */
     public void onEditButtonClick(View view){
+        edited = true;
         cameraLauncher();
+        //TODO set edited true
     }
 
     /**
@@ -292,32 +295,40 @@ public class RankingActivity extends AppCompatActivity {
      */
     public void cameraLauncher() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
-        builder.setIcon(R.drawable.brewlikes_main_image);
-        builder.setMessage(getApplicationContext().getString(R.string.chooseAlternative)).setCancelable(false)
-                .setOnKeyListener(new DialogInterface.OnKeyListener() {
-                    @Override
-                    public boolean onKey (DialogInterface dialog, int keyCode, KeyEvent event) {
-                        if (keyCode == KeyEvent.KEYCODE_BACK &&
-                                event.getAction() == KeyEvent.ACTION_UP &&
-                                !event.isCanceled()) {
-                            finish();
-                            return true;
+
+                    builder.setIcon(R.drawable.brewlikes_main_image);
+                    builder.setMessage(getApplicationContext().getString(R.string.chooseAlternative)).setCancelable(false)
+                    .setOnKeyListener(new DialogInterface.OnKeyListener() {
+                        @Override
+                        public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                            if (keyCode == KeyEvent.KEYCODE_BACK &&
+                                    event.getAction() == KeyEvent.ACTION_UP &&
+                                    !event.isCanceled()) {
+                                if(edited){
+                                    dialog.dismiss();
+                                }else {
+                                    finish();
+                                    return true;
+                                }
+                            }
+                            return false;
                         }
-                        return false;
-                    }
-                })
-                .setPositiveButton(getApplicationContext().getString(R.string.takePhoto), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dispatchTakePictureIntent();
+                    })
+                            .setPositiveButton(getApplicationContext().getString(R.string.takePhoto), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dispatchTakePictureIntent();
 
-                    }
-                })
-                .setNegativeButton(getApplicationContext().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        finish();
+                                }
+                            })
+                            .setNegativeButton(getApplicationContext().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    if (edited){
+                                        dialog.dismiss();
+                                    }else{
+                                        finish();
+                                    }
 
                         /*
                         //For later use, if we want to upload image from gallery
@@ -325,8 +336,9 @@ public class RankingActivity extends AppCompatActivity {
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
                         */
 
-                    }
-                });
+                                }
+                            });
+
         AlertDialog alert = builder.create();
         alert.setTitle(getApplicationContext().getString(R.string.timeToBrew));
         alert.show();
