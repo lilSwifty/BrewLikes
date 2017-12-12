@@ -80,8 +80,8 @@ public class RankingActivity extends AppCompatActivity {
     private Bitmap litenBild;
     private Bitmap storBild;
     private String mCurrentPhotoPath;
+    private TextView checkInText;
     DBHelper dbHelper = new DBHelper(this);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,6 +146,7 @@ public class RankingActivity extends AppCompatActivity {
         tasteRateNumber = findViewById(R.id.tasteRateNumber);
         priceRateNumber = findViewById(R.id.priceRateNumber);
         mapButton = findViewById(R.id.mapButton);
+        checkInText = findViewById(R.id.checkInText);
         beerComment.setElevation(0);
         beerName.setElevation(0);
     }
@@ -165,7 +166,7 @@ public class RankingActivity extends AppCompatActivity {
         if (name.isEmpty()) {
             makeToast(getApplicationContext().getString(R.string.nameTheBeer));
         }else if (comment.isEmpty()){
-            makeToast(getApplicationContext().getString(R.string.describeTheBeer));
+            makeToast(getApplicationContext().getString(R.string.commentTheBeer));
         }else if (picture.isEmpty()){
             makeToast(getApplicationContext().getString(R.string.pictureTheBeer));
         }else if(category.getName().equals("Unknown")){
@@ -320,7 +321,6 @@ public class RankingActivity extends AppCompatActivity {
 
                         /*
                         //For later use, if we want to upload image from gallery
-                        //
                         Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         startActivityForResult(i, RESULT_LOAD_IMAGE);
                         */
@@ -330,12 +330,12 @@ public class RankingActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.setTitle(getApplicationContext().getString(R.string.timeToBrew));
         alert.show();
-
     }
 
     /**
      * To create and invoke the Intent for the picture. First, ensure that there's a camera activity to handle the intent.
      */
+
     public void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -373,6 +373,7 @@ public class RankingActivity extends AppCompatActivity {
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
 
             storBild = scalePicture(960,960);
+
             litenBild=scalePicture(500,500);
 
             try {
@@ -389,6 +390,9 @@ public class RankingActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+
+
+            //scalePicture();
             beerImage.setImageBitmap(storBild);
 
             Log.d(TAG, "onActivityResult: " + storBild + "   " +litenBild);
@@ -408,6 +412,7 @@ public class RankingActivity extends AppCompatActivity {
             cursor.close();
 
             ImageView imageView = (ImageView) findViewById(R.id.beerImage);
+
             Bitmap bmp = null;
 
             try {
@@ -428,7 +433,9 @@ public class RankingActivity extends AppCompatActivity {
             phoneNumber=data.getStringExtra("phoneNumber");
             mapButton.setImageResource(R.drawable.ic_location_beer);
             mapButton.setBackgroundColor(getResources().getColor(R.color.blackbrew));
+            checkInText.setVisibility(View.INVISIBLE);
         }
+
     }
 
     private void saveBitmapToFile(Bitmap bitmap, File file) {
@@ -478,7 +485,6 @@ public class RankingActivity extends AppCompatActivity {
         Log.d(TAG, "createImageFile: this works");
         return image;
     }
-
     /**
      * Adds the picture to the gallery
      */
@@ -508,14 +514,10 @@ public class RankingActivity extends AppCompatActivity {
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        //beerImage.setImageBitmap(bitmap);
 
         return bitmap;
     }
-
-    /**
-     * for use to make a string toast
-     * @param text
-     */
     public void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
