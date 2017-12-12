@@ -56,13 +56,13 @@ public class BottomNavigationBaseActivity extends AppCompatActivity {
                     case R.id.ic_category:
                         item.setChecked(true);
                         Intent categoriesIntent = new Intent(context, CategoriesActivity.class);
-                        categoriesIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        categoriesIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(categoriesIntent);
                         break;
                     case R.id.ic_toplist:
                         item.setChecked(true);
                         Intent topListIntent = new Intent(context, TopListActivity.class);
-                        topListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        topListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(topListIntent);
                         break;
                     case R.id.ic_mapview:
