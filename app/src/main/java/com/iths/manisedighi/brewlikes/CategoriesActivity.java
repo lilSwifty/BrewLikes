@@ -9,16 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * This activity implements ExpandableListAdapter.java with 10 built in methods that create the mechanics for expandable listview.
+ * This activity implements ExpandableListAdapter.java with 10 built in methods that creates the mechanics for expandable listview.
  * The expandable listview referes 3xml files: activity_categories, list_categories and list_categoryitems.
- * CategoryArray BeerArrays from db + HasMap is needed to form ExpandableList. The setItems() method fills data and itemizes the expandablelist.
- * HashMap creates doubble array with category and item relation, it refers index of header(category to String from beername and keeps them in order.
+ * Category and beer lists from db + HasMap is needed to form ExpandableList. The setItems() method fills data and itemizes the expandablelist with headers and childs.
+ * HashMap creates doubble array with category and item relation, it refers index of header(category) with child (beername) and keeps them in order.
  * Created by patrikrikamahinnenberg on 22/11/17.
  */
 
@@ -31,8 +29,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     private HashMap<String, List<Beer>> hashMap;
     private List<Category> header;
     ImageView logo;
-    private static final String TAG = "CategoriesActivity";
-    private List<Long> beersById = new ArrayList<>();
+    private static final String TAG = "testing";
+    //private List<Long> beersById = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,28 +40,22 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
         Toolbar toolbar = findViewById(R.id.toolbarTop);
         setSupportActionBar(toolbar);
         logo = findViewById(R.id.logoImageView);
-        //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
             //Object of listView from xml. Setting group indicator null for custom indicator
             expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
-            // Setting group indicator null for custom indicator
             expandableListView.setGroupIndicator(null);
 
             mDBHelper = new DBHelper(this);
 
             setItems();
 
-            //passing the 3 things; object of context, header array, chliddren
+            //passing the 3 things; object of context, header list, chliddren list
             adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
-            // Setting adpater for expandablelistview, the hard part start here:)
+            // Setting adpater for expandablelistview, hard part start here:)
             expandableListView.setAdapter(adapter);
 
 
-
-        //When BrewLikes logo in the toolbar is clicked it launches MainActivity.
-        //TODO - Use flags here so the activities don't get put on the stack?
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
@@ -71,7 +63,6 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                 startActivity(intent);
             }
         });
-
 
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -91,64 +82,29 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
             }
         });
-
-        /*expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-
-                Intent i = new Intent();
-                i.putExtra("","");
-                startActivity(i);
-
-            }
-        });*/
-
-        /**
-         * Outcommentted toast log that informs item selection inside expanded listview
-         */
-            /*// Listview on child click listener
-            expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-                @Override
-                public boolean onChildClick(ExpandableListView parent, View v,
-                                            int groupPosition, int childPosition, long id) {
-
-                    Toast.makeText(
-                            getApplicationContext(),
-                            header.get(groupPosition)
-                                    + " : "
-                                    + hashMap.get(
-                                    header.get(groupPosition)).get(
-                                    childPosition), Toast.LENGTH_SHORT)
-                            .show();
-                    return false;
-                }
-            });*/
         }
 
 
         void setItems() {
 
-            //header = new ArrayList<>();
-
-            //mDBHelper.addCategory("A"); // <- Who added this testcode, can it be deleted? BR Patrik
-
             header= mDBHelper.getAllCategories();
-
             hashMap = new HashMap<>();
 
-            // Adding headers + beers to list from DB
+            /**
+             * Categories + beers to list from DB
+             */
+
             for (int i = 0; i < header.size(); i++) {
                 List<Beer> beersByCategory = mDBHelper.getBeersByCategory(header.get(i).getName());
                 hashMap.put(header.get(i).getName(), beersByCategory);
             }
-
         }
+
 
     /**
      * Upper toolbar with icons
      */
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -158,8 +114,9 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
 
     /**
-     * Handles what happens when the icons in the toolbar are clicked
+     * Toolbar and its activity
      */
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
