@@ -16,7 +16,7 @@
     <string name="price">Hinta:</string>
     <string name="rate">Keskiarvo:</string>
     <string name="home">Koti</string>
-    <string name="topList">Toplista</string>
+    <string name="topList">Top 10</string>
     <string name="mapView">Kartta</string>
     <string name="edit">Korjaa kommenttia</string>
     <string name="delete">Poista olut</string>
@@ -27,9 +27,9 @@
     <string name="saveBeer">Tallenna</string>
     <string name="discardBeer">Keskeytä</string>
     <string name="searchTextView">Etsi osoite</string>
-    <string name="myFavouriteBeer">Lempiolueni</string>
+    <string name="myFavouriteBeer">Top 10 olueni</string>
     <string name="beerPic">Oluen kuva</string>
-    <string name="checkin_text">Lisää kohde</string>
+    <string name="checkin_text">CHECK IN</string>
     <string name="success">Lisätty</string>
     <string name="aboutTextView">Tällä sovelluksella arvostelet kaikki lempioluesi! Ota kuva, pisteytä ja nauti oluestasi. Muista myös juoda kohtuudella.</string>
     <string name="chooseAlternative">Valitse</string>
