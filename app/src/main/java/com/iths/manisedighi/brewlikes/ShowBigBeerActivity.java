@@ -29,6 +29,9 @@ public class ShowBigBeerActivity extends AppCompatActivity {
         showBigPicture();
     }
 
+    /**
+     * A method that shows the picture of the beer in a bigger version
+     */
     private void showBigPicture() {
         Intent intent = getIntent();
         photoPath = intent.getStringExtra("photoPath");
