@@ -241,29 +241,27 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
                 //Log.d("MyLog", "Beers found " + mDBHelper.getBeersByCategory(categoryName).size());
                 List<Category> allCategories = mDBHelper.getAllCategories();
 
-                boolean success = false;
+                boolean notFound = true;
 
                 for (Category c : allCategories) {
                     if (c.getName().equals(categoryName))
-                        success = true;
-                    else
-                        success = false;
+                        notFound = false;
                 }
 
-                if (!success) {
-                    //Log.d("MyLog", "Category does not exist");
-                    Toast.makeText(getApplicationContext(), R.string.categoryNotFound, Toast.LENGTH_SHORT).show();
+                if (notFound) {
+                    Log.d("MyLog", "Category does not exist");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryNotFound), Toast.LENGTH_SHORT).show();
                     onDeleteCategoryClick();
 
                 } else {
-                    //Log.d("MyLog", "Category found");
+                    Log.d("MyLog", "Category found");
 
                     if (mDBHelper.getBeersByCategory(categoryName).size() > 0) {
-                        Toast.makeText(getApplicationContext(), R.string.categoryNotEmpty, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryNotEmpty), Toast.LENGTH_SHORT).show();
                     }
 
                     else {
-                        Toast.makeText(getApplicationContext(), R.string.categoryDeleteSuccessfull + editTextAdd.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryDeleteSuccessfull) + " " +categoryName, Toast.LENGTH_SHORT).show();
                         mDBHelper.deleteCategory(categoryName);
                         setItems();
                         adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
