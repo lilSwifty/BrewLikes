@@ -16,7 +16,7 @@
     <string name="price">Pris:</string>
     <string name="rate">Snitt:</string>
     <string name="home">Hem</string>
-    <string name="topList">Topplista</string>
+    <string name="topList">Topp 10</string>
     <string name="mapView">Karta</string>
     <string name="edit">Redigera kommentar</string>
     <string name="delete">Radera öl</string>
@@ -27,7 +27,7 @@
     <string name="saveBeer">Spara</string>
     <string name="discardBeer">Avbryt</string>
     <string name="searchTextView">Sök efter adress här</string>
-    <string name="myFavouriteBeer">Mina favoritöl</string>
+    <string name="myFavouriteBeer">Min topp tio</string>
     <string name="beerPic">Bild för öl</string>
     <string name="checkin_text">CHECKA IN</string>
     <string name="success">Genomfört</string>

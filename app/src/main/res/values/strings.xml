@@ -31,7 +31,7 @@
     <string name="price">Price:</string>
     <string name="rate">Rate:</string>
     <string name="home">Home</string>
-    <string name="topList">Top List</string>
+    <string name="topList">Top 10</string>
     <string name="mapView">Map View</string>
     <string name="editBeerName">Edit Beer Name</string>
     <string name="edit">Edit Comment</string>
@@ -83,7 +83,7 @@
     <string name="ItemTitleCamera" translatable="false">item title camera</string>
 
     <!--Top List Activity-->
-    <string name="myFavouriteBeer">My favourite beers</string>
+    <string name="myFavouriteBeer">My Top 10</string>
     <string name="beerPic">Picture for beer</string>
     <!--End of Top List Activity-->
 
