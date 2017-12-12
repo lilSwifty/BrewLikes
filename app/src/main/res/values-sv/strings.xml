@@ -26,7 +26,7 @@
     <string name="beerCategory">Kategori</string>
     <string name="saveBeer">Spara</string>
     <string name="discardBeer">Avbryt</string>
-    <string name="searchTextView">Sök efter adress här</string>
+    <string name="searchTextView">Sök adress här</string>
     <string name="myFavouriteBeer">Mina favoritöl</string>
     <string name="beerPic">Bild för öl</string>
     <string name="checkin_text">CHECKA IN</string>
@@ -58,4 +58,6 @@
     <string name="telInSnippet">Telefonnummer:</string>
     <string name="invalidLocation">Ogiltig plats. Välj en plats.</string>
     <string name="addCategory">Lägg till kategori</string>
+    <string name="permissionsFailed">Du måste ge tillåtelse för platstjänster för att använda kartan</string>
+    <string name="locationFailed">Det gick inte att hitta din platsinformation</string>
 </resources>
