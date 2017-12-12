@@ -40,7 +40,7 @@
     <!-- end of InfoActivity & BottomNavigation -->
     
     <!-- Facebook -->
-    <string name="brewlikes_fid">311762962671719</string>
+    <string name="brewlikes_fid" translatable="false">311762962671719</string>
     <string name="content_provider" translatable="false">com.facebook.app.FacebookContentProvider311762962671719</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
@@ -50,7 +50,7 @@
 
     <!--About-->
     <string name="aboutTextView">This is an app for rating your favourite beers! So go out, have a beer, take a pic, rate it and drink responsibly.</string>
-    <string name="infoEmma">An ice cold Ringnes at Rock In never disapoints me!</string>
+    <string name="infoEmma">An ice-cold Ringnes at Rock In never disapoints me!</string>
     <string name="infoMani">Honey beer from Åland is my favourite beer.</string>
     <string name="infoMilja">I don\'t drink beer but I like apps (especially our app).</string>
     <string name="infoMoa">I want a great pale lager during a sweaty concert!!</string>
