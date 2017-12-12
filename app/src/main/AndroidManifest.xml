@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.iths.manisedighi.brewlikes">
+    package="com.iths.manisedighi.brewlikes">
+
      
     <!-- All the permissions needed  -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- Use of any camera - back, front or external -->
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
 
-      <!-- May need this for the GPS as well, but not for now...
-    <uses-feature android:name="android.hardware.location.gps" /> -->
 
+      
+    <!--
+     May need this for the GPS as well, but not for now...
+    <uses-feature android:name="android.hardware.location.gps" />
+    -->
     <application
-        android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -31,17 +35,19 @@
         <!-- Meta data needed for the GPS to work -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU"/>
+            android:value="AIzaSyAWaHVKauVexNLQ1m02LC5iNGX5UwLqFTU" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <!-- Necessary for facebook interaction -->
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/brewlikes_fid"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/brewlikes_fid" />
         <!-- Necessary for facebook interaction -->
-        <provider android:authorities="@string/content_provider"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="@string/content_provider"
             android:exported="true" />
 
         <provider
@@ -52,39 +58,53 @@
              
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfoActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RankingActivity"
-            android:windowSoftInputMode="adjustPan"
+        <activity
+            android:name=".InfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".RankingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".CategoriesActivity"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".CategoriesActivity"
+        <activity
+            android:name=".AboutActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TopListActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MapActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".DetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".TopListActivity"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".BottomNavigationBaseActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BottomNavigationBaseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CreditActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".ShowBigBeerActivity"
             android:screenOrientation="portrait"/>
     </application>
+
 </manifest>

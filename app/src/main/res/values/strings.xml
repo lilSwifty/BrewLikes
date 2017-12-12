@@ -40,7 +40,7 @@
     <!-- end of InfoActivity & BottomNavigation -->
     
     <!-- Facebook -->
-    <string name="brewlikes_fid">311762962671719</string>
+    <string name="brewlikes_fid" translatable="false">311762962671719</string>
     <string name="content_provider" translatable="false">com.facebook.app.FacebookContentProvider311762962671719</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
@@ -108,13 +108,23 @@
 
     <!--Category-->
     <string name="addCategory">Add category</string>
+    <string name="checkin">Check-in</string>
     <!--End of category-->
 
+    <!--credits-->
+    <string name="credits">Credits \n\nThis android project was started at ITHS Gothenburg
+        as a part of our Java-course. The seven of us gather
+        our biggest interest in one app and the result is amazing.\n\n
+        Hope you like it as much as we liked building it.\n\n\n
 
-    <!--Category view-->
-    <string name="add">Add category</string>
-    <string name="checkin">Check-in</string>
-    <!--End of category view-->
+        - ittianyu for BottomNavigation\n
+        - http://developers.facebook.com\n
+        - Martin Blomberg for awesome consulting\n
+        - http://www.freesfx.co.uk/ for sound file!\n
+        - Google inc. for PlaceAutocompleteAdapter\n
+        - IT-Högskolan Göteborg
+
+    </string>
 
 
 </resources>

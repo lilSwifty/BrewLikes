@@ -69,6 +69,13 @@ public class AboutActivity extends AppCompatActivity {
 
     }
 
+    public void credit(View view){
+        Intent intent = new Intent(this, CreditActivity.class);
+        startActivity(intent);
+    }
+
+
+
 
 
     /**
