@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -51,7 +52,6 @@ public class RankingActivity extends AppCompatActivity {
     private TextView cheapText;
     private EditText beerName;
     private TextView categoryText;
-    private Button editButton;
     private Button discardButton;
     private ImageButton mapButton;
     private Spinner categorySpinner;
@@ -81,6 +81,7 @@ public class RankingActivity extends AppCompatActivity {
     private Bitmap storBild;
     private String mCurrentPhotoPath;
     private TextView checkInText;
+    private FloatingActionButton editButtonFloat;
     DBHelper dbHelper = new DBHelper(this);
 
     @Override
@@ -140,13 +141,13 @@ public class RankingActivity extends AppCompatActivity {
         cheapText = findViewById(R.id.cheapText);
         beerName = findViewById(R.id.beerName);
         categoryText = findViewById(R.id.categoryText);
-        editButton = findViewById(R.id.editButton);
         discardButton = findViewById(R.id.discardButton);
         categorySpinner = findViewById(R.id.categorySpinner);
         tasteRateNumber = findViewById(R.id.tasteRateNumber);
         priceRateNumber = findViewById(R.id.priceRateNumber);
         mapButton = findViewById(R.id.mapButton);
         checkInText = findViewById(R.id.checkInText);
+        editButtonFloat = findViewById(R.id.editButtonFloat);
         beerComment.setElevation(0);
         beerName.setElevation(0);
     }

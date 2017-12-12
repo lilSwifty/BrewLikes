@@ -187,24 +187,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/editButton"
-        android:layout_width="53dp"
-        android:layout_height="19dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:background="@drawable/little_rounded_background"
-        android:fontFamily="sans-serif"
-        android:onClick="onEditButtonClick"
-        android:text="@string/imageEdit"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.652"
-        app:layout_constraintStart_toEndOf="@+id/beerImage"
-        app:layout_constraintTop_toBottomOf="@+id/checkInText" />
-
     <SeekBar
         android:id="@+id/tasteBar"
         android:layout_width="285dp"
@@ -313,11 +295,26 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="onCheckinClick"
-        android:text="@string/checkin"
+        android:text="@string/checkin_text"
         android:textColor="@color/cardview_light_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.636"
         app:layout_constraintStart_toEndOf="@+id/beerImage"
         app:layout_constraintTop_toBottomOf="@+id/mapButton" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/editButtonFloat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:clickable="true"
+        android:onClick="onEditButtonClick"
+        app:backgroundTint="@color/blackbrew"
+        app:layout_constraintBottom_toBottomOf="@+id/beerImage"
+        app:layout_constraintEnd_toEndOf="@+id/beerImage"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/beerImage"
+        app:srcCompat="@drawable/ic_action_camera2" />
 
 </android.support.constraint.ConstraintLayout>
