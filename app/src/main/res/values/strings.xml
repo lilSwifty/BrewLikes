@@ -104,13 +104,15 @@
     <string name="takePhoto">Take photo</string>
     <!--End of Take photo-text-->
 
-    <!--Category-->
-    <string name="addCategory">Add category</string>
-    <!--End of category-->
-
-
     <!--Category view-->
-    <string name="add">Add category</string>
+    <string name="addCategory">Add category</string>
+    <string name="saveCategory">Save category</string>
+    <string name="deleteCategory">Delete category</string>
+    <string name="categoryAdded">Added category </string>
+    <string name="giveCategoryName">Please give a category name</string>
+    <string name="categoryNotFound">No such category</string>
+    <string name="categoryNotEmpty">Cannot delete category with beers</string>
+    <string name="categoryDeleteSuccessfull">Deleted category </string>
     <!--End of category view-->
 
 
