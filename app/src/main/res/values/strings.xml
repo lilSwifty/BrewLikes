@@ -40,7 +40,7 @@
     <!-- end of InfoActivity & BottomNavigation -->
     
     <!-- Facebook -->
-    <string name="brewlikes_fid" translatable="false">311762962671719</string>
+    <string name="brewlikes_fid">311762962671719</string>
     <string name="content_provider" translatable="false">com.facebook.app.FacebookContentProvider311762962671719</string>
     <string name="ok">Ok</string>
     <string name="error">Error</string>
@@ -106,10 +106,16 @@
     <string name="takePhoto">Take photo</string>
     <!--End of Take photo-text-->
 
-    <!--Category-->
+    <!--Category view-->
     <string name="addCategory">Add category</string>
-    <string name="checkin">Check-in</string>
-    <!--End of category-->
+    <string name="saveCategory">Save category</string>
+    <string name="deleteCategory">Delete category</string>
+    <string name="categoryAdded">Added category </string>
+    <string name="giveCategoryName">Please give a category name</string>
+    <string name="categoryNotFound">No such category</string>
+    <string name="categoryNotEmpty">Cannot delete category with beers</string>
+    <string name="categoryDeleteSuccessfull">Deleted category </string>
+    <!--End of category view-->
 
     <!--credits-->
     <string name="credits">Credits \n\nThis android project was started at ITHS Gothenburg

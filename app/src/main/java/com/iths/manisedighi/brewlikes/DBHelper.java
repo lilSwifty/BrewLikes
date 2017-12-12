@@ -476,4 +476,19 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
     */
+
+    //TEST
+    public boolean deleteCategory(String name) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        String selection = "COL_CATEGORY_NAME=?";
+        String[] selectionArgs = new String[] {name.trim()};
+        int result = db.delete(CATEGORY_TABLE, selection, selectionArgs);
+
+        if (result == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

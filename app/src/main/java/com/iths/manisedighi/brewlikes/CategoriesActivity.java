@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -182,6 +183,10 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
         } else if (id == R.id.ic_addCategory) {
             onAddCategoryClick();
             return true;
+        } //TEST MILJA - DELETE CATEGORY
+        else if (id == R.id.ic_deleteCategory) {
+            onDeleteCategoryClick();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -193,16 +198,17 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
         dialog = new AlertDialog.Builder(this).create();
         editTextAdd = new EditText(this);
         editTextAdd.setElevation(0);
-        dialog.setTitle(getResources().getString(R.string.add));
+        dialog.setTitle(R.string.addCategory);
+        dialog.setIcon(R.drawable.brewlikes_main_image);
         dialog.setView(editTextAdd);
-        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveBeer), new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.saveCategory), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (editTextAdd.getText().toString().isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please give a category name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.giveCategoryName, Toast.LENGTH_SHORT).show();
                     onAddCategoryClick();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Added category " + editTextAdd.getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.categoryAdded + editTextAdd.getText().toString(), Toast.LENGTH_SHORT).show();
                     mDBHelper.addCategory(editTextAdd.getText().toString());
                     setItems();
                     adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
@@ -210,7 +216,61 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
                 }
             }
         });
-        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    //TEST DELETE CATEGORY
+    public void onDeleteCategoryClick() {
+        dialog = new AlertDialog.Builder(this).create();
+        editTextAdd = new EditText(this);
+        editTextAdd.setElevation(0);
+        dialog.setTitle(R.string.deleteCategory);
+        dialog.setIcon(R.drawable.brewlikes_main_image);
+        dialog.setView(editTextAdd);
+
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, getResources().getString(R.string.deleteCategory), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String categoryName = editTextAdd.getText().toString();
+                //Log.d("MyLog", "Beers found " + mDBHelper.getBeersByCategory(categoryName).size());
+                List<Category> allCategories = mDBHelper.getAllCategories();
+
+                boolean notFound = true;
+
+                for (Category c : allCategories) {
+                    if (c.getName().equals(categoryName))
+                        notFound = false;
+                }
+
+                if (notFound) {
+                    Log.d("MyLog", "Category does not exist");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryNotFound), Toast.LENGTH_SHORT).show();
+                    onDeleteCategoryClick();
+
+                } else {
+                    Log.d("MyLog", "Category found");
+
+                    if (mDBHelper.getBeersByCategory(categoryName).size() > 0) {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryNotEmpty), Toast.LENGTH_SHORT).show();
+                    }
+
+                    else {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryDeleteSuccessfull) + " " +categoryName, Toast.LENGTH_SHORT).show();
+                        mDBHelper.deleteCategory(categoryName);
+                        setItems();
+                        adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
+                        expandableListView.setAdapter(adapter);
+                    }
+                }
+            }
+        });
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
