@@ -60,5 +60,4 @@
     <string name="infoEmma">En iskall Ringnes på Rock In sitter aldrig fel!</string>
     <string name="permissionsFailed">Du måste ge tillåtelse för platstjänster för att använda kartan</string>
     <string name="locationFailed">Det gick inte att hitta din platsinformation</string>
-    <string name="checkin">Checka in</string>
 </resources>
