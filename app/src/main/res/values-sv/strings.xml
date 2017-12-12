@@ -47,7 +47,6 @@
     <string name="yes">Ja</string>
     <string name="no">Nej</string>
     <string name="nameTheBeer">Du måste ge ölen ett namn</string>
-    <string name="describeTheBeer">Du måste kommentera ölen</string>
     <string name="pictureTheBeer">Du måste ta en bild på ölen</string>
     <string name="commentTheBeer">Du måste kommentera ölen</string>
     <string name="deleteQuestion">Vill du radera ölen?</string>
@@ -58,4 +57,5 @@
     <string name="invalidLocation">Ogiltig plats. Välj en plats.</string>
     <string name="addCategory">Lägg till kategori</string>
     <string name="infoEmma">En iskall Ringnes på Rock In sitter aldrig fel!</string>
+    <string name="checkin">Checka in</string>
 </resources>

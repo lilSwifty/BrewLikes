@@ -80,6 +80,7 @@ public class RankingActivity extends AppCompatActivity {
     private Bitmap litenBild;
     private Bitmap storBild;
     private String mCurrentPhotoPath;
+    private TextView checkInText;
     DBHelper dbHelper = new DBHelper(this);
 
     @Override
@@ -145,6 +146,7 @@ public class RankingActivity extends AppCompatActivity {
         tasteRateNumber = findViewById(R.id.tasteRateNumber);
         priceRateNumber = findViewById(R.id.priceRateNumber);
         mapButton = findViewById(R.id.mapButton);
+        checkInText = findViewById(R.id.checkInText);
         beerComment.setElevation(0);
         beerName.setElevation(0);
     }
@@ -164,7 +166,7 @@ public class RankingActivity extends AppCompatActivity {
         if (name.isEmpty()) {
             makeToast(getApplicationContext().getString(R.string.nameTheBeer));
         }else if (comment.isEmpty()){
-            makeToast(getApplicationContext().getString(R.string.describeTheBeer));
+            makeToast(getApplicationContext().getString(R.string.commentTheBeer));
         }else if (picture.isEmpty()){
             makeToast(getApplicationContext().getString(R.string.pictureTheBeer));
         }else if(category.getName().equals("Unknown")){
@@ -431,6 +433,7 @@ public class RankingActivity extends AppCompatActivity {
             phoneNumber=data.getStringExtra("phoneNumber");
             mapButton.setImageResource(R.drawable.ic_location_beer);
             mapButton.setBackgroundColor(getResources().getColor(R.color.blackbrew));
+            checkInText.setVisibility(View.INVISIBLE);
         }
 
     }
