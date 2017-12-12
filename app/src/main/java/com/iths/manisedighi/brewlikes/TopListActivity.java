@@ -19,7 +19,6 @@ import android.widget.ListView;
      private DBHelper dbHelper = new DBHelper(this);
      ImageView logo;
      private static final String TAG = "TopListActivity";
-     
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,6 @@ import android.widget.ListView;
         logo = findViewById(R.id.logoImageView);
         //Hides the BrewLikes text from the upper toolbar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
         initialize();
 
@@ -57,7 +55,6 @@ import android.widget.ListView;
                 startActivity(intent);
             }
         });
-
     }
 
      /**
@@ -97,7 +94,6 @@ import android.widget.ListView;
          int id = item.getItemId();
          if(id == R.id.cameraIcon2){
              Intent cameraIntent = new Intent(this, RankingActivity.class);
-             //Log.d(TAG, "onOptionsItemSelected: RankingActivity clicked");
              startActivity(cameraIntent);
              return true;
          }

@@ -34,27 +34,15 @@ public class TopListCursorAdapter extends CursorAdapter {
 
     /**
      * Inflates a row of layout from top_list_listview-file.
-     * @param context
-     * @param cursor
-     * @param parent
+     * @param context -
+     * @param cursor - the cursor we use
+     * @param parent -
      * @return the inflated layout.
      */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return inflater.inflate(R.layout.top_list_listview2, parent, false);
     }
-
-    /*
-    public RoundedBitmapDrawable createRoundPicture() {
-
-        //ImageView beerImage = findViewById(R.id.beerImage);
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.beer);
-        RoundedBitmapDrawable roundPic = RoundedBitmapDrawableFactory.create(context.getResources(), bitmap);
-        roundPic.setCircular(true);
-
-        return roundPic;
-    }
-    */
 
     /**
      * A method that binds the data from the cursor to each row view. Also makes the picture round.
@@ -64,18 +52,14 @@ public class TopListCursorAdapter extends CursorAdapter {
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-
         TextView beerName = view.findViewById(R.id.beerName);
         beerName.setText(cursor.getString(1));
         TextView score = view.findViewById(R.id.score);
         score.setText(cursor.getString(5));
 
-        //String string = cursor.getString(14);
-
+        //Gets the path to the picture
         Bitmap bitmap = BitmapFactory.decodeFile(cursor.getString(14));
         ImageView beerImage = view.findViewById(R.id.beerImage);
-
-        //beerImage.setImageBitmap(bitmapHelper.decodeSampledBitmapFromFile(cursor.getString(14), 100, 100));
 
         //Makes the picture round.
         beerImage.setImageBitmap(bitmap);
