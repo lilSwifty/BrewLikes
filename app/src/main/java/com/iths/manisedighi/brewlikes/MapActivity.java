@@ -61,32 +61,23 @@ import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
-    //Log tag for this specific activity
     private static final String TAG = "MapActivity";
-    //Permissions from the manifest
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    //The zoom amount in the map view
     private static final float DEFAULT_ZOOM = 15f;
-    //The coordinate bounds that covers the (most important parts of the) world
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
     private static final int PLACE_PICKER_REQUEST = 1;
-    //Boolean that checks if location permissions are granted or not
     private boolean locationPermissionsGranted;
     private static final int LOCATION_PERMISSION_CODE = 1234;
     private GoogleMap mMap;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace = new PlaceInfo();
-    //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
-    //Widgets
     private AutoCompleteTextView mSearchText;
     private ImageView gpsIcon;
     private DBHelper dbHelper;
-
-    //ID from intent to make sure which activity is sending the intent
     private int ID;
     private  Long beerIDFromIntent;
 
@@ -111,7 +102,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     /**
-     * Initializes the search and overrides the "enter button" to be a search button
+     * Initializes the search function and overrides the "enter button" to be a search button
      */
     private void initializeSearch(){
         Log.d(TAG, "initializeSearch: initializing the search function");
@@ -130,13 +121,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
-                Log.d(TAG, "initializeSearch: onEditorAction");
                if(actionId == EditorInfo.IME_ACTION_SEARCH
                        || actionId == EditorInfo.IME_ACTION_DONE
                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-
-                   Log.d(TAG, "initializeSearch: if search button is pressed");
                    geoLocate();
                }
                 return false;
@@ -222,7 +210,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
                             } else {
                                 Log.d(TAG, "getDeviceLocation: couldn't find device location (null)");
-                                Toast.makeText(MapActivity.this, "Couldn't get device location", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MapActivity.this, getResources().getString(R.string.locationFailed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -242,7 +230,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if(ID == 1) {
-
             mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
@@ -447,9 +434,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * Checks if app gets permission to use users location
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -463,7 +447,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                           if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
                             locationPermissionsGranted = false;
                             Log.d(TAG, "onRequestPermissionResult: Permission failed");
-                              Toast.makeText(MapActivity.this, "You need to give permission to use the check in function", Toast.LENGTH_SHORT).show();
+                              Toast.makeText(MapActivity.this, getResources().getString(R.string.permissionsFailed), Toast.LENGTH_SHORT).show();
                               finish();
                             return;
                           }
@@ -475,7 +459,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
-    // *********************** GOOGLE API AUTOCOMPLETE SUGGESTIONS **********************
 
     /**
      * Handles what happens when user clicks suggested location
@@ -500,7 +483,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         public void onResult(@NonNull PlaceBuffer places) {
             if(!places.getStatus().isSuccess()){
                 Log.d(TAG, "onResultCallback: Place query did not complete successfully: " + places.getStatus().toString());
-                places.release(); //To prevent memory leak
+                places.release();
                 return;
             }
 
@@ -543,10 +526,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }catch (NullPointerException e){
                 Log.e(TAG, "onResultCallBack: NullPointerException: " + e.getMessage());
             }
-               /* moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
-                        , DEFAULT_ZOOM, mPlace.getName());
-                        */
-
             moveMapToLocation(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude)
                     , DEFAULT_ZOOM, mPlace.getName());
 
