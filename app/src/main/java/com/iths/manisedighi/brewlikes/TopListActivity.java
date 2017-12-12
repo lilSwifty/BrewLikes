@@ -12,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+ /**
+  * The activity that shows the toplist.
+  */
  public class TopListActivity extends BottomNavigationBaseActivity {
 
      private TopListCursorAdapter cursorAdapter;
@@ -35,6 +38,9 @@ import android.widget.ListView;
 
         initialize();
 
+        /**
+         * When clicking on any beer, this sends intent to the item that is pressed.
+         */
         topListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -47,7 +53,6 @@ import android.widget.ListView;
         });
 
         //When BrewLikes logo in the toolbar is clicked it launches MainActivity.
-        //TODO - Use flags here so the activities don't get put on the stack?
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){

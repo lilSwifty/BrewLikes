@@ -24,19 +24,19 @@ public class TopListCursorAdapter extends CursorAdapter {
 
     /**
      * Constructor for the adapter
-     * @param context -
-     * @param c - needs a cursor when set up
+     * @param context - the context we are using in this method
+     * @param cursor - needs a cursor when set up
      */
-    public TopListCursorAdapter(Context context, Cursor c) {
-        super(context, c, 0);
+    public TopListCursorAdapter(Context context, Cursor cursor) {
+        super(context, cursor, 0);
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     /**
      * Inflates a row of layout from top_list_listview-file.
-     * @param context -
+     * @param context - the context we are using in this method
      * @param cursor - the cursor we use
-     * @param parent -
+     * @param parent - the parent to the layout being used here
      * @return the inflated layout.
      */
     @Override
@@ -46,9 +46,9 @@ public class TopListCursorAdapter extends CursorAdapter {
 
     /**
      * A method that binds the data from the cursor to each row view. Also makes the picture round.
-     * @param view
-     * @param context
-     * @param cursor
+     * @param view - the view being used
+     * @param context - the context we are using in this method
+     * @param cursor - the cursor we use
      */
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
