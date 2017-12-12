@@ -22,12 +22,8 @@ import java.util.Date;
 public class BitmapHelper extends AppCompatActivity{
 
 
+    private String mCurrentPhotoPath;
 
-
-
-    String mCurrentPhotoPath;
-
-    private RankingActivity rankingActivity;
 
     public static Bitmap decodeSampledBitmapFromFile(String string,
                                                      int reqWidth, int reqHeight) {
@@ -83,10 +79,6 @@ public class BitmapHelper extends AppCompatActivity{
      * @return the image with the new name
      * @throws IOException - if something goes wrong
      */
-
-
-
-
     public File createImageFile() throws IOException {
         // Create a name for the image file
         String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -102,13 +94,9 @@ public class BitmapHelper extends AppCompatActivity{
         return image;
     }
 
-
-
     /**
      * Adds the picture to the gallery
      */
-
-
     public void addPictureToGallery() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(mCurrentPhotoPath);
