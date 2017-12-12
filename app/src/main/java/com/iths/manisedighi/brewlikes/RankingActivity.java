@@ -79,9 +79,8 @@ public class RankingActivity extends AppCompatActivity {
     private String smallPicture;
     private Bitmap litenBild;
     private Bitmap storBild;
+    private String mCurrentPhotoPath;
     DBHelper dbHelper = new DBHelper(this);
-
-    //private static final String TAG = "RankingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,12 +160,6 @@ public class RankingActivity extends AppCompatActivity {
         price = savePrice();
         category = (Category)categorySpinner.getSelectedItem();
         categoryId = (int) category.getId();
-        /*
-        if (mCurrentPhotoPath == null && selectedImage != null){
-            picture = selectedImage.toString();
-        }else if (selectedImage == null && mCurrentPhotoPath != null){
-            picture = mCurrentPhotoPath;
-        }*/
 
         if (name.isEmpty()) {
             makeToast(getApplicationContext().getString(R.string.nameTheBeer));
@@ -230,6 +223,7 @@ public class RankingActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
     /**
      * A method to send the user to the gps-menu where the user can choose a place to log in to.
      * @param view
@@ -239,7 +233,6 @@ public class RankingActivity extends AppCompatActivity {
         intent.putExtra("ID", 1);
         startActivityForResult(intent, 1 );
     }
-
 
     /**
      * A method to restart the camera and give the user a chance to take a new picture.
@@ -257,6 +250,7 @@ public class RankingActivity extends AppCompatActivity {
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
+
     /**
      * A method to get the price rate.
      * @return a double with the price rate.
@@ -274,6 +268,7 @@ public class RankingActivity extends AppCompatActivity {
         double doubleTaste = Double.parseDouble(tasteRateNumber.getText().toString());
         return doubleTaste;
     }
+
     /**
      * Saving the name of the beer.
      * @return a String for the name of the beer.
@@ -281,6 +276,7 @@ public class RankingActivity extends AppCompatActivity {
     private String saveBeerName(){
         return beerName.getText().toString();
     }
+
     /**
      * Saving the comment for the beer.
      * @return a String for the comment to the beer.
@@ -292,7 +288,6 @@ public class RankingActivity extends AppCompatActivity {
     /**
      * starts a dialog with options take/upload picture
      */
-
     public void cameraLauncher() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(RankingActivity.this);
         builder.setIcon(R.drawable.brewlikes_main_image);
@@ -333,7 +328,6 @@ public class RankingActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.setTitle(getApplicationContext().getString(R.string.timeToBrew));
         alert.show();
-
     }
 
     /**
@@ -364,8 +358,6 @@ public class RankingActivity extends AppCompatActivity {
 
     }
 
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -378,9 +370,9 @@ public class RankingActivity extends AppCompatActivity {
 
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
 
-            storBild = scaleSmallPicture(960,960);
+            storBild = scalePicture(960,960);
 
-            litenBild=scaleSmallPicture(500,500);
+            litenBild=scalePicture(500,500);
 
             try {
                 File fbig = createImageFile("big");
@@ -439,7 +431,6 @@ public class RankingActivity extends AppCompatActivity {
             phoneNumber=data.getStringExtra("phoneNumber");
             mapButton.setImageResource(R.drawable.ic_location_beer);
             mapButton.setBackgroundColor(getResources().getColor(R.color.blackbrew));
-
         }
 
     }
@@ -472,16 +463,11 @@ public class RankingActivity extends AppCompatActivity {
         return image;
     }
 
-
     /**
      * Creates a collision-resistant name for the image file
      * @return the image with the new name
      * @throws IOException - if something goes wrong
      */
-
-
-    String mCurrentPhotoPath;
-
     public File createImageFile(String postfix) throws IOException {
         // Create a name for the image file
         String dateStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -496,14 +482,9 @@ public class RankingActivity extends AppCompatActivity {
         Log.d(TAG, "createImageFile: this works");
         return image;
     }
-
-
-
     /**
      * Adds the picture to the gallery
      */
-
-
     public void addPictureToGallery() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         File f = new File(mCurrentPhotoPath);
@@ -513,9 +494,7 @@ public class RankingActivity extends AppCompatActivity {
         Log.d(TAG, "addPictureToGallery: this works");
     }
 
-
-
-    public Bitmap scaleSmallPicture(int targetW, int targetH ) {
+    private Bitmap scalePicture(int targetW, int targetH ) {
         //The dimensions of the bitmap
 
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -531,42 +510,11 @@ public class RankingActivity extends AppCompatActivity {
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
-
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         //beerImage.setImageBitmap(bitmap);
 
         return bitmap;
     }
-
-    public void scalePicture() {
-        //The dimensions of the bitmap
-
-        int targetW = beerImage.getMaxWidth();
-        int targetH = beerImage.getMaxHeight();
-
-        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        int photoW = bmOptions.outWidth;
-        int photoH = bmOptions.outHeight;
-
-        //Decides how much to scale down the picture
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-        //Decodes the image into Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-        beerImage.setImageBitmap(bitmap);
-
-        //return bitmap;
-    }
-
-
-
-
     public void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
