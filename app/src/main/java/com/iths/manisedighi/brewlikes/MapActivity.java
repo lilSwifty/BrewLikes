@@ -154,7 +154,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(ID == 1) {
             placePicker();
         }
-       // hideSoftKeyboard(MapActivity.this);
     }
 
     public void placePicker(){
@@ -167,7 +166,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } catch (GooglePlayServicesNotAvailableException e) {
             Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
         }
-
     }
 
     /**
@@ -253,9 +251,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     Intent intent = new Intent();
                     intent.putExtra("phoneNumber", mPlace.getPhoneNumber());
-
-                    Log.i(TAG, "onInfoWindowCLick: sends phonenumber: " + mPlace.getPhoneNumber() + " to intent");
-
                     intent.putExtra("website", mPlace.getWebsiteUri());
                     intent.putExtra("address", mPlace.getAddress());
                     intent.putExtra("location", mPlace.getName());
@@ -282,10 +277,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public LatLng getLatLngFromAddress(Context context, String strAddress) {
 
         Log.d(TAG, "getLatLngFromAddress: Receiving address:  " + strAddress);
-
         Geocoder coder = new Geocoder(context);
         List<Address> address;
-        LatLng p1 = null;
+        LatLng generatedLatLng = null;
 
         try {
             Log.d(TAG, "getLatLngFromAddress: try");
@@ -300,34 +294,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             location.getLongitude();
             Log.d(TAG, "getLatLngFromAddress: got location");
 
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
-            Log.d(TAG, "getLatLngFromAddress: created new latLng "+ p1);
+            generatedLatLng = new LatLng(location.getLatitude(), location.getLongitude() );
+            Log.d(TAG, "getLatLngFromAddress: created new latLng "+ generatedLatLng);
 
         } catch (IOException ex) {
             Log.d(TAG, "getLatLngFromAddress: caught IOEcxeption");
             ex.printStackTrace();
 
         }
-
-        Log.d(TAG, "getLatLngFromAddress: returns "+ p1);
-        return p1;
+        Log.d(TAG, "getLatLngFromAddress: returns "+ generatedLatLng);
+        return generatedLatLng;
     }
 
     /**
      * Drops a pin on the location (everywhere but users actual position)
-     * @param latLng - The latitude and longitude
-     * @param zoom - How much it will zoom in on location
-     * @param title - Title (text) of the pin
      */
     private void dropPin(LatLng latLng, float zoom, String title, PlaceInfo placeInfo){
-        Log.d(TAG, "dropPin: receiving placeinfo: " + placeInfo);
+       Log.d(TAG, "dropPin: receiving placeinfo: " + placeInfo);
 
        if(ID == 1 || ID == 2){
           mMap.clear();  
        }
-
-        Log.d(TAG, "dropPin: dropping pin");
-        if(title != "My Location"){
+       Log.d(TAG, "dropPin: dropping pin");
+       if(title != "My Location"){
 
             if(ID == 1) {
                 MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(mPlace.getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
@@ -337,6 +326,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * Drops pin and taking a beer as argument to print out the checked in info
+     */
     private void dropPin(LatLng latLng, float zoom, String title, Beer beer){
         Log.d(TAG, "dropPin: receiving place info: " + beer.getLatLng());
 
@@ -347,8 +339,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(!(beer.getWeb() == null)){
             snippet = snippet + '\n' + getResources().getString(R.string.websiteInSnippet) + " " + beer.getWeb();
         }
-        if(!(beer.getTel() == null) || !(beer.getTel().equals("")) || beer.getTel().isEmpty()){
+        if(beer.getTel().length() > 0)
+        {
             snippet = snippet + '\n' + getResources().getString(R.string.telInSnippet) + " " + beer.getTel();
+        } else{
+            Log.d(TAG, "dropPin: no phone number to print");
         }
 
         MarkerOptions markerOptions = new MarkerOptions()
@@ -386,7 +381,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
                 Log.d(TAG, "onMapReady: set my location enabled true");
                 mMap.setMyLocationEnabled(true);
-                //Hides the "myLocationButton" up in the right corner
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 initializeSearch();
 
@@ -469,6 +463,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                           if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
                             locationPermissionsGranted = false;
                             Log.d(TAG, "onRequestPermissionResult: Permission failed");
+                              Toast.makeText(MapActivity.this, "You need to give permission to use the check in function", Toast.LENGTH_SHORT).show();
+                              finish();
                             return;
                           }
                     }
@@ -512,7 +508,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             Log.d(TAG, "onResultCallBack: preparing to set values to place info");
             try {
-                //mPlace = new PlaceInfo();
 
                 if(place.getName().toString().contains("°") || place.getName() == null || place.getName().equals("")){
 
@@ -524,7 +519,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                       Log.d(TAG, "onResultCallBack: name is latLng and sets it to address" + place.getAddress().toString());
                   }
                     Log.d(TAG, "onResultCallBack: Name was null so sets name to address instead: " + mPlace.getName());
-
                 } else{
                     mPlace.setName(place.getName().toString());
                 }
@@ -532,7 +526,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if(place.getLatLng()== null){
                     LatLng newLatLng = getLatLngFromAddress(MapActivity.this, mPlace.getAddress());
                     mPlace.setLatLng(newLatLng);
-                    Log.d(TAG, "onResultCallBack: LatLng was null so called method to set it to: " + newLatLng);
+                    Log.d(TAG, "onResultCallBack: LatLng was null -> called method to set it to: " + newLatLng);
                 } else {
                     mPlace.setLatLng(place.getLatLng());
                 }
@@ -543,10 +537,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }else {
                     mPlace.setAddress(place.getAddress().toString());
                 }
-
                 mPlace.setPhoneNumber(place.getPhoneNumber().toString());
                 mPlace.setWebsiteUri(place.getWebsiteUri().toString());
-
 
             }catch (NullPointerException e){
                 Log.e(TAG, "onResultCallBack: NullPointerException: " + e.getMessage());
