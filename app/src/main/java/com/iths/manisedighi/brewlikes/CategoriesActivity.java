@@ -192,7 +192,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
     }
 
     /**
-     * Opens a dialog box when user clicks the Add category button.
+     * Opens a dialog box when user clicks the Add category button. Gives options regarding adding a category.
      */
     public void onAddCategoryClick() {
         dialog = new AlertDialog.Builder(this).create();
@@ -225,7 +225,9 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
         dialog.show();
     }
 
-    //TEST DELETE CATEGORY
+    /**
+     * Opens a dialog box when user clicks the Delete category button. Gives options regarding deleting a category.
+     */
     public void onDeleteCategoryClick() {
         dialog = new AlertDialog.Builder(this).create();
         editTextAdd = new EditText(this);
@@ -238,7 +240,6 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String categoryName = editTextAdd.getText().toString();
-                //Log.d("MyLog", "Beers found " + mDBHelper.getBeersByCategory(categoryName).size());
                 List<Category> allCategories = mDBHelper.getAllCategories();
 
                 boolean notFound = true;
@@ -249,17 +250,13 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
                 }
 
                 if (notFound) {
-                    Log.d("MyLog", "Category does not exist");
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryNotFound), Toast.LENGTH_SHORT).show();
                     onDeleteCategoryClick();
 
                 } else {
-                    Log.d("MyLog", "Category found");
-
                     if (mDBHelper.getBeersByCategory(categoryName).size() > 0) {
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryNotEmpty), Toast.LENGTH_SHORT).show();
                     }
-
                     else {
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.categoryDeleteSuccessfull) + " " +categoryName, Toast.LENGTH_SHORT).show();
                         mDBHelper.deleteCategory(categoryName);
