@@ -16,8 +16,6 @@ public class PlaceInfo {
     private LatLng latLng;
     private String websiteUri;
     private String phoneNumber;
-    // private float rating;
-    // private String attributions;
 
     /**
      * Constructor with all some info about the location

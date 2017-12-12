@@ -41,6 +41,7 @@
     <string name="cancel">Avbryt</string>
     <string name="takePhoto">Ta ett foto</string>
     <string name="infoMoa">Stor ljus lager under en svettig rockkonsert!!</string>
+
     <string name="infoPatrik">Om jag inte får min Lapin Kulta går jag hem.</string>
     <string name="lastChange">Sista chansen att ändra</string>
     <string name="saveToUnknown">Är du säker på att du vill välja kategorin Unknown?</string>
@@ -58,4 +59,6 @@
     <string name="invalidLocation">Ogiltig plats. Välj en plats.</string>
     <string name="addCategory">Lägg till kategori</string>
     <string name="infoEmma">En iskall Ringnes på Rock In sitter aldrig fel!</string>
+    <string name="permissionsFailed">Du måste ge tillåtelse för platstjänster för att använda kartan</string>
+    <string name="locationFailed">Det gick inte att hitta din platsinformation</string>
 </resources>

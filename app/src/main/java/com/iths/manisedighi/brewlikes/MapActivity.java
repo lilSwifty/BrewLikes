@@ -61,32 +61,23 @@ import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
-    //Log tag for this specific activity
     private static final String TAG = "MapActivity";
-    //Permissions from the manifest
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
-    //The zoom amount in the map view
     private static final float DEFAULT_ZOOM = 15f;
-    //The coordinate bounds that covers the (most important parts of the) world
     private static final LatLngBounds LAT_LNG_BOUNDS = new LatLngBounds(
             new LatLng(-40, -168), new LatLng(71, 136));
     private static final int PLACE_PICKER_REQUEST = 1;
-    //Boolean that checks if location permissions are granted or not
     private boolean locationPermissionsGranted;
     private static final int LOCATION_PERMISSION_CODE = 1234;
     private GoogleMap mMap;
     private PlaceAutocompleteAdapter mPlaceAutocompleteAdapter;
     private GoogleApiClient mGoogleApiClient;
     private PlaceInfo mPlace = new PlaceInfo();
-    //The variable that will handle the map API
     private FusedLocationProviderClient fusedLocationProviderClient;
-    //Widgets
     private AutoCompleteTextView mSearchText;
     private ImageView gpsIcon;
     private DBHelper dbHelper;
-
-    //ID from intent to make sure which activity is sending the intent
     private int ID;
     private  Long beerIDFromIntent;
 
@@ -111,7 +102,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     /**
-     * Initializes the search and overrides the "enter button" to be a search button
+     * Initializes the search function and overrides the "enter button" to be a search button
      */
     private void initializeSearch(){
         Log.d(TAG, "initializeSearch: initializing the search function");
@@ -130,13 +121,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
-                Log.d(TAG, "initializeSearch: onEditorAction");
                if(actionId == EditorInfo.IME_ACTION_SEARCH
                        || actionId == EditorInfo.IME_ACTION_DONE
                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-
-                   Log.d(TAG, "initializeSearch: if search button is pressed");
                    geoLocate();
                }
                 return false;
@@ -154,7 +142,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(ID == 1) {
             placePicker();
         }
-       // hideSoftKeyboard(MapActivity.this);
     }
 
     public void placePicker(){
@@ -167,7 +154,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } catch (GooglePlayServicesNotAvailableException e) {
             Log.e(TAG, "GooglePlayServicesNotAvailableException: " + e.getMessage());
         }
-
     }
 
     /**
@@ -224,7 +210,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 moveMapToLocation(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()), DEFAULT_ZOOM, "My Location");
                             } else {
                                 Log.d(TAG, "getDeviceLocation: couldn't find device location (null)");
-                                Toast.makeText(MapActivity.this, "Couldn't get device location", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MapActivity.this, getResources().getString(R.string.locationFailed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -244,7 +230,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
 
         if(ID == 1) {
-
             mMap.setInfoWindowAdapter(new CustomCheckinWindowAdapter(MapActivity.this));
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
                 @Override
@@ -253,9 +238,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     Intent intent = new Intent();
                     intent.putExtra("phoneNumber", mPlace.getPhoneNumber());
-
-                    Log.i(TAG, "onInfoWindowCLick: sends phonenumber: " + mPlace.getPhoneNumber() + " to intent");
-
                     intent.putExtra("website", mPlace.getWebsiteUri());
                     intent.putExtra("address", mPlace.getAddress());
                     intent.putExtra("location", mPlace.getName());
@@ -282,10 +264,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public LatLng getLatLngFromAddress(Context context, String strAddress) {
 
         Log.d(TAG, "getLatLngFromAddress: Receiving address:  " + strAddress);
-
         Geocoder coder = new Geocoder(context);
         List<Address> address;
-        LatLng p1 = null;
+        LatLng generatedLatLng = null;
 
         try {
             Log.d(TAG, "getLatLngFromAddress: try");
@@ -300,34 +281,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             location.getLongitude();
             Log.d(TAG, "getLatLngFromAddress: got location");
 
-            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
-            Log.d(TAG, "getLatLngFromAddress: created new latLng "+ p1);
+            generatedLatLng = new LatLng(location.getLatitude(), location.getLongitude() );
+            Log.d(TAG, "getLatLngFromAddress: created new latLng "+ generatedLatLng);
 
         } catch (IOException ex) {
             Log.d(TAG, "getLatLngFromAddress: caught IOEcxeption");
             ex.printStackTrace();
 
         }
-
-        Log.d(TAG, "getLatLngFromAddress: returns "+ p1);
-        return p1;
+        Log.d(TAG, "getLatLngFromAddress: returns "+ generatedLatLng);
+        return generatedLatLng;
     }
 
     /**
      * Drops a pin on the location (everywhere but users actual position)
-     * @param latLng - The latitude and longitude
-     * @param zoom - How much it will zoom in on location
-     * @param title - Title (text) of the pin
      */
     private void dropPin(LatLng latLng, float zoom, String title, PlaceInfo placeInfo){
-        Log.d(TAG, "dropPin: receiving placeinfo: " + placeInfo);
+       Log.d(TAG, "dropPin: receiving placeinfo: " + placeInfo);
 
        if(ID == 1 || ID == 2){
           mMap.clear();  
        }
-
-        Log.d(TAG, "dropPin: dropping pin");
-        if(title != "My Location"){
+       Log.d(TAG, "dropPin: dropping pin");
+       if(title != "My Location"){
 
             if(ID == 1) {
                 MarkerOptions markerOptions = new MarkerOptions().position(latLng).title(mPlace.getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.brewlikes_pin));
@@ -337,6 +313,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * Drops pin and taking a beer as argument to print out the checked in info
+     */
     private void dropPin(LatLng latLng, float zoom, String title, Beer beer){
         Log.d(TAG, "dropPin: receiving place info: " + beer.getLatLng());
 
@@ -347,8 +326,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(!(beer.getWeb() == null)){
             snippet = snippet + '\n' + getResources().getString(R.string.websiteInSnippet) + " " + beer.getWeb();
         }
-        if(!(beer.getTel() == null) || !(beer.getTel().equals("")) || beer.getTel().isEmpty()){
+        if(beer.getTel().length() > 0)
+        {
             snippet = snippet + '\n' + getResources().getString(R.string.telInSnippet) + " " + beer.getTel();
+        } else{
+            Log.d(TAG, "dropPin: no phone number to print");
         }
 
         MarkerOptions markerOptions = new MarkerOptions()
@@ -386,7 +368,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
                 Log.d(TAG, "onMapReady: set my location enabled true");
                 mMap.setMyLocationEnabled(true);
-                //Hides the "myLocationButton" up in the right corner
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
                 initializeSearch();
 
@@ -453,9 +434,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     /**
      * Checks if app gets permission to use users location
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -469,6 +447,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                           if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
                             locationPermissionsGranted = false;
                             Log.d(TAG, "onRequestPermissionResult: Permission failed");
+                              Toast.makeText(MapActivity.this, getResources().getString(R.string.permissionsFailed), Toast.LENGTH_SHORT).show();
+                              finish();
                             return;
                           }
                     }
@@ -479,7 +459,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
     }
-    // *********************** GOOGLE API AUTOCOMPLETE SUGGESTIONS **********************
 
     /**
      * Handles what happens when user clicks suggested location
@@ -504,7 +483,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         public void onResult(@NonNull PlaceBuffer places) {
             if(!places.getStatus().isSuccess()){
                 Log.d(TAG, "onResultCallback: Place query did not complete successfully: " + places.getStatus().toString());
-                places.release(); //To prevent memory leak
+                places.release();
                 return;
             }
 
@@ -512,7 +491,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             Log.d(TAG, "onResultCallBack: preparing to set values to place info");
             try {
-                //mPlace = new PlaceInfo();
 
                 if(place.getName().toString().contains("°") || place.getName() == null || place.getName().equals("")){
 
@@ -524,7 +502,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                       Log.d(TAG, "onResultCallBack: name is latLng and sets it to address" + place.getAddress().toString());
                   }
                     Log.d(TAG, "onResultCallBack: Name was null so sets name to address instead: " + mPlace.getName());
-
                 } else{
                     mPlace.setName(place.getName().toString());
                 }
@@ -532,7 +509,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if(place.getLatLng()== null){
                     LatLng newLatLng = getLatLngFromAddress(MapActivity.this, mPlace.getAddress());
                     mPlace.setLatLng(newLatLng);
-                    Log.d(TAG, "onResultCallBack: LatLng was null so called method to set it to: " + newLatLng);
+                    Log.d(TAG, "onResultCallBack: LatLng was null -> called method to set it to: " + newLatLng);
                 } else {
                     mPlace.setLatLng(place.getLatLng());
                 }
@@ -543,18 +520,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }else {
                     mPlace.setAddress(place.getAddress().toString());
                 }
-
                 mPlace.setPhoneNumber(place.getPhoneNumber().toString());
                 mPlace.setWebsiteUri(place.getWebsiteUri().toString());
-
 
             }catch (NullPointerException e){
                 Log.e(TAG, "onResultCallBack: NullPointerException: " + e.getMessage());
             }
-               /* moveMapToLocation(new LatLng(place.getViewport().getCenter().latitude, place.getViewport().getCenter().longitude)
-                        , DEFAULT_ZOOM, mPlace.getName());
-                        */
-
             moveMapToLocation(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude)
                     , DEFAULT_ZOOM, mPlace.getName());
 
