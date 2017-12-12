@@ -233,8 +233,8 @@ public class InfoActivity extends BottomNavigationBaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 beer.setName(etInfo.getText().toString());
-           //     helper.editBeerName(beer.getId(), beer.getName());
-                tvInfo.setText(beer.getName());
+                helper.editBeerName(beer.getId(), beer.getName());
+                tvBeerName.setText(beer.getName());
             }
         });
         etInfo.setText(beer.getName());
