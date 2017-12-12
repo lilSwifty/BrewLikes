@@ -512,6 +512,10 @@ public class RankingActivity extends AppCompatActivity {
         return bitmap;
     }
 
+    /**
+     * for use to make a string toast
+     * @param text
+     */
     public void makeToast(String text) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
