@@ -82,9 +82,3 @@ public class MainActivity extends BottomNavigationBaseActivity {
         return super.onOptionsItemSelected(item);
     }
 }
-
-
-
-
-
-
