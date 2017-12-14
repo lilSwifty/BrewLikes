@@ -26,7 +26,7 @@ import java.util.List;
  */
 
 
-public class CategoriesActivity extends BottomNavigationBaseActivity{
+public class CategoriesActivity extends BottomNavigationBaseActivity {
     private Context context = CategoriesActivity.this;
     private static ExpandableListView expandableListView;
     private static ExpandableListAdapter adapter;
@@ -54,9 +54,9 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
             expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
             expandableListView.setGroupIndicator(null);
 
-            mDBHelper = new DBHelper(this);
+        mDBHelper = new DBHelper(this);
 
-            setItems();
+        setItems();
 
             //passing the 3 things; object of context, header list, chliddren list
             adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
@@ -66,8 +66,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
 
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
-                Intent intent = new Intent (CategoriesActivity.this, MainActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -79,7 +79,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
                                         int groupPosition, int childPosition, long id) {
 
                 // Log.d(TAG, "onChildClick: "+id+"HERE ID");
-                Intent i = new Intent(getApplicationContext(),InfoActivity.class);
+                Intent i = new Intent(getApplicationContext(), InfoActivity.class);
                 //long beerId = beersById.get(childPosition);
                 i.putExtra("BeerID", id);
                 //Log.d(TAG, "onChildClick: "+beerId+"beer ID");
@@ -93,7 +93,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
         }
 
 
-        void setItems() {
+    void setItems() {
 
             header= mDBHelper.getAllCategories();
             hashMap = new HashMap<>();
@@ -128,7 +128,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.aboutIcon){
+        if (id == R.id.aboutIcon) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
             return true;
