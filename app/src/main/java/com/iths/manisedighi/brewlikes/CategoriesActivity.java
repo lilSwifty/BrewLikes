@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -127,7 +128,11 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("Pekka", "onOptionsItemSelected: 1");
+
         int id = item.getItemId();
+        Log.d("Pekka", "id: 1" + id);
+        Log.d("Pekka", "AddCat: 1" + R.id.ic_addCategory);
         if (id == R.id.aboutIcon) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
@@ -137,7 +142,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
             Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
             return true;
-        } else if (id == R.id.ic_addCategory) {
+        } else if (id == R.id.ic_edit) {
+            Log.d("Pekka", "onOptionsItemSelected: 2");
             onAddCategoryClick();
             return true;
         } //TEST MILJA - DELETE CATEGORY
@@ -152,6 +158,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
      * Opens a dialog box when user clicks the Add category button. Gives options regarding adding a category.
      */
     public void onAddCategoryClick() {
+        Log.d("Pekka", "onOptionsItemSelected: 3");
+
         dialog = new AlertDialog.Builder(this).create();
         editTextAdd = new EditText(this);
         editTextAdd.setElevation(0);
