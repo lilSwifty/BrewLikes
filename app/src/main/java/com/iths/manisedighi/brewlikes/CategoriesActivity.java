@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,24 +18,23 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * This activity implements ExpandableListAdapter.java with 10 built in methods that creates the mechanics for expandable listview.
+ * This activity implements ExpandableListAdapter.java with 10 built in methods that create the mechanics for expandable listview.
  * The expandable listview referes 3xml files: activity_categories, list_categories and list_categoryitems.
- * Category and beer lists from db + HasMap is needed to form ExpandableList. The setItems() method fills data and itemizes the expandablelist with headers and childs.
- * HashMap creates doubble array with category and item relation, it refers index of header(category) with child (beername) and keeps them in order.
+ * CategoryArray BeerArrays from db + HasMap is needed to form ExpandableList. The setItems() method fills data and itemizes the expandablelist.
+ * HashMap creates doubble array with category and item relation, it refers index of header(category) to child(beername) and keeps them in order.
  * Created by patrikrikamahinnenberg on 22/11/17.
  */
 
 
 public class CategoriesActivity extends BottomNavigationBaseActivity {
-    private Context context = CategoriesActivity.this;
+    Context context = CategoriesActivity.this;
     private static ExpandableListView expandableListView;
     private static ExpandableListAdapter adapter;
     private DBHelper mDBHelper;
     private HashMap<String, List<Beer>> hashMap;
     private List<Category> header;
     ImageView logo;
-    private static final String TAG = "testing";
-    //private List<Long> beersById = new ArrayList<>();
+    private static final String TAG = "CategoriesActivity";
 
     private AlertDialog dialog;
     private EditText editTextAdd;
@@ -51,19 +49,18 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
         logo = findViewById(R.id.logoImageView);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-            //Object of listView from xml. Setting group indicator null for custom indicator
-            expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
-            expandableListView.setGroupIndicator(null);
+
+        //Object of listView from xml. Setting group indicator null for custom indicator
+        expandableListView = (ExpandableListView) findViewById(R.id.simple_expandable_listview);
+        expandableListView.setGroupIndicator(null);
 
         mDBHelper = new DBHelper(this);
 
         setItems();
 
-            //passing the 3 things; object of context, header list, chliddren list
-            adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
-            // Setting adpater for expandablelistview, hard part start here:)
-            expandableListView.setAdapter(adapter);
-
+        //passing the 3 things; object of context, header array, chliddren.
+        adapter = new ExpandableListAdapter(CategoriesActivity.this, header, hashMap);
+        expandableListView.setAdapter(adapter);
 
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,24 +88,22 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
 
             }
         });
-        }
+    }
 
 
     void setItems() {
 
-            header= mDBHelper.getAllCategories();
-            hashMap = new HashMap<>();
+        header = mDBHelper.getAllCategories();
 
-            /**
-             * Categories + beers to list from DB
-             */
+        hashMap = new HashMap<>();
 
-            for (int i = 0; i < header.size(); i++) {
-                List<Beer> beersByCategory = mDBHelper.getBeersByCategory(header.get(i).getName());
-                hashMap.put(header.get(i).getName(), beersByCategory);
-            }
+        // Adding headers + beers to list from DB
+        for (int i = 0; i < header.size(); i++) {
+            List<Beer> beersByCategory = mDBHelper.getBeersByCategory(header.get(i).getName());
+            hashMap.put(header.get(i).getName(), beersByCategory);
         }
 
+    }
 
     /**
      * Upper toolbar with icons
@@ -117,33 +112,27 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.categories_activity_menu, menu);
+        getMenuInflater().inflate(R.menu.category_activity_menu, menu);
         return true;
     }
 
-
     /**
-     * Toolbar and its activity
+     * Handles what happens when the icons in the toolbar are clicked
      */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d("Pekka", "onOptionsItemSelected: 1");
-
         int id = item.getItemId();
-        Log.d("Pekka", "id: 1" + id);
-        Log.d("Pekka", "AddCat: 1" + R.id.ic_addCategory);
         if (id == R.id.aboutIcon) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
             return true;
 
-        } else if(id == R.id.ic_camera){
+        } else if (id == R.id.ic_camera) {
             Intent cameraIntent = new Intent(this, RankingActivity.class);
             startActivity(cameraIntent);
             return true;
-        } else if (id == R.id.ic_edit) {
-            Log.d("Pekka", "onOptionsItemSelected: 2");
+        } else if (id == R.id.ic_addCategory) {
             onAddCategoryClick();
             return true;
         } //TEST MILJA - DELETE CATEGORY
@@ -157,9 +146,8 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
     /**
      * Opens a dialog box when user clicks the Add category button. Gives options regarding adding a category.
      */
-    public void onAddCategoryClick() {
-        Log.d("Pekka", "onOptionsItemSelected: 3");
 
+    public void onAddCategoryClick() {
         dialog = new AlertDialog.Builder(this).create();
         editTextAdd = new EditText(this);
         editTextAdd.setElevation(0);
@@ -193,6 +181,7 @@ public class CategoriesActivity extends BottomNavigationBaseActivity {
     /**
      * Opens a dialog box when user clicks the Delete category button. Gives options regarding deleting a category.
      */
+
     public void onDeleteCategoryClick() {
         dialog = new AlertDialog.Builder(this).create();
         editTextAdd = new EditText(this);
